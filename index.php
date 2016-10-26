@@ -5,8 +5,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link rel="shorcut icon" href="UI/Includes/images/favicon.ico" />
-        <link href="UI/Includes/css/styles.css" rel="stylesheet" type="text/css"/>
+        <link href="UI/includes/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="UI/Includes/jquerymobile/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css"/>
+        <script src="UI/includes/bootstrap-3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+        <link href="UI/Includes/css/styles.css" rel="stylesheet" type="text/css"/>
         <script src="UI/Includes/jquerymobile/jquery-1.9.1.min.js" type="text/javascript"></script>
         <script src="UI/Includes/jquerymobile/jquery.mobile-1.4.2.min.js" type="text/javascript"></script>
     </head>
