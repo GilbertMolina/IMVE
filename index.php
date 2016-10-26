@@ -26,16 +26,12 @@
                         <input type="password" name="contrasena" id="contrasena" data-clear-btn="true">
                     </div>
                     <br>
-                    <div>
+                    <div data-inline="true">
                         <div>
-                            <a href="UI/bienvenida.php" style="text-decoration: none" data-transition="pop">
-                                <button type="button" id="btnIngresar" data-theme="b">Ingresar</button>
-                            </a>
+                            <a href="UI/bienvenida.php" data-role="button" data-transition="pop" data-theme="b">Ingresar</a>
                         </div>
                         <div>
-                            <a href="UI/registrarse.php" style="text-decoration: none" data-transition="slidefade">
-                                <button type="button" id="btnRegistarse" data-theme="b">Registrarse</button>
-                            </a>
+                            <a href="UI/registrarse.php" data-role="button" data-transition="slidefade" data-theme="b">Registrarse</a>
                         </div>
                     </div>
                 </form>
@@ -44,7 +40,7 @@
                 <div data-role="navbar">
                     <ul>
                         <li>
-                            <a href="#acercade" data-icon="info" data-rel="dialog">Acerca de</a>
+                            <a href="#acercade" data-icon="info" data-rel="dialog" data-transition="slidedown">Acerca de</a>
                         </li>
                     </ul>
                 </div>

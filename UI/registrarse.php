@@ -8,20 +8,21 @@
         <link href="Includes/css/styles.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jquerymobile/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css"/>
         <script src="Includes/jquerymobile/jquery-1.9.1.min.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link href="Includes/jqueryui/jquery-ui-1.12.1.css" rel="stylesheet" type="text/css"/>
+        <script src="Includes/jqueryui/jquery-ui-1.12.1.js"></script>
         <script src="Includes/jquerymobile/jquery.mobile-1.4.2.min.js" type="text/javascript"></script>
         <script>
             $(function() {
-                $( "#fechaNacimiento" ).datepicker();
+                if ( $('[type="date"]').prop('type') != 'date' ) {
+                    $('[type="date"]').datepicker();
+                }
             });
         </script>
     </head>
     <body>
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
-                <a href="../index.php" data-icon="back" data-transition="slide" data-direction="reverse">Regresar</a>
+                <a href="../index.php" data-icon="carat-l" data-transition="slide" data-direction="reverse">Regresar</a>
                 <h1>Registro de usuario</h1>
             </div>
             <div data-role="content">
@@ -46,9 +47,9 @@
                     </div>
                     <br>
                     <div>
-                        <label for="fechaNacimiento">Fecha de nacimiento:</label>
                         <br>
-                        <input type="text" name="fechaNacimiento" id="fechaNacimiento" data-clear-btn="true"/>
+                        <label for="fechaNacimiento">Fecha de nacimiento:</label>
+                        <input type="date" name="fechaNacimiento" id="fechaNacimiento" value="">
                     </div>
                     <div>
                         <label for="distrito">Distrito:</label>
@@ -89,7 +90,7 @@
                     <br>
                     <div>
                         <div>
-                            <button type="submit" id="btnGuardar" data-theme="b">Guardar</button>
+                            <button type="submit" id="btnGuardar" data-theme="b" onclick="">Guardar</button>
                         </div>
                     </div>
                 </form>
@@ -98,7 +99,7 @@
                 <div data-role="navbar">
                     <ul>
                         <li>
-                            <a href="#acercade" data-icon="info" data-rel="dialog">Acerca de</a>
+                            <a href="#acercade" data-icon="info" data-rel="dialog" data-transition="slidedown">Acerca de</a>
                         </li>
                     </ul>
                 </div>

@@ -15,7 +15,7 @@
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
                 <h1>Bienvenido { NOMBRE_USUARIO }</h1>
-                <a href="#menuDerecha" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-bars"></a>
+                <a href="#menuDerecha" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-user"></a>
             </div>
             <div data-role="panel" id="menuIzquierda" data-theme="b" data-display="reveal" data-dismissible="true">
                 <div data-role="collapsible" data-theme="a">
@@ -90,7 +90,7 @@
                 <div data-role="navbar">
                     <ul>
                         <li>
-                            <a href="#acercade" data-icon="info" data-rel="dialog">Acerca de</a>
+                            <a href="#acercade" data-icon="info" data-rel="dialog" data-transition="slidedown">Acerca de</a>
                         </li>
                     </ul>
                 </div>
