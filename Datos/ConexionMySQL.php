@@ -1,29 +1,49 @@
 <?php
-class ConectarMySQL {
-    public static function conexion() {
-        $BaseDatos = "IMVE";
-        $Servidor = "localhost";
-        $Usuario = "root";
-        $Clave = "123456";
-        
-        $conexion = mysql_connect($Servidor, $Usuario, $Clave);
-        mysql_query("SET NAMES 'utf8'");
-        mysql_query("SET CHARACTER SET 'utf8'");
-        $seleccionarBase = mysql_select_db($BaseDatos, $conexion);
-        
-        if (!$conexion) {
-            die('<h1>Error al conectar a la base de datos.</h1><h2>Por favor, verifique que la contrase&ntilde;a sea la correcta.</h2>');
-            mysql_close($conexion);
+/**
+ * Sistema para la Iglesia Manantiales de Vida Eterna
+ * Desarrollador por: Gilberth Molina
+ * Date: 26/10/16
+ */
+class MySQL{
+    public $host = "localhost";
+    private $usuario ="root";
+    private $clave ="123456";
+    private $nombreBD ="IMVE";
+    private $conexion;
+    private $total_consultas;
+    public $consul;
+
+    public function MySQL(){
+        if(!isset($this->conexion))
+        {
+            $this->conexion = (mysqli_connect($this->host,$this->usuario,$this->clave,$this->nombreBD)) or die(mysqli_error());
         }
-        
-        if (!$seleccionarBase) { 
-            die('<h1>Error al seleccionar la base de datos.</h1><h2>Por favor, verifique que la base de datos sea la correcta y que este bien escrito.</h2>');
-            mysql_close($conexion);
+    }
+
+    public function consulta($consulta)
+    {
+        $this->total_consultas++;
+        $resultado = mysqli_query($this->conexion ,$consulta) or die (mysqli_error($this->conexion));
+        if(!$resultado)
+        {
+            echo 'MySQL Error: ' . mysqli_error();
+            exit;
         }
-        
-        return $conexion;
+        mysqli_next_result( $this->conexion );
+        return $resultado;
+    }
+
+    public function fetch_array($consulta){
+        return mysqli_fetch_array($consulta);
+    }
+
+    public function num_rows($consulta){
+        return mysqli_num_rows($consulta);
+    }
+
+    public function getTotalConsultas(){
+        return $this->total_consultas;
     }
 }
-
 
 

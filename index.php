@@ -5,12 +5,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link rel="shorcut icon" href="UI/Includes/images/favicon.ico" />
-        <link href="UI/includes/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="UI/Includes/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="UI/Includes/jquerymobile/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css"/>
-        <script src="UI/includes/bootstrap-3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+        <link href="UI/Includes/jqueryconfirm/jquery-confirm.min.css" rel="stylesheet" type="text/css"/>
         <link href="UI/Includes/css/styles.css" rel="stylesheet" type="text/css"/>
         <script src="UI/Includes/jquerymobile/jquery-1.9.1.min.js" type="text/javascript"></script>
+        <script src="UI/Includes/bootstrap-3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="UI/Includes/jquerymobile/jquery.mobile-1.4.2.min.js" type="text/javascript"></script>
+        <script src="UI/Includes/jqueryconfirm/jquery-confirm.min.js" type="text/javascript"></script>
+        <script src="Negocio/IndexCN.js" type="text/javascript"></script>
+        <script src="UI/Includes/js/utilitarios.js" type="text/javascript"></script>
     </head>
     <body>
         <div data-role="page">
@@ -18,25 +22,34 @@
                 <h1>Inicio de sesión</h1>
             </div>
             <div data-role="content">
-                <form method="post" action="#" id="inicioSesion">
-                    <div>
-                        <label for="identificacion">Identificación:</label>
-                        <input type="text" name="identificacion" id="identificacion" placeholder="102220333" data-clear-btn="true">
-                    </div>
-                    <div>
-                        <label for="contrasena">Contraseña:</label>
-                        <input type="password" name="contrasena" id="contrasena" data-clear-btn="true">
-                    </div>
-                    <br>
-                    <div data-inline="true">
-                        <div>
-                            <a href="UI/bienvenida.php" data-role="button" data-transition="pop" data-theme="b">Ingresar</a>
+                <div class="container">
+                    <div class="row" >
+                        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                            <form method="post" action="#" id="inicioSesion">
+                                <div>
+                                    <label for="txtIdentificacion">Identificación:</label>
+                                    <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="102220333" maxlength="30" onKeyPress="javascript:return soloNumeros(event)" data-clear-btn="true">
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtContrasena">Contraseña:</label>
+                                    <input type="password" name="txtContrasena" id="txtContrasena" maxlength="50" data-clear-btn="true">
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <a href="#" id="btnIngresar" data-role="button" data-transition="pop" data-theme="b" onclick="javascript:inicioSesion()">Ingresar</a>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <a href="UI/registrarse.php" id="btnRegistrarse" data-role="button" data-transition="slidefade" data-theme="b">Registrarse</a>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div>
-                            <a href="UI/registrarse.php" data-role="button" data-transition="slidefade" data-theme="b">Registrarse</a>
-                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2"></div>
                     </div>
-                </form>
+                </div>
             </div>
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">

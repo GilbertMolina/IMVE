@@ -8,11 +8,15 @@
         <link href="Includes/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/css/styles.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jquerymobile/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css"/>
-        <script src="Includes/bootstrap-3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="Includes/jquerymobile/jquery-1.9.1.min.js" type="text/javascript"></script>
+        <link href="Includes/jqueryconfirm/jquery-confirm.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jqueryui/jquery-ui-1.12.1.css" rel="stylesheet" type="text/css"/>
+        <script src="Includes/jquerymobile/jquery-1.9.1.min.js" type="text/javascript"></script>
+        <script src="Includes/bootstrap-3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="Includes/jqueryui/jquery-ui-1.12.1.js"></script>
         <script src="Includes/jquerymobile/jquery.mobile-1.4.2.min.js" type="text/javascript"></script>
+        <script src="Includes/jqueryconfirm/jquery-confirm.min.js" type="text/javascript"></script>
+        <script src="../Negocio/RegistrarseCN.js" type="text/javascript"></script>
+        <script src="Includes/js/utilitarios.js" type="text/javascript"></script>
         <script>
             $(function() {
                 if ( $('[type="date"]').prop('type') != 'date' ) {
@@ -30,68 +34,74 @@
             <div data-role="content">
                 <div class="container">
                     <div class="row" >
-                        <div class="col-xs-1 col-sm-2 col-md-2 col-lg-2"></div>
-                        <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8">
+                        <div class="col-sm-3 col-md-3 col-lg-3"></div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                             <form method="post" action="#" id="inicioSesion">
                                 <div>
-                                        <label for="identificacion">Identificación:</label>
-                                        <input type="text" name="identificacion" id="identificacion" placeholder="102220333"/>
+                                    <label for="identificacion">Identificación:</label>
+                                    <input type="text" name="identificacion" id="identificacion" placeholder="102220333" maxlength="30" onKeyPress="javascript:return soloNumeros(event)" data-clear-btn="true"/>
                                 </div>
+                                <br>
                                 <div>
-                                        <label for="nombre">Nombre:</label>
-                                        <input type="text" name="nombre" id="nombre"/>
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="text" name="nombre" id="nombre" maxlength="20" data-clear-btn="true"/>
                                 </div>
                                 <br>
                                 <div>
                                     <label for="apellido1">Primer apellido:</label>
-                                        <input type="text" name="apellido1" id="apellido1"/>
+                                    <input type="text" name="apellido1" id="apellido1" maxlength="20" data-clear-btn="true"/>
                                 </div>
                                 <br>
                                 <div>
                                     <label for="apellido2">Segundo apellido:</label>
-                                        <input type="text" name="apellido2" id="apellido2" />
+                                    <input type="text" name="apellido2" id="apellido2" maxlength="20" data-clear-btn="true"/>
                                 </div>
                                 <br>
                                 <div>
-                                    <br>
                                     <label for="fechaNacimiento">Fecha de nacimiento:</label>
                                     <input type="date" name="fechaNacimiento" id="fechaNacimiento" value="01/01/1900">
                                 </div>
                                 <div>
-                                        <label for="distrito">Distrito:</label>
+                                    <label for="distrito">Distrito:</label>
                                     <select name="distrito" id="distrito">
                                         <option value="N">Seleccione</option>
                                         <option value="1">Distrito1</option>
                                         <option value="2">Distrito2</option>
                                     </select>
                                 </div>
+                                <br>
                                 <div>
-                                        <label for="direccionExacta">Dirección domicilio:</label>
-                                        <textarea name="direccionExacta" id="direccionExacta" data-clear-btn="true"></textarea>
+                                    <label for="direccionExacta">Dirección domicilio:</label>
+                                    <textarea name="direccionExacta" id="direccionExacta" maxlength="250" data-clear-btn="true"></textarea>
                                 </div>
+                                <br>
                                 <div>
-                                        <label for="telefono">Teléfono:</label>
-                                        <input type="tel" name="telefono" id="telefono" data-clear-btn="true" placeholder="88888888"/>
+                                    <label for="telefono">Teléfono:</label>
+                                    <input type="tel" name="telefono" id="telefono" placeholder="88888888" maxlength="8" onKeyPress="javascript:return soloNumeros(event)" data-clear-btn="true"/>
                                 </div>
+                                <br>
                                 <div>
-                                        <label for="celular">Celular:</label>
-                                        <input type="tel" name="celular" id="celular" data-clear-btn="true" placeholder="88888888"/>
+                                    <label for="celular">Celular:</label>
+                                    <input type="tel" name="celular" id="celular" placeholder="88888888" maxlength="8" onKeyPress="javascript:return soloNumeros(event)" data-clear-btn="true"/>
                                 </div>
+                                <br>
                                 <div>
-                                        <label for="sexo">Género:</label>
-                                        <select name="sexo" id="sexo">
+                                    <label for="sexo">Género:</label>
+                                    <select name="sexo" id="sexo">
                                         <option value="N">Seleccione</option>
                                         <option value="F">Femenino</option>
                                         <option value="M">Masculino</option>
                                     </select>
                                 </div>
+                                <br>
                                 <div>
-                                        <label for="contrasena">Contraseña:</label>
-                                        <input type="password" name="contrasena" id="contrasena" data-clear-btn="true">
+                                    <label for="contrasena">Contraseña:</label>
+                                    <input type="password" name="contrasena" id="contrasena" maxlength="50" data-clear-btn="true">
                                 </div>
+                                <br>
                                 <div>
-                                        <label for="confirmarContrasena">Confirmar contraseña:</label>
-                                        <input type="password" name="confirmarContrasena" id="confirmarContrasena" data-clear-btn="true">
+                                    <label for="confirmarContrasena">Confirmar contraseña:</label>
+                                    <input type="password" name="confirmarContrasena" id="confirmarContrasena" maxlength="50" data-clear-btn="true">
                                 </div>
                                 <br>
                                 <div>
@@ -101,7 +111,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-xs-1 col-sm-2 col-md-2 col-lg-2"></div>
+                        <div class="col-sm-3 col-md-3 col-lg-3"></div>
                     </div>
                 </div>
                 <div data-role="footer" data-theme="b" data-position="fixed">
