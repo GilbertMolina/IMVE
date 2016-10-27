@@ -41,8 +41,8 @@
             <div data-role="content">
                 <div class="container">
                     <div class="row" >
-                        <div class="col-sm-3 col-md-3 col-lg-3"></div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="col-sm-2 col-md-3 col-lg-3"></div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
                             <form method="post" action="#" id="inicioSesion">
                                 <div>
                                     <label for="identificacion">Identificación:</label>
@@ -118,7 +118,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-sm-3 col-md-3 col-lg-3"></div>
+                        <div class="col-sm-2 col-md-3 col-lg-3"></div>
                     </div>
                 </div>
                 <div data-role="footer" data-theme="b" data-position="fixed">

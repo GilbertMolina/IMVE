@@ -31,8 +31,8 @@
             <div data-role="content">
                 <div class="container">
                     <div class="row" >
-                        <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                        <div class="col-sm-2 col-md-3 col-lg-3"></div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
                             <form method="post" action="#" id="inicioSesion">
                                 <div>
                                     <label for="txtIdentificacion">Identificación:</label>
@@ -54,7 +54,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                        <div class="col-sm-2 col-md-3 col-lg-3"></div>
                     </div>
                 </div>
             </div>
