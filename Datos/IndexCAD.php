@@ -25,18 +25,20 @@ if (isset($_POST['action']) && $_POST['action'] == 'iniciarSesion') {
                 $idPersona      = $resultados['IdPersona'];
                 $identificacion = $resultados['Identificacion'];
                 $nombreCompleto = $resultados['NombreCompleto'];
+                $sexo           = $resultados['Sexo'];
                 $idRol          = $resultados['IdRolUsuario'];
                 $rol            = $resultados['Rol'];
                 $token          = uniqid(); //Token para login
-                $paso           = "1,".$nombreCompleto;
+                $paso           = "1,".$nombreCompleto.",".$sexo;
             }
             //variables de sesion
             $_SESSION['idPersona']      = $idPersona;
             $_SESSION['nombreCompleto'] = $nombreCompleto;
+            $_SESSION['sexo']           = $sexo;
             $_SESSION['rol']            = $rol;
             $_SESSION['token']          = $token;
         } else {
-            $paso = "2,no";
+            $paso = "2,no,no";
         }
         echo $paso;
     }

@@ -7,10 +7,11 @@
 //Funcion para iniciar sesión en el sistema
 function inicioSesion()
 {
-    var identificacion=$('#txtIdentificacion').val();
-    var contrasena=$('#txtContrasena').val();
+    var identificacion = $('#txtIdentificacion').val();
+    var contrasena = $('#txtContrasena').val();
 
-    if(identificacion=="" || contrasena=="")
+    if(identificacion == ""
+      || contrasena == "")
     {
         $.alert({
             theme: 'material'
@@ -25,8 +26,10 @@ function inicioSesion()
     }
     else
     {
+        var contrasenaEncriptada = SHA1(contrasena);
+
         //Enviar por ajax a IndexCN.php
-        var d = "action=iniciarSesion&identificacion=" + identificacion + "&contrasena=" + contrasena;
+        var d = "action=iniciarSesion&identificacion=" + identificacion + "&contrasena=" + contrasenaEncriptada;
         $.ajax({
             type: "POST"
             , data: d
@@ -39,13 +42,17 @@ function inicioSesion()
                 if(resultado[0] == 1)
                 {
                     var nombreUsuario = resultado[1].split(' ')[0] + ' ' + resultado[1].split(' ')[1];
+                    var sexo = resultado[2];
+                    var mensajeInicioBienvenida = (sexo == 'F') ? 'Bienvenida ' : 'Bienvenido ';
+                    var mensajeCompletoBienvenida = mensajeInicioBienvenida + 'de vuelta ' + nombreUsuario + '.';
+
                     $.alert({
                         theme: 'material'
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
                         , title: 'Inicio de sesión'
-                        , content: 'Bienvenido de vuelta ' + nombreUsuario + '.'
+                        , content: mensajeCompletoBienvenida
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
                         , confirm: function(){

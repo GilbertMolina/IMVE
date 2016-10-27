@@ -14,7 +14,9 @@ if (!isset($_SESSION['nombreCompleto'])
 }
 else
 {
+    $mensajeInicioBienvenida = ($_SESSION['sexo'] == 'F') ? 'Bienvenida' : 'Bienvenido';
     $nombreUsuario = explode(" ", $_SESSION['nombreCompleto'])[0] . ' ' . explode(" ", $_SESSION['nombreCompleto'])[1];
+    $mensajeCompletoBienvenida = $mensajeInicioBienvenida . ' ' . $nombreUsuario;
 }
 ?>
 
@@ -41,7 +43,7 @@ else
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
-                <h1>Bienvenido <?php echo $nombreUsuario ?></h1>
+                <h1><?php echo $mensajeCompletoBienvenida ?></h1>
                 <a href="#menuDerecha" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-user"></a>
             </div>
             <div data-role="panel" id="menuIzquierda" data-theme="b" data-display="reveal" data-dismissible="true">
