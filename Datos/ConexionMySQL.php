@@ -1,10 +1,11 @@
 <?php
 /**
  * Sistema para la Iglesia Manantiales de Vida Eterna
- * Desarrollador por: Gilberth Molina
+ * Desarrollado por: Gilberth Molina
  * Date: 26/10/16
  */
-class MySQL{
+class MySQL
+{
     public $host = "localhost";
     private $usuario ="root";
     private $clave ="123456";
@@ -13,7 +14,8 @@ class MySQL{
     private $total_consultas;
     public $consul;
 
-    public function MySQL(){
+    public function MySQL()
+    {
         if(!isset($this->conexion))
         {
             $this->conexion = (mysqli_connect($this->host,$this->usuario,$this->clave,$this->nombreBD)) or die(mysqli_error());
@@ -29,19 +31,22 @@ class MySQL{
             echo 'MySQL Error: ' . mysqli_error();
             exit;
         }
-        mysqli_next_result( $this->conexion );
+        mysqli_next_result($this->conexion);
         return $resultado;
     }
 
-    public function fetch_array($consulta){
+    public function fetch_array($consulta)
+    {
         return mysqli_fetch_array($consulta);
     }
 
-    public function num_rows($consulta){
+    public function num_rows($consulta)
+    {
         return mysqli_num_rows($consulta);
     }
 
-    public function getTotalConsultas(){
+    public function getTotalConsultas()
+    {
         return $this->total_consultas;
     }
 }

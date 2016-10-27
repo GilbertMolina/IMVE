@@ -1,6 +1,6 @@
 /**
  * Sistema para la Iglesia Manantiales de Vida Eterna
- * Desarrollador por: Gilberth Molina
+ * Desarrollado por: Gilberth Molina
  * Date: 26/10/16
  */
 
@@ -10,9 +10,6 @@ function inicioSesion()
     var identificacion=$('#txtIdentificacion').val();
     var contrasena=$('#txtContrasena').val();
 
-    console.log('identificacion: ' + identificacion);
-    console.log('contrasena: ' + contrasena);
-
     if(identificacion=="" || contrasena=="")
     {
         $.alert({
@@ -20,7 +17,7 @@ function inicioSesion()
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Faltan datos'
+            , title: 'Datos incompletos'
             , content: 'Debe de ingresar la identificación y la contraseña.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-primary'
