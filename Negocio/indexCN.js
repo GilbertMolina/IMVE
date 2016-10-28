@@ -32,6 +32,7 @@ function inicioSesion()
     }
     else
     {
+        //Se encripta la contraseña por medio del algoritmo de encriptación SHA1
         var contrasenaEncriptada = SHA1(contrasena);
 
         //Enviar por ajax a IndexCN.php
@@ -43,6 +44,8 @@ function inicioSesion()
             , success: function(a)
             {
                 // Se divide la variable separandola por comas.
+                var resultado = a.split(',');
+
                 if(resultado[0] == 1)
                 {
                     var nombreUsuario = resultado[1].split(' ')[0] + ' ' + resultado[1].split(' ')[1];
@@ -99,6 +102,7 @@ function cerrarSesion()
         , confirm: function(){
             //Enviar por ajax a IndexCN.php
             var d = "action=cerrarSesion";
+
             $.ajax({
                 type: "POST"
                 , data: d
