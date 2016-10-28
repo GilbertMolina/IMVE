@@ -16,7 +16,7 @@ function soloNumeros(e)
     return (key >= 48 && key <= 57);
 }
 
-// Función que permite encriptar un mensaje dado
+// Función que permite encriptar un mensaje dado mediante SHA1
 function SHA1(mensaje) {
     function rotate_left(n,s) {
         var t4 = ( n<<s ) | (n>>>(32-s));

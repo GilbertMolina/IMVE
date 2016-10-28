@@ -22,6 +22,7 @@
         <script src="UI/Includes/jqueryconfirm/jquery-confirm.min.js" type="text/javascript"></script>
         <script src="Negocio/IndexCN.js" type="text/javascript"></script>
         <script src="UI/Includes/js/utilitarios.js" type="text/javascript"></script>
+        <script src="Negocio/RegistrarseCN.js" type="text/javascript"></script>
     </head>
     <body>
         <div data-role="page">
@@ -46,10 +47,10 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <a href="#" id="btnIngresar" data-role="button" data-transition="pop" data-theme="b" onclick="javascript:inicioSesion()">Ingresar</a>
+                                        <a href="#" id="btnIngresar" data-role="button" data-transition="pop" data-theme="b" onclick="inicioSesion()">Ingresar</a>
                                     </div>
                                     <div class="col-xs-6">
-                                        <a href="UI/registrarse.php" id="btnRegistrarse" data-role="button" data-transition="slidefade" data-theme="b">Registrarse</a>
+                                        <a href="#" id="btnRegistrarse" data-role="button" data-transition="slidefade" data-theme="b" onclick="paginaRegistrarse()">Registrarse</a>
                                     </div>
                                 </div>
                             </form>

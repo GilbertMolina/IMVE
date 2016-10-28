@@ -1,8 +1,14 @@
 /**
  * Sistema para la Iglesia Manantiales de Vida Eterna
  * Desarrollado por: Gilberth Molina
- * Date: 26/10/16
+ * Date: 27/10/16
  */
+
+//Funcion para ingresar a la pantalla de paginaRegistrarse
+function paginaRegistrarse()
+{
+    redireccionPagina('UI/registrarse.php');
+}
 
 //Funcion para iniciar sesión en el sistema
 function inicioSesion()
@@ -37,8 +43,6 @@ function inicioSesion()
             , success: function(a)
             {
                 // Se divide la variable separandola por comas.
-                var resultado=a.split(',');
-                console.log(resultado);
                 if(resultado[0] == 1)
                 {
                     var nombreUsuario = resultado[1].split(' ')[0] + ' ' + resultado[1].split(' ')[1];

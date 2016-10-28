@@ -7,19 +7,22 @@
 
 session_start();
 
-error_reporting(-1);
+error_reporting(1);
 ini_set('display_errors', 1);
 
+//Se realiza el llamado a la clase de conexion
 require("ConexionMySQL.php");
-$db = new MySQL(); //llamado a la clase de conexion
+$db = new MySQL();
 
 // Inicio de sesión en el sistema
 if (isset($_POST['action']) && $_POST['action'] == 'iniciarSesion') {
     try {
         $identificacion = $_POST['identificacion'];
-        $contrasena     = $_POST['contrasena']; //encriptarla
-        $sql            = "CALL TbUsuariosIniciarSesion('$identificacion','$contrasena')";
-        $consulta       = $db->consulta($sql);
+        $contrasena     = $_POST['contrasena'];
+        
+        $sql      = "CALL TbUsuariosIniciarSesion('$identificacion','$contrasena')";
+        $consulta = $db->consulta($sql);
+
         if ($db->num_rows($consulta) != 0) {
             while ($resultados = $db->fetch_array($consulta)) {
                 $idPersona      = $resultados['IdPersona'];
@@ -29,25 +32,27 @@ if (isset($_POST['action']) && $_POST['action'] == 'iniciarSesion') {
                 $idRol          = $resultados['IdRolUsuario'];
                 $rol            = $resultados['Rol'];
                 $token          = uniqid(); //Token para login
-                $paso           = "1,".$nombreCompleto.",".$sexo;
+                $exito          = "1,".$nombreCompleto.",".$sexo;
             }
-            //variables de sesion
+
+            //Se crean las variables de sesión
             $_SESSION['idPersona']      = $idPersona;
             $_SESSION['nombreCompleto'] = $nombreCompleto;
             $_SESSION['sexo']           = $sexo;
             $_SESSION['rol']            = $rol;
             $_SESSION['token']          = $token;
+
         } else {
-            $paso = "2,no,no";
+            $exito = "-1,no,no";
         }
-        echo $paso;
+        echo $exito;
     }
     catch (Exception $e) {
         echo 'Excepción capturada: ', $e->getMessage(), "\n";
     }
 }
 
-// Cierre de sesión en el sistema
+// Cerrar sesión en el sistema
 if (isset($_POST['action']) && $_POST['action'] == 'cerrarSesion') {
     try {
         session_destroy();
