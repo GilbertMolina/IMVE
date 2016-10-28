@@ -12,8 +12,8 @@ function indexRegresar()
 
 //Funcion que se ejecuta al cargar la pagina
 function RegistrarseOnLoad(){
+    asignarFechaActual();
     cargarProvincias();
-    
 }
 
 //Funcion que se ejecuta cuando cambia la provincia seleccionada
@@ -30,6 +30,19 @@ function onSelectedChangeCantones(){
     $('div#cboIdDistrito-button').children('span').html('Seleccione');
 
     cargarDistritos();
+}
+
+//Funcion que carga la fecha actual en el campo de fecha de nacimiento
+function asignarFechaActual()
+{
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth() + 1;
+    var a = date.getFullYear();
+    var fullDate = date.getFullYear();
+    var fechaCompleta = d + '/' + m + '/' + a;
+
+    document.getElementById("txtFechaNacimiento").defaultValue = fechaCompleta;
 }
 
 //Funcion para registrar usuario en el sistema
