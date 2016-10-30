@@ -65,11 +65,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'restablecerContrasena') {
             $identificacionSolicitante         = $identificacion;
             $correoSolicitante                 = $correo;
             $nombreSolicitante                 = $nombreCompleto;
-            $nuevaContraseñaGenerada           = GenerarContrasena();
-            $nuevaContraseñaGeneradaEncriptada = sha1($nuevaContraseñaGenerada);
+            $nuevaContrasenaGenerada           = GenerarContrasena();
+            $nuevaContrasenaGeneradaEncriptada = sha1($nuevaContrasenaGenerada);
 
             // Se procede a actualizar la contraseña
-            $sql = "CALL TbUsuariosRestablecerContrasena('$idPersona','$identificacion','$nuevaContraseñaGeneradaEncriptada')";
+            $sql = "CALL TbUsuariosRestablecerContrasena('$idPersona','$identificacion','$nuevaContrasenaGeneradaEncriptada')";
             $consulta = $db->consulta($sql);
 
             if ($db->num_rows($consulta) != 0) {
@@ -100,7 +100,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'restablecerContrasena') {
                                . '<p>' . $InicioMensaje . ' ' . $nombreSolicitante . ',<br /><br />'
                                . 'Usted ha solicitado recordar su contraseña en el Sistema IMVE, los datos son los siguientes.<br><br>'
                                . 'Identificación: <strong>' . $identificacionSolicitante . '</strong><br><br>'
-                               . 'Contraseña: <strong>' . $nuevaContraseñaGenerada . '</strong><br /><br />'
+                               . 'Contraseña: <strong>' . $nuevaContrasenaGenerada . '</strong><br /><br />'
                                . 'Recuerde cambiar la contraseña una vez ingresado al sistema.<br><br>'
                                . 'Saludos cordiales.<br><br>'
                                . '<strong>Sistema IMVE</strong><br><br>'
@@ -115,7 +115,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'restablecerContrasena') {
                                 . ''
                                 . 'Identificación: ' . $identificacionSolicitante
                                 . ''
-                                . 'Contraseña: ' . $nuevaContraseñaGenerada
+                                . 'Contraseña: ' . $nuevaContrasenaGenerada
                                 . ''
                                 . 'Recuerde cambiar la contraseña una vez ingresado al sistema.'
                                 . ''
