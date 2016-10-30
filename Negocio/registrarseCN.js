@@ -222,7 +222,7 @@ function ValidarCorreo() {
                 , animation: 'rotate'
                 , closeAnimation: 'rotate'
                 , title: 'Validación de correo'
-                , content: 'El correo "' + correo +'" no es válido, por favor verifique.'
+                , content: 'El correo "' + correo +'" no es válido, por favor verifíquelo.'
                 , confirmButton: 'Aceptar'
                 , confirmButtonClass: 'btn-warning'
             });
