@@ -116,7 +116,7 @@ function RegistrarUsuario()
                     , confirm: function(){
                         registarSinCorreo = true;
 
-                        IngresaUsuario(identificacion
+                        IngresarUsuario(identificacion
                             , nombre
                             , apellido1
                             , apellido2
@@ -137,7 +137,7 @@ function RegistrarUsuario()
             }
             else
             {
-                IngresaUsuario(identificacion
+                IngresarUsuario(identificacion
                     , nombre
                     , apellido1
                     , apellido2
@@ -156,7 +156,7 @@ function RegistrarUsuario()
 }
 
 // Función que registra el usuario del usuario a la base de datos por medio de Ajax
-function IngresaUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo, p_foto, p_Contrasena){
+function IngresarUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo, p_foto, p_Contrasena){
     var contrasenaEncriptada = SHA1(p_Contrasena);
 
     // Se define el action que será consultado desde la clase de acceso a datos
