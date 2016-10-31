@@ -1,35 +1,35 @@
 /**
  * Sistema para la Iglesia Manantiales de Vida Eterna
  * Desarrollado por: Gilberth Molina
- * Fecha creación: 26/10/16
+ * Fecha creación: 30/10/16
  */
 
-// Función para ingresar a la pantalla de registrarse
-function UsuariosPaginaBienvenida()
+// Función para ingresar a la pantalla de bienvenida
+function CompromisosPaginaBienvenida()
 {
     RedireccionPagina('../bienvenida.php');
 }
 
-// Función para ingresar a la pantalla de reporte de compromisos
-function UsuariosPaginaCompromisos()
+// Función para ingresar a la pantalla de usuarios
+function CompromisosPaginaUsuarios()
 {
-    RedireccionPagina('../Reportes/compromisos.php');
+    RedireccionPagina('../Mantenimientos/usuarios.php');
 }
 
-// Función para ingresar a la pantalla de reporte de grupos
-function UsuariosPaginaGrupos()
+// Función para ingresar a la pantalla reporte de grupos
+function CompromisosPaginaReporteGrupos()
 {
-    RedireccionPagina('../Reportes/grupos.php');
+    RedireccionPagina('grupos.php');
 }
 
-// Función para ingresar a la pantalla de reporte de personas
-function UsuariosPaginaPersonas()
+// Función para ingresar a la pantalla reporte de personas
+function CompromisosPaginaReportePersonas()
 {
-    RedireccionPagina('../Reportes/personas.php');
+    RedireccionPagina('personas.php');
 }
 
-//Función para cerrar sesión en el sistema
-function UsuariosCerrarSesion()
+// Función para cerrar sesión en el sistema
+function CompromisosCerrarSesion()
 {
     $.confirm({
         theme: 'material'

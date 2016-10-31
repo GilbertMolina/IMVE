@@ -5,32 +5,24 @@
  * Fecha creación: 26/10/16
  */
 
-session_start();
+// Se realiza el llamado a la clase de obtener datos de la sesion actual
+require("Includes/utilitarios/obtenerDatosSesion.php");
+$datosSession = new DatosSesion();
 
-if (!isset($_SESSION['nombreCompleto'])
-    && !isset($_SESSION['token']))
-{
-    // Si el usuario no ha iniciado sesión se le redirige a la página de inicio de sesión
-    header('location: ../index.php');
-}
-else
-{
-    $mensajeInicioBienvenida = ($_SESSION['sexo'] == 'F') ? 'Bienvenida' : 'Bienvenido';
-    $nombreUsuario = explode(" ", $_SESSION['nombreCompleto'])[0] . ' ' . explode(" ", $_SESSION['nombreCompleto'])[1];
-    $mensajeCompletoBienvenida = $mensajeInicioBienvenida . ' ' . $nombreUsuario;
-}
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Bienvenido</title>
+        <title>Sistema IMVE</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link rel="shorcut icon" href="Includes/images/favicon.ico" />
         <link href="Includes/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jquerymobile/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jqueryconfirm/jquery-confirm.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="Includes/css/fonts/Lato.css" rel="stylesheet" type="text/css">
+        <link href="Includes/css/animate.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/css/styles.css" rel="stylesheet" type="text/css"/>
         <script src="Includes/jquerymobile/jquery-1.9.1.min.js" type="text/javascript"></script>
         <script src="Includes/bootstrap-3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
@@ -43,7 +35,7 @@ else
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
-                <h1><?php echo $mensajeCompletoBienvenida ?></h1>
+                <h1><?php echo $datosSession->obtenerMensajeBienvenida() ?></h1>
                 <a href="#menuDerecha" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-user"></a>
             </div>
             <div data-role="panel" id="menuIzquierda" data-theme="b" data-display="reveal" data-dismissible="true">
@@ -51,7 +43,7 @@ else
                     <h3>Mantenimientos</h3>
                     <ul data-role="listview" data-inset="true">
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #1</a>
+                            <a href="#" data-transition="slidedown" onclick="BienvenidaPaginaUsuarios()">Usuarios</a>
                         </li>
                         <li>
                             <a href="#" data-transition="slidedown" onclick="">Mantenimiento #2</a>
@@ -66,7 +58,7 @@ else
                             <a href="#" data-transition="slidedown" onclick="">Mantenimiento #5</a>
                         </li>
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #6</a>
+                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento N</a>
                         </li>
                     </ul>
                 </div>
@@ -91,13 +83,13 @@ else
                     <h3>Reportes</h3>
                     <ul data-role="listview" data-inset="true">
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="">Reporte #1</a>
+                            <a href="#" data-transition="slidedown" onclick="BienvenidaPaginaReporteCompromisos()">Compromisos</a>
                         </li>
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="">Reporte #2</a>
+                            <a href="#" data-transition="slidedown" onclick="BienvenidaPaginaReporteGrupos()">Grupos</a>
                         </li>
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="">Reporte #3</a>
+                            <a href="#" data-transition="slidedown" onclick="BienvenidaPaginaReportePersonas()">Personas</a>
                         </li>
                     </ul>
                 </div>
@@ -105,15 +97,29 @@ else
             <div data-role="panel" id="menuDerecha" data-position="right" data-theme="b" data-display="reveal" data-dismissible="true">
                 <ul data-role="listview" data-inset="true">
                     <li data-role="list-divider" data-theme="a">
-                        <h1 style="text-align: left; font-size: large"><?php echo $nombreUsuario ?></h1>
+                        <h1 style="text-align: left; font-size: large"><?php echo $datosSession->obtenerNombreUsuario() ?></h1>
                     </li>
                     <li id="cerrarSesion">
-                        <a href="#" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-power ui-btn-icon-right ui-btn-b" onclick="CerrarSesion()">Cerrar sesión</a>
+                        <a href="#" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-power ui-btn-icon-right ui-btn-b" onclick="BienvenidaCerrarSesion()">Cerrar sesión</a>
                     </li>
                 </ul>
             </div>
             <div data-role="content">
-
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center; margin-top: 40px">
+                            <div class="animated bounceInDown">
+                                <img src="Includes/images/sistema_imve.png" alt="Sistema IMVE" height="100px" width="100px">
+                            </div>
+                            <div class="animated bounceInRight">
+                                <h1>SISTEMA IMVE</h1>
+                            </div>
+                            <div class="animated bounceInUp">
+                                <h3>Iglesia Manantiales de Vida Eterna</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">

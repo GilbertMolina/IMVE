@@ -3,5 +3,5 @@ Proyecto de Graduación para optar por el grado de Bachillerato en Ingeniería e
 **Lenguajes de Programación:** HTML, CSS, JavaScript y PHP.<br><br>
 **Motor de base de datos:** MySQL.<br><br>
 **Entorno de desarrollo:** PhpStorm.<br><br>
-**Frameworks utilizados:** Bootstrap, jQuery Mobile, jQuery Confirm.<br><br>
+**Frameworks utilizados:** Bootstrap, jQuery Mobile, jQuery Confirm, Animate.css.<br><br>
 **Controlador de versiones:** Git.

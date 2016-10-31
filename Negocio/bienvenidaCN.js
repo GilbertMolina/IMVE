@@ -4,8 +4,32 @@
  * Fecha creación: 26/10/16
  */
 
+// Función para ingresar a la pantalla de usuarios
+function BienvenidaPaginaUsuarios()
+{
+    RedireccionPagina('Mantenimientos/usuarios.php');
+}
+
+// Función para ingresar a la pantalla reporte de compromisos
+function BienvenidaPaginaReporteCompromisos()
+{
+    RedireccionPagina('Reportes/compromisos.php');
+}
+
+// Función para ingresar a la pantalla reporte de grupos
+function BienvenidaPaginaReporteGrupos()
+{
+    RedireccionPagina('Reportes/grupos.php');
+}
+
+// Función para ingresar a la pantalla reporte de personas
+function BienvenidaPaginaReportePersonas()
+{
+    RedireccionPagina('Reportes/personas.php');
+}
+
 // Función para cerrar sesión en el sistema
-function CerrarSesion()
+function BienvenidaCerrarSesion()
 {
     $.confirm({
         theme: 'material'

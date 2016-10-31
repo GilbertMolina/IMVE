@@ -98,7 +98,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'restablecerContrasena') {
                 $htmlContenido = '<html>'
                                . '<body>'
                                . '<p>' . $InicioMensaje . ' ' . $nombreSolicitante . ',<br /><br />'
-                               . 'Usted ha solicitado recordar su contraseña en el Sistema IMVE, los datos son los siguientes.<br><br>'
+                               . 'Usted ha solicitado recordar su contraseña en el Sistema IMVE, los datos son los siguientes:<br><br>'
                                . 'Identificación: <strong>' . $identificacionSolicitante . '</strong><br><br>'
                                . 'Contraseña: <strong>' . $nuevaContrasenaGenerada . '</strong><br /><br />'
                                . 'Recuerde cambiar la contraseña una vez ingresado al sistema.<br><br>'
@@ -111,7 +111,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'restablecerContrasena') {
                 $mail->Body = $htmlContenido;
 
                 $textoContenido = $InicioMensaje . ' ' . $nombreSolicitante . ','
-                                . 'Usted ha solicitado restablecer su contraseña en el Sistema IMVE, la cual ya ha sido restablecida y los datos son los siguientes.'
+                                . 'Usted ha solicitado restablecer su contraseña en el Sistema IMVE, la cual ya ha sido restablecida y los datos son los siguientes:'
                                 . ''
                                 . 'Identificación: ' . $identificacionSolicitante
                                 . ''
