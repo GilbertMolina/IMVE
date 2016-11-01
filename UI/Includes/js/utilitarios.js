@@ -11,7 +11,7 @@ function RedireccionPagina(url)
 }
 
 // Función que permite ingresar solamente números
-function soloNumeros(e)
+function SoloNumeros(e)
 {
     var key = window.Event ? e.which : e.keyCode;
     return (key >= 48 && key <= 57);

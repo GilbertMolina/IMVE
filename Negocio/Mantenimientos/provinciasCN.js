@@ -5,7 +5,7 @@
  */
 
 // Función para obtener todas las provincias del sistema filtradas por el País desde la base de datos
-function cargarProvincias()
+function CargarProvincias()
 {
     // Se define el action que será consultado desde la clase de acceso a datos
     var d = "action=obtenerProvincias";
@@ -14,7 +14,7 @@ function cargarProvincias()
     $.ajax({
         type: "POST"
         , data: d
-        , url: "../../IMVE/Datos/Mantenimientos/provinciasCAD.php"
+        , url: "../../../IMVE/Datos/Mantenimientos/provinciasCAD.php"
         , success: function(a) {
             $("#cboIdProvincia").html(a);
         }

@@ -13,20 +13,30 @@ html,body {
     font-weight: normal !important;
 }
 
-.jconfirmCustomize{
+.jconfirm-customize {
     font-weight: normal !important;
 }
 
-.menuActual{
+.menu-inicio {
+    color: #FFFFFF !important;
+    background-color: #5CB85C !important;
+    border-color: #4CAE4C !important;
+    text-shadow: 0 1px 0 #0088BB !important;
+    font-size: 16px  !important;
+    font-weight: bold  !important;
+    text-align: center  !important;
+}
+
+.menu-actual {
     background-color: #3388CC !important;
     border-color: #22AADD !important;
     color: #FFFFFF !important;
     text-shadow: 0 1px 0 #0088BB !important;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 16px !important;
+    font-weight: bold !important;
 }
 
-.imgSize{
+.img-size {
     height: 50px;
     width: 50px;
 }
@@ -35,4 +45,28 @@ html,body {
     color: #FFFFFF !important;
     background-color: #337ab7 !important;
     border-color: #2e6da4 !important;
+}
+
+.table-header{
+    background-color: #1B1B1B !important;
+    color: #FFFFFF !important;
+    font-weight: normal !important;
+}
+
+.nombre-usuario{
+    color: #333333 !important;
+    background-color: #FFFFFF !important;
+    border-color: #CCCCCC !important;
+    text-align: center !important;
+    font-size: large !important;
+}
+
+.cerrar-session{
+    color: #FFFFFF !important;
+    background-color: #D9534F !important;
+    border-color: #D43F3A !important;
+    text-shadow: 0 1px 0 #0088BB !important;
+    font-size: 16px  !important;
+    font-weight: bold  !important;
+    text-align: right !important;
 }

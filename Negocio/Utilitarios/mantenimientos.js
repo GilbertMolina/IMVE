@@ -1,41 +1,91 @@
 /**
  * Sistema para la Iglesia Manantiales de Vida Eterna
  * Desarrollado por: Gilberth Molina
- * Fecha creación: 30/10/16
+ * Fecha creación: 31/10/16
  */
 
 // Función para ingresar a la pantalla de bienvenida
-function PersonasPaginaBienvenida()
+function UtiMantenimientosPaginaBienvenida()
 {
     RedireccionPagina('../bienvenida.php');
 }
 
+// -----------------------------------------------------------------
+
 // Función para ingresar a la pantalla de mantenimiento de usuarios
-function PersonasPaginaUsuarios()
+function UtiMantenimientosPaginaMantenimientosUsuarios()
 {
-    RedireccionPagina('../Mantenimientos/usuarios.php');
+    RedireccionPagina('usuarios.php');
 }
 
-// Función para ingresar a la pantalla de personas
-function PersonasPaginaPersonas()
+// Función para ingresar a la pantalla de mantenimiento de usuarios detalle
+function UtiMantenimientosPaginaMantenimientosUsuariosDetalle()
+{
+    RedireccionPagina('usuariosDetalle.php');
+}
+
+// -----------------------------------------------------------------
+
+// Función para ingresar a la pantalla de proceso de compromisos
+function UtiMantenimientosPaginaProcesosCompromisos()
+{
+    RedireccionPagina('../Procesos/compromisos.php');
+}
+
+// Función para ingresar a la pantalla de proceso de grupos
+function UtiMantenimientosPaginaProcesosGrupos()
+{
+    RedireccionPagina('../Procesos/grupos.php');
+}
+
+// Función para ingresar a la pantalla de proceso de personas
+function UtiMantenimientosPaginaProcesosPersonas()
 {
     RedireccionPagina('../Procesos/personas.php');
 }
 
-// Función para ingresar a la pantalla reporte de compromisos
-function PersonasPaginaReporteCompromisos()
+// Función para ingresar a la pantalla de proceso de personas detalle
+function UtiMantenimientosPaginaProcesosPersonasDetalle()
 {
-    RedireccionPagina('compromisos.php');
+    RedireccionPagina('../Procesos/personasDetalle.php');
+}
+
+// Función para ingresar a la pantalla de proceso de seguimientos
+function UtiMantenimientosPaginaProcesosSeguimientos()
+{
+    RedireccionPagina('../Procesos/seguimientos.php');
+}
+
+// Función para ingresar a la pantalla de proceso de visitas
+function UtiMantenimientosPaginaProcesosVisitas()
+{
+    RedireccionPagina('../Procesos/visitas.php');
+}
+
+// -----------------------------------------------------------------
+
+// Función para ingresar a la pantalla reporte de compromisos
+function UtiMantenimientosPaginaReportesCompromisos()
+{
+    RedireccionPagina('../Reportes/compromisos.php');
 }
 
 // Función para ingresar a la pantalla reporte de grupos
-function PersonasPaginaReporteGrupos()
+function UtiMantenimientosPaginaReportesGrupos()
 {
-    RedireccionPagina('grupos.php');
+    RedireccionPagina('../Reportes/grupos.php');
 }
 
+// Función para ingresar a la pantalla reporte de personas
+function UtiMantenimientosPaginaReportesPersonas()
+{
+    RedireccionPagina('../Reportes/personas.php');
+}
+
+// -----------------------------------------------------------------
+
 // Función para cerrar sesión en el sistema
-function PersonasCerrarSesion()
+function UtiMantenimientosCerrarSesion()
 {
     $.confirm({
         theme: 'material'

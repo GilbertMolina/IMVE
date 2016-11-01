@@ -5,7 +5,7 @@
  */
 
 // Función para obtener todas los cantones del sistema filtrados por el Id de Provincia
-function cargarCantones()
+function CargarCantones()
 {
     var idProvincia = $("#cboIdProvincia").val();
 
@@ -16,7 +16,7 @@ function cargarCantones()
     $.ajax({
         type: "POST"
         , data: d
-        , url: "../../IMVE/Datos/Mantenimientos/cantonesCAD.php"
+        , url: "../../../IMVE/Datos/Mantenimientos/cantonesCAD.php"
         , success: function(a) {
             $("#cboIdCanton").html(a);
         }

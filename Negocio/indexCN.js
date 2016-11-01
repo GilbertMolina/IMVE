@@ -4,12 +4,6 @@
  * Fecha creación: 27/10/16
  */
 
-// Función para ingresar a la pantalla de registrarse
-function PaginaRegistrarse()
-{
-    RedireccionPagina('UI/registrarse.php');
-}
-
 // Función para ingresar a la pantalla de restablecerContrasena
 function PaginaRestablecerContrasena()
 {

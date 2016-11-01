@@ -5,9 +5,15 @@
  * Fecha creación: 26/10/16
  */
 
+/**
+ * ob_start(): Se utiliza para limpiar las cabeceras puesto que daban conflicto a la hora de redireccionar al index,
+ * si el usuario no habia iniciado sesión en la aplicación
+ */
+ob_start();
+
 // Se realiza el llamado a la clase de obtener datos de la sesion actual
-require("Includes/utilitarios/obtenerDatosSesion.php");
-$datosSession = new DatosSesion();
+require("Includes/utilitarios/bienvenida.php");
+$utilitarios = new UtilitariosBienvenida();
 
 ?>
 
@@ -28,6 +34,7 @@ $datosSession = new DatosSesion();
         <script src="Includes/bootstrap-3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="Includes/jquerymobile/jquery.mobile-1.4.2.min.js" type="text/javascript"></script>
         <script src="Includes/jqueryconfirm/jquery-confirm.min.js" type="text/javascript"></script>
+        <script src="../Negocio/Utilitarios/bienvenida.js" type="text/javascript"></script>
         <script src="../Negocio/bienvenidaCN.js" type="text/javascript"></script>
         <script src="Includes/js/utilitarios.js" type="text/javascript"></script>
     </head>
@@ -35,7 +42,7 @@ $datosSession = new DatosSesion();
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
-                <h1><?php echo $datosSession->obtenerMensajeBienvenida() ?></h1>
+                <h1><?php echo $utilitarios->ObtenerMensajeBienvenida() ?></h1>
                 <a href="#menuDerecha" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-user"></a>
             </div>
             <div data-role="panel" id="menuIzquierda" data-theme="b" data-display="reveal" data-dismissible="true">
@@ -43,7 +50,7 @@ $datosSession = new DatosSesion();
                     <h3>Mantenimientos</h3>
                     <ul data-role="listview" data-inset="true">
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="BienvenidaPaginaUsuarios()">Usuarios</a>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosUsuarios()">Usuarios</a>
                         </li>
                         <li>
                             <a href="#" data-transition="slidedown" onclick="">Mantenimiento #2</a>
@@ -66,16 +73,19 @@ $datosSession = new DatosSesion();
                     <h3>Procesos</h3>
                     <ul data-role="listview" data-inset="true">
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="">Personas</a>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaCompromisos()">Compromisos</a>
                         </li>
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="">Consolidaciones</a>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaGrupos()">Grupos</a>
                         </li>
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="">Seguimientos</a>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaPersonas()">Personas</a>
                         </li>
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="">Visitas</a>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaSeguimientos()">Seguimientos</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaVisitas()">Visitas</a>
                         </li>
                     </ul>
                 </div>
@@ -83,24 +93,26 @@ $datosSession = new DatosSesion();
                     <h3>Reportes</h3>
                     <ul data-role="listview" data-inset="true">
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="BienvenidaPaginaReporteCompromisos()">Compromisos</a>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaReportesCompromisos()">Compromisos</a>
                         </li>
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="BienvenidaPaginaReporteGrupos()">Grupos</a>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaReportesGrupos()">Grupos</a>
                         </li>
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="BienvenidaPaginaReportePersonas()">Personas</a>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaReportesPersonas()">Personas</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div data-role="panel" id="menuDerecha" data-position="right" data-theme="b" data-display="reveal" data-dismissible="true">
                 <ul data-role="listview" data-inset="true">
-                    <li data-role="list-divider" data-theme="a">
-                        <h1 style="text-align: left; font-size: large"><?php echo $datosSession->obtenerNombreUsuario() ?></h1>
+                    <li class="menu-inicio ui-shadow ui-corner-all ui-icon-user ui-btn-icon-right">
+                        <?php echo $utilitarios->ObtenerNombreUsuario() ?>
                     </li>
-                    <li id="cerrarSesion">
-                        <a href="#" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-power ui-btn-icon-right ui-btn-b" onclick="BienvenidaCerrarSesion()">Cerrar sesión</a>
+                </ul>
+                <ul data-role="listview" data-inset="true" style="margin-top: -10px">
+                    <li>
+                        <a href="#" class="cerrar-session ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-power ui-btn-icon-right ui-btn-b" onclick="UtiBienvenidaCerrarSesion()">Cerrar sesión</a>
                     </li>
                 </ul>
             </div>
@@ -133,3 +145,11 @@ $datosSession = new DatosSesion();
         </div>
     </body>
 </html>
+
+<?php
+/**
+ * ob_end_flush(): Se utilza para limpiar las cabeceras puesto que daban conflicto a la hora de redireccionar al index,
+ * si el usuario no habia iniciado sesión en la aplicación
+ */
+ob_end_flush();
+?>

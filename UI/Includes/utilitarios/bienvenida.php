@@ -7,9 +7,9 @@
 
 session_start();
 
-class DatosSesion
+class UtilitariosBienvenida
 {
-    function obtenerNombreUsuario()
+    function ObtenerNombreUsuario()
     {
         if (!isset($_SESSION['nombreCompleto'])
             && !isset($_SESSION['token']))
@@ -23,7 +23,7 @@ class DatosSesion
         }
     }
 
-    function obtenerMensajeBienvenida()
+    function ObtenerMensajeBienvenida()
     {
         if (!isset($_SESSION['nombreCompleto'])
             && !isset($_SESSION['token']))

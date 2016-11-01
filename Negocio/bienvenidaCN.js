@@ -10,6 +10,30 @@ function BienvenidaPaginaUsuarios()
     RedireccionPagina('Mantenimientos/usuarios.php');
 }
 
+// Función para ingresar a la pantalla de proceso de personas
+function BienvenidaPaginaPersonas()
+{
+    RedireccionPagina('Procesos/personas.php');
+}
+
+// Función para ingresar a la pantalla de proceso de consolidaciones
+function BienvenidaPaginaConsolidaciones()
+{
+    RedireccionPagina('Procesos/consolidaciones.php');
+}
+
+// Función para ingresar a la pantalla de proceso de seguimientos
+function BienvenidaPaginaSeguimientos()
+{
+    RedireccionPagina('Procesos/seguimientos.php');
+}
+
+// Función para ingresar a la pantalla de proceso de visitas
+function BienvenidaPaginaVisitas()
+{
+    RedireccionPagina('Procesos/visitas.php');
+}
+
 // Función para ingresar a la pantalla reporte de compromisos
 function BienvenidaPaginaReporteCompromisos()
 {
@@ -36,8 +60,8 @@ function BienvenidaCerrarSesion()
         , animationBounce: 1.5
         , animation: 'rotate'
         , closeAnimation: 'rotate'
-        , title: '<span class="jconfirmCustomize">Cerrar sesión</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
-        , content: '<span class="jconfirmCustomize">¿Esta seguro que desea cerrar la sesión?</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+        , title: '<span class="jconfirm-customize">Cerrar sesión</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+        , content: '<span class="jconfirm-customize">¿Esta seguro que desea cerrar la sesión?</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
         , confirmButton: 'Aceptar'
         , confirmButtonClass: 'btn-success'
         , cancelButton: 'Cancelar'
@@ -58,8 +82,8 @@ function BienvenidaCerrarSesion()
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: '<span class="jconfirmCustomize">Ha cerrado la sesión</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
-                        , content: '<span class="jconfirmCustomize">Esperamos que vuelva pronto.</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+                        , title: '<span class="jconfirm-customize">Ha cerrado la sesión</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+                        , content: '<span class="jconfirm-customize">Esperamos que vuelva pronto.</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
                         , confirm: function(){

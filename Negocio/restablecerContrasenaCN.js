@@ -4,6 +4,12 @@
  * Fecha creación: 29/10/16
  */
 
+// Función para ingresar a la pantalla de index
+function PaginaIndex()
+{
+    RedireccionPagina('../index.php');
+}
+
 // Función para restablecer la contraseña en el sistema
 function RestablecerContrasena()
 {
@@ -29,8 +35,8 @@ function RestablecerContrasena()
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: '<span class="jconfirmCustomize">Restablecer contraseña</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
-            , content: '<span class="jconfirmCustomize">¿Esta seguro que desea restablecer la contraseña?</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+            , title: '<span class="jconfirm-customize">Restablecer contraseña</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+            , content: '<span class="jconfirm-customize">¿Esta seguro que desea restablecer la contraseña?</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-success'
             , cancelButton: 'Cancelar'

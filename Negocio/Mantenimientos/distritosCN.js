@@ -5,7 +5,7 @@
  */
 
 // Función para obtener todas los distritos del sistema filtrados por el Id de Provincia y el Id de Cantón
-function cargarDistritos()
+function CargarDistritos()
 {
     var idProvincia = $("#cboIdProvincia").val();
     var idCanton = $("#cboIdCanton").val();
@@ -17,7 +17,7 @@ function cargarDistritos()
     $.ajax({
         type: "POST"
         , data: d
-        , url: "../../IMVE/Datos/Mantenimientos/distritosCAD.php"
+        , url: "../../../IMVE/Datos/Mantenimientos/distritosCAD.php"
         , success: function(a) {
             $("#cboIdDistrito").html(a);
         }
