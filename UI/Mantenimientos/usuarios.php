@@ -24,13 +24,13 @@ $utilitarios = new UtilitariosMantenimientos();
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link rel="shorcut icon" href="../Includes/images/favicon.ico" />
-        <link href="../Includes/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../Includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="../Includes/jquerymobile/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css"/>
         <link href="../Includes/jqueryconfirm/jquery-confirm.min.css" rel="stylesheet" type="text/css"/>
         <link href="../Includes/css/fonts/Lato.css" rel="stylesheet" type="text/css">
         <link href="../Includes/css/styles.css" rel="stylesheet" type="text/css"/>
         <script src="../Includes/jquerymobile/jquery-1.9.1.min.js" type="text/javascript"></script>
-        <script src="../Includes/bootstrap-3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../Includes/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="../Includes/jquerymobile/jquery.mobile-1.4.2.min.js" type="text/javascript"></script>
         <script src="../Includes/jqueryconfirm/jquery-confirm.min.js" type="text/javascript"></script>
         <script src="../../Negocio/Utilitarios/mantenimientos.js" type="text/javascript"></script>
