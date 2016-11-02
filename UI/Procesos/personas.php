@@ -16,7 +16,6 @@ require("../Includes/utilitarios/procesos.php");
 $utilitarios = new UtilitariosProcesos();
 
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>

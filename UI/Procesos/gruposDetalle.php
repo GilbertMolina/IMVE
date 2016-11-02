@@ -34,6 +34,9 @@ $utilitarios = new UtilitariosProcesos();
         <script src="../Includes/jqueryconfirm/jquery-confirm.min.js" type="text/javascript"></script>
         <script src="../../Negocio/Utilitarios/procesos.js" type="text/javascript"></script>
         <script src="../../Negocio/Procesos/personasCN.js" type="text/javascript"></script>
+        <script src="../../Negocio/Mantenimientos/provinciasCN.js" type="text/javascript"></script>
+        <script src="../../Negocio/Mantenimientos/cantonesCN.js" type="text/javascript"></script>
+        <script src="../../Negocio/Mantenimientos/distritosCN.js" type="text/javascript"></script>
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
     </head>
     <body>
@@ -78,8 +81,8 @@ $utilitarios = new UtilitariosProcesos();
                         <li>
                             <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosCompromisos()">Compromisos</a>
                         </li>
-                        <li class="menu-actual">
-                            Grupos
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosGrupos()">Grupos</a>
                         </li>
                         <li>
                             <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosPersonas()">Personas</a>
@@ -122,20 +125,23 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="content">
                 <div class="container">
-                    <h3 class="text-center">Listado de Grupos</h3>
-                    <hr>
-                    <form class="ui-filterable">
-                        <input id="filtro" data-type="search" placeholder="Búsqueda">
-                    </form>
-                    <ul data-role="listview" id="listaGrupos" data-filter="true" data-input="#filtro" data-autodividers="true" data-inset="true">
-                        <!-- Aquí se insertan los datos dinámicamente -->
-                    </ul>
+                    <div class="row">
+                        <div class="col-sm-2 col-md-3 col-lg-3"></div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+                            <h3 class="text-center">Grupos</h3>
+                            <hr>
+                            <form method="post" action="#" id="compromisos" enctype="multipart/form-data">
+    
+                            </form>
+                        </div>
+                        <div class="col-sm-2 col-md-3 col-lg-3"></div>
+                    </div>
                 </div>
             </div>
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosGruposDetalle()">Agregar</a></li>
+                        <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosGrupos()">Atrás</a></li>
                     </ul>
                 </div>
             </div>

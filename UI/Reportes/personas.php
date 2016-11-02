@@ -124,10 +124,11 @@ $utilitarios = new UtilitariosReportes();
             </div>
             <div data-role="content">
                 <div class="container">
-                    <h3 class="text-center">Reportes de Personas</h3>
-                    <hr>
                     <div class="row text-center">
-                        <div class="col-xs-12">
+                        <div class="col-sm-1"></div>
+                        <div class="col-xs-12 col-sm-10">
+                            <h3 class="text-center">Reportes de Personas</h3>
+                            <hr>
                             <div class="jumbotron">
                                 <img src="../Includes/images/documentPDF.png" alt="Reporte 1">
                                 <h2>Título Reporte 1</h2>
@@ -143,6 +144,7 @@ $utilitarios = new UtilitariosReportes();
                                 <br>
                             </div>
                         </div>
+                        <div class="col-sm-1"></div>
                     </div>
                 </div>
             </div>

@@ -38,10 +38,22 @@ function UtiProcesosPaginaProcesosCompromisos()
     RedireccionPagina('compromisos.php');
 }
 
+// Función para ingresar a la pantalla de proceso de compromisos detalle
+function UtiProcesosPaginaProcesosCompromisosDetalle()
+{
+    RedireccionPagina('compromisosDetalle.php');
+}
+
 // Función para ingresar a la pantalla de proceso de grupos
 function UtiProcesosPaginaProcesosGrupos()
 {
     RedireccionPagina('grupos.php');
+}
+
+// Función para ingresar a la pantalla de proceso de grupos detalle
+function UtiProcesosPaginaProcesosGruposDetalle()
+{
+    RedireccionPagina('gruposDetalle.php');
 }
 
 // Función para ingresar a la pantalla de proceso de personas
@@ -62,10 +74,22 @@ function UtiProcesosPaginaProcesosSeguimientos()
     RedireccionPagina('seguimientos.php');
 }
 
+// Función para ingresar a la pantalla de proceso de seguimientos detalle
+function UtiProcesosPaginaProcesosSeguimientosDetalle()
+{
+    RedireccionPagina('seguimientosDetalle.php');
+}
+
 // Función para ingresar a la pantalla de proceso de visitas
 function UtiProcesosPaginaProcesosVisitas()
 {
     RedireccionPagina('visitas.php');
+}
+
+// Función para ingresar a la pantalla de proceso de visitas detalle
+function UtiProcesosPaginaProcesosVisitasDetalle()
+{
+    RedireccionPagina('visitasDetalle.php');
 }
 
 // -----------------------------------------------------------------

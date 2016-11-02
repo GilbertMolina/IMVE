@@ -30,15 +30,15 @@
     <body>
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
-                <h1>Sistema IMVE</h1>
+                <h3>Sistema IMVE</h3>
             </div>
             <div data-role="content">
                 <div class="container">
-                    <h3 class="text-center">Restablecer su contraseña</h3>
-                    <hr>
                     <div class="row">
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+                            <h3 class="text-center">Restablecer su contraseña</h3>
+                            <hr>
                             <form method="post" action="#" id="restablecerContrasena">
                                 <div>
                                     <label for="txtIdentificacionRestablecer">Identificación:<img src="Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
@@ -68,3 +68,24 @@
         </div>
     </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

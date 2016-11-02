@@ -127,6 +127,7 @@ $utilitarios = new UtilitariosBienvenida();
                             <div class="animated bounceInRight">
                                 <h1>SISTEMA IMVE</h1>
                             </div>
+                            <hr class="animated zoomIn">
                             <div class="animated bounceInUp">
                                 <h3>Iglesia Manantiales de Vida Eterna</h3>
                             </div>

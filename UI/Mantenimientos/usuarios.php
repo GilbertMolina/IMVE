@@ -16,7 +16,6 @@ require("../Includes/utilitarios/mantenimientos.php");
 $utilitarios = new UtilitariosMantenimientos();
 
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>

@@ -16,7 +16,6 @@ require("../Includes/utilitarios/mantenimientos.php");
 $utilitarios = new UtilitariosMantenimientos();
 
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -53,8 +52,8 @@ $utilitarios = new UtilitariosMantenimientos();
                 <div data-role="collapsible" data-theme="a">
                     <h3>Mantenimientos</h3>
                     <ul data-role="listview">
-                        <li class="menu-actual">
-                            Usuarios
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosUsuarios()">Usuarios</a>
                         </li>
                         <li>
                             <a href="#" data-transition="slidedown" onclick="">Mantenimiento #2</a>
@@ -123,11 +122,11 @@ $utilitarios = new UtilitariosMantenimientos();
             </div>
             <div data-role="content">
                 <div class="container">
-                    <h3 class="text-center">Mantenimiento de Usuarios</h3>
-                    <hr>
                     <div class="row">
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+                            <h3 class="text-center">Mantenimiento de Usuarios</h3>
+                            <hr>
                             <form method="post" action="#" id="inicioSesion" enctype="multipart/form-data">
                                 <div>
                                     <label for="cboIdPersona">Persona:</label>

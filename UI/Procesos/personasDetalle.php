@@ -16,7 +16,6 @@ require("../Includes/utilitarios/procesos.php");
 $utilitarios = new UtilitariosProcesos();
 
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -92,8 +91,8 @@ $utilitarios = new UtilitariosProcesos();
                         <li>
                             <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosGrupos()">Grupos</a>
                         </li>
-                        <li class="menu-actual">
-                            Personas
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosPersonas()">Personas</a>
                         </li>
                         <li>
                             <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosSeguimientos()">Seguimientos</a>
@@ -133,12 +132,12 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="content">
                 <div class="container">
-                    <h3 class="text-center">Mantenimiento de Personas</h3>
-                    <hr>
                     <div class="row">
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
-                            <form method="post" action="#" id="inicioSesion" enctype="multipart/form-data">
+                            <h3 class="text-center">Personas</h3>
+                            <hr>
+                            <form method="post" action="#" id="personas" enctype="multipart/form-data">
                                 <div>
                                     <label for="txtIdentificacion">Identificación:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
                                     <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
