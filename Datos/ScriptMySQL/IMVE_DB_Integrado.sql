@@ -2198,7 +2198,7 @@ CALL IMVE.TbPersonasAgregar(
 CALL IMVE.TbUsuariosAgregar(
     1
     , 1
-    ,'8cb2237d0679ca88db6464eac60da96345513964' -- gmolina
+    ,'8cb2237d0679ca88db6464eac60da96345513964' -- 12345
     , 1
 );
 
