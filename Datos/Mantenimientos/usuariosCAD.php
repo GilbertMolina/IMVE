@@ -39,7 +39,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonas') {
 // Obtiene el listado de personas del sistema para insertarlos en un ComboBox
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasCombobox') {
     try {
-        $sql          = "CALL TbPersonasListar()";
+        $sql          = "CALL TbPersonasListarSinUsuario()";
         $consulta     = $db->consulta($sql);
         $result       = array();
         $cadena_datos = "";

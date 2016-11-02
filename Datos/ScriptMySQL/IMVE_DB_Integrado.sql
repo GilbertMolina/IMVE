@@ -670,6 +670,33 @@ WHERE P.Identificacion = p_Identificacion
 END //
 DELIMITER ;
 
+-- TbPersonasListarSinUsuario
+DROP PROCEDURE IF EXISTS IMVE.TbPersonasListarSinUsuario;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbPersonasListarSinUsuario()
+BEGIN
+
+SELECT P.IdPersona
+  , U.Contrasena
+  , P.Identificacion
+  , P.Nombre
+  , P.Apellido1
+  , P.Apellido2
+  , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+  , P.Correo
+  , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+  , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+FROM IMVE.TbUsuarios AS U 
+RIGHT JOIN IMVE.TbPersonas AS P
+  ON U.IdPersona = P.IdPersona
+WHERE P.Activo = 'A' 
+  AND U.Contrasena IS NULL
+ORDER BY NombreCompleto;
+
+END //
+DELIMITER ;
+
 -- TbUsuariosCambiarContrasena
 DROP PROCEDURE IF EXISTS IMVE.TbUsuariosCambiarContrasena;
 
@@ -2186,13 +2213,6 @@ CALL IMVE.TbUsuariosAgregar(
     3
     , 1
     ,'07d7ae0f3696ffb5440182547e727fde697cf18e' -- amolina
-    , 1
-);
-
-CALL IMVE.TbUsuariosAgregar(
-    4
-    , 1
-    ,'1d8f9d01ef2048edc4b7e0ead5dac0f84a15d2fd' -- scastrillo
     , 1
 );
 
