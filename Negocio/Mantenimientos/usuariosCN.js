@@ -69,9 +69,9 @@ function UsuariosCargarRoles()
 // Función para registrar usuario en el sistema
 function UsuariosRegistrarUsuario()
 {
-    var idPersona    = $('#cboIdPersona').val();
-    var idRolUsuario = $('#cboIdRol').val();
-    var contrasena = $('#txtContrasena').val();
+    var idPersona           = $('#cboIdPersona').val();
+    var idRolUsuario        = $('#cboIdRol').val();
+    var contrasena          = $('#txtContrasena').val();
     var confirmarContrasena = $('#txtConfirmarContrasena').val();
 
     if(idPersona == 0

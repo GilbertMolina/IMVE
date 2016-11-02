@@ -27,7 +27,7 @@ $utilitarios = new UtilitariosBienvenida();
         <link href="Includes/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jquerymobile/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jqueryconfirm/jquery-confirm.min.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="Includes/css/fonts/Lato.css" rel="stylesheet" type="text/css">
+        <link href="Includes/css/fonts/Lato.css" rel="stylesheet" type="text/css">
         <link href="Includes/css/animate.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/css/styles.css" rel="stylesheet" type="text/css"/>
         <script src="Includes/jquerymobile/jquery-1.9.1.min.js" type="text/javascript"></script>
@@ -48,7 +48,7 @@ $utilitarios = new UtilitariosBienvenida();
             <div data-role="panel" id="menuIzquierda" data-theme="b" data-display="reveal" data-dismissible="true">
                 <div data-role="collapsible" data-theme="a">
                     <h3>Mantenimientos</h3>
-                    <ul data-role="listview" data-inset="true">
+                    <ul data-role="listview">
                         <li>
                             <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosUsuarios()">Usuarios</a>
                         </li>
@@ -71,7 +71,7 @@ $utilitarios = new UtilitariosBienvenida();
                 </div>
                 <div data-role="collapsible" data-theme="a">
                     <h3>Procesos</h3>
-                    <ul data-role="listview" data-inset="true">
+                    <ul data-role="listview">
                         <li>
                             <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaCompromisos()">Compromisos</a>
                         </li>
@@ -91,7 +91,7 @@ $utilitarios = new UtilitariosBienvenida();
                 </div>
                 <div data-role="collapsible" data-theme="a">
                     <h3>Reportes</h3>
-                    <ul data-role="listview" data-inset="true">
+                    <ul data-role="listview">
                         <li>
                             <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaReportesCompromisos()">Compromisos</a>
                         </li>
@@ -105,16 +105,17 @@ $utilitarios = new UtilitariosBienvenida();
                 </div>
             </div>
             <div data-role="panel" id="menuDerecha" data-position="right" data-theme="b" data-display="reveal" data-dismissible="true">
-                <ul data-role="listview" data-inset="true">
-                    <li class="menu-inicio ui-shadow ui-corner-all ui-icon-user ui-btn-icon-right">
-                        <?php echo $utilitarios->ObtenerNombreUsuario() ?>
-                    </li>
-                </ul>
-                <ul data-role="listview" data-inset="true" style="margin-top: -10px">
-                    <li>
-                        <a href="#" class="cerrar-session ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-power ui-btn-icon-right ui-btn-b" onclick="UtiBienvenidaCerrarSesion()">Cerrar sesión</a>
-                    </li>
-                </ul>
+                <div data-role="collapsible" data-theme="a">
+                    <h3><?php echo $utilitarios->ObtenerNombreUsuario() ?></h3>
+                    <ul data-role="listview">
+                        <li>
+                            <a href="#" style="font-size: 15px" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-edit ui-btn-icon-right ui-btn-b" onclick="UtiBienvenidaPaginaCambiarContrasena()">Cambiar contraseña</a>
+                        </li>
+                        <li>
+                            <a href="#" style="font-size: 15px" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-power ui-btn-icon-right ui-btn-b" onclick="UtiBienvenidaCerrarSesion()">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div data-role="content">
                 <div class="container">

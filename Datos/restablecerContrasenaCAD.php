@@ -60,7 +60,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'restablecerContrasena') {
             $mail->CharSet     = 'UTF-8';             // Se configura para utilizar el charset utf8
 
             $correoSistemaIMVE = 'imveuia@gmail.com';
-            $nombreSistemaIMVE   = 'Sistema IMVE';
+            $nombreSistemaIMVE = 'Sistema IMVE';
 
             $identificacionSolicitante         = $identificacion;
             $correoSolicitante                 = $correo;
@@ -69,7 +69,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'restablecerContrasena') {
             $nuevaContrasenaGeneradaEncriptada = sha1($nuevaContrasenaGenerada);
 
             // Se procede a actualizar la contraseña
-            $sql = "CALL TbUsuariosRestablecerContrasena('$idPersona','$identificacion','$nuevaContrasenaGeneradaEncriptada')";
+            $sql = "CALL TbUsuariosCambiarContrasena('$idPersona','$nuevaContrasenaGeneradaEncriptada')";
             $consulta = $db->consulta($sql);
 
             if ($db->num_rows($consulta) != 0) {

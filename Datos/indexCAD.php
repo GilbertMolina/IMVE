@@ -17,6 +17,14 @@ $db = new MySQL();
 // Inicio de sesión en el sistema
 if (isset($_POST['action']) && $_POST['action'] == 'iniciarSesion') {
     try {
+        $identificacion = "";
+        $idPersona      = "";
+        $identificacion = "";
+        $nombreCompleto = "";
+        $sexo           = "";
+        $rol            = "";
+        $token          = "";
+
         $identificacion = $_POST['identificacion'];
         $contrasena     = $_POST['contrasena'];
         

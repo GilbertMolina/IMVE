@@ -10,6 +10,12 @@ function UtiMantenimientosPaginaBienvenida()
     RedireccionPagina('../bienvenida.php');
 }
 
+// Función para ingresar a la pantalla de cambiar contraseña
+function UtiMantenimientosPaginaCambiarContrasena()
+{
+    RedireccionPagina('../cambiarContrasena.php');
+}
+
 // -----------------------------------------------------------------
 
 // Función para ingresar a la pantalla de mantenimiento de usuarios
