@@ -699,7 +699,7 @@ DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosAgregar(
   p_IdPersona INT
   , p_IdRolUsuario INT
-    , p_Contrasena VARCHAR(50)
+  , p_Contrasena VARCHAR(50)
   , p_UsuarioUltimaModificacion INT
 )
 BEGIN
@@ -2105,6 +2105,22 @@ VALUES
 );
 
 CALL IMVE.TbPersonasAgregar(
+    '101110222'
+    ,'Admin'
+    ,'IMVE'
+    ,''
+    ,''
+    ,0
+    ,''
+    ,NULL
+    ,''
+    ,''
+    ,'gmolinac@outlook.com'
+    ,'M'
+    , 1
+);
+
+CALL IMVE.TbPersonasAgregar(
     '304540214'
     ,'Gilbert'
     ,'Molina'
@@ -2115,6 +2131,22 @@ CALL IMVE.TbPersonasAgregar(
     ,NULL
     ,'40335942'
     ,'86073518'
+    ,'gmolinac@outlook.com'
+    ,'M'
+    , 1
+);
+
+CALL IMVE.TbPersonasAgregar(
+    '303030311'
+    ,'Antonio'
+    ,'Molina'
+    ,'Rojas'
+    ,'1970-11-08'
+    ,251
+    ,'300mts sur del estadio de Paraíso'
+    ,NULL
+    ,'40335942'
+    ,'87566245'
     ,'gmolinac@outlook.com'
     ,'M'
     , 1
@@ -2136,38 +2168,29 @@ CALL IMVE.TbPersonasAgregar(
     , 1
 );
 
-CALL IMVE.TbPersonasAgregar(
-    '303820995'
-    ,'Dennis'
-    ,'Centeno'
-    ,'Lizano'
-    ,'1982-09-24'
-    ,251
-    ,'Urb. Colinas del Sur'
-    ,NULL
-    ,'88720661'
-    ,'88470655'
-    ,'decenteno@hotmail.com'
-    ,'M'
-    , 1
-);
-
 CALL IMVE.TbUsuariosAgregar(
     1
     , 1
-    ,'7c62f7e9b440e2232437218732d350971d066d5c' -- gmolina
+    ,'8cb2237d0679ca88db6464eac60da96345513964' -- gmolina
     , 1
 );
 
 CALL IMVE.TbUsuariosAgregar(
     2
     , 1
-    ,'07d7ae0f3696ffb5440182547e727fde697cf18e' -- amolina
+    ,'7c62f7e9b440e2232437218732d350971d066d5c' -- gmolina
     , 1
 );
 
 CALL IMVE.TbUsuariosAgregar(
     3
+    , 1
+    ,'07d7ae0f3696ffb5440182547e727fde697cf18e' -- amolina
+    , 1
+);
+
+CALL IMVE.TbUsuariosAgregar(
+    4
     , 1
     ,'1d8f9d01ef2048edc4b7e0ead5dac0f84a15d2fd' -- scastrillo
     , 1
@@ -2191,14 +2214,14 @@ CALL IMVE.TbTiposRelacionesAgregar(
 
 CALL IMVE.TbTiposRelacionesPersonasAgregar(
     2
+    , 3
     , 2
-    , 1
     , 1
 );
 
 CALL IMVE.TbTiposRelacionesPersonasAgregar(
     2
-    , 3
-    , 1
+    , 4
+    , 2
     , 1
 );
