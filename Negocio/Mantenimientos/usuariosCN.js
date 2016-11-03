@@ -12,10 +12,10 @@ function UsuariosOnLoad(){
 // Función que se ejecuta al cargar la pagina de usuarios detalle
 function UsuariosDetalleOnLoad(){
     UsuariosCargarPersonasListadoComboBox();
-    UsuariosCargarRoles();
+    UsuariosCargarRolesComboBox();
 }
 
-// Función para obtener todos las personas registradas en el sistema
+// Función para obtener todos las personas
 function UsuariosCargarPersonasListado()
 {
     // Se define el action que será consultado desde la clase de acceso a datos
@@ -32,7 +32,7 @@ function UsuariosCargarPersonasListado()
     })
 }
 
-// Función para obtener todos las personas registradas en el sistema
+// Función para obtener todos las personas
 function UsuariosCargarPersonasListadoComboBox()
 {
     // Se define el action que será consultado desde la clase de acceso a datos
@@ -49,11 +49,11 @@ function UsuariosCargarPersonasListadoComboBox()
     })
 }
 
-// Función para obtener todos los roles activos registrados en el sistema
-function UsuariosCargarRoles()
+// Función para obtener todos los roles activos
+function UsuariosCargarRolesComboBox()
 {
     // Se define el action que será consultado desde la clase de acceso a datos
-    var d = "action=obtenerListadoRolesActivos";
+    var d = "action=obtenerListadoRolesActivosCombobox";
 
     // Enviar por Ajax a rolesUsuariosCAD.php
     $.ajax({
@@ -66,7 +66,7 @@ function UsuariosCargarRoles()
     })
 }
 
-// Función para registrar usuario en el sistema
+// Función para registrar usuario
 function UsuariosRegistrarUsuario()
 {
     var idPersona           = $('#cboIdPersona').val();

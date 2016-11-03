@@ -36,7 +36,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonas') {
     }
 }
 
-// Obtiene el listado de personas del sistema para insertarlos en un ComboBox
+// Obtiene el listado de personas que no tienen usuario, para insertarlos en un ComboBox
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasCombobox') {
     try {
         $sql          = "CALL TbPersonasListarSinUsuario()";

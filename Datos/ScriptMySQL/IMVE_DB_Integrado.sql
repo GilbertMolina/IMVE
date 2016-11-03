@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbPaises` (
   `IdPais` INT NOT NULL AUTO_INCREMENT,
   `Descripcion` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`IdPais`))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbProvincias` (
   `Descripcion` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`IdProvincia`, `IdPais`),
   INDEX `fk_TbProvincias_TbPaises1_idx` (`IdPais` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -65,8 +65,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbCantones` (
   `Descripcion` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`IdCanton`, `IdProvincia`, `IdPais`),
   INDEX `fk_TbCantones_TbProvincias1_idx` (`IdProvincia` ASC, `IdPais` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -82,8 +82,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbCategorias` (
   `Activo` CHAR(1) NOT NULL,
   PRIMARY KEY (`IdCategoria`),
   UNIQUE INDEX `Descripcion_UNIQUE` (`Descripcion` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -99,8 +99,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbCategoriasGrupos` (
   `Activo` CHAR(1) NOT NULL,
   PRIMARY KEY (`IdCategoriaGrupo`),
   UNIQUE INDEX `Descripcion_UNIQUE` (`Descripcion` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -116,8 +116,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbDistritos` (
   `Descripcion` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`IdDistrito`, `IdCanton`, `IdProvincia`, `IdPais`),
   INDEX `fk_TbDistritos_TbCantones1_idx` (`IdCanton` ASC, `IdProvincia` ASC, `IdPais` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -145,8 +145,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbPersonas` (
   PRIMARY KEY (`IdPersona`),
   UNIQUE INDEX `Cedula_UNIQUE` (`Identificacion` ASC),
   INDEX `fk_TbPersonas_TbDistritos1_idx` (`IdDistrito` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -161,8 +161,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbCategoriasPersonas` (
   `FechaUltimaModificacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`IdCategoria`, `IdPersona`),
   INDEX `fk_TbCategoriasPersonas_TbPersonas1_idx` (`IdPersona` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -178,8 +178,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbMinisterios` (
   `Activo` CHAR(1) NOT NULL,
   PRIMARY KEY (`IdMinisterio`),
   UNIQUE INDEX `Descripcion_UNIQUE` (`Descripcion` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -195,8 +195,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbTiposCompromisos` (
   `Activo` CHAR(1) NOT NULL,
   PRIMARY KEY (`IdTipoCompromiso`),
   UNIQUE INDEX `Descripcion_UNIQUE` (`Descripcion` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -218,8 +218,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbCompromisos` (
   PRIMARY KEY (`IdCompromiso`),
   INDEX `fk_TbCompromisos_TbTiposCompromisos1_idx` (`IdTipoCompromiso` ASC),
   INDEX `fk_TbCompromisos_TbMinisterios1_idx` (`IdMinisterio` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -237,8 +237,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbGrupos` (
   PRIMARY KEY (`IdGrupo`),
   UNIQUE INDEX `Descripcion_UNIQUE` (`Descripcion` ASC),
   INDEX `fk_TbGrupos_TbCategoriasGrupos1_idx` (`IdCategoriaGrupo` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -258,8 +258,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbGruposPersonas` (
   PRIMARY KEY (`IdGrupoPersona`),
   INDEX `fk_TbGruposPersonas_TbGrupos1_idx` (`IdGrupo` ASC),
   INDEX `fk_TbGruposPersonas_TbPersonas1_idx` (`IdPersona` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -274,8 +274,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbParticipantesCompromisos` (
   `FechaUltimaModificacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`IdPersona`, `IdCompromiso`),
   INDEX `fk_TbParticipantesCompromisos_TbCompromisos1_idx` (`IdCompromiso` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -293,8 +293,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbVisitas` (
   `Cerrada` CHAR(1) NOT NULL,
   PRIMARY KEY (`IdVisita`),
   INDEX `fk_TbVisitas_TbMinisterios1_idx` (`IdMinisterio` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -309,8 +309,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbPersonasVisitas` (
   `FechaUltimaModificacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`IdVisita`, `IdPersona`),
   INDEX `fk_TbPersonasVisitas_TbPersonas1_idx` (`IdPersona` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -325,8 +325,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbResponsablesCompromisos` (
   `FechaUltimaModificacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`IdPersona`, `IdCompromiso`),
   INDEX `fk_TbResponsablesCompromisos_TbCompromisos1_idx` (`IdCompromiso` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -342,8 +342,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbRolesUsuarios` (
   `Activo` CHAR(1) NOT NULL,
   PRIMARY KEY (`IdRolUsuario`),
   UNIQUE INDEX `Descripcion_UNIQUE` (`Descripcion` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -359,8 +359,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbTiposSeguimientos` (
   `Activo` CHAR(1) NOT NULL,
   PRIMARY KEY (`IdTipoSeguimiento`),
   UNIQUE INDEX `Descripcion_UNIQUE` (`Descripcion` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -386,8 +386,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbSeguimientos` (
   INDEX `fk_TbSeguimientos_TbMinisterios1_idx` (`IdMinisterio` ASC),
   INDEX `fk_TbSeguimientos_TbTiposSeguimientos1_idx` (`IdTipoSeguimiento` ASC),
   INDEX `fk_TbSeguimientos_TbPersonas1_idx` (`IdPersonaResponsable` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -408,8 +408,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbTiposRelaciones` (
   UNIQUE INDEX `NombreFemenino_UNIQUE` (`NombreFemenino` ASC),
   UNIQUE INDEX `NombreInversoMasculino_UNIQUE` (`NombreInversoMasculino` ASC),
   UNIQUE INDEX `NombreInversoFemenino_UNIQUE` (`NombreInversoFemenino` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -427,8 +427,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbTiposRelacionesPersonas` (
   INDEX `fk_TbTiposRelacionesPersonas_TbPersonas1_idx` (`IdPersonaRelacionado1` ASC),
   INDEX `fk_TbTiposRelacionesPersonas_TbPersonas2_idx` (`IdPersonaRelacionado2` ASC),
   INDEX `fk_TbTiposRelacionesPersonas_TbPersonas1_idx1` (`IdPersonaRelacionado2` ASC, `IdPersonaRelacionado1` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -445,8 +445,8 @@ CREATE TABLE IF NOT EXISTS `IMVE`.`TbUsuarios` (
   `Activo` CHAR(1) NOT NULL,
   PRIMARY KEY (`IdPersona`),
   INDEX `fk_TbUsuarios_TbRolesUsuarios1_idx` (`IdRolUsuario` ASC))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = MyISAM
+  DEFAULT CHARACTER SET = utf8;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
@@ -461,29 +461,29 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 DROP VIEW IF EXISTS IMVE.RelacionesFamiliares;
 
 CREATE VIEW IMVE.RelacionesFamiliares AS
-SELECT P1.IdPersona
-	, TRP.IdTipoRelacion
-    , CASE P1.Sexo WHEN 'M' THEN TR.NombreMasculino WHEN 'F' THEN TR.NombreFemenino END AS 'TipoRelacion'
-	, CONCAT(P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2,' es ',CASE P1.Sexo WHEN 'M' THEN LOWER(TR.NombreMasculino) WHEN 'F' THEN LOWER(TR.NombreFemenino) END,' de ',P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2) AS 'Relacion'
-FROM IMVE.TbTiposRelacionesPersonas AS TRP
-INNER JOIN IMVE.TbTiposRelaciones AS TR
-  ON TRP.IdTipoRelacion = TR.IdTipoRelacion
-INNER JOIN IMVE.TbPersonas AS P1
-  ON P1.IdPersona = TRP.IdPersonaRelacionado1
-INNER JOIN IMVE.TbPersonas AS P2
-  ON P2.IdPersona = TRP.IdPersonaRelacionado2
-UNION ALL
-SELECT P2.IdPersona
+  SELECT P1.IdPersona
     , TRP.IdTipoRelacion
-	, CASE P2.Sexo WHEN 'M' THEN TR.NombreInversoMasculino WHEN 'F' THEN TR.NombreInversoFemenino END AS 'TipoRelacion'
-	, CONCAT(P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2,' es ',CASE P2.Sexo WHEN 'M' THEN LOWER(TR.NombreInversoMasculino) WHEN 'F' THEN LOWER(TR.NombreInversoFemenino) END,' de ',P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2) AS 'Relacion'
-FROM IMVE.TbTiposRelacionesPersonas AS TRP
-INNER JOIN IMVE.TbTiposRelaciones AS TR
-  ON TRP.IdTipoRelacion = TR.IdTipoRelacion
-INNER JOIN IMVE.TbPersonas AS P1
-  ON P1.IdPersona = TRP.IdPersonaRelacionado1
-INNER JOIN IMVE.TbPersonas AS P2
-  ON P2.IdPersona = TRP.IdPersonaRelacionado2;
+    , CASE P1.Sexo WHEN 'M' THEN TR.NombreMasculino WHEN 'F' THEN TR.NombreFemenino END AS 'TipoRelacion'
+    , CONCAT(P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2,' es ',CASE P1.Sexo WHEN 'M' THEN LOWER(TR.NombreMasculino) WHEN 'F' THEN LOWER(TR.NombreFemenino) END,' de ',P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2) AS 'Relacion'
+  FROM IMVE.TbTiposRelacionesPersonas AS TRP
+    INNER JOIN IMVE.TbTiposRelaciones AS TR
+      ON TRP.IdTipoRelacion = TR.IdTipoRelacion
+    INNER JOIN IMVE.TbPersonas AS P1
+      ON P1.IdPersona = TRP.IdPersonaRelacionado1
+    INNER JOIN IMVE.TbPersonas AS P2
+      ON P2.IdPersona = TRP.IdPersonaRelacionado2
+  UNION ALL
+  SELECT P2.IdPersona
+    , TRP.IdTipoRelacion
+    , CASE P2.Sexo WHEN 'M' THEN TR.NombreInversoMasculino WHEN 'F' THEN TR.NombreInversoFemenino END AS 'TipoRelacion'
+    , CONCAT(P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2,' es ',CASE P2.Sexo WHEN 'M' THEN LOWER(TR.NombreInversoMasculino) WHEN 'F' THEN LOWER(TR.NombreInversoFemenino) END,' de ',P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2) AS 'Relacion'
+  FROM IMVE.TbTiposRelacionesPersonas AS TRP
+    INNER JOIN IMVE.TbTiposRelaciones AS TR
+      ON TRP.IdTipoRelacion = TR.IdTipoRelacion
+    INNER JOIN IMVE.TbPersonas AS P1
+      ON P1.IdPersona = TRP.IdPersonaRelacionado1
+    INNER JOIN IMVE.TbPersonas AS P2
+      ON P2.IdPersona = TRP.IdPersonaRelacionado2;
 
 -- -----------------------------------------------------------------------------
 -- CREACIÓN PROCEDIMIENTOS ALMACENADOS
@@ -494,26 +494,26 @@ DROP PROCEDURE IF EXISTS IMVE.TbDistritosListarDistritosCantonesProvincias;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbDistritosListarDistritosCantonesProvincias()
-BEGIN
+  BEGIN
 
-SELECT P.Descripcion AS Pais 
-	, PR.Descripcion AS Provincia
-	, C.Descripcion AS Canton
-	, D.Descripcion AS Distrito
-	, CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion) AS Direccion
-FROM IMVE.TbPaises AS P
-INNER JOIN IMVE.TbProvincias AS PR 
-  ON PR.IdPais = P.IdPais
-INNER JOIN IMVE.TbCantones AS C 
-  ON C.IdProvincia = PR.IdProvincia
-  AND C.IdPais = PR.IdPais
-INNER JOIN IMVE.TbDistritos AS D 
-  ON D.IdCanton = C.IdCanton
-  AND D.IdProvincia = C.IdProvincia
-  AND D.IdPais = C.IdPais
-ORDER BY D.IdDistrito;
+    SELECT P.Descripcion AS Pais
+      , PR.Descripcion AS Provincia
+      , C.Descripcion AS Canton
+      , D.Descripcion AS Distrito
+      , CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion) AS Direccion
+    FROM IMVE.TbPaises AS P
+      INNER JOIN IMVE.TbProvincias AS PR
+        ON PR.IdPais = P.IdPais
+      INNER JOIN IMVE.TbCantones AS C
+        ON C.IdProvincia = PR.IdProvincia
+           AND C.IdPais = PR.IdPais
+      INNER JOIN IMVE.TbDistritos AS D
+        ON D.IdCanton = C.IdCanton
+           AND D.IdProvincia = C.IdProvincia
+           AND D.IdPais = C.IdPais
+    ORDER BY D.IdDistrito;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbProvinciasListar
@@ -521,21 +521,21 @@ DROP PROCEDURE IF EXISTS IMVE.TbProvinciasListar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbProvinciasListar()
-BEGIN
+  BEGIN
 
-DECLARE v_IdPais INT;
+    DECLARE v_IdPais INT;
 
-SELECT IdPais INTO @v_IdPais
-FROM IMVE.TbPaises
-WHERE Descripcion = 'Costa Rica';
+    SELECT IdPais INTO @v_IdPais
+    FROM IMVE.TbPaises
+    WHERE Descripcion = 'Costa Rica';
 
-SELECT IdProvincia
-	, Descripcion
-FROM IMVE.TbProvincias
-WHERE IdPais = @v_IdPais
-ORDER BY IdProvincia;
+    SELECT IdProvincia
+      , Descripcion
+    FROM IMVE.TbProvincias
+    WHERE IdPais = @v_IdPais
+    ORDER BY IdProvincia;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbCantonesListarFiltrado
@@ -543,24 +543,24 @@ DROP PROCEDURE IF EXISTS IMVE.TbCantonesListarFiltrado;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbCantonesListarFiltrado(
-	p_IdProvincia INT
+  p_IdProvincia INT
 )
-BEGIN
+  BEGIN
 
-DECLARE v_IdPais INT;
+    DECLARE v_IdPais INT;
 
-SELECT IdPais INTO @v_IdPais
-FROM IMVE.TbPaises
-WHERE Descripcion = 'Costa Rica';
+    SELECT IdPais INTO @v_IdPais
+    FROM IMVE.TbPaises
+    WHERE Descripcion = 'Costa Rica';
 
-SELECT IdCanton
-	, Descripcion
-FROM IMVE.TbCantones
-WHERE IdPais = @v_IdPais
-  AND IdProvincia = p_IdProvincia
-ORDER BY IdCanton;
+    SELECT IdCanton
+      , Descripcion
+    FROM IMVE.TbCantones
+    WHERE IdPais = @v_IdPais
+          AND IdProvincia = p_IdProvincia
+    ORDER BY IdCanton;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbDistritosListarFiltrado
@@ -568,26 +568,26 @@ DROP PROCEDURE IF EXISTS IMVE.TbDistritosListarFiltrado;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbDistritosListarFiltrado(
-	p_IdProvincia INT
-	, p_IdCanton INT
+    p_IdProvincia INT
+  , p_IdCanton INT
 )
-BEGIN
+  BEGIN
 
-DECLARE v_IdPais INT;
+    DECLARE v_IdPais INT;
 
-SELECT IdPais INTO @v_IdPais
-FROM IMVE.TbPaises
-WHERE Descripcion = 'Costa Rica';
+    SELECT IdPais INTO @v_IdPais
+    FROM IMVE.TbPaises
+    WHERE Descripcion = 'Costa Rica';
 
-SELECT IdDistrito
-	, Descripcion
-FROM IMVE.TbDistritos
-WHERE IdPais = @v_IdPais
-	AND IdProvincia = p_IdProvincia
-	AND IdCanton = p_IdCanton
-ORDER BY IdDistrito;
+    SELECT IdDistrito
+      , Descripcion
+    FROM IMVE.TbDistritos
+    WHERE IdPais = @v_IdPais
+          AND IdProvincia = p_IdProvincia
+          AND IdCanton = p_IdCanton
+    ORDER BY IdDistrito;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbUsuariosListar
@@ -595,23 +595,23 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosListar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosListar()
-BEGIN
+  BEGIN
 
-SELECT P.IdPersona
-	, P.Identificacion
-	, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
-    , RU.Descripcion
-    , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-FROM TbUsuarios AS U
-INNER JOIN TbPersonas AS P
-	ON U.IdPersona = P.IdPersona
-INNER JOIN TbRolesUsuarios AS RU
-	ON U.IdRolUsuario = RU.IdRolUsuario
-WHERE U.Activo = 'A'
-	AND P.Activo = 'A'
-ORDER BY NombreCompleto;
+    SELECT P.IdPersona
+      , P.Identificacion
+      , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+      , RU.Descripcion
+      , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+    FROM TbUsuarios AS U
+      INNER JOIN TbPersonas AS P
+        ON U.IdPersona = P.IdPersona
+      INNER JOIN TbRolesUsuarios AS RU
+        ON U.IdRolUsuario = RU.IdRolUsuario
+    WHERE U.Activo = 'A'
+          AND P.Activo = 'A'
+    ORDER BY NombreCompleto;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbUsuariosIniciarSesion
@@ -619,31 +619,31 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosIniciarSesion;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosIniciarSesion(
-	p_Identificacion VARCHAR(30)
-    , p_Contrasena VARCHAR(50)
+    p_Identificacion VARCHAR(30)
+  , p_Contrasena VARCHAR(50)
 )
-BEGIN
+  BEGIN
 
-SELECT P.IdPersona
-	, P.Identificacion
-    , CONCAT(P.Nombre,' ',P.Apellido1,' ', P.Apellido2) AS NombreCompleto
-    , P.Sexo
-    , U.Contrasena
-    , RU.IdRolUsuario
-    , RU.Descripcion AS 'Rol'
-FROM IMVE.TbPersonas AS P
-INNER JOIN IMVE.TbUsuarios AS U
-	ON P.IdPersona = U.IdPersona
-INNER JOIN IMVE.TbRolesUsuarios AS RU
-	ON U.IdRolUsuario = RU.IdRolUsuario
-WHERE P.Identificacion = p_Identificacion
-	AND U.Contrasena = p_Contrasena
-    AND RU.Descripcion = 'Administrador'
-    AND P.Activo = 'A'
-    AND U.Activo = 'A'
-    AND RU.Activo = 'A';
-    
-END //
+    SELECT P.IdPersona
+      , P.Identificacion
+      , CONCAT(P.Nombre,' ',P.Apellido1,' ', P.Apellido2) AS NombreCompleto
+      , P.Sexo
+      , U.Contrasena
+      , RU.IdRolUsuario
+      , RU.Descripcion AS 'Rol'
+    FROM IMVE.TbPersonas AS P
+      INNER JOIN IMVE.TbUsuarios AS U
+        ON P.IdPersona = U.IdPersona
+      INNER JOIN IMVE.TbRolesUsuarios AS RU
+        ON U.IdRolUsuario = RU.IdRolUsuario
+    WHERE P.Identificacion = p_Identificacion
+          AND U.Contrasena = p_Contrasena
+          AND RU.Descripcion = 'Administrador'
+          AND P.Activo = 'A'
+          AND U.Activo = 'A'
+          AND RU.Activo = 'A';
+
+  END //
 DELIMITER ;
 
 -- TbUsuariosSolicitarDatos
@@ -651,23 +651,23 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosSolicitarDatos;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosSolicitarDatos(
-	p_Identificacion VARCHAR(30)
+  p_Identificacion VARCHAR(30)
 )
-BEGIN
+  BEGIN
 
-SELECT P.IdPersona
-	, P.Identificacion
-    , CONCAT(P.Nombre,' ',P.Apellido1,' ', P.Apellido2) AS NombreCompleto
-    , P.Correo
-    , P.Sexo
-FROM IMVE.TbPersonas AS P
-INNER JOIN IMVE.TbUsuarios AS U
-	ON P.IdPersona = U.IdPersona
-WHERE P.Identificacion = p_Identificacion
-    AND P.Activo = 'A'
-    AND U.Activo = 'A';
-    
-END //
+    SELECT P.IdPersona
+      , P.Identificacion
+      , CONCAT(P.Nombre,' ',P.Apellido1,' ', P.Apellido2) AS NombreCompleto
+      , P.Correo
+      , P.Sexo
+    FROM IMVE.TbPersonas AS P
+      INNER JOIN IMVE.TbUsuarios AS U
+        ON P.IdPersona = U.IdPersona
+    WHERE P.Identificacion = p_Identificacion
+          AND P.Activo = 'A'
+          AND U.Activo = 'A';
+
+  END //
 DELIMITER ;
 
 -- TbUsuariosCambiarContrasena
@@ -675,21 +675,21 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosCambiarContrasena;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosCambiarContrasena(
-	p_IdPersona INT
-    , p_Contrasena VARCHAR(50)
+    p_IdPersona INT
+  , p_Contrasena VARCHAR(50)
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbUsuarios
-SET Contrasena = p_Contrasena
-	, UsuarioUltimaModificacion = p_IdPersona
-	, FechaUltimaModificacion = CURRENT_TIMESTAMP()
-WHERE IdPersona = p_IdPersona
-	AND Activo = 'A';
+    UPDATE IMVE.TbUsuarios
+    SET Contrasena = p_Contrasena
+      , UsuarioUltimaModificacion = p_IdPersona
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    WHERE IdPersona = p_IdPersona
+          AND Activo = 'A';
 
-SELECT p_IdPersona AS Id;
-    
-END //
+    SELECT p_IdPersona AS Id;
+
+  END //
 DELIMITER ;
 
 -- TbUsuariosAgregar
@@ -697,34 +697,34 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosAgregar(
-	p_IdPersona INT
-	, p_IdRolUsuario INT
-	, p_Contrasena VARCHAR(50)
-	, p_UsuarioUltimaModificacion INT
+    p_IdPersona INT
+  , p_IdRolUsuario INT
+  , p_Contrasena VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-INSERT INTO IMVE.TbUsuarios(
-	IdPersona
-    , IdRolUsuario
-    , Contrasena
-    , UsuarioUltimaModificacion
-    , FechaUltimaModificacion
-    , Activo
-)
-VALUES
-(
-  p_IdPersona
-    , p_IdRolUsuario
-    , p_Contrasena
-    , p_UsuarioUltimaModificacion
-    , CURRENT_TIMESTAMP()
-    , 'A'
-);
+    INSERT INTO IMVE.TbUsuarios(
+      IdPersona
+      , IdRolUsuario
+      , Contrasena
+      , UsuarioUltimaModificacion
+      , FechaUltimaModificacion
+      , Activo
+    )
+    VALUES
+      (
+        p_IdPersona
+        , p_IdRolUsuario
+        , p_Contrasena
+        , p_UsuarioUltimaModificacion
+        , CURRENT_TIMESTAMP()
+        , 'A'
+      );
 
-SELECT LAST_INSERT_ID() AS Id;
-    
-END //
+    SELECT LAST_INSERT_ID() AS Id;
+
+  END //
 DELIMITER ;
 
 -- TbUsuariosModificar
@@ -732,50 +732,50 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosModificar(
-	p_IdPersona INT
-	, p_Identificacion VARCHAR(30)
-    , p_Nombre VARCHAR(20)
-    , p_Apellido1 VARCHAR(20)
-    , p_Apellido2 VARCHAR(20)
-    , p_FechaNacimiento DATETIME
-    , p_IdDistrito INT
-    , p_DireccionDomicilio VARCHAR(250)
-    , p_Foto LONGBLOB
-    , p_Telefono VARCHAR(10)
-    , p_Celular VARCHAR(10)
-    , p_Correo VARCHAR(50)
-    , p_Sexo CHAR(1)
-    , p_Contrasena VARCHAR(50)
-    , p_UsuarioUltimaModificacion INT
-    , p_Activo CHAR(1)
+    p_IdPersona INT
+  , p_Identificacion VARCHAR(30)
+  , p_Nombre VARCHAR(20)
+  , p_Apellido1 VARCHAR(20)
+  , p_Apellido2 VARCHAR(20)
+  , p_FechaNacimiento DATETIME
+  , p_IdDistrito INT
+  , p_DireccionDomicilio VARCHAR(250)
+  , p_Foto LONGBLOB
+  , p_Telefono VARCHAR(10)
+  , p_Celular VARCHAR(10)
+  , p_Correo VARCHAR(50)
+  , p_Sexo CHAR(1)
+  , p_Contrasena VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
+  , p_Activo CHAR(1)
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbPersonas
-SET Identificacion = p_Identificacion
-    , Nombre = p_Nombre
-    , Apellido1 = p_Apellido1
-    , Apellido2 = p_Apellido2
-    , FechaNacimiento = p_FechaNacimiento
-    , IdDistrito = p_IdDistrito
-    , DireccionDomicilio = p_DireccionDomicilio
-    , Foto = p_Foto
-    , Telefono = p_Telefono
-    , Celular = p_Celular
-    , Correo = p_Correo
-    , Sexo = p_Sexo
-    , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-    , Activo = p_Activo
-WHERE IdPersona = p_IdPersona;
+    UPDATE IMVE.TbPersonas
+    SET Identificacion = p_Identificacion
+      , Nombre = p_Nombre
+      , Apellido1 = p_Apellido1
+      , Apellido2 = p_Apellido2
+      , FechaNacimiento = p_FechaNacimiento
+      , IdDistrito = p_IdDistrito
+      , DireccionDomicilio = p_DireccionDomicilio
+      , Foto = p_Foto
+      , Telefono = p_Telefono
+      , Celular = p_Celular
+      , Correo = p_Correo
+      , Sexo = p_Sexo
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+      , Activo = p_Activo
+    WHERE IdPersona = p_IdPersona;
 
-UPDATE IMVE.TbUsuarios
-SET Contrasena = p_Contrasena
-    , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-WHERE IdPersona = p_IdPersona;
-    
-END //
+    UPDATE IMVE.TbUsuarios
+    SET Contrasena = p_Contrasena
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    WHERE IdPersona = p_IdPersona;
+
+  END //
 DELIMITER ;
 
 -- TbUsuariosDesactivar
@@ -783,18 +783,54 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosDesactivar(
-	p_IdPersona INT
-    , p_UsuarioUltimaModificacion INT
+    p_IdPersona INT
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbUsuarios
-SET Activo = 'I'
-    , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-WHERE IdPersona = p_IdPersona;
-    
-END //
+    UPDATE IMVE.TbUsuarios
+    SET Activo = 'I'
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    WHERE IdPersona = p_IdPersona;
+
+  END //
+DELIMITER ;
+
+-- TbTiposRelacionesListar
+DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesListar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbTiposRelacionesListar()
+  BEGIN
+
+    SELECT IdTipoRelacion
+      , NombreMasculino
+      , NombreFemenino
+      , NombreInversoMasculino
+      , NombreInversoFemenino
+    FROM IMVE.TbTiposRelaciones;
+
+  END //
+DELIMITER ;
+
+-- TbTiposRelacionesPersonasListarPorPersona
+DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesPersonasListarPorPersona;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbTiposRelacionesPersonasListarPorPersona(
+  p_IdPersona INT
+)
+  BEGIN
+
+    SELECT IdPersona
+      , IdTipoRelacion
+      , TipoRelacion
+      , Relacion
+    FROM IMVE.RelacionesFamiliares
+    WHERE IdPersona = p_IdPersona;
+
+  END //
 DELIMITER ;
 
 -- TbTiposRelacionesAgregar
@@ -802,35 +838,35 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposRelacionesAgregar(
-	p_NombreMasculino VARCHAR(20)
-    , p_NombreFemenino VARCHAR(20)
-    , p_NombreInversoMasculino VARCHAR(20)
-    , p_NombreInversoFemenino VARCHAR(20)
-    , p_UsuarioUltimaModificacion INT
+    p_NombreMasculino VARCHAR(20)
+  , p_NombreFemenino VARCHAR(20)
+  , p_NombreInversoMasculino VARCHAR(20)
+  , p_NombreInversoFemenino VARCHAR(20)
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-INSERT INTO IMVE.TbTiposRelaciones(
-	NombreMasculino
-    , NombreFemenino
-    , NombreInversoMasculino
-    , NombreInversoFemenino
-    , UsuarioUltimaModificacion
-    , FechaUltimaModificacion
-)
-VALUES
-(
-	p_NombreMasculino
-    , p_NombreFemenino
-    , p_NombreInversoMasculino
-    , p_NombreInversoFemenino
-    , p_UsuarioUltimaModificacion
-    , CURRENT_TIMESTAMP()
-);
+    INSERT INTO IMVE.TbTiposRelaciones(
+      NombreMasculino
+      , NombreFemenino
+      , NombreInversoMasculino
+      , NombreInversoFemenino
+      , UsuarioUltimaModificacion
+      , FechaUltimaModificacion
+    )
+    VALUES
+      (
+        p_NombreMasculino
+        , p_NombreFemenino
+        , p_NombreInversoMasculino
+        , p_NombreInversoFemenino
+        , p_UsuarioUltimaModificacion
+        , CURRENT_TIMESTAMP()
+      );
 
-SELECT LAST_INSERT_ID() AS Id;
+    SELECT LAST_INSERT_ID() AS Id;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbTiposRelacionesModificar
@@ -838,27 +874,27 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposRelacionesModificar(
-	p_IdTipoRelacion INT
-	, p_NombreMasculino VARCHAR(20)
-	, p_NombreFemenino VARCHAR(20)
-    , p_NombreInversoMasculino VARCHAR(20)
-    , p_NombreInversoFemenino VARCHAR(20)
-    , p_UsuarioUltimaModificacion INT
-    , p_Activo CHAR(1)
+    p_IdTipoRelacion INT
+  , p_NombreMasculino VARCHAR(20)
+  , p_NombreFemenino VARCHAR(20)
+  , p_NombreInversoMasculino VARCHAR(20)
+  , p_NombreInversoFemenino VARCHAR(20)
+  , p_UsuarioUltimaModificacion INT
+  , p_Activo CHAR(1)
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbTiposRelaciones
-SET NombreMasculino = p_NombreMasculino
-	, NombreFemenino = p_NombreFemenino
-    , NombreInversoMasculino = p_NombreInversoMasculino
-    , NombreInversoFemenino = p_NombreInversoFemenino
-    , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-    , Activo = p_Activo
-WHERE IdTipoRelacion = p_IdTipoRelacion;
-    
-END //
+    UPDATE IMVE.TbTiposRelaciones
+    SET NombreMasculino = p_NombreMasculino
+      , NombreFemenino = p_NombreFemenino
+      , NombreInversoMasculino = p_NombreInversoMasculino
+      , NombreInversoFemenino = p_NombreInversoFemenino
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+      , Activo = p_Activo
+    WHERE IdTipoRelacion = p_IdTipoRelacion;
+
+  END //
 DELIMITER ;
 
 -- TbTiposRelacionesPersonas
@@ -866,51 +902,32 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesPersonasAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposRelacionesPersonasAgregar(
-	p_IdTipoRelacion INT
-    , p_IdPersonaRelacionado1 INT
-    , p_IdPersonaRelacionado2 INT
-    , p_UsuarioUltimaModificacion INT
+    p_IdTipoRelacion INT
+  , p_IdPersonaRelacionado1 INT
+  , p_IdPersonaRelacionado2 INT
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-INSERT INTO IMVE.TbTiposRelacionesPersonas(
-	IdTipoRelacion
-    , IdPersonaRelacionado1
-    , IdPersonaRelacionado2
-    , UsuarioUltimaModificacion
-    , FechaUltimaModificacion
-)
-VALUES
-(
-	p_IdTipoRelacion
-    , p_IdPersonaRelacionado1
-    , p_IdPersonaRelacionado2
-    , p_UsuarioUltimaModificacion
-    , CURRENT_TIMESTAMP()
-);
+    INSERT INTO IMVE.TbTiposRelacionesPersonas(
+      IdTipoRelacion
+      , IdPersonaRelacionado1
+      , IdPersonaRelacionado2
+      , UsuarioUltimaModificacion
+      , FechaUltimaModificacion
+    )
+    VALUES
+      (
+        p_IdTipoRelacion
+        , p_IdPersonaRelacionado1
+        , p_IdPersonaRelacionado2
+        , p_UsuarioUltimaModificacion
+        , CURRENT_TIMESTAMP()
+      );
 
-SELECT LAST_INSERT_ID() AS Id;
+    SELECT LAST_INSERT_ID() AS Id;
 
-END //
-DELIMITER ;
-
--- TbTiposRelacionesPersonas
-DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesPersonasListarPorPersona;
-
-DELIMITER //
-CREATE PROCEDURE IMVE.TbTiposRelacionesPersonasListarPorPersona(
-	p_IdPersona INT
-)
-BEGIN
-
-SELECT IdPersona
-	, IdTipoRelacion
-	, TipoRelacion
-	, Relacion
-FROM IMVE.RelacionesFamiliares
-WHERE IdPersona = p_IdPersona;
-    
-END //
+  END //
 DELIMITER ;
 
 -- TbRolesUsuariosListar
@@ -918,15 +935,15 @@ DROP PROCEDURE IF EXISTS IMVE.TbRolesUsuariosListar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbRolesUsuariosListar()
-BEGIN
+  BEGIN
 
-SELECT IdRolUsuario
-	, Descripcion
-    , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-FROM IMVE.TbRolesUsuarios
-WHERE Activo = 'A';
-    
-END //
+    SELECT IdRolUsuario
+      , Descripcion
+      , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+    FROM IMVE.TbRolesUsuarios
+    WHERE Activo = 'A';
+
+  END //
 DELIMITER ;
 
 -- TbRolesUsuariosAgregar
@@ -934,28 +951,28 @@ DROP PROCEDURE IF EXISTS IMVE.TbRolesUsuariosAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbRolesUsuariosAgregar(
-	p_Descripcion VARCHAR(50)
-    , p_UsuarioUltimaModificacion INT
+    p_Descripcion VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-INSERT INTO IMVE.TbRolesUsuarios(
-	Descripcion
-    , UsuarioUltimaModificacion
-    , FechaUltimaModificacion
-    , Activo
-)
-VALUES
-(
-	p_Descripcion
-    , p_UsuarioUltimaModificacion
-    , CURRENT_TIMESTAMP()
-    , 'A'
-);
+    INSERT INTO IMVE.TbRolesUsuarios(
+      Descripcion
+      , UsuarioUltimaModificacion
+      , FechaUltimaModificacion
+      , Activo
+    )
+    VALUES
+      (
+        p_Descripcion
+        , p_UsuarioUltimaModificacion
+        , CURRENT_TIMESTAMP()
+        , 'A'
+      );
 
-SELECT LAST_INSERT_ID() AS Id;
+    SELECT LAST_INSERT_ID() AS Id;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbRolesUsuariosModificar
@@ -963,21 +980,21 @@ DROP PROCEDURE IF EXISTS IMVE.TbRolesUsuariosModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbRolesUsuariosModificar(
-	p_IdRolUsuario INT
-	, p_Descripcion VARCHAR(50)
-	, p_UsuarioUltimaModificacion INT
-    , p_Activo CHAR(1)
+    p_IdRolUsuario INT
+  , p_Descripcion VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
+  , p_Activo CHAR(1)
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbRolesUsuarios
-SET Descripcion = p_Descripcion
-	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-    , Activo = p_Activo
-WHERE IdRolUsuario = p_IdRolUsuario;
-    
-END //
+    UPDATE IMVE.TbRolesUsuarios
+    SET Descripcion = p_Descripcion
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+      , Activo = p_Activo
+    WHERE IdRolUsuario = p_IdRolUsuario;
+
+  END //
 DELIMITER ;
 
 -- TbRolesUsuariosDesactivar
@@ -985,18 +1002,18 @@ DROP PROCEDURE IF EXISTS IMVE.TbRolesUsuariosDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbRolesUsuariosDesactivar(
-	p_IdRolUsuario INT
-    , p_UsuarioUltimaModificacion INT
+    p_IdRolUsuario INT
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbRolesUsuarios
-SET Activo = 'I'
-	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-WHERE IdRolUsuario = p_IdRolUsuario;
-    
-END //
+    UPDATE IMVE.TbRolesUsuarios
+    SET Activo = 'I'
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    WHERE IdRolUsuario = p_IdRolUsuario;
+
+  END //
 DELIMITER ;
 
 -- TbCategoriasListar
@@ -1004,15 +1021,15 @@ DROP PROCEDURE IF EXISTS IMVE.TbCategoriasListar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbCategoriasListar()
-BEGIN
+  BEGIN
 
-SELECT IdCategoria
-	, Descripcion
-    , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-FROM IMVE.TbCategorias
-WHERE Activo = 'A';
-    
-END //
+    SELECT IdCategoria
+      , Descripcion
+      , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+    FROM IMVE.TbCategorias
+    WHERE Activo = 'A';
+
+  END //
 DELIMITER ;
 
 -- TbCategoriasAgregar
@@ -1020,28 +1037,28 @@ DROP PROCEDURE IF EXISTS IMVE.TbCategoriasAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbCategoriasAgregar(
-	p_Descripcion VARCHAR(50)
-    , p_UsuarioUltimaModificacion INT
+    p_Descripcion VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-INSERT INTO IMVE.TbCategorias(
-	Descripcion
-    , UsuarioUltimaModificacion
-    , FechaUltimaModificacion
-    , Activo
-)
-VALUES
-(
-	p_Descripcion
-    , p_UsuarioUltimaModificacion
-    , CURRENT_TIMESTAMP()
-    , 'A'
-);
+    INSERT INTO IMVE.TbCategorias(
+      Descripcion
+      , UsuarioUltimaModificacion
+      , FechaUltimaModificacion
+      , Activo
+    )
+    VALUES
+      (
+        p_Descripcion
+        , p_UsuarioUltimaModificacion
+        , CURRENT_TIMESTAMP()
+        , 'A'
+      );
 
-SELECT LAST_INSERT_ID() AS Id;
+    SELECT LAST_INSERT_ID() AS Id;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbCategoriasModificar
@@ -1049,21 +1066,21 @@ DROP PROCEDURE IF EXISTS IMVE.TbCategoriasModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbCategoriasModificar(
-	p_IdCategoria INT
-	, p_Descripcion VARCHAR(50)
-    , p_UsuarioUltimaModificacion INT
-    , p_Activo CHAR(1)
+    p_IdCategoria INT
+  , p_Descripcion VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
+  , p_Activo CHAR(1)
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbCategorias
-SET Descripcion = p_Descripcion
-	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-    , Activo = p_Activo
-WHERE IdCategoria = p_IdCategoria;
-    
-END //
+    UPDATE IMVE.TbCategorias
+    SET Descripcion = p_Descripcion
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+      , Activo = p_Activo
+    WHERE IdCategoria = p_IdCategoria;
+
+  END //
 DELIMITER ;
 
 -- TbCategoriasDesactivar
@@ -1071,18 +1088,104 @@ DROP PROCEDURE IF EXISTS IMVE.TbCategoriasDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbCategoriasDesactivar(
-	p_IdCategoria INT
-    , p_UsuarioUltimaModificacion INT
+    p_IdCategoria INT
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbCategorias
-SET Activo = 'I'
-	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-WHERE IdCategoria = p_IdCategoria;
-    
-END //
+    UPDATE IMVE.TbCategorias
+    SET Activo = 'I'
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    WHERE IdCategoria = p_IdCategoria;
+
+  END //
+DELIMITER ;
+
+-- TbCategoriasGruposListar
+DROP PROCEDURE IF EXISTS IMVE.TbCategoriasGruposListar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbCategoriasGruposListar()
+  BEGIN
+
+    SELECT IdCategoriaGrupo
+      , Descripcion
+      , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+    FROM IMVE.TbCategoriasGrupos
+    WHERE Activo = 'A';
+
+  END //
+DELIMITER ;
+
+-- TbCategoriasGruposAgregar
+DROP PROCEDURE IF EXISTS IMVE.TbCategoriasGruposAgregar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbCategoriasGruposAgregar(
+    p_Descripcion VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
+)
+  BEGIN
+
+    INSERT INTO IMVE.TbCategoriasGrupos(
+      Descripcion
+      , UsuarioUltimaModificacion
+      , FechaUltimaModificacion
+      , Activo
+    )
+    VALUES
+      (
+        p_Descripcion
+        , p_UsuarioUltimaModificacion
+        , CURRENT_TIMESTAMP()
+        , 'A'
+      );
+
+    SELECT LAST_INSERT_ID() AS Id;
+
+  END //
+DELIMITER ;
+
+-- TbCategoriasGruposModificar
+DROP PROCEDURE IF EXISTS IMVE.TbCategoriasGruposModificar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbCategoriasGruposModificar(
+    p_IdCategoriaGrupo INT
+  , p_Descripcion VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
+  , p_Activo CHAR(1)
+)
+  BEGIN
+
+    UPDATE IMVE.TbCategoriasGrupos
+    SET Descripcion = p_Descripcion
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+      , Activo = p_Activo
+    WHERE IdCategoriaGrupo = p_IdCategoriaGrupo;
+
+  END //
+DELIMITER ;
+
+-- TbCategoriasGruposDesactivar
+DROP PROCEDURE IF EXISTS IMVE.TbCategoriasGruposDesactivar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbCategoriasGruposDesactivar(
+    p_IdCategoriaGrupo INT
+  , p_UsuarioUltimaModificacion INT
+)
+  BEGIN
+
+    UPDATE IMVE.TbCategoriasGrupos
+    SET Activo = 'I'
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    WHERE IdCategoriaGrupo = p_IdCategoriaGrupo;
+
+  END //
 DELIMITER ;
 
 -- TbTiposCompromisosListar
@@ -1090,15 +1193,15 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposCompromisosListar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposCompromisosListar()
-BEGIN
+  BEGIN
 
-SELECT IdTipoCompromiso
-	, Descripcion
-    , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-FROM IMVE.TbTiposCompromisos
-WHERE Activo = 'A';
-    
-END //
+    SELECT IdTipoCompromiso
+      , Descripcion
+      , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+    FROM IMVE.TbTiposCompromisos
+    WHERE Activo = 'A';
+
+  END //
 DELIMITER ;
 
 -- TbTiposCompromisosAgregar
@@ -1106,28 +1209,28 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposCompromisosAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposCompromisosAgregar(
-	p_Descripcion VARCHAR(50)
-    , p_UsuarioUltimaModificacion INT
+    p_Descripcion VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-INSERT INTO IMVE.TbTiposCompromisos(
-	Descripcion
-    , UsuarioUltimaModificacion
-    , FechaUltimaModificacion
-    , Activo
-)
-VALUES
-(
-	p_Descripcion
-    , p_UsuarioUltimaModificacion
-    , CURRENT_TIMESTAMP()
-    , 'A'
-);
+    INSERT INTO IMVE.TbTiposCompromisos(
+      Descripcion
+      , UsuarioUltimaModificacion
+      , FechaUltimaModificacion
+      , Activo
+    )
+    VALUES
+      (
+        p_Descripcion
+        , p_UsuarioUltimaModificacion
+        , CURRENT_TIMESTAMP()
+        , 'A'
+      );
 
-SELECT LAST_INSERT_ID() AS Id;
+    SELECT LAST_INSERT_ID() AS Id;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbTiposCompromisosModificar
@@ -1135,21 +1238,21 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposCompromisosModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposCompromisosModificar(
-	p_IdTipoCompromiso INT
-	, p_Descripcion VARCHAR(50)
-    , p_UsuarioUltimaModificacion INT
-    , p_Activo CHAR(1)
+    p_IdTipoCompromiso INT
+  , p_Descripcion VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
+  , p_Activo CHAR(1)
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbTiposCompromisos
-SET Descripcion = p_Descripcion
-	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-    , Activo = p_Activo
-WHERE IdTipoCompromiso = p_IdTipoCompromiso;
-    
-END //
+    UPDATE IMVE.TbTiposCompromisos
+    SET Descripcion = p_Descripcion
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+      , Activo = p_Activo
+    WHERE IdTipoCompromiso = p_IdTipoCompromiso;
+
+  END //
 DELIMITER ;
 
 -- TbTiposCompromisosDesactivar
@@ -1157,18 +1260,18 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposCompromisosDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposCompromisosDesactivar(
-	p_IdTipoCompromiso INT
-    , p_UsuarioUltimaModificacion INT
+    p_IdTipoCompromiso INT
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbTiposCompromisos
-SET Activo = 'I'
-	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-WHERE IdTipoCompromiso = p_IdTipoCompromiso;
-    
-END //
+    UPDATE IMVE.TbTiposCompromisos
+    SET Activo = 'I'
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    WHERE IdTipoCompromiso = p_IdTipoCompromiso;
+
+  END //
 DELIMITER ;
 
 -- TbMinisteriosListar
@@ -1176,15 +1279,15 @@ DROP PROCEDURE IF EXISTS IMVE.TbMinisteriosListar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbMinisteriosListar()
-BEGIN
+  BEGIN
 
-SELECT IdMinisterio
-	, Descripcion
-	, CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-FROM IMVE.TbMinisterios
-WHERE Activo = 'A';
-    
-END //
+    SELECT IdMinisterio
+      , Descripcion
+      , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+    FROM IMVE.TbMinisterios
+    WHERE Activo = 'A';
+
+  END //
 DELIMITER ;
 
 -- TbMinisteriosAgregar
@@ -1192,28 +1295,28 @@ DROP PROCEDURE IF EXISTS IMVE.TbMinisteriosAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbMinisteriosAgregar(
-	p_Descripcion VARCHAR(50)
-    , p_UsuarioUltimaModificacion INT
+    p_Descripcion VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-INSERT INTO IMVE.TbMinisterios(
-	Descripcion
-    , UsuarioUltimaModificacion
-    , FechaUltimaModificacion
-    , Activo
-)
-VALUES
-(
-	p_Descripcion
-    , p_UsuarioUltimaModificacion
-    , CURRENT_TIMESTAMP()
-    , 'A'
-);
+    INSERT INTO IMVE.TbMinisterios(
+      Descripcion
+      , UsuarioUltimaModificacion
+      , FechaUltimaModificacion
+      , Activo
+    )
+    VALUES
+      (
+        p_Descripcion
+        , p_UsuarioUltimaModificacion
+        , CURRENT_TIMESTAMP()
+        , 'A'
+      );
 
-SELECT LAST_INSERT_ID() AS Id;
+    SELECT LAST_INSERT_ID() AS Id;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbMinisteriosModificar
@@ -1221,21 +1324,21 @@ DROP PROCEDURE IF EXISTS IMVE.TbMinisteriosModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbMinisteriosModificar(
-	p_IdMinisterio INT
-	, p_Descripcion VARCHAR(50)
-    , p_UsuarioUltimaModificacion INT
-    , p_Activo CHAR(1)
+    p_IdMinisterio INT
+  , p_Descripcion VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
+  , p_Activo CHAR(1)
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbMinisterios
-SET Descripcion = p_Descripcion
-	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-    , Activo = p_Activo
-WHERE IdMinisterio = p_IdMinisterio;
-    
-END //
+    UPDATE IMVE.TbMinisterios
+    SET Descripcion = p_Descripcion
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+      , Activo = p_Activo
+    WHERE IdMinisterio = p_IdMinisterio;
+
+  END //
 DELIMITER ;
 
 -- TbMinisteriosDesactivar
@@ -1243,18 +1346,18 @@ DROP PROCEDURE IF EXISTS IMVE.TbMinisteriosDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbMinisteriosDesactivar(
-	p_IdMinisterio INT
-    , p_UsuarioUltimaModificacion INT
+    p_IdMinisterio INT
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbMinisterios
-SET Activo = 'I'
-	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-WHERE IdMinisterio = p_IdMinisterio;
-    
-END //
+    UPDATE IMVE.TbMinisterios
+    SET Activo = 'I'
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    WHERE IdMinisterio = p_IdMinisterio;
+
+  END //
 DELIMITER ;
 
 -- TbTiposSeguimientosListar
@@ -1262,15 +1365,15 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposSeguimientosListar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposSeguimientosListar()
-BEGIN
+  BEGIN
 
-SELECT IdTipoSeguimiento
-	, Descripcion
-    , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-FROM IMVE.TbTiposSeguimientos
-WHERE Activo = 'A';
-    
-END //
+    SELECT IdTipoSeguimiento
+      , Descripcion
+      , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+    FROM IMVE.TbTiposSeguimientos
+    WHERE Activo = 'A';
+
+  END //
 DELIMITER ;
 
 -- TbTiposSeguimientosAgregar
@@ -1278,28 +1381,28 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposSeguimientosAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposSeguimientosAgregar(
-	p_Descripcion VARCHAR(50)
-    , p_UsuarioUltimaModificacion INT
+    p_Descripcion VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-INSERT INTO IMVE.TbTiposSeguimientos(
-	Descripcion
-    , UsuarioUltimaModificacion
-    , FechaUltimaModificacion
-    , Activo
-)
-VALUES
-(
-	p_Descripcion
-    , p_UsuarioUltimaModificacion
-    , CURRENT_TIMESTAMP()
-    , 'A'
-);
+    INSERT INTO IMVE.TbTiposSeguimientos(
+      Descripcion
+      , UsuarioUltimaModificacion
+      , FechaUltimaModificacion
+      , Activo
+    )
+    VALUES
+      (
+        p_Descripcion
+        , p_UsuarioUltimaModificacion
+        , CURRENT_TIMESTAMP()
+        , 'A'
+      );
 
-SELECT LAST_INSERT_ID() AS Id;
+    SELECT LAST_INSERT_ID() AS Id;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbTiposSeguimientosModificar
@@ -1307,21 +1410,21 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposSeguimientosModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposSeguimientosModificar(
-	p_IdTipoSeguimiento INT
-	, p_Descripcion VARCHAR(50)
-    , p_UsuarioUltimaModificacion INT
-    , p_Activo CHAR(1)
+    p_IdTipoSeguimiento INT
+  , p_Descripcion VARCHAR(50)
+  , p_UsuarioUltimaModificacion INT
+  , p_Activo CHAR(1)
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbTiposSeguimientos
-SET Descripcion = p_Descripcion
-	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-    , Activo = p_Activo
-WHERE IdTipoSeguimiento = p_IdTipoSeguimiento;
-    
-END //
+    UPDATE IMVE.TbTiposSeguimientos
+    SET Descripcion = p_Descripcion
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+      , Activo = p_Activo
+    WHERE IdTipoSeguimiento = p_IdTipoSeguimiento;
+
+  END //
 DELIMITER ;
 
 -- TbTiposSeguimientosDesactivar
@@ -1329,18 +1432,18 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposSeguimientosDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposSeguimientosDesactivar(
-	p_IdTipoSeguimiento INT
-    , p_UsuarioUltimaModificacion INT
+    p_IdTipoSeguimiento INT
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbTiposSeguimientos
-SET Activo = 'I'
-	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-WHERE IdTipoSeguimiento = p_IdTipoSeguimiento;
-    
-END //
+    UPDATE IMVE.TbTiposSeguimientos
+    SET Activo = 'I'
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    WHERE IdTipoSeguimiento = p_IdTipoSeguimiento;
+
+  END //
 DELIMITER ;
 
 -- TbPersonasListar
@@ -1348,39 +1451,39 @@ DROP PROCEDURE IF EXISTS IMVE.TbPersonasListar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbPersonasListar()
-BEGIN
+  BEGIN
 
-SELECT P.IdPersona
-	, P.Identificacion
-    , P.Nombre
-    , P.Apellido1
-    , P.Apellido2
-    , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
-    , P.FechaNacimiento
-    , CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
-    , P.DireccionDomicilio
-    , P.Foto
-    , P.Telefono
-    , P.Celular
-    , P.Correo
-    , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
-    , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-FROM IMVE.TbPersonas AS P
-LEFT JOIN IMVE.TbDistritos AS D 
-  ON P.IdDistrito = D.IdDistrito
-LEFT JOIN IMVE.TbCantones AS C
-  ON D.IdCanton = C.IdCanton
-    AND D.IdProvincia = C.IdProvincia
-    AND D.IdPais = C.IdPais
-LEFT JOIN IMVE.TbProvincias AS PR
-  ON C.IdProvincia = PR.IdProvincia
-    AND C.IdPais = PR.IdPais
-LEFT JOIN IMVE.TbPaises AS PA
-  ON PR.IdPais = PA.IdPais
-WHERE P.Activo = 'A'
-ORDER BY NombreCompleto;
+    SELECT P.IdPersona
+      , P.Identificacion
+      , P.Nombre
+      , P.Apellido1
+      , P.Apellido2
+      , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+      , P.FechaNacimiento
+      , CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
+      , P.DireccionDomicilio
+      , P.Foto
+      , P.Telefono
+      , P.Celular
+      , P.Correo
+      , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+      , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+    FROM IMVE.TbPersonas AS P
+      LEFT JOIN IMVE.TbDistritos AS D
+        ON P.IdDistrito = D.IdDistrito
+      LEFT JOIN IMVE.TbCantones AS C
+        ON D.IdCanton = C.IdCanton
+           AND D.IdProvincia = C.IdProvincia
+           AND D.IdPais = C.IdPais
+      LEFT JOIN IMVE.TbProvincias AS PR
+        ON C.IdProvincia = PR.IdProvincia
+           AND C.IdPais = PR.IdPais
+      LEFT JOIN IMVE.TbPaises AS PA
+        ON PR.IdPais = PA.IdPais
+    WHERE P.Activo = 'A'
+    ORDER BY NombreCompleto;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbPersonasListarSinUsuario
@@ -1388,26 +1491,26 @@ DROP PROCEDURE IF EXISTS IMVE.TbPersonasListarSinUsuario;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbPersonasListarSinUsuario()
-BEGIN
+  BEGIN
 
-SELECT P.IdPersona
-	, U.Contrasena
-	, P.Identificacion
-	, P.Nombre
-	, P.Apellido1
-	, P.Apellido2
-	, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
-	, P.Correo
-	, CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
-	, CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-FROM IMVE.TbUsuarios AS U 
-RIGHT JOIN IMVE.TbPersonas AS P
-  ON U.IdPersona = P.IdPersona
-WHERE P.Activo = 'A' 
-  AND U.Contrasena IS NULL
-ORDER BY NombreCompleto;
+    SELECT P.IdPersona
+      , U.Contrasena
+      , P.Identificacion
+      , P.Nombre
+      , P.Apellido1
+      , P.Apellido2
+      , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+      , P.Correo
+      , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+      , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+    FROM IMVE.TbUsuarios AS U
+      RIGHT JOIN IMVE.TbPersonas AS P
+        ON U.IdPersona = P.IdPersona
+    WHERE P.Activo = 'A'
+          AND U.Contrasena IS NULL
+    ORDER BY NombreCompleto;
 
-END //
+  END //
 DELIMITER ;
 
 -- TbPersonasAgregar
@@ -1415,59 +1518,59 @@ DROP PROCEDURE IF EXISTS IMVE.TbPersonasAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbPersonasAgregar(
-	p_Identificacion VARCHAR(30)
-    , p_Nombre VARCHAR(20)
-    , p_Apellido1 VARCHAR(20)
-    , p_Apellido2 VARCHAR(20)
-    , p_FechaNacimiento DATETIME
-    , p_IdDistrito INT
-    , p_DireccionDomicilio VARCHAR(250)
-    , p_Foto LONGBLOB
-    , p_Telefono VARCHAR(10)
-    , p_Celular VARCHAR(10)
-    , p_Correo VARCHAR(50)
-    , p_Sexo CHAR(1)
-    , p_UsuarioUltimaModificacion INT
+    p_Identificacion VARCHAR(30)
+  , p_Nombre VARCHAR(20)
+  , p_Apellido1 VARCHAR(20)
+  , p_Apellido2 VARCHAR(20)
+  , p_FechaNacimiento DATETIME
+  , p_IdDistrito INT
+  , p_DireccionDomicilio VARCHAR(250)
+  , p_Foto LONGBLOB
+  , p_Telefono VARCHAR(10)
+  , p_Celular VARCHAR(10)
+  , p_Correo VARCHAR(50)
+  , p_Sexo CHAR(1)
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-INSERT INTO IMVE.TbPersonas(
-	Identificacion
-    , Nombre
-    , Apellido1
-    , Apellido2
-    , FechaNacimiento
-    , IdDistrito
-    , DireccionDomicilio
-    , Telefono
-    , Celular
-    , Correo
-    , Sexo
-    , UsuarioUltimaModificacion
-    , FechaUltimaModificacion
-    , Activo
-)
-VALUES
-(
-	p_Identificacion
-    , p_Nombre
-    , p_Apellido1
-    , p_Apellido2
-    , p_FechaNacimiento
-    , p_IdDistrito
-    , p_DireccionDomicilio
-    , p_Telefono
-    , p_Celular
-    , p_Correo
-    , p_Sexo
-    , p_UsuarioUltimaModificacion
-    , CURRENT_TIMESTAMP()
-    , 'A'
-);
+    INSERT INTO IMVE.TbPersonas(
+      Identificacion
+      , Nombre
+      , Apellido1
+      , Apellido2
+      , FechaNacimiento
+      , IdDistrito
+      , DireccionDomicilio
+      , Telefono
+      , Celular
+      , Correo
+      , Sexo
+      , UsuarioUltimaModificacion
+      , FechaUltimaModificacion
+      , Activo
+    )
+    VALUES
+      (
+        p_Identificacion
+        , p_Nombre
+        , p_Apellido1
+        , p_Apellido2
+        , p_FechaNacimiento
+        , p_IdDistrito
+        , p_DireccionDomicilio
+        , p_Telefono
+        , p_Celular
+        , p_Correo
+        , p_Sexo
+        , p_UsuarioUltimaModificacion
+        , CURRENT_TIMESTAMP()
+        , 'A'
+      );
 
-SELECT LAST_INSERT_ID() AS Id;
-    
-END //
+    SELECT LAST_INSERT_ID() AS Id;
+
+  END //
 DELIMITER ;
 
 -- TbPersonasModificar
@@ -1475,43 +1578,43 @@ DROP PROCEDURE IF EXISTS IMVE.TbPersonasModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbPersonasModificar(
-	p_IdPersona INT
-	, p_Identificacion VARCHAR(30)
-    , p_Nombre VARCHAR(20)
-    , p_Apellido1 VARCHAR(20)
-    , p_Apellido2 VARCHAR(20)
-    , p_FechaNacimiento DATETIME
-    , p_IdDistrito INT
-    , p_DireccionDomicilio VARCHAR(250)
-    , p_Foto LONGBLOB
-    , p_Telefono VARCHAR(10)
-    , p_Celular VARCHAR(10)
-    , p_Correo VARCHAR(50)
-    , p_Sexo CHAR(1)
-    , p_UsuarioUltimaModificacion INT
-    , p_Activo CHAR(1)
+    p_IdPersona INT
+  , p_Identificacion VARCHAR(30)
+  , p_Nombre VARCHAR(20)
+  , p_Apellido1 VARCHAR(20)
+  , p_Apellido2 VARCHAR(20)
+  , p_FechaNacimiento DATETIME
+  , p_IdDistrito INT
+  , p_DireccionDomicilio VARCHAR(250)
+  , p_Foto LONGBLOB
+  , p_Telefono VARCHAR(10)
+  , p_Celular VARCHAR(10)
+  , p_Correo VARCHAR(50)
+  , p_Sexo CHAR(1)
+  , p_UsuarioUltimaModificacion INT
+  , p_Activo CHAR(1)
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbPersonas
-SET Identificacion = p_Identificacion
-	, Nombre = p_Nombre
-    , Apellido1 = p_Apellido1
-    , Apellido2 = p_Apellido2
-    , FechaNacimiento = p_FechaNacimiento
-    , IdDistrito = p_IdDistrito
-    , DireccionDomicilio = p_DireccionDomicilio
-    , Foto = p_Foto
-    , Telefono = p_Telefono
-    , Celular = p_Celular
-    , Correo = p_Correo
-    , Sexo = p_Sexo
-    , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-    , Activo = p_Activo
-WHERE IdPersona = p_IdPersona;
-    
-END //
+    UPDATE IMVE.TbPersonas
+    SET Identificacion = p_Identificacion
+      , Nombre = p_Nombre
+      , Apellido1 = p_Apellido1
+      , Apellido2 = p_Apellido2
+      , FechaNacimiento = p_FechaNacimiento
+      , IdDistrito = p_IdDistrito
+      , DireccionDomicilio = p_DireccionDomicilio
+      , Foto = p_Foto
+      , Telefono = p_Telefono
+      , Celular = p_Celular
+      , Correo = p_Correo
+      , Sexo = p_Sexo
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+      , Activo = p_Activo
+    WHERE IdPersona = p_IdPersona;
+
+  END //
 DELIMITER ;
 
 -- TbPersonasDesactivar
@@ -1519,18 +1622,18 @@ DROP PROCEDURE IF EXISTS IMVE.TbPersonasDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbPersonasDesactivar(
-	p_IdPersona INT
-    , p_UsuarioUltimaModificacion INT
+    p_IdPersona INT
+  , p_UsuarioUltimaModificacion INT
 )
-BEGIN
+  BEGIN
 
-UPDATE IMVE.TbPersonas
-SET Activo = 'I'
-	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-WHERE IdPersona = p_IdPersona;
-    
-END //
+    UPDATE IMVE.TbPersonas
+    SET Activo = 'I'
+      , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+      , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    WHERE IdPersona = p_IdPersona;
+
+  END //
 DELIMITER ;
 
 -- -----------------------------------------------------------------------------
@@ -1543,636 +1646,636 @@ DELIMITER ;
 
 -- Paises
 -- ALTER TABLE IMVE.TbPaises AUTO_INCREMENT = 1
-INSERT INTO IMVE.TbPaises(Descripcion) VALUES 
-('Costa Rica');
+INSERT INTO IMVE.TbPaises(Descripcion) VALUES
+  ('Costa Rica');
 
 -- Provincias
 -- ALTER TABLE IMVE.TbProvincias AUTO_INCREMENT = 1
-INSERT INTO IMVE.TbProvincias(IdPais,Descripcion) VALUES 
-(1,'San José')
-, (1,'Alajuela')
-, (1,'Cartago')
-, (1,'Heredia')
-, (1,'Guanacaste')
-, (1,'Puntarenas')
-, (1,'Limón');
+INSERT INTO IMVE.TbProvincias(IdPais,Descripcion) VALUES
+  (1,'San José')
+  , (1,'Alajuela')
+  , (1,'Cartago')
+  , (1,'Heredia')
+  , (1,'Guanacaste')
+  , (1,'Puntarenas')
+  , (1,'Limón');
 
 -- Cantones
 -- ALTER TABLE IMVE.TbCantones AUTO_INCREMENT = 1
-INSERT INTO IMVE.TbCantones(IdProvincia,IdPais,Descripcion) VALUES 
-(1,1,'Central')
-, (1,1,'Escazú')
-, (1,1,'Desamparados')
-, (1,1,'Puriscal')
-, (1,1,'Tarrazú')
-, (1,1,'Aserrí')
-, (1,1,'Mora')
-, (1,1,'Goicoechea')
-, (1,1,'Santa Ana')
-, (1,1,'Alajuelita')
-, (1,1,'Vázquez De Coronado')
-, (1,1,'Acosta')
-, (1,1,'Tibás')
-, (1,1,'Moravia')
-, (1,1,'Montes De Oca')
-, (1,1,'Turrubares')
-, (1,1,'Dota')
-, (1,1,'Curridabat')
-, (1,1,'Pérez Zeledón')
-, (1,1,'León Cortes Castro')
-, (2,1,'Alajuela')
-, (2,1,'San Ramón')
-, (2,1,'Grecia')
-, (2,1,'San Mateo')
-, (2,1,'Atenas')
-, (2,1,'Naranjo')
-, (2,1,'Palmares')
-, (2,1,'Poás')
-, (2,1,'Orotina')
-, (2,1,'San Carlos')
-, (2,1,'Zarcero')
-, (2,1,'Valverde Vega')
-, (2,1,'Upala')
-, (2,1,'Los Chiles')
-, (2,1,'Guatuso')
-, (3,1,'Cartago')
-, (3,1,'Paraíso')
-, (3,1,'La Unión')
-, (3,1,'Jiménez')
-, (3,1,'Turrialba')
-, (3,1,'Alvarado')
-, (3,1,'Oreamuno')
-, (3,1,'El Guarco')
-, (4,1,'Heredia')
-, (4,1,'Barva')
-, (4,1,'Santo Domingo')
-, (4,1,'Santa Bárbara')
-, (4,1,'San Rafael')
-, (4,1,'San Isidro')
-, (4,1,'Belén')
-, (4,1,'Flores')
-, (4,1,'San Pablo')
-, (4,1,'Sarapiquí')
-, (5,1,'Liberia')
-, (5,1,'Nicoya')
-, (5,1,'Santa Cruz')
-, (5,1,'Bagaces')
-, (5,1,'Carrillo')
-, (5,1,'Cañas')
-, (5,1,'Abangares')
-, (5,1,'Tilarán')
-, (5,1,'Nandayure')
-, (5,1,'La Cruz')
-, (5,1,'Hojancha')
-, (6,1,'Puntarenas')
-, (6,1,'Esparza')
-, (6,1,'Buenos Aires')
-, (6,1,'Montes de Oro')
-, (6,1,'Osa')
-, (6,1,'Aguirre')
-, (6,1,'Golfito')
-, (6,1,'Coto Brus')
-, (6,1,'Parrita')
-, (6,1,'Corredores')
-, (6,1,'Garabito')
-, (7,1,'Limón')
-, (7,1,'Pococí')
-, (7,1,'Siquirres')
-, (7,1,'Talamanca')
-, (7,1,'Matina')
-, (7,1,'Guácimo');
+INSERT INTO IMVE.TbCantones(IdProvincia,IdPais,Descripcion) VALUES
+  (1,1,'Central')
+  , (1,1,'Escazú')
+  , (1,1,'Desamparados')
+  , (1,1,'Puriscal')
+  , (1,1,'Tarrazú')
+  , (1,1,'Aserrí')
+  , (1,1,'Mora')
+  , (1,1,'Goicoechea')
+  , (1,1,'Santa Ana')
+  , (1,1,'Alajuelita')
+  , (1,1,'Vázquez De Coronado')
+  , (1,1,'Acosta')
+  , (1,1,'Tibás')
+  , (1,1,'Moravia')
+  , (1,1,'Montes De Oca')
+  , (1,1,'Turrubares')
+  , (1,1,'Dota')
+  , (1,1,'Curridabat')
+  , (1,1,'Pérez Zeledón')
+  , (1,1,'León Cortes Castro')
+  , (2,1,'Alajuela')
+  , (2,1,'San Ramón')
+  , (2,1,'Grecia')
+  , (2,1,'San Mateo')
+  , (2,1,'Atenas')
+  , (2,1,'Naranjo')
+  , (2,1,'Palmares')
+  , (2,1,'Poás')
+  , (2,1,'Orotina')
+  , (2,1,'San Carlos')
+  , (2,1,'Zarcero')
+  , (2,1,'Valverde Vega')
+  , (2,1,'Upala')
+  , (2,1,'Los Chiles')
+  , (2,1,'Guatuso')
+  , (3,1,'Cartago')
+  , (3,1,'Paraíso')
+  , (3,1,'La Unión')
+  , (3,1,'Jiménez')
+  , (3,1,'Turrialba')
+  , (3,1,'Alvarado')
+  , (3,1,'Oreamuno')
+  , (3,1,'El Guarco')
+  , (4,1,'Heredia')
+  , (4,1,'Barva')
+  , (4,1,'Santo Domingo')
+  , (4,1,'Santa Bárbara')
+  , (4,1,'San Rafael')
+  , (4,1,'San Isidro')
+  , (4,1,'Belén')
+  , (4,1,'Flores')
+  , (4,1,'San Pablo')
+  , (4,1,'Sarapiquí')
+  , (5,1,'Liberia')
+  , (5,1,'Nicoya')
+  , (5,1,'Santa Cruz')
+  , (5,1,'Bagaces')
+  , (5,1,'Carrillo')
+  , (5,1,'Cañas')
+  , (5,1,'Abangares')
+  , (5,1,'Tilarán')
+  , (5,1,'Nandayure')
+  , (5,1,'La Cruz')
+  , (5,1,'Hojancha')
+  , (6,1,'Puntarenas')
+  , (6,1,'Esparza')
+  , (6,1,'Buenos Aires')
+  , (6,1,'Montes de Oro')
+  , (6,1,'Osa')
+  , (6,1,'Aguirre')
+  , (6,1,'Golfito')
+  , (6,1,'Coto Brus')
+  , (6,1,'Parrita')
+  , (6,1,'Corredores')
+  , (6,1,'Garabito')
+  , (7,1,'Limón')
+  , (7,1,'Pococí')
+  , (7,1,'Siquirres')
+  , (7,1,'Talamanca')
+  , (7,1,'Matina')
+  , (7,1,'Guácimo');
 
 -- Distritos
 -- ALTER TABLE IMVE.TbDistritos AUTO_INCREMENT = 1
-INSERT INTO IMVE.TbDistritos(IdCanton,IdProvincia,IdPais,Descripcion) VALUES 
-(1,1,1,'Carmen')
-, (1,1,1,'Merced')
-, (1,1,1,'Hospital')
-, (1,1,1,'Catedral')
-, (1,1,1,'Zapote')
-, (1,1,1,'San Francisco de Dos Ríos')
-, (1,1,1,'Uruca')
-, (1,1,1,'Mata Redonda')
-, (1,1,1,'Pavas')
-, (1,1,1,'Hatillo')
-, (1,1,1,'San Sebastián')
-, (2,1,1,'Escazú')
-, (2,1,1,'San Antonio')
-, (2,1,1,'San Rafael')
-, (3,1,1,'Desamparados')
-, (3,1,1,'San Miguel')
-, (3,1,1,'San Juan de Dios')
-, (3,1,1,'San Rafael Arriba')
-, (3,1,1,'San Antonio')
-, (3,1,1,'Frailes')
-, (3,1,1,'Patarrá')
-, (3,1,1,'San Cristóbal')
-, (3,1,1,'Rosario')
-, (3,1,1,'Damas')
-, (3,1,1,'San Rafael Abajo')
-, (3,1,1,'Gravilias')
-, (3,1,1,'Los Guido')
-, (4,1,1,'Santiago')
-, (4,1,1,'Mercedes Sur')
-, (4,1,1,'Barbacoas')
-, (4,1,1,'Grifo Alto')
-, (4,1,1,'San Rafael')
-, (4,1,1,'Candelarita')
-, (4,1,1,'Desamparaditos')
-, (4,1,1,'San Antonio')
-, (4,1,1,'Chires')
-, (5,1,1,'San Marcos')
-, (5,1,1,'San Lorenzo')
-, (5,1,1,'San Carlos')
-, (6,1,1,'Aserrí')
-, (6,1,1,'Tarbaca')
-, (6,1,1,'Vuelta de Jorco')
-, (6,1,1,'San Gabriel')
-, (6,1,1,'Legua')
-, (6,1,1,'Monterrey')
-, (6,1,1,'Salitrillos')
-, (7,1,1,'Ciudad Colón')
-, (7,1,1,'Guayabo')
-, (7,1,1,'Tabarcia')
-, (7,1,1,'Piedras Negras')
-, (7,1,1,'Picagres')
-, (7,1,1,'Jaris')
-, (7,1,1,'Quitirrisí')
-, (8,1,1,'Guadalupe')
-, (8,1,1,'San Francisco')
-, (8,1,1,'Calle Blancos')
-, (8,1,1,'Mata de Plátano')
-, (8,1,1,'Ipís')
-, (8,1,1,'Rancho Redondo')
-, (8,1,1,'Purral')
-, (9,1,1,'Santa Ana')
-, (9,1,1,'Salitral')
-, (9,1,1,'Pozos')
-, (9,1,1,'Uruca')
-, (9,1,1,'Piedades')
-, (9,1,1,'Brasil')
-, (10,1,1,'Alajuelita')
-, (10,1,1,'San Josecito')
-, (10,1,1,'San Antonio')
-, (10,1,1,'Concepción')
-, (10,1,1,'San Felipe')
-, (11,1,1,'San Isidro')
-, (11,1,1,'San Rafael')
-, (11,1,1,'Dulce Nombre de Jesús')
-, (11,1,1,'Patalillo')
-, (11,1,1,'Cascajal')
-, (12,1,1,'San Ignacio')
-, (12,1,1,'Guaitil')
-, (12,1,1,'Palmichal')
-, (12,1,1,'Cangrejal')
-, (12,1,1,'Sabanillas')
-, (13,1,1,'San Juan')
-, (13,1,1,'Cinco Esquinas')
-, (13,1,1,'Anselmo Llorente')
-, (13,1,1,'León XIII')
-, (13,1,1,'Colima')
-, (14,1,1,'San Vicente')
-, (14,1,1,'San Jerónimo')
-, (14,1,1,'Trinidad')
-, (15,1,1,'San Pedro')
-, (15,1,1,'Sabanilla')
-, (15,1,1,'Mercedes')
-, (15,1,1,'San Rafael')
-, (16,1,1,'San Pablo')
-, (16,1,1,'San Pedro')
-, (16,1,1,'San Juan de Mata')
-, (16,1,1,'San Luis')
-, (16,1,1,'Carara')
-, (17,1,1,'Santa María')
-, (17,1,1,'Jardín')
-, (17,1,1,'Copey')
-, (18,1,1,'Curridabat')
-, (18,1,1,'Granadilla')
-, (18,1,1,'Sánchez')
-, (18,1,1,'Tirrases')
-, (19,1,1,'San Isidro de El General')
-, (19,1,1,'El General')
-, (19,1,1,'Daniel Flores')
-, (19,1,1,'Rivas')
-, (19,1,1,'San Pedro')
-, (19,1,1,'Platanares')
-, (19,1,1,'Pejibaye')
-, (19,1,1,'Cajón')
-, (19,1,1,'Barú')
-, (19,1,1,'Río Nuevo')
-, (19,1,1,'Páramo')
-, (20,1,1,'San Pablo')
-, (20,1,1,'San Andrés')
-, (20,1,1,'Llano Bonito')
-, (20,1,1,'San Isidro')
-, (20,1,1,'Santa Cruz')
-, (20,1,1,'San Antonio')
-, (21,2,1,'Alajuela')
-, (21,2,1,'San José')
-, (21,2,1,'Carrizal')
-, (21,2,1,'San Antonio')
-, (21,2,1,'Guácima')
-, (21,2,1,'San Isidro')
-, (21,2,1,'Sabanilla')
-, (21,2,1,'San Rafael')
-, (21,2,1,'Río Segundo')
-, (21,2,1,'Desamparados')
-, (21,2,1,'Turrúcares')
-, (21,2,1,'Tambor')
-, (21,2,1,'Garita')
-, (21,2,1,'Sarapiquí')
-, (22,2,1,'San Ramón')
-, (22,2,1,'Santiago')
-, (22,2,1,'San Juan')
-, (22,2,1,'Piedades Norte')
-, (22,2,1,'Piedades Sur')
-, (22,2,1,'San Rafael')
-, (22,2,1,'San Isidro')
-, (22,2,1,'Ángeles')
-, (22,2,1,'Alfaro')
-, (22,2,1,'Volio')
-, (22,2,1,'Concepción')
-, (22,2,1,'Zapotal')
-, (22,2,1,'Peñas Blancas')
-, (23,2,1,'Grecia')
-, (23,2,1,'San Isidro')
-, (23,2,1,'San José')
-, (23,2,1,'San Roque')
-, (23,2,1,'Tacares')
-, (23,2,1,'Río Cuarto')
-, (23,2,1,'Puente de Piedra')
-, (23,2,1,'Bolívar')
-, (24,2,1,'San Mateo')
-, (24,2,1,'Desmonte')
-, (24,2,1,'Jesús María')
-, (24,2,1,'Labrador')
-, (25,2,1,'Atenas')
-, (25,2,1,'Jesús')
-, (25,2,1,'Mercedes')
-, (25,2,1,'San Isidro')
-, (25,2,1,'Concepción')
-, (25,2,1,'San José')
-, (25,2,1,'Santa Eulalia')
-, (25,2,1,'Escobal')
-, (26,2,1,'Naranjo')
-, (26,2,1,'San Miguel')
-, (26,2,1,'San José')
-, (26,2,1,'Cirrí Sur')
-, (26,2,1,'San Jerónimo')
-, (26,2,1,'San Juan')
-, (26,2,1,'El Rosario')
-, (26,2,1,'Palmitos')
-, (27,2,1,'Palmares')
-, (27,2,1,'Zaragoza')
-, (27,2,1,'Buenos Aires')
-, (27,2,1,'Santiago')
-, (27,2,1,'Candelaria')
-, (27,2,1,'Esquipulas')
-, (27,2,1,'La Granja')
-, (28,2,1,'San Pedro')
-, (28,2,1,'San Juan')
-, (28,2,1,'San Rafael')
-, (28,2,1,'Carrillos')
-, (28,2,1,'Sabana Redonda')
-, (29,2,1,'Orotina')
-, (29,2,1,'Mastate')
-, (29,2,1,'Hacienda Vieja')
-, (29,2,1,'Coyolar')
-, (29,2,1,'La Ceiba')
-, (30,2,1,'Quesada')
-, (30,2,1,'Florencia')
-, (30,2,1,'Buenavista')
-, (30,2,1,'Aguas Zarcas')
-, (30,2,1,'Venecia')
-, (30,2,1,'Pital')
-, (30,2,1,'La Fortuna')
-, (30,2,1,'La Tigra')
-, (30,2,1,'La Palmera')
-, (30,2,1,'Venado')
-, (30,2,1,'Cutris')
-, (30,2,1,'Monterrey')
-, (30,2,1,'Pocosol')
-, (31,2,1,'Zarcero')
-, (31,2,1,'Laguna')
-, (31,2,1,'Tapezco')
-, (31,2,1,'Guadalupe')
-, (31,2,1,'Palmira')
-, (31,2,1,'Zapote')
-, (31,2,1,'Brisas')
-, (32,2,1,'Sarchí Norte')
-, (32,2,1,'Sarchí Sur')
-, (32,2,1,'Toro Amarillo')
-, (32,2,1,'San Pedro')
-, (32,2,1,'Rodríguez')
-, (33,2,1,'Upala')
-, (33,2,1,'Aguas Claras')
-, (33,2,1,'San José (Pizote)')
-, (33,2,1,'Bijagua')
-, (33,2,1,'Delicias')
-, (33,2,1,'Dos Ríos')
-, (33,2,1,'Yolillal')
-, (33,2,1,'Canalete')
-, (34,2,1,'Los Chiles')
-, (34,2,1,'Caño Negro')
-, (34,2,1,'El Amparo')
-, (34,2,1,'San Jorge')
-, (35,2,1,'San Rafael')
-, (35,2,1,'Buenavista')
-, (35,2,1,'Cote')
-, (35,2,1,'Katira')
-, (36,3,1,'Oriental')
-, (36,3,1,'Occidental')
-, (36,3,1,'Carmen')
-, (36,3,1,'San Nicolás')
-, (36,3,1,'Agua Caliente')
-, (36,3,1,'Guadalupe')
-, (36,3,1,'Corralillo')
-, (36,3,1,'Tierra Blanca')
-, (36,3,1,'Dulce Nombre')
-, (36,3,1,'Llano Grande')
-, (36,3,1,'Quebradilla')
-, (37,3,1,'Paraíso')
-, (37,3,1,'Santiago de Paraíso')
-, (37,3,1,'Orosi')
-, (37,3,1,'Cachí')
-, (37,3,1,'Llanos de Santa Lucía')
-, (38,3,1,'Tres Ríos')
-, (38,3,1,'San Diego')
-, (38,3,1,'San Juan')
-, (38,3,1,'San Rafael')
-, (38,3,1,'Concepción')
-, (38,3,1,'Dulce Nombre')
-, (38,3,1,'San Ramón')
-, (38,3,1,'Río Azul')
-, (39,3,1,'Juan Viñas')
-, (39,3,1,'Tucurrique')
-, (39,3,1,'Pejibaye')
-, (40,3,1,'Turrialba')
-, (40,3,1,'La Suiza')
-, (40,3,1,'Peralta')
-, (40,3,1,'Santa Cruz')
-, (40,3,1,'Santa Teresita')
-, (40,3,1,'Pavones')
-, (40,3,1,'Tuis')
-, (40,3,1,'Tayutic')
-, (40,3,1,'Santa Rosa')
-, (40,3,1,'Tres Equis')
-, (40,3,1,'La Isabel')
-, (40,3,1,'Chirripó')
-, (41,3,1,'Pacayas')
-, (41,3,1,'Cervantes')
-, (41,3,1,'Capellades')
-, (42,3,1,'San Rafael')
-, (42,3,1,'Cot')
-, (42,3,1,'Potrero Cerrado')
-, (42,3,1,'Cipreses')
-, (42,3,1,'Santa Rosa')
-, (43,3,1,'Tejar')
-, (43,3,1,'San Isidro')
-, (43,3,1,'Tobosi')
-, (43,3,1,'Patio de Agua')
-, (44,4,1,'Heredia')
-, (44,4,1,'Mercedes')
-, (44,4,1,'San Francisco')
-, (44,4,1,'Ulloa')
-, (44,4,1,'Varablanca')
-, (45,4,1,'Barva')
-, (45,4,1,'San Pedro')
-, (45,4,1,'San Pablo')
-, (45,4,1,'San Roque')
-, (45,4,1,'Santa Lucía')
-, (45,4,1,'San José de la Montaña')
-, (46,4,1,'Santo Domingo')
-, (46,4,1,'San Vicente')
-, (46,4,1,'San Miguel')
-, (46,4,1,'Paracito')
-, (46,4,1,'Santo Tomás')
-, (46,4,1,'Santa Rosa')
-, (46,4,1,'Tures')
-, (46,4,1,'Pará')
-, (47,4,1,'Santa Bárbara')
-, (47,4,1,'San Pedro')
-, (47,4,1,'San Juan')
-, (47,4,1,'Jesús')
-, (47,4,1,'Santo Domingo')
-, (47,4,1,'Purabá')
-, (48,4,1,'San Rafael')
-, (48,4,1,'San Josecito')
-, (48,4,1,'Santiago')
-, (48,4,1,'Ángeles')
-, (48,4,1,'Concepción')
-, (49,4,1,'San Isidro')
-, (49,4,1,'San José')
-, (49,4,1,'Concepción')
-, (49,4,1,'San Francisco')
-, (50,4,1,'San Antonio')
-, (50,4,1,'La Ribera')
-, (50,4,1,'La Asunción')
-, (51,4,1,'San Joaquín')
-, (51,4,1,'Barrantes')
-, (51,4,1,'Llorente')
-, (52,4,1,'San Pablo')
-, (52,4,1,'Rincón de Sabanilla')
-, (53,4,1,'Puerto Viejo')
-, (53,4,1,'La Virgen')
-, (53,4,1,'Las Horquetas')
-, (53,4,1,'Llanuras del Gaspar')
-, (53,4,1,'Cureña')
-, (54,5,1,'Liberia')
-, (54,5,1,'Cañas Dulces')
-, (54,5,1,'Mayorga')
-, (54,5,1,'Nacascolo')
-, (54,5,1,'Curubandé')
-, (55,5,1,'Nicoya')
-, (55,5,1,'Mansión')
-, (55,5,1,'San Antonio')
-, (55,5,1,'Quebrada Honda')
-, (55,5,1,'Sámara')
-, (55,5,1,'Nosara')
-, (55,5,1,'Belén de Nosarita')
-, (56,5,1,'Santa Cruz')
-, (56,5,1,'Bolsón')
-, (56,5,1,'Veintisiete de Abril')
-, (56,5,1,'Tempate')
-, (56,5,1,'Cartagena')
-, (56,5,1,'Cuajiniquil')
-, (56,5,1,'Diriá')
-, (56,5,1,'Cabo Velas')
-, (56,5,1,'Tamarindo')
-, (57,5,1,'Bagaces')
-, (57,5,1,'La Fortuna')
-, (57,5,1,'Mogote')
-, (57,5,1,'Río Naranjo')
-, (58,5,1,'Filadelfia')
-, (58,5,1,'Palmira')
-, (58,5,1,'Sardinal')
-, (58,5,1,'Belén')
-, (59,5,1,'Cañas')
-, (59,5,1,'Palmira')
-, (59,5,1,'San Miguel')
-, (59,5,1,'Bebedero')
-, (59,5,1,'Porozal')
-, (60,5,1,'Las Juntas')
-, (60,5,1,'Sierra')
-, (60,5,1,'San Juan')
-, (60,5,1,'Colorado')
-, (61,5,1,'Tilarán')
-, (61,5,1,'Quebrada Grande')
-, (61,5,1,'Tronadora')
-, (61,5,1,'Santa Rosa')
-, (61,5,1,'Líbano')
-, (61,5,1,'Tierras Morenas')
-, (61,5,1,'Arenal')
-, (62,5,1,'Carmona')
-, (62,5,1,'Santa Rita')
-, (62,5,1,'Zapotal')
-, (62,5,1,'San Pablo')
-, (62,5,1,'Porvenir')
-, (62,5,1,'Bejuco')
-, (63,5,1,'La Cruz')
-, (63,5,1,'Santa Cecilia')
-, (63,5,1,'La Garita')
-, (63,5,1,'Santa Elena')
-, (64,5,1,'Hojancha')
-, (64,5,1,'Monte Romo')
-, (64,5,1,'Puerto Carrillo')
-, (64,5,1,'Huacas')
-, (65,6,1,'Puntarenas')
-, (65,6,1,'Pitahaya')
-, (65,6,1,'Chomes')
-, (65,6,1,'Lepanto')
-, (65,6,1,'Paquera')
-, (65,6,1,'Manzanillo')
-, (65,6,1,'Guacimal')
-, (65,6,1,'Barranca')
-, (65,6,1,'Monteverde')
-, (65,6,1,'Isla del Coco')
-, (65,6,1,'Cóbano')
-, (65,6,1,'Chacarita')
-, (65,6,1,'Chira')
-, (65,6,1,'Acapulco')
-, (65,6,1,'El Roble')
-, (65,6,1,'Arancibia')
-, (66,6,1,'Espíritu Santo')
-, (66,6,1,'San Juan Grande')
-, (66,6,1,'Macacona')
-, (66,6,1,'San Rafael')
-, (66,6,1,'San Jerónimo')
-, (66,6,1,'Caldera')
-, (67,6,1,'Buenos Aires')
-, (67,6,1,'Volcán')
-, (67,6,1,'Potrero Grande')
-, (67,6,1,'Boruca')
-, (67,6,1,'Pilas')
-, (67,6,1,'Colinas')
-, (67,6,1,'Chánguena')
-, (67,6,1,'Biolley')
-, (67,6,1,'Brunka')
-, (68,6,1,'Miramar')
-, (68,6,1,'La Unión')
-, (68,6,1,'San Isidro')
-, (69,6,1,'Cortés')
-, (69,6,1,'Palmar')
-, (69,6,1,'Sierpe')
-, (69,6,1,'Bahía Ballena')
-, (69,6,1,'Piedras Blancas')
-, (69,6,1,'Bahía Drake')
-, (70,6,1,'Quepos')
-, (70,6,1,'Savegre')
-, (70,6,1,'Naranjito')
-, (71,6,1,'Golfito')
-, (71,6,1,'Puerto Jiménez')
-, (71,6,1,'Guaycará')
-, (71,6,1,'Pavón')
-, (72,6,1,'San Vito')
-, (72,6,1,'Sabalito')
-, (72,6,1,'Aguabuena')
-, (72,6,1,'Limoncito')
-, (72,6,1,'Pittier')
-, (72,6,1,'Gutiérrez Brown')
-, (73,6,1,'Parrita')
-, (74,6,1,'Corredor')
-, (74,6,1,'La Cuesta')
-, (74,6,1,'Paso Canoas')
-, (74,6,1,'Laurel')
-, (75,6,1,'Jacó')
-, (75,6,1,'Tárcoles')
-, (76,7,1,'Limón')
-, (76,7,1,'Valle La Estrella')
-, (76,7,1,'Río Blanco')
-, (76,7,1,'Matama')
-, (77,7,1,'Guápiles')
-, (77,7,1,'Jiménez')
-, (77,7,1,'Rita')
-, (77,7,1,'Roxana')
-, (77,7,1,'Cariari')
-, (77,7,1,'Colorado')
-, (77,7,1,'La Colonia')
-, (78,7,1,'Siquirres')
-, (78,7,1,'Pacuarito')
-, (78,7,1,'Florida')
-, (78,7,1,'Germania')
-, (78,7,1,'Cairo')
-, (78,7,1,'Alegría')
-, (79,7,1,'Bratsi')
-, (79,7,1,'Sixaola')
-, (79,7,1,'Cahuita')
-, (79,7,1,'Telire')
-, (80,7,1,'Matina')
-, (80,7,1,'Batán')
-, (80,7,1,'Carrandi')
-, (81,7,1,'Guácimo')
-, (81,7,1,'Mercedes')
-, (81,7,1,'Pocora')
-, (81,7,1,'Río Jiménez')
-, (81,7,1,'Duacarí');
+INSERT INTO IMVE.TbDistritos(IdCanton,IdProvincia,IdPais,Descripcion) VALUES
+  (1,1,1,'Carmen')
+  , (1,1,1,'Merced')
+  , (1,1,1,'Hospital')
+  , (1,1,1,'Catedral')
+  , (1,1,1,'Zapote')
+  , (1,1,1,'San Francisco de Dos Ríos')
+  , (1,1,1,'Uruca')
+  , (1,1,1,'Mata Redonda')
+  , (1,1,1,'Pavas')
+  , (1,1,1,'Hatillo')
+  , (1,1,1,'San Sebastián')
+  , (2,1,1,'Escazú')
+  , (2,1,1,'San Antonio')
+  , (2,1,1,'San Rafael')
+  , (3,1,1,'Desamparados')
+  , (3,1,1,'San Miguel')
+  , (3,1,1,'San Juan de Dios')
+  , (3,1,1,'San Rafael Arriba')
+  , (3,1,1,'San Antonio')
+  , (3,1,1,'Frailes')
+  , (3,1,1,'Patarrá')
+  , (3,1,1,'San Cristóbal')
+  , (3,1,1,'Rosario')
+  , (3,1,1,'Damas')
+  , (3,1,1,'San Rafael Abajo')
+  , (3,1,1,'Gravilias')
+  , (3,1,1,'Los Guido')
+  , (4,1,1,'Santiago')
+  , (4,1,1,'Mercedes Sur')
+  , (4,1,1,'Barbacoas')
+  , (4,1,1,'Grifo Alto')
+  , (4,1,1,'San Rafael')
+  , (4,1,1,'Candelarita')
+  , (4,1,1,'Desamparaditos')
+  , (4,1,1,'San Antonio')
+  , (4,1,1,'Chires')
+  , (5,1,1,'San Marcos')
+  , (5,1,1,'San Lorenzo')
+  , (5,1,1,'San Carlos')
+  , (6,1,1,'Aserrí')
+  , (6,1,1,'Tarbaca')
+  , (6,1,1,'Vuelta de Jorco')
+  , (6,1,1,'San Gabriel')
+  , (6,1,1,'Legua')
+  , (6,1,1,'Monterrey')
+  , (6,1,1,'Salitrillos')
+  , (7,1,1,'Ciudad Colón')
+  , (7,1,1,'Guayabo')
+  , (7,1,1,'Tabarcia')
+  , (7,1,1,'Piedras Negras')
+  , (7,1,1,'Picagres')
+  , (7,1,1,'Jaris')
+  , (7,1,1,'Quitirrisí')
+  , (8,1,1,'Guadalupe')
+  , (8,1,1,'San Francisco')
+  , (8,1,1,'Calle Blancos')
+  , (8,1,1,'Mata de Plátano')
+  , (8,1,1,'Ipís')
+  , (8,1,1,'Rancho Redondo')
+  , (8,1,1,'Purral')
+  , (9,1,1,'Santa Ana')
+  , (9,1,1,'Salitral')
+  , (9,1,1,'Pozos')
+  , (9,1,1,'Uruca')
+  , (9,1,1,'Piedades')
+  , (9,1,1,'Brasil')
+  , (10,1,1,'Alajuelita')
+  , (10,1,1,'San Josecito')
+  , (10,1,1,'San Antonio')
+  , (10,1,1,'Concepción')
+  , (10,1,1,'San Felipe')
+  , (11,1,1,'San Isidro')
+  , (11,1,1,'San Rafael')
+  , (11,1,1,'Dulce Nombre de Jesús')
+  , (11,1,1,'Patalillo')
+  , (11,1,1,'Cascajal')
+  , (12,1,1,'San Ignacio')
+  , (12,1,1,'Guaitil')
+  , (12,1,1,'Palmichal')
+  , (12,1,1,'Cangrejal')
+  , (12,1,1,'Sabanillas')
+  , (13,1,1,'San Juan')
+  , (13,1,1,'Cinco Esquinas')
+  , (13,1,1,'Anselmo Llorente')
+  , (13,1,1,'León XIII')
+  , (13,1,1,'Colima')
+  , (14,1,1,'San Vicente')
+  , (14,1,1,'San Jerónimo')
+  , (14,1,1,'Trinidad')
+  , (15,1,1,'San Pedro')
+  , (15,1,1,'Sabanilla')
+  , (15,1,1,'Mercedes')
+  , (15,1,1,'San Rafael')
+  , (16,1,1,'San Pablo')
+  , (16,1,1,'San Pedro')
+  , (16,1,1,'San Juan de Mata')
+  , (16,1,1,'San Luis')
+  , (16,1,1,'Carara')
+  , (17,1,1,'Santa María')
+  , (17,1,1,'Jardín')
+  , (17,1,1,'Copey')
+  , (18,1,1,'Curridabat')
+  , (18,1,1,'Granadilla')
+  , (18,1,1,'Sánchez')
+  , (18,1,1,'Tirrases')
+  , (19,1,1,'San Isidro de El General')
+  , (19,1,1,'El General')
+  , (19,1,1,'Daniel Flores')
+  , (19,1,1,'Rivas')
+  , (19,1,1,'San Pedro')
+  , (19,1,1,'Platanares')
+  , (19,1,1,'Pejibaye')
+  , (19,1,1,'Cajón')
+  , (19,1,1,'Barú')
+  , (19,1,1,'Río Nuevo')
+  , (19,1,1,'Páramo')
+  , (20,1,1,'San Pablo')
+  , (20,1,1,'San Andrés')
+  , (20,1,1,'Llano Bonito')
+  , (20,1,1,'San Isidro')
+  , (20,1,1,'Santa Cruz')
+  , (20,1,1,'San Antonio')
+  , (21,2,1,'Alajuela')
+  , (21,2,1,'San José')
+  , (21,2,1,'Carrizal')
+  , (21,2,1,'San Antonio')
+  , (21,2,1,'Guácima')
+  , (21,2,1,'San Isidro')
+  , (21,2,1,'Sabanilla')
+  , (21,2,1,'San Rafael')
+  , (21,2,1,'Río Segundo')
+  , (21,2,1,'Desamparados')
+  , (21,2,1,'Turrúcares')
+  , (21,2,1,'Tambor')
+  , (21,2,1,'Garita')
+  , (21,2,1,'Sarapiquí')
+  , (22,2,1,'San Ramón')
+  , (22,2,1,'Santiago')
+  , (22,2,1,'San Juan')
+  , (22,2,1,'Piedades Norte')
+  , (22,2,1,'Piedades Sur')
+  , (22,2,1,'San Rafael')
+  , (22,2,1,'San Isidro')
+  , (22,2,1,'Ángeles')
+  , (22,2,1,'Alfaro')
+  , (22,2,1,'Volio')
+  , (22,2,1,'Concepción')
+  , (22,2,1,'Zapotal')
+  , (22,2,1,'Peñas Blancas')
+  , (23,2,1,'Grecia')
+  , (23,2,1,'San Isidro')
+  , (23,2,1,'San José')
+  , (23,2,1,'San Roque')
+  , (23,2,1,'Tacares')
+  , (23,2,1,'Río Cuarto')
+  , (23,2,1,'Puente de Piedra')
+  , (23,2,1,'Bolívar')
+  , (24,2,1,'San Mateo')
+  , (24,2,1,'Desmonte')
+  , (24,2,1,'Jesús María')
+  , (24,2,1,'Labrador')
+  , (25,2,1,'Atenas')
+  , (25,2,1,'Jesús')
+  , (25,2,1,'Mercedes')
+  , (25,2,1,'San Isidro')
+  , (25,2,1,'Concepción')
+  , (25,2,1,'San José')
+  , (25,2,1,'Santa Eulalia')
+  , (25,2,1,'Escobal')
+  , (26,2,1,'Naranjo')
+  , (26,2,1,'San Miguel')
+  , (26,2,1,'San José')
+  , (26,2,1,'Cirrí Sur')
+  , (26,2,1,'San Jerónimo')
+  , (26,2,1,'San Juan')
+  , (26,2,1,'El Rosario')
+  , (26,2,1,'Palmitos')
+  , (27,2,1,'Palmares')
+  , (27,2,1,'Zaragoza')
+  , (27,2,1,'Buenos Aires')
+  , (27,2,1,'Santiago')
+  , (27,2,1,'Candelaria')
+  , (27,2,1,'Esquipulas')
+  , (27,2,1,'La Granja')
+  , (28,2,1,'San Pedro')
+  , (28,2,1,'San Juan')
+  , (28,2,1,'San Rafael')
+  , (28,2,1,'Carrillos')
+  , (28,2,1,'Sabana Redonda')
+  , (29,2,1,'Orotina')
+  , (29,2,1,'Mastate')
+  , (29,2,1,'Hacienda Vieja')
+  , (29,2,1,'Coyolar')
+  , (29,2,1,'La Ceiba')
+  , (30,2,1,'Quesada')
+  , (30,2,1,'Florencia')
+  , (30,2,1,'Buenavista')
+  , (30,2,1,'Aguas Zarcas')
+  , (30,2,1,'Venecia')
+  , (30,2,1,'Pital')
+  , (30,2,1,'La Fortuna')
+  , (30,2,1,'La Tigra')
+  , (30,2,1,'La Palmera')
+  , (30,2,1,'Venado')
+  , (30,2,1,'Cutris')
+  , (30,2,1,'Monterrey')
+  , (30,2,1,'Pocosol')
+  , (31,2,1,'Zarcero')
+  , (31,2,1,'Laguna')
+  , (31,2,1,'Tapezco')
+  , (31,2,1,'Guadalupe')
+  , (31,2,1,'Palmira')
+  , (31,2,1,'Zapote')
+  , (31,2,1,'Brisas')
+  , (32,2,1,'Sarchí Norte')
+  , (32,2,1,'Sarchí Sur')
+  , (32,2,1,'Toro Amarillo')
+  , (32,2,1,'San Pedro')
+  , (32,2,1,'Rodríguez')
+  , (33,2,1,'Upala')
+  , (33,2,1,'Aguas Claras')
+  , (33,2,1,'San José (Pizote)')
+  , (33,2,1,'Bijagua')
+  , (33,2,1,'Delicias')
+  , (33,2,1,'Dos Ríos')
+  , (33,2,1,'Yolillal')
+  , (33,2,1,'Canalete')
+  , (34,2,1,'Los Chiles')
+  , (34,2,1,'Caño Negro')
+  , (34,2,1,'El Amparo')
+  , (34,2,1,'San Jorge')
+  , (35,2,1,'San Rafael')
+  , (35,2,1,'Buenavista')
+  , (35,2,1,'Cote')
+  , (35,2,1,'Katira')
+  , (36,3,1,'Oriental')
+  , (36,3,1,'Occidental')
+  , (36,3,1,'Carmen')
+  , (36,3,1,'San Nicolás')
+  , (36,3,1,'Agua Caliente')
+  , (36,3,1,'Guadalupe')
+  , (36,3,1,'Corralillo')
+  , (36,3,1,'Tierra Blanca')
+  , (36,3,1,'Dulce Nombre')
+  , (36,3,1,'Llano Grande')
+  , (36,3,1,'Quebradilla')
+  , (37,3,1,'Paraíso')
+  , (37,3,1,'Santiago de Paraíso')
+  , (37,3,1,'Orosi')
+  , (37,3,1,'Cachí')
+  , (37,3,1,'Llanos de Santa Lucía')
+  , (38,3,1,'Tres Ríos')
+  , (38,3,1,'San Diego')
+  , (38,3,1,'San Juan')
+  , (38,3,1,'San Rafael')
+  , (38,3,1,'Concepción')
+  , (38,3,1,'Dulce Nombre')
+  , (38,3,1,'San Ramón')
+  , (38,3,1,'Río Azul')
+  , (39,3,1,'Juan Viñas')
+  , (39,3,1,'Tucurrique')
+  , (39,3,1,'Pejibaye')
+  , (40,3,1,'Turrialba')
+  , (40,3,1,'La Suiza')
+  , (40,3,1,'Peralta')
+  , (40,3,1,'Santa Cruz')
+  , (40,3,1,'Santa Teresita')
+  , (40,3,1,'Pavones')
+  , (40,3,1,'Tuis')
+  , (40,3,1,'Tayutic')
+  , (40,3,1,'Santa Rosa')
+  , (40,3,1,'Tres Equis')
+  , (40,3,1,'La Isabel')
+  , (40,3,1,'Chirripó')
+  , (41,3,1,'Pacayas')
+  , (41,3,1,'Cervantes')
+  , (41,3,1,'Capellades')
+  , (42,3,1,'San Rafael')
+  , (42,3,1,'Cot')
+  , (42,3,1,'Potrero Cerrado')
+  , (42,3,1,'Cipreses')
+  , (42,3,1,'Santa Rosa')
+  , (43,3,1,'Tejar')
+  , (43,3,1,'San Isidro')
+  , (43,3,1,'Tobosi')
+  , (43,3,1,'Patio de Agua')
+  , (44,4,1,'Heredia')
+  , (44,4,1,'Mercedes')
+  , (44,4,1,'San Francisco')
+  , (44,4,1,'Ulloa')
+  , (44,4,1,'Varablanca')
+  , (45,4,1,'Barva')
+  , (45,4,1,'San Pedro')
+  , (45,4,1,'San Pablo')
+  , (45,4,1,'San Roque')
+  , (45,4,1,'Santa Lucía')
+  , (45,4,1,'San José de la Montaña')
+  , (46,4,1,'Santo Domingo')
+  , (46,4,1,'San Vicente')
+  , (46,4,1,'San Miguel')
+  , (46,4,1,'Paracito')
+  , (46,4,1,'Santo Tomás')
+  , (46,4,1,'Santa Rosa')
+  , (46,4,1,'Tures')
+  , (46,4,1,'Pará')
+  , (47,4,1,'Santa Bárbara')
+  , (47,4,1,'San Pedro')
+  , (47,4,1,'San Juan')
+  , (47,4,1,'Jesús')
+  , (47,4,1,'Santo Domingo')
+  , (47,4,1,'Purabá')
+  , (48,4,1,'San Rafael')
+  , (48,4,1,'San Josecito')
+  , (48,4,1,'Santiago')
+  , (48,4,1,'Ángeles')
+  , (48,4,1,'Concepción')
+  , (49,4,1,'San Isidro')
+  , (49,4,1,'San José')
+  , (49,4,1,'Concepción')
+  , (49,4,1,'San Francisco')
+  , (50,4,1,'San Antonio')
+  , (50,4,1,'La Ribera')
+  , (50,4,1,'La Asunción')
+  , (51,4,1,'San Joaquín')
+  , (51,4,1,'Barrantes')
+  , (51,4,1,'Llorente')
+  , (52,4,1,'San Pablo')
+  , (52,4,1,'Rincón de Sabanilla')
+  , (53,4,1,'Puerto Viejo')
+  , (53,4,1,'La Virgen')
+  , (53,4,1,'Las Horquetas')
+  , (53,4,1,'Llanuras del Gaspar')
+  , (53,4,1,'Cureña')
+  , (54,5,1,'Liberia')
+  , (54,5,1,'Cañas Dulces')
+  , (54,5,1,'Mayorga')
+  , (54,5,1,'Nacascolo')
+  , (54,5,1,'Curubandé')
+  , (55,5,1,'Nicoya')
+  , (55,5,1,'Mansión')
+  , (55,5,1,'San Antonio')
+  , (55,5,1,'Quebrada Honda')
+  , (55,5,1,'Sámara')
+  , (55,5,1,'Nosara')
+  , (55,5,1,'Belén de Nosarita')
+  , (56,5,1,'Santa Cruz')
+  , (56,5,1,'Bolsón')
+  , (56,5,1,'Veintisiete de Abril')
+  , (56,5,1,'Tempate')
+  , (56,5,1,'Cartagena')
+  , (56,5,1,'Cuajiniquil')
+  , (56,5,1,'Diriá')
+  , (56,5,1,'Cabo Velas')
+  , (56,5,1,'Tamarindo')
+  , (57,5,1,'Bagaces')
+  , (57,5,1,'La Fortuna')
+  , (57,5,1,'Mogote')
+  , (57,5,1,'Río Naranjo')
+  , (58,5,1,'Filadelfia')
+  , (58,5,1,'Palmira')
+  , (58,5,1,'Sardinal')
+  , (58,5,1,'Belén')
+  , (59,5,1,'Cañas')
+  , (59,5,1,'Palmira')
+  , (59,5,1,'San Miguel')
+  , (59,5,1,'Bebedero')
+  , (59,5,1,'Porozal')
+  , (60,5,1,'Las Juntas')
+  , (60,5,1,'Sierra')
+  , (60,5,1,'San Juan')
+  , (60,5,1,'Colorado')
+  , (61,5,1,'Tilarán')
+  , (61,5,1,'Quebrada Grande')
+  , (61,5,1,'Tronadora')
+  , (61,5,1,'Santa Rosa')
+  , (61,5,1,'Líbano')
+  , (61,5,1,'Tierras Morenas')
+  , (61,5,1,'Arenal')
+  , (62,5,1,'Carmona')
+  , (62,5,1,'Santa Rita')
+  , (62,5,1,'Zapotal')
+  , (62,5,1,'San Pablo')
+  , (62,5,1,'Porvenir')
+  , (62,5,1,'Bejuco')
+  , (63,5,1,'La Cruz')
+  , (63,5,1,'Santa Cecilia')
+  , (63,5,1,'La Garita')
+  , (63,5,1,'Santa Elena')
+  , (64,5,1,'Hojancha')
+  , (64,5,1,'Monte Romo')
+  , (64,5,1,'Puerto Carrillo')
+  , (64,5,1,'Huacas')
+  , (65,6,1,'Puntarenas')
+  , (65,6,1,'Pitahaya')
+  , (65,6,1,'Chomes')
+  , (65,6,1,'Lepanto')
+  , (65,6,1,'Paquera')
+  , (65,6,1,'Manzanillo')
+  , (65,6,1,'Guacimal')
+  , (65,6,1,'Barranca')
+  , (65,6,1,'Monteverde')
+  , (65,6,1,'Isla del Coco')
+  , (65,6,1,'Cóbano')
+  , (65,6,1,'Chacarita')
+  , (65,6,1,'Chira')
+  , (65,6,1,'Acapulco')
+  , (65,6,1,'El Roble')
+  , (65,6,1,'Arancibia')
+  , (66,6,1,'Espíritu Santo')
+  , (66,6,1,'San Juan Grande')
+  , (66,6,1,'Macacona')
+  , (66,6,1,'San Rafael')
+  , (66,6,1,'San Jerónimo')
+  , (66,6,1,'Caldera')
+  , (67,6,1,'Buenos Aires')
+  , (67,6,1,'Volcán')
+  , (67,6,1,'Potrero Grande')
+  , (67,6,1,'Boruca')
+  , (67,6,1,'Pilas')
+  , (67,6,1,'Colinas')
+  , (67,6,1,'Chánguena')
+  , (67,6,1,'Biolley')
+  , (67,6,1,'Brunka')
+  , (68,6,1,'Miramar')
+  , (68,6,1,'La Unión')
+  , (68,6,1,'San Isidro')
+  , (69,6,1,'Cortés')
+  , (69,6,1,'Palmar')
+  , (69,6,1,'Sierpe')
+  , (69,6,1,'Bahía Ballena')
+  , (69,6,1,'Piedras Blancas')
+  , (69,6,1,'Bahía Drake')
+  , (70,6,1,'Quepos')
+  , (70,6,1,'Savegre')
+  , (70,6,1,'Naranjito')
+  , (71,6,1,'Golfito')
+  , (71,6,1,'Puerto Jiménez')
+  , (71,6,1,'Guaycará')
+  , (71,6,1,'Pavón')
+  , (72,6,1,'San Vito')
+  , (72,6,1,'Sabalito')
+  , (72,6,1,'Aguabuena')
+  , (72,6,1,'Limoncito')
+  , (72,6,1,'Pittier')
+  , (72,6,1,'Gutiérrez Brown')
+  , (73,6,1,'Parrita')
+  , (74,6,1,'Corredor')
+  , (74,6,1,'La Cuesta')
+  , (74,6,1,'Paso Canoas')
+  , (74,6,1,'Laurel')
+  , (75,6,1,'Jacó')
+  , (75,6,1,'Tárcoles')
+  , (76,7,1,'Limón')
+  , (76,7,1,'Valle La Estrella')
+  , (76,7,1,'Río Blanco')
+  , (76,7,1,'Matama')
+  , (77,7,1,'Guápiles')
+  , (77,7,1,'Jiménez')
+  , (77,7,1,'Rita')
+  , (77,7,1,'Roxana')
+  , (77,7,1,'Cariari')
+  , (77,7,1,'Colorado')
+  , (77,7,1,'La Colonia')
+  , (78,7,1,'Siquirres')
+  , (78,7,1,'Pacuarito')
+  , (78,7,1,'Florida')
+  , (78,7,1,'Germania')
+  , (78,7,1,'Cairo')
+  , (78,7,1,'Alegría')
+  , (79,7,1,'Bratsi')
+  , (79,7,1,'Sixaola')
+  , (79,7,1,'Cahuita')
+  , (79,7,1,'Telire')
+  , (80,7,1,'Matina')
+  , (80,7,1,'Batán')
+  , (80,7,1,'Carrandi')
+  , (81,7,1,'Guácimo')
+  , (81,7,1,'Mercedes')
+  , (81,7,1,'Pocora')
+  , (81,7,1,'Río Jiménez')
+  , (81,7,1,'Duacarí');
 
 -- -----------------------------------------------------
 -- LAS OTRAS TABLAS
 -- -----------------------------------------------------
 
-INSERT INTO IMVE.TbRolesUsuarios(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
-('Administrador',1,CURRENT_TIMESTAMP,'A');
+INSERT INTO IMVE.TbRolesUsuarios(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
+  ('Administrador',1,CURRENT_TIMESTAMP,'A');
 
-INSERT INTO IMVE.TbPersonas(Identificacion,Nombre,Apellido1,Apellido2,FechaNacimiento,IdDistrito,DireccionDomicilio,Foto,Telefono,Celular,Correo,Sexo,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
-('101110111','Admin','IMVE','','',0,'',NULL,'','','gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
-, ('304540214','Gilbert','Molina','Castrillo','1991-05-11',251,'300mts sur del estadio de Paraíso',NULL,'40335942','86073518','gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
-, ('303030311','Antonio','Molina','Rojas','1970-11-08',251,'300mts sur del estadio de Paraíso',NULL,'40335942','87566245','gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
-, ('501870174','Sonia','Castrillo','Baltodano','1960-05-31',251,'300mts sur del estadio de Paraíso',NULL,'40335942','86074817','gmolinac@outlook.com','F',1,CURRENT_TIMESTAMP,'A');
+INSERT INTO IMVE.TbPersonas(Identificacion,Nombre,Apellido1,Apellido2,FechaNacimiento,IdDistrito,DireccionDomicilio,Foto,Telefono,Celular,Correo,Sexo,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
+  ('101110111','Admin','IMVE','','',0,'',NULL,'','','gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
+  , ('304540214','Gilbert','Molina','Castrillo','1991-05-11',251,'300mts sur del estadio de Paraíso',NULL,'40335942','86073518','gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
+  , ('303030311','Antonio','Molina','Rojas','1970-11-08',251,'300mts sur del estadio de Paraíso',NULL,'40335942','87566245','gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
+  , ('501870174','Sonia','Castrillo','Baltodano','1960-05-31',251,'300mts sur del estadio de Paraíso',NULL,'40335942','86074817','gmolinac@outlook.com','F',1,CURRENT_TIMESTAMP,'A');
 
-INSERT INTO IMVE.TbUsuarios(IdPersona,IdRolUsuario,Contrasena,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
-(1,1,'8cb2237d0679ca88db6464eac60da96345513964',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: 12345
-, (2,1,'7c62f7e9b440e2232437218732d350971d066d5c',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: gmolina
-, (3,1,'07d7ae0f3696ffb5440182547e727fde697cf18e',1,CURRENT_TIMESTAMP,'A'); -- Constraseña desencriptada: amolina
+INSERT INTO IMVE.TbUsuarios(IdPersona,IdRolUsuario,Contrasena,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
+  (1,1,'8cb2237d0679ca88db6464eac60da96345513964',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: 12345
+  , (2,1,'7c62f7e9b440e2232437218732d350971d066d5c',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: gmolina
+  , (3,1,'07d7ae0f3696ffb5440182547e727fde697cf18e',1,CURRENT_TIMESTAMP,'A'); -- Constraseña desencriptada: amolina
 
-INSERT INTO IMVE.TbTiposRelaciones(NombreMasculino,NombreFemenino,NombreInversoMasculino,NombreInversoFemenino,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES 
-('Abuelo','Abuela','Nieto','Nieta',1,CURRENT_TIMESTAMP)
-, ('Padre','Madre','Hijo','Hija',1,CURRENT_TIMESTAMP);
+INSERT INTO IMVE.TbTiposRelaciones(NombreMasculino,NombreFemenino,NombreInversoMasculino,NombreInversoFemenino,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
+  ('Abuelo','Abuela','Nieto','Nieta',1,CURRENT_TIMESTAMP)
+  , ('Padre','Madre','Hijo','Hija',1,CURRENT_TIMESTAMP);
 
-INSERT INTO IMVE.TbTiposRelacionesPersonas(IdTipoRelacion,IdPersonaRelacionado1,IdPersonaRelacionado2,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES 
-(2,3,2,1,CURRENT_TIMESTAMP)
-, (2,4,2,1,CURRENT_TIMESTAMP);
+INSERT INTO IMVE.TbTiposRelacionesPersonas(IdTipoRelacion,IdPersonaRelacionado1,IdPersonaRelacionado2,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
+  (2,3,2,1,CURRENT_TIMESTAMP)
+  , (2,4,2,1,CURRENT_TIMESTAMP);
 
-INSERT INTO IMVE.TbMinisterios(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
-('Alabanza',1,CURRENT_TIMESTAMP,'A')
-, ('Red de matrimonios',1,CURRENT_TIMESTAMP,'A')
-, ('Restauración',1,CURRENT_TIMESTAMP,'A')
-, ('Vida plena',1,CURRENT_TIMESTAMP,'A');
+INSERT INTO IMVE.TbMinisterios(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
+  ('Alabanza',1,CURRENT_TIMESTAMP,'A')
+  , ('Red de matrimonios',1,CURRENT_TIMESTAMP,'A')
+  , ('Restauración',1,CURRENT_TIMESTAMP,'A')
+  , ('Vida plena',1,CURRENT_TIMESTAMP,'A');
 
-INSERT INTO IMVE.TbCategorias(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
-('Pastor',1,CURRENT_TIMESTAMP,'A')
-, ('Consejero',1,CURRENT_TIMESTAMP,'A');
+INSERT INTO IMVE.TbCategorias(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
+  ('Pastor',1,CURRENT_TIMESTAMP,'A')
+  , ('Consejero',1,CURRENT_TIMESTAMP,'A');
 
-INSERT INTO IMVE.TbCategoriasGrupos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
-('Categoría Grupo 1',1,CURRENT_TIMESTAMP,'A')
-, ('Categoría Grupo 2',1,CURRENT_TIMESTAMP,'A');
+INSERT INTO IMVE.TbCategoriasGrupos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
+  ('Categoría Grupo 1',1,CURRENT_TIMESTAMP,'A')
+  , ('Categoría Grupo 2',1,CURRENT_TIMESTAMP,'A');
 
-INSERT INTO IMVE.TbTiposCompromisos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
-('Tipo Compromiso 1',1,CURRENT_TIMESTAMP,'A')
-, ('Tipo Compromiso 2',1,CURRENT_TIMESTAMP,'A');
+INSERT INTO IMVE.TbTiposCompromisos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
+  ('Tipo Compromiso 1',1,CURRENT_TIMESTAMP,'A')
+  , ('Tipo Compromiso 2',1,CURRENT_TIMESTAMP,'A');
 
-INSERT INTO IMVE.TbTiposSeguimientos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
-('Tipo Seguimiento 1',1,CURRENT_TIMESTAMP,'A')
-, ('Tipo Seguimiento 2',1,CURRENT_TIMESTAMP,'A');
+INSERT INTO IMVE.TbTiposSeguimientos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
+  ('Tipo Seguimiento 1',1,CURRENT_TIMESTAMP,'A')
+  , ('Tipo Seguimiento 2',1,CURRENT_TIMESTAMP,'A');
 
 

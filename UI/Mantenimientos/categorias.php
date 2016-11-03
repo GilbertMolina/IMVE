@@ -37,7 +37,7 @@ $utilitarios = new UtilitariosMantenimientos();
         <script src="../../Negocio/Mantenimientos/categoriasCN.js" type="text/javascript"></script>
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
     </head>
-    <body>
+    <body onload="CategoriasOnLoad()">
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
@@ -134,7 +134,7 @@ $utilitarios = new UtilitariosMantenimientos();
                     <form class="ui-filterable">
                         <input id="filtro" data-type="search" placeholder="Búsqueda">
                     </form>
-                    <ul data-role="listview" id="listaCategoriasPersonas" data-filter="true" data-input="#filtro" data-autodividers="true" data-inset="true">
+                    <ul data-role="listview" id="listaCategorias" data-filter="true" data-input="#filtro" data-autodividers="true" data-inset="true">
                         <!-- Aquí se insertan los datos dinámicamente -->
                     </ul>
                 </div>
