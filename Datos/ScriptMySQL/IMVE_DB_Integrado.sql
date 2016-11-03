@@ -827,7 +827,9 @@ VALUES
     , p_UsuarioUltimaModificacion
     , CURRENT_TIMESTAMP()
 );
-    
+
+SELECT LAST_INSERT_ID() AS Id;
+
 END //
 DELIMITER ;
 
@@ -886,7 +888,9 @@ VALUES
     , p_UsuarioUltimaModificacion
     , CURRENT_TIMESTAMP()
 );
-    
+
+SELECT LAST_INSERT_ID() AS Id;
+
 END //
 DELIMITER ;
 
@@ -948,7 +952,9 @@ VALUES
     , CURRENT_TIMESTAMP()
     , 'A'
 );
-    
+
+SELECT LAST_INSERT_ID() AS Id;
+
 END //
 DELIMITER ;
 
@@ -1032,7 +1038,9 @@ VALUES
     , CURRENT_TIMESTAMP()
     , 'A'
 );
-    
+
+SELECT LAST_INSERT_ID() AS Id;
+
 END //
 DELIMITER ;
 
@@ -1116,7 +1124,9 @@ VALUES
     , CURRENT_TIMESTAMP()
     , 'A'
 );
-    
+
+SELECT LAST_INSERT_ID() AS Id;
+
 END //
 DELIMITER ;
 
@@ -1200,7 +1210,9 @@ VALUES
     , CURRENT_TIMESTAMP()
     , 'A'
 );
-    
+
+SELECT LAST_INSERT_ID() AS Id;
+
 END //
 DELIMITER ;
 
@@ -1284,7 +1296,9 @@ VALUES
     , CURRENT_TIMESTAMP()
     , 'A'
 );
-    
+
+SELECT LAST_INSERT_ID() AS Id;
+
 END //
 DELIMITER ;
 
