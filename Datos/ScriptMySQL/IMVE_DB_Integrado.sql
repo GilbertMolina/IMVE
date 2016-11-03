@@ -462,9 +462,9 @@ DROP VIEW IF EXISTS IMVE.RelacionesFamiliares;
 
 CREATE VIEW IMVE.RelacionesFamiliares AS
 SELECT P1.IdPersona
-    , TRP.IdTipoRelacion
-  , CASE P1.Sexo WHEN 'M' THEN TR.NombreMasculino WHEN 'F' THEN TR.NombreFemenino END AS 'TipoRelacion'
-  , CONCAT(P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2,' es ',CASE P1.Sexo WHEN 'M' THEN LOWER(TR.NombreMasculino) WHEN 'F' THEN LOWER(TR.NombreFemenino) END,' de ',P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2) AS 'Relacion'
+	, TRP.IdTipoRelacion
+    , CASE P1.Sexo WHEN 'M' THEN TR.NombreMasculino WHEN 'F' THEN TR.NombreFemenino END AS 'TipoRelacion'
+	, CONCAT(P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2,' es ',CASE P1.Sexo WHEN 'M' THEN LOWER(TR.NombreMasculino) WHEN 'F' THEN LOWER(TR.NombreFemenino) END,' de ',P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2) AS 'Relacion'
 FROM IMVE.TbTiposRelacionesPersonas AS TRP
 INNER JOIN IMVE.TbTiposRelaciones AS TR
   ON TRP.IdTipoRelacion = TR.IdTipoRelacion
@@ -475,8 +475,8 @@ INNER JOIN IMVE.TbPersonas AS P2
 UNION ALL
 SELECT P2.IdPersona
     , TRP.IdTipoRelacion
-  , CASE P2.Sexo WHEN 'M' THEN TR.NombreInversoMasculino WHEN 'F' THEN TR.NombreInversoFemenino END AS 'TipoRelacion'
-  , CONCAT(P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2,' es ',CASE P2.Sexo WHEN 'M' THEN LOWER(TR.NombreInversoMasculino) WHEN 'F' THEN LOWER(TR.NombreInversoFemenino) END,' de ',P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2) AS 'Relacion'
+	, CASE P2.Sexo WHEN 'M' THEN TR.NombreInversoMasculino WHEN 'F' THEN TR.NombreInversoFemenino END AS 'TipoRelacion'
+	, CONCAT(P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2,' es ',CASE P2.Sexo WHEN 'M' THEN LOWER(TR.NombreInversoMasculino) WHEN 'F' THEN LOWER(TR.NombreInversoFemenino) END,' de ',P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2) AS 'Relacion'
 FROM IMVE.TbTiposRelacionesPersonas AS TRP
 INNER JOIN IMVE.TbTiposRelaciones AS TR
   ON TRP.IdTipoRelacion = TR.IdTipoRelacion
@@ -497,10 +497,10 @@ CREATE PROCEDURE IMVE.TbDistritosListarDistritosCantonesProvincias()
 BEGIN
 
 SELECT P.Descripcion AS Pais 
-  , PR.Descripcion AS Provincia
-  , C.Descripcion AS Canton
-  , D.Descripcion AS Distrito
-  , CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion) AS Direccion
+	, PR.Descripcion AS Provincia
+	, C.Descripcion AS Canton
+	, D.Descripcion AS Distrito
+	, CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion) AS Direccion
 FROM IMVE.TbPaises AS P
 INNER JOIN IMVE.TbProvincias AS PR 
   ON PR.IdPais = P.IdPais
@@ -530,7 +530,7 @@ FROM IMVE.TbPaises
 WHERE Descripcion = 'Costa Rica';
 
 SELECT IdProvincia
-  , Descripcion
+	, Descripcion
 FROM IMVE.TbProvincias
 WHERE IdPais = @v_IdPais
 ORDER BY IdProvincia;
@@ -543,7 +543,7 @@ DROP PROCEDURE IF EXISTS IMVE.TbCantonesListarFiltrado;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbCantonesListarFiltrado(
-  p_IdProvincia INT
+	p_IdProvincia INT
 )
 BEGIN
 
@@ -554,7 +554,7 @@ FROM IMVE.TbPaises
 WHERE Descripcion = 'Costa Rica';
 
 SELECT IdCanton
-  , Descripcion
+	, Descripcion
 FROM IMVE.TbCantones
 WHERE IdPais = @v_IdPais
   AND IdProvincia = p_IdProvincia
@@ -568,8 +568,8 @@ DROP PROCEDURE IF EXISTS IMVE.TbDistritosListarFiltrado;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbDistritosListarFiltrado(
-  p_IdProvincia INT
-    , p_IdCanton INT
+	p_IdProvincia INT
+	, p_IdCanton INT
 )
 BEGIN
 
@@ -580,11 +580,11 @@ FROM IMVE.TbPaises
 WHERE Descripcion = 'Costa Rica';
 
 SELECT IdDistrito
-  , Descripcion
+	, Descripcion
 FROM IMVE.TbDistritos
 WHERE IdPais = @v_IdPais
-  AND IdProvincia = p_IdProvincia
-    AND IdCanton = p_IdCanton
+	AND IdProvincia = p_IdProvincia
+	AND IdCanton = p_IdCanton
 ORDER BY IdDistrito;
 
 END //
@@ -598,17 +598,17 @@ CREATE PROCEDURE IMVE.TbUsuariosListar()
 BEGIN
 
 SELECT P.IdPersona
-  , P.Identificacion
-    , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+	, P.Identificacion
+	, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
     , RU.Descripcion
     , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM TbUsuarios AS U
 INNER JOIN TbPersonas AS P
-  ON U.IdPersona = P.IdPersona
+	ON U.IdPersona = P.IdPersona
 INNER JOIN TbRolesUsuarios AS RU
-  ON U.IdRolUsuario = RU.IdRolUsuario
+	ON U.IdRolUsuario = RU.IdRolUsuario
 WHERE U.Activo = 'A'
-  AND P.Activo = 'A'
+	AND P.Activo = 'A'
 ORDER BY NombreCompleto;
 
 END //
@@ -619,13 +619,13 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosIniciarSesion;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosIniciarSesion(
-  p_Identificacion VARCHAR(30)
+	p_Identificacion VARCHAR(30)
     , p_Contrasena VARCHAR(50)
 )
 BEGIN
 
 SELECT P.IdPersona
-  , P.Identificacion
+	, P.Identificacion
     , CONCAT(P.Nombre,' ',P.Apellido1,' ', P.Apellido2) AS NombreCompleto
     , P.Sexo
     , U.Contrasena
@@ -633,11 +633,11 @@ SELECT P.IdPersona
     , RU.Descripcion AS 'Rol'
 FROM IMVE.TbPersonas AS P
 INNER JOIN IMVE.TbUsuarios AS U
-  ON P.IdPersona = U.IdPersona
+	ON P.IdPersona = U.IdPersona
 INNER JOIN IMVE.TbRolesUsuarios AS RU
-  ON U.IdRolUsuario = RU.IdRolUsuario
+	ON U.IdRolUsuario = RU.IdRolUsuario
 WHERE P.Identificacion = p_Identificacion
-  AND U.Contrasena = p_Contrasena
+	AND U.Contrasena = p_Contrasena
     AND RU.Descripcion = 'Administrador'
     AND P.Activo = 'A'
     AND U.Activo = 'A'
@@ -651,18 +651,18 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosSolicitarDatos;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosSolicitarDatos(
-  p_Identificacion VARCHAR(30)
+	p_Identificacion VARCHAR(30)
 )
 BEGIN
 
 SELECT P.IdPersona
-  , P.Identificacion
+	, P.Identificacion
     , CONCAT(P.Nombre,' ',P.Apellido1,' ', P.Apellido2) AS NombreCompleto
     , P.Correo
     , P.Sexo
 FROM IMVE.TbPersonas AS P
 INNER JOIN IMVE.TbUsuarios AS U
-  ON P.IdPersona = U.IdPersona
+	ON P.IdPersona = U.IdPersona
 WHERE P.Identificacion = p_Identificacion
     AND P.Activo = 'A'
     AND U.Activo = 'A';
@@ -675,17 +675,17 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosCambiarContrasena;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosCambiarContrasena(
-  p_IdPersona INT
+	p_IdPersona INT
     , p_Contrasena VARCHAR(50)
 )
 BEGIN
 
 UPDATE IMVE.TbUsuarios
 SET Contrasena = p_Contrasena
-  , UsuarioUltimaModificacion = p_IdPersona
-  , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+	, UsuarioUltimaModificacion = p_IdPersona
+	, FechaUltimaModificacion = CURRENT_TIMESTAMP()
 WHERE IdPersona = p_IdPersona
-  AND Activo = 'A';
+	AND Activo = 'A';
 
 SELECT p_IdPersona AS Id;
     
@@ -697,15 +697,15 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosAgregar(
-  p_IdPersona INT
-  , p_IdRolUsuario INT
-  , p_Contrasena VARCHAR(50)
-  , p_UsuarioUltimaModificacion INT
+	p_IdPersona INT
+	, p_IdRolUsuario INT
+	, p_Contrasena VARCHAR(50)
+	, p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 INSERT INTO IMVE.TbUsuarios(
-  IdPersona
+	IdPersona
     , IdRolUsuario
     , Contrasena
     , UsuarioUltimaModificacion
@@ -732,8 +732,8 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosModificar(
-  p_IdPersona INT
-  , p_Identificacion VARCHAR(30)
+	p_IdPersona INT
+	, p_Identificacion VARCHAR(30)
     , p_Nombre VARCHAR(20)
     , p_Apellido1 VARCHAR(20)
     , p_Apellido2 VARCHAR(20)
@@ -783,7 +783,7 @@ DROP PROCEDURE IF EXISTS IMVE.TbUsuariosDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbUsuariosDesactivar(
-  p_IdPersona INT
+	p_IdPersona INT
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
@@ -802,7 +802,7 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposRelacionesAgregar(
-  p_NombreMasculino VARCHAR(20)
+	p_NombreMasculino VARCHAR(20)
     , p_NombreFemenino VARCHAR(20)
     , p_NombreInversoMasculino VARCHAR(20)
     , p_NombreInversoFemenino VARCHAR(20)
@@ -811,7 +811,7 @@ CREATE PROCEDURE IMVE.TbTiposRelacionesAgregar(
 BEGIN
 
 INSERT INTO IMVE.TbTiposRelaciones(
-  NombreMasculino
+	NombreMasculino
     , NombreFemenino
     , NombreInversoMasculino
     , NombreInversoFemenino
@@ -820,7 +820,7 @@ INSERT INTO IMVE.TbTiposRelaciones(
 )
 VALUES
 (
-  p_NombreMasculino
+	p_NombreMasculino
     , p_NombreFemenino
     , p_NombreInversoMasculino
     , p_NombreInversoFemenino
@@ -836,9 +836,9 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposRelacionesModificar(
-  p_IdTipoRelacion INT
-  , p_NombreMasculino VARCHAR(20)
-    , p_NombreFemenino VARCHAR(20)
+	p_IdTipoRelacion INT
+	, p_NombreMasculino VARCHAR(20)
+	, p_NombreFemenino VARCHAR(20)
     , p_NombreInversoMasculino VARCHAR(20)
     , p_NombreInversoFemenino VARCHAR(20)
     , p_UsuarioUltimaModificacion INT
@@ -848,7 +848,7 @@ BEGIN
 
 UPDATE IMVE.TbTiposRelaciones
 SET NombreMasculino = p_NombreMasculino
-  , NombreFemenino = p_NombreFemenino
+	, NombreFemenino = p_NombreFemenino
     , NombreInversoMasculino = p_NombreInversoMasculino
     , NombreInversoFemenino = p_NombreInversoFemenino
     , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
@@ -864,7 +864,7 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesPersonasAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposRelacionesPersonasAgregar(
-  p_IdTipoRelacion INT
+	p_IdTipoRelacion INT
     , p_IdPersonaRelacionado1 INT
     , p_IdPersonaRelacionado2 INT
     , p_UsuarioUltimaModificacion INT
@@ -872,7 +872,7 @@ CREATE PROCEDURE IMVE.TbTiposRelacionesPersonasAgregar(
 BEGIN
 
 INSERT INTO IMVE.TbTiposRelacionesPersonas(
-  IdTipoRelacion
+	IdTipoRelacion
     , IdPersonaRelacionado1
     , IdPersonaRelacionado2
     , UsuarioUltimaModificacion
@@ -880,7 +880,7 @@ INSERT INTO IMVE.TbTiposRelacionesPersonas(
 )
 VALUES
 (
-  p_IdTipoRelacion
+	p_IdTipoRelacion
     , p_IdPersonaRelacionado1
     , p_IdPersonaRelacionado2
     , p_UsuarioUltimaModificacion
@@ -895,14 +895,14 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesPersonasListarPorPersona;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposRelacionesPersonasListarPorPersona(
-  p_IdPersona INT
+	p_IdPersona INT
 )
 BEGIN
 
 SELECT IdPersona
-  , IdTipoRelacion
-  , TipoRelacion
-  , Relacion
+	, IdTipoRelacion
+	, TipoRelacion
+	, Relacion
 FROM IMVE.RelacionesFamiliares
 WHERE IdPersona = p_IdPersona;
     
@@ -917,7 +917,7 @@ CREATE PROCEDURE IMVE.TbRolesUsuariosListar()
 BEGIN
 
 SELECT IdRolUsuario
-  , Descripcion
+	, Descripcion
     , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM IMVE.TbRolesUsuarios
 WHERE Activo = 'A';
@@ -930,20 +930,20 @@ DROP PROCEDURE IF EXISTS IMVE.TbRolesUsuariosAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbRolesUsuariosAgregar(
-  p_Descripcion VARCHAR(50)
+	p_Descripcion VARCHAR(50)
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 INSERT INTO IMVE.TbRolesUsuarios(
-  Descripcion
+	Descripcion
     , UsuarioUltimaModificacion
     , FechaUltimaModificacion
     , Activo
 )
 VALUES
 (
-  p_Descripcion
+	p_Descripcion
     , p_UsuarioUltimaModificacion
     , CURRENT_TIMESTAMP()
     , 'A'
@@ -957,16 +957,16 @@ DROP PROCEDURE IF EXISTS IMVE.TbRolesUsuariosModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbRolesUsuariosModificar(
-  p_IdRolUsuario INT
-  , p_Descripcion VARCHAR(50)
-    , p_UsuarioUltimaModificacion INT
+	p_IdRolUsuario INT
+	, p_Descripcion VARCHAR(50)
+	, p_UsuarioUltimaModificacion INT
     , p_Activo CHAR(1)
 )
 BEGIN
 
 UPDATE IMVE.TbRolesUsuarios
 SET Descripcion = p_Descripcion
-  , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
     , FechaUltimaModificacion = CURRENT_TIMESTAMP()
     , Activo = p_Activo
 WHERE IdRolUsuario = p_IdRolUsuario;
@@ -979,14 +979,14 @@ DROP PROCEDURE IF EXISTS IMVE.TbRolesUsuariosDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbRolesUsuariosDesactivar(
-  p_IdRolUsuario INT
+	p_IdRolUsuario INT
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 UPDATE IMVE.TbRolesUsuarios
 SET Activo = 'I'
-  , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
     , FechaUltimaModificacion = CURRENT_TIMESTAMP()
 WHERE IdRolUsuario = p_IdRolUsuario;
     
@@ -1001,7 +1001,7 @@ CREATE PROCEDURE IMVE.TbCategoriasListar()
 BEGIN
 
 SELECT IdCategoria
-  , Descripcion
+	, Descripcion
     , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM IMVE.TbCategorias
 WHERE Activo = 'A';
@@ -1014,20 +1014,20 @@ DROP PROCEDURE IF EXISTS IMVE.TbCategoriasAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbCategoriasAgregar(
-  p_Descripcion VARCHAR(50)
+	p_Descripcion VARCHAR(50)
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 INSERT INTO IMVE.TbCategorias(
-  Descripcion
+	Descripcion
     , UsuarioUltimaModificacion
     , FechaUltimaModificacion
     , Activo
 )
 VALUES
 (
-  p_Descripcion
+	p_Descripcion
     , p_UsuarioUltimaModificacion
     , CURRENT_TIMESTAMP()
     , 'A'
@@ -1041,8 +1041,8 @@ DROP PROCEDURE IF EXISTS IMVE.TbCategoriasModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbCategoriasModificar(
-  p_IdCategoria INT
-  , p_Descripcion VARCHAR(50)
+	p_IdCategoria INT
+	, p_Descripcion VARCHAR(50)
     , p_UsuarioUltimaModificacion INT
     , p_Activo CHAR(1)
 )
@@ -1050,7 +1050,7 @@ BEGIN
 
 UPDATE IMVE.TbCategorias
 SET Descripcion = p_Descripcion
-  , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
     , FechaUltimaModificacion = CURRENT_TIMESTAMP()
     , Activo = p_Activo
 WHERE IdCategoria = p_IdCategoria;
@@ -1063,14 +1063,14 @@ DROP PROCEDURE IF EXISTS IMVE.TbCategoriasDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbCategoriasDesactivar(
-  p_IdCategoria INT
+	p_IdCategoria INT
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 UPDATE IMVE.TbCategorias
 SET Activo = 'I'
-  , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
     , FechaUltimaModificacion = CURRENT_TIMESTAMP()
 WHERE IdCategoria = p_IdCategoria;
     
@@ -1085,7 +1085,7 @@ CREATE PROCEDURE IMVE.TbTiposCompromisosListar()
 BEGIN
 
 SELECT IdTipoCompromiso
-  , Descripcion
+	, Descripcion
     , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM IMVE.TbTiposCompromisos
 WHERE Activo = 'A';
@@ -1098,20 +1098,20 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposCompromisosAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposCompromisosAgregar(
-  p_Descripcion VARCHAR(50)
+	p_Descripcion VARCHAR(50)
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 INSERT INTO IMVE.TbTiposCompromisos(
-  Descripcion
+	Descripcion
     , UsuarioUltimaModificacion
     , FechaUltimaModificacion
     , Activo
 )
 VALUES
 (
-  p_Descripcion
+	p_Descripcion
     , p_UsuarioUltimaModificacion
     , CURRENT_TIMESTAMP()
     , 'A'
@@ -1125,8 +1125,8 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposCompromisosModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposCompromisosModificar(
-  p_IdTipoCompromiso INT
-  , p_Descripcion VARCHAR(50)
+	p_IdTipoCompromiso INT
+	, p_Descripcion VARCHAR(50)
     , p_UsuarioUltimaModificacion INT
     , p_Activo CHAR(1)
 )
@@ -1134,7 +1134,7 @@ BEGIN
 
 UPDATE IMVE.TbTiposCompromisos
 SET Descripcion = p_Descripcion
-  , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
     , FechaUltimaModificacion = CURRENT_TIMESTAMP()
     , Activo = p_Activo
 WHERE IdTipoCompromiso = p_IdTipoCompromiso;
@@ -1147,14 +1147,14 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposCompromisosDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposCompromisosDesactivar(
-  p_IdTipoCompromiso INT
+	p_IdTipoCompromiso INT
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 UPDATE IMVE.TbTiposCompromisos
 SET Activo = 'I'
-  , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
     , FechaUltimaModificacion = CURRENT_TIMESTAMP()
 WHERE IdTipoCompromiso = p_IdTipoCompromiso;
     
@@ -1169,8 +1169,8 @@ CREATE PROCEDURE IMVE.TbMinisteriosListar()
 BEGIN
 
 SELECT IdMinisterio
-  , Descripcion
-    , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+	, Descripcion
+	, CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM IMVE.TbMinisterios
 WHERE Activo = 'A';
     
@@ -1182,20 +1182,20 @@ DROP PROCEDURE IF EXISTS IMVE.TbMinisteriosAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbMinisteriosAgregar(
-  p_Descripcion VARCHAR(50)
+	p_Descripcion VARCHAR(50)
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 INSERT INTO IMVE.TbMinisterios(
-  Descripcion
+	Descripcion
     , UsuarioUltimaModificacion
     , FechaUltimaModificacion
     , Activo
 )
 VALUES
 (
-  p_Descripcion
+	p_Descripcion
     , p_UsuarioUltimaModificacion
     , CURRENT_TIMESTAMP()
     , 'A'
@@ -1209,8 +1209,8 @@ DROP PROCEDURE IF EXISTS IMVE.TbMinisteriosModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbMinisteriosModificar(
-  p_IdMinisterio INT
-  , p_Descripcion VARCHAR(50)
+	p_IdMinisterio INT
+	, p_Descripcion VARCHAR(50)
     , p_UsuarioUltimaModificacion INT
     , p_Activo CHAR(1)
 )
@@ -1218,7 +1218,7 @@ BEGIN
 
 UPDATE IMVE.TbMinisterios
 SET Descripcion = p_Descripcion
-  , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
     , FechaUltimaModificacion = CURRENT_TIMESTAMP()
     , Activo = p_Activo
 WHERE IdMinisterio = p_IdMinisterio;
@@ -1231,14 +1231,14 @@ DROP PROCEDURE IF EXISTS IMVE.TbMinisteriosDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbMinisteriosDesactivar(
-  p_IdMinisterio INT
+	p_IdMinisterio INT
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 UPDATE IMVE.TbMinisterios
 SET Activo = 'I'
-  , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
     , FechaUltimaModificacion = CURRENT_TIMESTAMP()
 WHERE IdMinisterio = p_IdMinisterio;
     
@@ -1253,7 +1253,7 @@ CREATE PROCEDURE IMVE.TbTiposSeguimientosListar()
 BEGIN
 
 SELECT IdTipoSeguimiento
-  , Descripcion
+	, Descripcion
     , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM IMVE.TbTiposSeguimientos
 WHERE Activo = 'A';
@@ -1266,20 +1266,20 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposSeguimientosAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposSeguimientosAgregar(
-  p_Descripcion VARCHAR(50)
+	p_Descripcion VARCHAR(50)
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 INSERT INTO IMVE.TbTiposSeguimientos(
-  Descripcion
+	Descripcion
     , UsuarioUltimaModificacion
     , FechaUltimaModificacion
     , Activo
 )
 VALUES
 (
-  p_Descripcion
+	p_Descripcion
     , p_UsuarioUltimaModificacion
     , CURRENT_TIMESTAMP()
     , 'A'
@@ -1293,8 +1293,8 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposSeguimientosModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposSeguimientosModificar(
-  p_IdTipoSeguimiento INT
-  , p_Descripcion VARCHAR(50)
+	p_IdTipoSeguimiento INT
+	, p_Descripcion VARCHAR(50)
     , p_UsuarioUltimaModificacion INT
     , p_Activo CHAR(1)
 )
@@ -1302,7 +1302,7 @@ BEGIN
 
 UPDATE IMVE.TbTiposSeguimientos
 SET Descripcion = p_Descripcion
-  , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
     , FechaUltimaModificacion = CURRENT_TIMESTAMP()
     , Activo = p_Activo
 WHERE IdTipoSeguimiento = p_IdTipoSeguimiento;
@@ -1315,14 +1315,14 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposSeguimientosDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposSeguimientosDesactivar(
-  p_IdTipoSeguimiento INT
+	p_IdTipoSeguimiento INT
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 UPDATE IMVE.TbTiposSeguimientos
 SET Activo = 'I'
-  , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
     , FechaUltimaModificacion = CURRENT_TIMESTAMP()
 WHERE IdTipoSeguimiento = p_IdTipoSeguimiento;
     
@@ -1337,7 +1337,7 @@ CREATE PROCEDURE IMVE.TbPersonasListar()
 BEGIN
 
 SELECT P.IdPersona
-  , P.Identificacion
+	, P.Identificacion
     , P.Nombre
     , P.Apellido1
     , P.Apellido2
@@ -1377,15 +1377,15 @@ CREATE PROCEDURE IMVE.TbPersonasListarSinUsuario()
 BEGIN
 
 SELECT P.IdPersona
-  , U.Contrasena
-  , P.Identificacion
-  , P.Nombre
-  , P.Apellido1
-  , P.Apellido2
-  , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
-  , P.Correo
-  , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
-  , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+	, U.Contrasena
+	, P.Identificacion
+	, P.Nombre
+	, P.Apellido1
+	, P.Apellido2
+	, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+	, P.Correo
+	, CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+	, CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM IMVE.TbUsuarios AS U 
 RIGHT JOIN IMVE.TbPersonas AS P
   ON U.IdPersona = P.IdPersona
@@ -1401,7 +1401,7 @@ DROP PROCEDURE IF EXISTS IMVE.TbPersonasAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbPersonasAgregar(
-  p_Identificacion VARCHAR(30)
+	p_Identificacion VARCHAR(30)
     , p_Nombre VARCHAR(20)
     , p_Apellido1 VARCHAR(20)
     , p_Apellido2 VARCHAR(20)
@@ -1418,7 +1418,7 @@ CREATE PROCEDURE IMVE.TbPersonasAgregar(
 BEGIN
 
 INSERT INTO IMVE.TbPersonas(
-  Identificacion
+	Identificacion
     , Nombre
     , Apellido1
     , Apellido2
@@ -1435,7 +1435,7 @@ INSERT INTO IMVE.TbPersonas(
 )
 VALUES
 (
-  p_Identificacion
+	p_Identificacion
     , p_Nombre
     , p_Apellido1
     , p_Apellido2
@@ -1461,8 +1461,8 @@ DROP PROCEDURE IF EXISTS IMVE.TbPersonasModificar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbPersonasModificar(
-  p_IdPersona INT
-  , p_Identificacion VARCHAR(30)
+	p_IdPersona INT
+	, p_Identificacion VARCHAR(30)
     , p_Nombre VARCHAR(20)
     , p_Apellido1 VARCHAR(20)
     , p_Apellido2 VARCHAR(20)
@@ -1481,7 +1481,7 @@ BEGIN
 
 UPDATE IMVE.TbPersonas
 SET Identificacion = p_Identificacion
-  , Nombre = p_Nombre
+	, Nombre = p_Nombre
     , Apellido1 = p_Apellido1
     , Apellido2 = p_Apellido2
     , FechaNacimiento = p_FechaNacimiento
@@ -1505,14 +1505,14 @@ DROP PROCEDURE IF EXISTS IMVE.TbPersonasDesactivar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbPersonasDesactivar(
-  p_IdPersona INT
+	p_IdPersona INT
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 UPDATE IMVE.TbPersonas
 SET Activo = 'I'
-  , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
     , FechaUltimaModificacion = CURRENT_TIMESTAMP()
 WHERE IdPersona = p_IdPersona;
     
@@ -2114,134 +2114,51 @@ INSERT INTO IMVE.TbDistritos(IdCanton,IdProvincia,IdPais,Descripcion) VALUES
 , (81,7,1,'Duacarí');
 
 -- -----------------------------------------------------
--- TODAS LAS OTRAS TABLAS
+-- LAS OTRAS TABLAS
 -- -----------------------------------------------------
 
-INSERT INTO IMVE.TbRolesUsuarios(
-    Descripcion
-    , UsuarioUltimaModificacion
-    , FechaUltimaModificacion
-    , Activo
-)
-VALUES
-(
-    'Administrador'
-    , 1
-    , CURRENT_TIMESTAMP
-    , 'A'
-);
+INSERT INTO IMVE.TbRolesUsuarios(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
+('Administrador',1,CURRENT_TIMESTAMP,'A');
 
-CALL IMVE.TbPersonasAgregar(
-    '101110111'
-    ,'Admin'
-    ,'IMVE'
-    ,''
-    ,''
-    ,0
-    ,''
-    ,NULL
-    ,''
-    ,''
-    ,'gmolinac@outlook.com'
-    ,'M'
-    , 1
-);
+INSERT INTO IMVE.TbPersonas(Identificacion,Nombre,Apellido1,Apellido2,FechaNacimiento,IdDistrito,DireccionDomicilio,Foto,Telefono,Celular,Correo,Sexo,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
+('101110111','Admin','IMVE','','',0,'',NULL,'','','gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
+, ('304540214','Gilbert','Molina','Castrillo','1991-05-11',251,'300mts sur del estadio de Paraíso',NULL,'40335942','86073518','gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
+, ('303030311','Antonio','Molina','Rojas','1970-11-08',251,'300mts sur del estadio de Paraíso',NULL,'40335942','87566245','gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
+, ('501870174','Sonia','Castrillo','Baltodano','1960-05-31',251,'300mts sur del estadio de Paraíso',NULL,'40335942','86074817','gmolinac@outlook.com','F',1,CURRENT_TIMESTAMP,'A');
 
-CALL IMVE.TbPersonasAgregar(
-    '304540214'
-    ,'Gilbert'
-    ,'Molina'
-    ,'Castrillo'
-    ,'1991-05-11'
-    ,251
-    ,'300mts sur del estadio de Paraíso'
-    ,NULL
-    ,'40335942'
-    ,'86073518'
-    ,'gmolinac@outlook.com'
-    ,'M'
-    , 1
-);
+INSERT INTO IMVE.TbUsuarios(IdPersona,IdRolUsuario,Contrasena,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
+(1,1,'8cb2237d0679ca88db6464eac60da96345513964',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: 12345
+, (2,1,'7c62f7e9b440e2232437218732d350971d066d5c',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: gmolina
+, (3,1,'07d7ae0f3696ffb5440182547e727fde697cf18e',1,CURRENT_TIMESTAMP,'A'); -- Constraseña desencriptada: amolina
 
-CALL IMVE.TbPersonasAgregar(
-    '303030311'
-    ,'Antonio'
-    ,'Molina'
-    ,'Rojas'
-    ,'1970-11-08'
-    ,251
-    ,'300mts sur del estadio de Paraíso'
-    ,NULL
-    ,'40335942'
-    ,'87566245'
-    ,'gmolinac@outlook.com'
-    ,'M'
-    , 1
-);
+INSERT INTO IMVE.TbTiposRelaciones(NombreMasculino,NombreFemenino,NombreInversoMasculino,NombreInversoFemenino,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES 
+('Abuelo','Abuela','Nieto','Nieta',1,CURRENT_TIMESTAMP)
+, ('Padre','Madre','Hijo','Hija',1,CURRENT_TIMESTAMP);
 
-CALL IMVE.TbPersonasAgregar(
-    '501870174'
-    ,'Sonia'
-    ,'Castrillo'
-    ,'Baltodano'
-    ,'1960-05-31'
-    ,251
-    ,'300mts sur del estadio de Paraíso'
-    ,NULL
-    ,'40335942'
-    ,'86074817'
-    ,'gmolinac@outlook.com'
-    ,'F'
-    , 1
-);
+INSERT INTO IMVE.TbTiposRelacionesPersonas(IdTipoRelacion,IdPersonaRelacionado1,IdPersonaRelacionado2,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES 
+(2,3,2,1,CURRENT_TIMESTAMP)
+, (2,4,2,1,CURRENT_TIMESTAMP);
 
-CALL IMVE.TbUsuariosAgregar(
-    1
-    , 1
-    ,'8cb2237d0679ca88db6464eac60da96345513964' -- 12345
-    , 1
-);
+INSERT INTO IMVE.TbMinisterios(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
+('Alabanza',1,CURRENT_TIMESTAMP,'A')
+, ('Red de matrimonios',1,CURRENT_TIMESTAMP,'A')
+, ('Restauración',1,CURRENT_TIMESTAMP,'A')
+, ('Vida plena',1,CURRENT_TIMESTAMP,'A');
 
-CALL IMVE.TbUsuariosAgregar(
-    2
-    , 1
-    ,'7c62f7e9b440e2232437218732d350971d066d5c' -- gmolina
-    , 1
-);
+INSERT INTO IMVE.TbCategorias(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
+('Pastor',1,CURRENT_TIMESTAMP,'A')
+, ('Consejero',1,CURRENT_TIMESTAMP,'A');
 
-CALL IMVE.TbUsuariosAgregar(
-    3
-    , 1
-    ,'07d7ae0f3696ffb5440182547e727fde697cf18e' -- amolina
-    , 1
-);
+INSERT INTO IMVE.TbCategoriasGrupos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
+('Categoría Grupo 1',1,CURRENT_TIMESTAMP,'A')
+, ('Categoría Grupo 2',1,CURRENT_TIMESTAMP,'A');
 
-CALL IMVE.TbTiposRelacionesAgregar(
-    'Abuelo'
-    , 'Abuela'
-    , 'Nieto'
-    , 'Nieta'
-    , 1
-);
+INSERT INTO IMVE.TbTiposCompromisos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
+('Tipo Compromiso 1',1,CURRENT_TIMESTAMP,'A')
+, ('Tipo Compromiso 2',1,CURRENT_TIMESTAMP,'A');
 
-CALL IMVE.TbTiposRelacionesAgregar(
-    'Padre'
-    , 'Madre'
-    , 'Hijo'
-    , 'Hija'
-    , 1
-);
+INSERT INTO IMVE.TbTiposSeguimientos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
+('Tipo Seguimiento 1',1,CURRENT_TIMESTAMP,'A')
+, ('Tipo Seguimiento 2',1,CURRENT_TIMESTAMP,'A');
 
-CALL IMVE.TbTiposRelacionesPersonasAgregar(
-    2
-    , 3
-    , 2
-    , 1
-);
 
-CALL IMVE.TbTiposRelacionesPersonasAgregar(
-    2
-    , 4
-    , 2
-    , 1
-);
