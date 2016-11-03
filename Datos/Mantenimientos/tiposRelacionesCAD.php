@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
 require("../conexionMySQL.php");
 $db = new MySQL();
 
-// Obtiene el listado de los tipos de relacion del sistema
+// Obtiene el listado de los tipos de relacion
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoRelaciones') {
     try {
         $sql          = "CALL TbTiposRelacionesListar()";
@@ -36,7 +36,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoRelaciones') {
     }
 }
 
-// Se realiza el registro de un tipo de relacion en el sistema
+// Se realiza el registro de un tipo de relacion
 if (isset($_POST['action']) && $_POST['action'] == 'registrarTipoRelacion') {
     try {
         $nombreMasculino        = $_POST['nombreMasculino'];

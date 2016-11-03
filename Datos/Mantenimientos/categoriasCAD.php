@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
 require("../conexionMySQL.php");
 $db = new MySQL();
 
-// Obtiene el listado de categorias activas del sistema
+// Obtiene el listado de categorias activas
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCategoriasActivas') {
     try {
         $sql          = "CALL TbCategoriasListar()";
@@ -36,7 +36,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCategoriasActi
     }
 }
 
-// Se realiza el registro de un nueva categoria en el sistema
+// Se realiza el registro de un nueva categoria
 if (isset($_POST['action']) && $_POST['action'] == 'registrarCategoria') {
     try {
         $descripcion   = $_POST['descripcion'];

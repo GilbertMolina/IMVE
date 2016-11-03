@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
 require("../conexionMySQL.php");
 $db = new MySQL();
 
-// Obtiene el listado de ministerios activos del sistema
+// Obtiene el listado de ministerios activos
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoMinisteriosActivos') {
     try {
         $sql          = "CALL TbMinisteriosListar()";
@@ -36,7 +36,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoMinisteriosAct
     }
 }
 
-// Se realiza el registro de un nuevo ministerio en el sistema
+// Se realiza el registro de un nuevo ministerio
 if (isset($_POST['action']) && $_POST['action'] == 'registrarMinisterio') {
     try {
         $descripcion   = $_POST['descripcion'];

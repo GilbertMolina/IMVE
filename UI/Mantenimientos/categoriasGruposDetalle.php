@@ -135,7 +135,27 @@ $utilitarios = new UtilitariosMantenimientos();
                             <h3 class="text-center">Mantenimiento de Categorías de Grupos</h3>
                             <hr>
                             <form method="post" action="#" id="categoriasGruposDetalle">
-
+                                <div>
+                                    <label for="txtDescripcionCategoriaGrupo">Descripción:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtDescripcionCategoriaGrupo" id="txtDescripcionCategoriaGrupo" maxlength="50" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboEstadoCategoriaGrupo">Estado:</label>
+                                    <select name="cboEstadoCategoriaGrupo" id="cboEstadoCategoriaGrupo" disabled>
+                                        <option value="0">Seleccione</option>
+                                        <option value="A" selected>Activo</option>
+                                        <option value="I">Inactivo</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-1"></div>
+                                    <div class="col-xs-10">
+                                        <button type="button" id="btnAceptar" data-theme="b" onclick="CategoriasGruposRegistrarCategoriaGrupo()" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
+                                    </div>
+                                    <div class="col-xs-1"></div>
+                                </div>
                             </form>
                         </div>
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>

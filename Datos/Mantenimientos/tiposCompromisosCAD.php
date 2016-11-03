@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
 require("../conexionMySQL.php");
 $db = new MySQL();
 
-// Obtiene el listado de tipos de compromisos activos del sistema
+// Obtiene el listado de tipos de compromisos activos
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposCompromisosActivos') {
     try {
         $sql          = "CALL TbTiposCompromisosListar()";
@@ -36,7 +36,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposCompromis
     }
 }
 
-// Se realiza el registro de un nuevo tipo de compromiso en el sistema
+// Se realiza el registro de un nuevo tipo de compromiso
 if (isset($_POST['action']) && $_POST['action'] == 'registrarTipoCompromiso') {
     try {
         $descripcion   = $_POST['descripcion'];

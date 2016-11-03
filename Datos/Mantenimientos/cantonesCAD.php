@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
 require("../conexionMySQL.php");
 $db = new MySQL();
 
-// Obtiene los cantones del sistema
+// Obtiene los cantones
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerCantones') {
     try {
         $idProvincia  = $_POST['idProvincia'];

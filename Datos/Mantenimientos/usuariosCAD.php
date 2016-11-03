@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
 require("../conexionMySQL.php");
 $db = new MySQL();
 
-// Obtiene el listado de personas del sistema para mostrarlas en un ListView
+// Obtiene el listado de personas para mostrarlas en un ListView
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonas') {
     try {
         $sql          = "CALL TbUsuariosListar()";
@@ -60,7 +60,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasCombob
     }
 }
 
-// Se realiza el registro de un nuevo usuario en el sistema
+// Se realiza el registro de un nuevo usuario
 if (isset($_POST['action']) && $_POST['action'] == 'registrarUsuario') {
     try {
         $idPersona     = $_POST['idPersona'];

@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
 require("../conexionMySQL.php");
 $db = new MySQL();
 
-// Obtiene el listado de tipos de seguimientos activos del sistema
+// Obtiene el listado de tipos de seguimientos activos
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposSeguimientosActivos') {
     try {
         $sql          = "CALL TbTiposSeguimientosListar()";
@@ -36,7 +36,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposSeguimien
     }
 }
 
-// Se realiza el registro de un nuevo tipo de seguimiento en el sistema
+// Se realiza el registro de un nuevo tipo de seguimiento
 if (isset($_POST['action']) && $_POST['action'] == 'registrarTipoSeguimiento') {
     try {
         $descripcion   = $_POST['descripcion'];

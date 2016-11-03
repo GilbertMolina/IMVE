@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
 require("../conexionMySQL.php");
 $db = new MySQL();
 
-// Obtiene el listado de categorias grupos activas del sistema
+// Obtiene el listado de categorias grupos activas
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCategoriasGruposActivas') {
     try {
         $sql          = "CALL TbCategoriasGruposListar()";
@@ -36,7 +36,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCategoriasGrup
     }
 }
 
-// Se realiza el registro de un nueva categoria de grupos en el sistema
+// Se realiza el registro de un nueva categoria de grupos
 if (isset($_POST['action']) && $_POST['action'] == 'registrarCategoriaGrupo') {
     try {
         $descripcion   = $_POST['descripcion'];

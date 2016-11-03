@@ -134,8 +134,28 @@ $utilitarios = new UtilitariosMantenimientos();
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
                             <h3 class="text-center">Mantenimiento de Categorías de Personas</h3>
                             <hr>
-                            <form method="post" action="#" id="categoriasPersonasDetalle">
-
+                            <form method="post" action="#" id="categoriasDetalle">
+                                <div>
+                                    <label for="txtDescripcionCategoria">Descripción:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtDescripcionCategoria" id="txtDescripcionCategoria" maxlength="50" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboEstadoCategoria">Estado:</label>
+                                    <select name="cboEstadoCategoria" id="cboEstadoCategoria" disabled>
+                                        <option value="0">Seleccione</option>
+                                        <option value="A" selected>Activo</option>
+                                        <option value="I">Inactivo</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-1"></div>
+                                    <div class="col-xs-10">
+                                        <button type="button" id="btnAceptar" data-theme="b" onclick="CategoriasRegistrarCategoria()" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
+                                    </div>
+                                    <div class="col-xs-1"></div>
+                                </div>
                             </form>
                         </div>
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>

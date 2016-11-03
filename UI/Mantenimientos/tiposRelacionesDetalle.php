@@ -135,7 +135,33 @@ $utilitarios = new UtilitariosMantenimientos();
                             <h3 class="text-center">Mantenimiento de Tipos de Relaciones</h3>
                             <hr>
                             <form method="post" action="#" id="tiposRelacionesDetalle">
-
+                                <div>
+                                    <label for="txtNombreMasculino">Nombre masculino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtNombreMasculino" id="txtNombreMasculino" maxlength="20" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtNombreFemenino">Nombre femenino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtNombreFemenino" id="txtNombreFemenino" maxlength="20" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtNombreInversoMasculino">Nombre inverso masculino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtNombreInversoMasculino" id="txtNombreInversoMasculino" maxlength="20" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtNombreInversoFemenino">Nombre femenino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtNombreInversoFemenino" id="txtNombreInversoFemenino" maxlength="20" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-1"></div>
+                                    <div class="col-xs-10">
+                                        <button type="button" id="btnAceptar" data-theme="b" onclick="TiposRelacionesRegistrarTipoRelacion()" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
+                                    </div>
+                                    <div class="col-xs-1"></div>
+                                </div>
                             </form>
                         </div>
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>

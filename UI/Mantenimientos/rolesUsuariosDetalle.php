@@ -135,7 +135,27 @@ $utilitarios = new UtilitariosMantenimientos();
                             <h3 class="text-center">Mantenimiento de Roles de Usuario</h3>
                             <hr>
                             <form method="post" action="#" id="rolesUsuarioDetalle">
-
+                                <div>
+                                    <label for="txtDescripcionRolUsuario">Descripción:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtDescripcionRolUsuario" id="txtDescripcionRolUsuario" maxlength="50" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboEstadoRolUsuario">Estado:</label>
+                                    <select name="cboEstadoRolUsuario" id="cboEstadoRolUsuario" disabled>
+                                        <option value="0">Seleccione</option>
+                                        <option value="A" selected>Activo</option>
+                                        <option value="I">Inactivo</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-1"></div>
+                                    <div class="col-xs-10">
+                                        <button type="button" id="btnAceptar" data-theme="b" onclick="RolesUsuarioRegistrarRolUsuario()" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
+                                    </div>
+                                    <div class="col-xs-1"></div>
+                                </div>
                             </form>
                         </div>
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>
