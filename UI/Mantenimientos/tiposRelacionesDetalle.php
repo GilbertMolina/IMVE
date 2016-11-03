@@ -151,7 +151,7 @@ $utilitarios = new UtilitariosMantenimientos();
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="txtNombreInversoFemenino">Nombre femenino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <label for="txtNombreInversoFemenino">Nombre inverso femenino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
                                     <input type="text" name="txtNombreInversoFemenino" id="txtNombreInversoFemenino" maxlength="20" data-clear-btn="true"/>
                                 </div>
                                 <br>
