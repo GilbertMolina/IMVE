@@ -18,9 +18,9 @@ $versionApp = new VersionAPP();
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link rel="shorcut icon" href="UI/Includes/images/favicon.ico" />
+        <link href="UI/Includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="UI/Includes/jquerymobile/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css"/>
         <link href="UI/Includes/jqueryconfirm/jquery-confirm.min.css" rel="stylesheet" type="text/css"/>
-        <link href="UI/Includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="UI/Includes/css/fonts/Lato.css" rel="stylesheet" type="text/css">
         <link href="UI/Includes/css/styles.css" rel="stylesheet" type="text/css"/>
         <link href="UI/Includes/css/animate.css" rel="stylesheet" type="text/css"/>

@@ -16,6 +16,7 @@ require("../Includes/utilitarios/mantenimientos.php");
 $utilitarios = new UtilitariosMantenimientos();
 
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,23 +53,29 @@ $utilitarios = new UtilitariosMantenimientos();
                 <div data-role="collapsible" data-theme="a">
                     <h3>Mantenimientos</h3>
                     <ul data-role="listview">
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosCategoriasPersonas()">Categorías de personas</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosCategoriasGrupos()">Categorías de grupos</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosMinisterios()">Ministerios</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosRolesUsuarios()">Roles de usuarios</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosTiposCompromisos()">Tipos de compromisos</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosTiposRelaciones()">Tipos de relaciones</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosTiposSeguimientos()">Tipos de seguimientos</a>
+                        </li>
                         <li class="menu-actual">
                             Usuarios
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #2</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #3</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #4</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #5</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento N</a>
                         </li>
                     </ul>
                 </div>
@@ -135,7 +142,7 @@ $utilitarios = new UtilitariosMantenimientos();
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiMantenimientosPaginaMantenimientosUsuariosDetalle()">Agregar</a></li>
+                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiMantenimientosPaginaMantenimientosUsuariosDetale()">Agregar</a></li>
                     </ul>
                 </div>
             </div>

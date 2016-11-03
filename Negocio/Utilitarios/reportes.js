@@ -18,14 +18,98 @@ function UtiReportesPaginaCambiarContrasena()
 
 // -----------------------------------------------------------------
 
+// Función para ingresar a la pantalla de mantenimiento de categorias personas
+function UtiReportesPaginaMantenimientosCategoriasPersonas()
+{
+    RedireccionPagina('../Mantenimientos/categorias.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de categorias personas detalle
+function UtiReportesPaginaMantenimientosCategoriasPersonasDetalle()
+{
+    RedireccionPagina('../Mantenimientos/categoriasDetalle.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de categorias de grupos
+function UtiReportesPaginaMantenimientosCategoriasGrupos()
+{
+    RedireccionPagina('../Mantenimientos/categoriasGrupos.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de categorias de grupos detalle
+function UtiReportesPaginaMantenimientosCategoriasGruposDetalle()
+{
+    RedireccionPagina('../Mantenimientos/categoriasGruposDetalle.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de ministerios
+function UtiReportesPaginaMantenimientosMinisterios()
+{
+    RedireccionPagina('../Mantenimientos/ministerios.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de ministerios detalle
+function UtiReportesPaginaMantenimientosMinisteriosDetalle()
+{
+    RedireccionPagina('../Mantenimientos/ministeriosDetalle.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de roles de usuario
+function UtiReportesPaginaMantenimientosRolesUsuarios()
+{
+    RedireccionPagina('../Mantenimientos/rolesUsuarios.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de roles de usuario detalle
+function UtiReportesPaginaMantenimientosRolesUsuariosDetalle()
+{
+    RedireccionPagina('../Mantenimientos/rolesUsuariosDetalle.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de tipos de compromisos
+function UtiReportesPaginaMantenimientosTiposCompromisos()
+{
+    RedireccionPagina('../Mantenimientos/tiposCompromisos.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de tipos de compromisos detalle
+function UtiReportesPaginaMantenimientosTiposCompromisosDetalle()
+{
+    RedireccionPagina('../Mantenimientos/tiposCompromisosDetalle.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de tipos de relaciones
+function UtiReportesPaginaMantenimientosTiposRelaciones()
+{
+    RedireccionPagina('../Mantenimientos/tiposRelaciones.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de tipos de relaciones detalle
+function UtiReportesPaginaMantenimientosTiposRelacionesDetalle()
+{
+    RedireccionPagina('../Mantenimientos/tiposRelacionesDetalle.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de tipos de seguimientos
+function UtiReportesPaginaMantenimientosTiposSeguimientos()
+{
+    RedireccionPagina('../Mantenimientos/tiposSeguimientos.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de tipos de seguimientos detalle
+function UtiReportesPaginaMantenimientosTiposSeguimientosDetalle()
+{
+    RedireccionPagina('../Mantenimientos/tiposSeguimientosDetalle.php');
+}
+
 // Función para ingresar a la pantalla de mantenimiento de usuarios
 function UtiReportesPaginaMantenimientosUsuarios()
 {
     RedireccionPagina('../Mantenimientos/usuarios.php');
 }
 
-// Función para ingresar a la pantalla de mantenimiento de usuarios detalle
-function UtiReportesPaginaMantenimientosUsuariosDetalle()
+// Función para ingresar a la pantalla de mantenimiento de usuarios
+function UtiReportesPaginaMantenimientosUsuariosDetale()
 {
     RedireccionPagina('../Mantenimientos/usuariosDetalle.php');
 }

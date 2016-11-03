@@ -24,9 +24,9 @@ $utilitarios = new UtilitariosReportes();
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link rel="shorcut icon" href="../Includes/images/favicon.ico" />
+        <link href="../Includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="../Includes/jquerymobile/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css"/>
         <link href="../Includes/jqueryconfirm/jquery-confirm.min.css" rel="stylesheet" type="text/css"/>
-        <link href="../Includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="../Includes/css/fonts/Lato.css" rel="stylesheet" type="text/css">
         <link href="../Includes/css/styles.css" rel="stylesheet" type="text/css"/>
         <script src="../Includes/jquerymobile/jquery-1.9.1.min.js" type="text/javascript"></script>
@@ -55,22 +55,28 @@ $utilitarios = new UtilitariosReportes();
                     <h3>Mantenimientos</h3>
                     <ul data-role="listview">
                         <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiReportesPaginaMantenimientosCategoriasPersonas()">Categorías de personas</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiReportesPaginaMantenimientosCategoriasGrupos()">Categorías de grupos</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiReportesPaginaMantenimientosMinisterios()">Ministerios</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiReportesPaginaMantenimientosRolesUsuarios()">Roles de usuarios</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiReportesPaginaMantenimientosTiposCompromisos()">Tipos de compromisos</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiReportesPaginaMantenimientosTiposRelaciones()">Tipos de relaciones</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiReportesPaginaMantenimientosTiposSeguimientos()">Tipos de seguimientos</a>
+                        </li>
+                        <li>
                             <a href="#" data-transition="slidedown" onclick="UtiReportesPaginaMantenimientosUsuarios()">Usuarios</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #2</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #3</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #4</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #5</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento N</a>
                         </li>
                     </ul>
                 </div>
@@ -135,9 +141,7 @@ $utilitarios = new UtilitariosReportes();
                                 <p><strong>Descripción: </strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                                 <div class="col-xs-2 col-sm-4"></div>
                                 <div class="col-xs-8 col-sm-4">
-                                    <button type="button" class="btn btn-primary btn-lg col-sx-4">
-                                        <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Generar
-                                    </button>
+                                    <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left">Generar</button>
                                 </div>
                                 <div class="col-xs-2 col-sm-4"></div>
                                 <br>

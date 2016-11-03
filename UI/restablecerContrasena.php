@@ -13,9 +13,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link rel="shorcut icon" href="Includes/images/favicon.ico"/>
+        <link href="Includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jquerymobile/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jqueryconfirm/jquery-confirm.min.css" rel="stylesheet" type="text/css"/>
-        <link href="Includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jqueryui/jquery-ui-1.12.1.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/css/fonts/Lato.css" rel="stylesheet" type="text/css">
         <link href="Includes/css/styles.css" rel="stylesheet" type="text/css"/>

@@ -16,6 +16,7 @@ require("../Includes/utilitarios/mantenimientos.php");
 $utilitarios = new UtilitariosMantenimientos();
 
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -53,22 +54,28 @@ $utilitarios = new UtilitariosMantenimientos();
                     <h3>Mantenimientos</h3>
                     <ul data-role="listview">
                         <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosCategoriasPersonas()">Categorías de personas</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosCategoriasGrupos()">Categorías de grupos</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosMinisterios()">Ministerios</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosRolesUsuarios()">Roles de usuarios</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosTiposCompromisos()">Tipos de compromisos</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosTiposRelaciones()">Tipos de relaciones</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosTiposSeguimientos()">Tipos de seguimientos</a>
+                        </li>
+                        <li>
                             <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaMantenimientosUsuarios()">Usuarios</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #2</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #3</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #4</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #5</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento N</a>
                         </li>
                     </ul>
                 </div>
@@ -127,16 +134,16 @@ $utilitarios = new UtilitariosMantenimientos();
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
                             <h3 class="text-center">Mantenimiento de Usuarios</h3>
                             <hr>
-                            <form method="post" action="#" id="inicioSesion" enctype="multipart/form-data">
+                            <form method="post" action="#" id="usuariosDetalle">
                                 <div>
-                                    <label for="cboIdPersona">Persona:</label>
+                                    <label for="cboIdPersona">Personas que no poseen usuario:</label>
                                     <select name="cboIdPersona" id="cboIdPersona">
                                         <option value="0">Seleccione</option>
                                     </select>
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="cboIdRol">Rol:</label>
+                                    <label for="cboIdRol">Roles disponibles:</label>
                                     <select name="cboIdRol" id="cboIdRol">
                                         <option value="0">Seleccione</option>
                                     </select>

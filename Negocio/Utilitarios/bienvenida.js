@@ -18,10 +18,100 @@ function UtiBienvenidaPaginaCambiarContrasena()
 
 // -----------------------------------------------------------------
 
+// Función para ingresar a la pantalla de mantenimiento de categorias personas
+function UtiBienvenidaPaginaMantenimientosCategoriasPersonas()
+{
+    RedireccionPagina('Mantenimientos/categorias.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de categorias personasdetalle
+function UtiBienvenidaPaginaMantenimientosCategoriasPersonasDetalle()
+{
+    RedireccionPagina('Mantenimientos/categoriasDetalle.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de categorias de grupos
+function UtiBienvenidaPaginaMantenimientosCategoriasGrupos()
+{
+    RedireccionPagina('Mantenimientos/categoriasGrupos.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de categorias de grupos detalle
+function UtiBienvenidaPaginaMantenimientosCategoriasGruposDetalle()
+{
+    RedireccionPagina('Mantenimientos/categoriasGruposDetalle.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de ministerios
+function UtiBienvenidaPaginaMantenimientosMinisterios()
+{
+    RedireccionPagina('Mantenimientos/ministerios.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de ministerios detalle
+function UtiBienvenidaPaginaMantenimientosMinisteriosDetalle()
+{
+    RedireccionPagina('Mantenimientos/ministeriosDetalle.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de roles de usuario
+function UtiBienvenidaPaginaMantenimientosRolesUsuarios()
+{
+    RedireccionPagina('Mantenimientos/rolesUsuarios.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de roles de usuario detalle
+function UtiBienvenidaPaginaMantenimientosRolesUsuariosDetalle()
+{
+    RedireccionPagina('Mantenimientos/rolesUsuariosDetalle.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de tipos de compromisos
+function UtiBienvenidaPaginaMantenimientosTiposCompromisos()
+{
+    RedireccionPagina('Mantenimientos/tiposCompromisos.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de tipos de compromisos detalle
+function UtiBienvenidaPaginaMantenimientosTiposCompromisosDetalle()
+{
+    RedireccionPagina('Mantenimientos/tiposCompromisosDetalle.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de tipos de relaciones
+function UtiBienvenidaPaginaMantenimientosTiposRelaciones()
+{
+    RedireccionPagina('Mantenimientos/tiposRelaciones.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de tipos de relaciones detalle
+function UtiBienvenidaPaginaMantenimientosTiposRelacionesDetalle()
+{
+    RedireccionPagina('Mantenimientos/tiposRelacionesDetalle.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de tipos de seguimientos
+function UtiBienvenidaPaginaMantenimientosTiposSeguimientos()
+{
+    RedireccionPagina('Mantenimientos/tiposSeguimientos.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de tipos de seguimientos detalle
+function UtiBienvenidaPaginaMantenimientosTiposSeguimientosDetalle()
+{
+    RedireccionPagina('Mantenimientos/tiposSeguimientosDetalle.php');
+}
+
 // Función para ingresar a la pantalla de mantenimiento de usuarios
 function UtiBienvenidaPaginaMantenimientosUsuarios()
 {
     RedireccionPagina('Mantenimientos/usuarios.php');
+}
+
+// Función para ingresar a la pantalla de mantenimiento de usuarios
+function UtiBienvenidaPaginaMantenimientosUsuariosDetale()
+{
+    RedireccionPagina('Mantenimientos/usuariosDetalle.php');
 }
 
 // -----------------------------------------------------------------

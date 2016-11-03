@@ -16,6 +16,7 @@ require("Includes/utilitarios/bienvenida.php");
 $utilitarios = new UtilitariosBienvenida();
 
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,9 +24,9 @@ $utilitarios = new UtilitariosBienvenida();
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link rel="shorcut icon" href="Includes/images/favicon.ico"/>
+        <link href="Includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jquerymobile/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jqueryconfirm/jquery-confirm.min.css" rel="stylesheet" type="text/css"/>
-        <link href="Includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jqueryui/jquery-ui-1.12.1.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/css/fonts/Lato.css" rel="stylesheet" type="text/css">
         <link href="Includes/css/styles.css" rel="stylesheet" type="text/css"/>
@@ -55,22 +56,28 @@ $utilitarios = new UtilitariosBienvenida();
                     <h3>Mantenimientos</h3>
                     <ul data-role="listview">
                         <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosCategoriasPersonas()">Categorías de personas</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosCategoriasGrupos()">Categorías de grupos</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosMinisterios()">Ministerios</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosRolesUsuarios()">Roles de usuarios</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosTiposCompromisos()">Tipos de compromisos</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosTiposRelaciones()">Tipos de relaciones</a>
+                        </li>
+                        <li>
+                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosTiposSeguimientos()">Tipos de seguimientos</a>
+                        </li>
+                        <li>
                             <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosUsuarios()">Usuarios</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #2</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #3</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #4</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento #5</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="">Mantenimiento N</a>
                         </li>
                     </ul>
                 </div>

@@ -27,7 +27,7 @@ function IniciarSesion()
             , title: 'Datos incompletos'
             , content: 'Debe de ingresar tanto la identificación como la contraseña.'
             , confirmButton: 'Aceptar'
-            , confirmButtonClass: 'btn-primary'
+            , confirmButtonClass: 'btn-warning'
         });
     }
     else
