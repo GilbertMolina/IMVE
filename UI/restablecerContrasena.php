@@ -12,13 +12,24 @@
         <title>IMVE | Iglesia Manantiales de Vida Eterna</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
+        <!-- Forzar a no cargar datos de la caché -->
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Last-Modified" content="0">
+        <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+        <!-- Fin forzar a no cargar datos de la caché -->
+        <!-- Se carga el favicon -->
         <link rel="shorcut icon" href="Includes/images/favicon.ico"/>
+        <!-- Fin carga el favicon -->
+        <!-- Se cargan las hojas de estilo -->
         <link href="Includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jquerymobile/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jqueryconfirm/jquery-confirm.min.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/jqueryui/jquery-ui-1.12.1.css" rel="stylesheet" type="text/css"/>
         <link href="Includes/css/fonts/Lato.css" rel="stylesheet" type="text/css">
         <link href="Includes/css/styles.css" rel="stylesheet" type="text/css"/>
+        <!-- Fin carga de las hojas de estilo -->
+        <!-- Se cargan los archivos javascript -->
         <script src="Includes/jquerymobile/jquery-1.9.1.min.js" type="text/javascript"></script>
         <script src="Includes/jqueryui/jquery-ui-1.12.1.js" type="text/javascript"></script>
         <script src="Includes/jquerymobile/jquery.mobile-1.4.2.min.js" type="text/javascript"></script>
@@ -26,6 +37,7 @@
         <script src="Includes/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="../Negocio/restablecerContrasenaCN.js" type="text/javascript"></script>
         <script src="Includes/js/utilitarios.js" type="text/javascript"></script>
+        <!-- Fin carga de los archivos javascript -->
     </head>
     <body>
         <div data-role="page">
