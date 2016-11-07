@@ -58,7 +58,7 @@ $utilitarios = new UtilitariosReportes();
                 <a href="#menuDerecha" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-user"></a>
             </div>
             <div data-role="panel" id="menuIzquierda" data-theme="b" data-display="reveal" data-dismissible="true">
-                <ul data-role="listview" data-inset="true">
+                <ul data-role="listview" data-inset="true" data-icon="false" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home">
                     <li>
                         <a href="#" class="menu-inicio" data-transition="slidedown" onclick="UtiReportesPaginaBienvenida()">Inicio</a>
                     </li>

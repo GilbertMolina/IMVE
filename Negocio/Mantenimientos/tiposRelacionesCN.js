@@ -219,6 +219,68 @@ function TiposRelacionesModificarTipoRelacion(p_idTipoRelacion) {
     };
 }
 
+// Función que se ejecuta al presionar el botón de eliminar
+function TiposRelacionesEliminar(p_idTipoRelacion){
+    var idTipoRelacion = p_idTipoRelacion;
+
+    $.confirm({
+        theme: 'material'
+        , animationBounce: 1.5
+        , animation: 'rotate'
+        , closeAnimation: 'rotate'
+        , title: '<span class="jconfirm-customize">Eliminar Tipo Relación</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+        , content: '<span class="jconfirm-customize">¿Esta seguro que desea eliminar el tipo de relación seleccionada?</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+        , confirmButton: 'Aceptar'
+        , confirmButtonClass: 'btn-success'
+        , cancelButton: 'Cancelar'
+        , cancelButtonClass: 'btn-danger'
+        , confirm: function(){
+            // Se define el action que será consultado desde la clase de acceso a datos
+            var d = "action=eliminarTipoRelacion&idTipoRelacion=" + idTipoRelacion;
+
+            // Enviar por Ajax a tiposRelacionesCAD.php
+            $.ajax({
+                type: "POST"
+                , data: d
+                , url: "../../../IMVE/Datos/Mantenimientos/tiposRelacionesCAD.php"
+                , success: function(a)
+                {
+                    // Se obtiene el resultado.
+                    if (a == 1)
+                    {
+                        $.alert({
+                            theme: 'material'
+                            , animationBounce: 1.5
+                            , animation: 'rotate'
+                            , closeAnimation: 'rotate'
+                            , title: 'Eliminar tipo de relación'
+                            , content: 'El tipo de relación se eliminó satisfactoriamente.'
+                            , confirmButton: 'Aceptar'
+                            , confirmButtonClass: 'btn-success'
+                            , confirm: function(){
+                                TiposRelacionesCargarTiposRelacionesListado();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        $.alert({
+                            theme: 'material'
+                            , animationBounce: 1.5
+                            , animation: 'rotate'
+                            , closeAnimation: 'rotate'
+                            , title: 'Eliminar tipo de relación'
+                            , content: 'No se pudo eliminar el tipo de relación, debido a que el tipo de relación esta siendo utilizada.'
+                            , confirmButton: 'Aceptar'
+                            , confirmButtonClass: 'btn-danger'
+                        });
+                    }
+                }
+            });
+        }
+    });
+}
+
 // Función que se oculta los input de nombre relación inversa masculino y nombre relación inversa femenino
 function TiposRelacionesDetalleOcultarCamposRelacionesLineal(){
     var tipoRelacion = ObtenerValorRadioButtonPorNombre('tipoRelacion');
