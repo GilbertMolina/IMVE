@@ -131,6 +131,12 @@ $utilitarios = new UtilitariosMantenimientos();
                 <div class="container">
                     <h3 class="text-center">Listado de Tipos de Seguimientos</h3>
                     <hr>
+                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" onchange="TiposSeguimientosCargarTiposSeguimientosListado()">
+                        <input type="radio" name="estadoTipoSeguimiento" id="activas" value="A" checked="checked">
+                        <label for="activas">Activos</label>
+                        <input type="radio" name="estadoTipoSeguimiento" id="inactivas" value="I">
+                        <label for="inactivas">Inactivos</label>
+                    </fieldset>
                     <form class="ui-filterable">
                         <input id="filtro" data-type="search" placeholder="Búsqueda">
                     </form>
@@ -142,7 +148,7 @@ $utilitarios = new UtilitariosMantenimientos();
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiMantenimientosPaginaMantenimientosTiposSeguimientosDetalle()">Agregar</a></li>
+                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiMantenimientosPaginaMantenimientosTiposSeguimientosDetalleAgregar()">Agregar</a></li>
                     </ul>
                 </div>
             </div>

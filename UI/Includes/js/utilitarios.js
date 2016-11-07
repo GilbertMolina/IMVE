@@ -5,14 +5,12 @@
  */
 
 // Función para redireccionar pagina
-function RedireccionPagina(url)
-{
+function RedireccionPagina(url) {
     window.location.href = url;
 }
 
 // Función que permite ingresar solamente números
-function SoloNumeros(e)
-{
+function SoloNumeros(e) {
     var key = window.Event ? e.which : e.keyCode;
     return (key >= 48 && key <= 57);
 }
@@ -154,4 +152,24 @@ function SHA1(mensaje) {
     var temp = cvt_hex(H0) + cvt_hex(H1) + cvt_hex(H2) + cvt_hex(H3) + cvt_hex(H4);
 
     return temp.toLowerCase();
+}
+
+// Función que permite obtener los parámetros de la URL
+function ObtenerParametroPorNombre(nombre) {
+    nombre = nombre.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + nombre + "=([^&#]*)"),
+        resultados = regex.exec(location.search);
+    return resultados === null ? "" : decodeURIComponent(resultados[1].replace(/\+/g, " "));
+}
+
+// Función que obtiene el valor de un radio button por su nombre
+function ObtenerValorRadioButtonPorNombre(nombre) {
+    var radioButton = document.getElementsByName(nombre);
+    var radioButtonSeleccionado;
+    for (var i = 0; i < radioButton.length; i++) {
+        if (radioButton[i].checked) {
+            radioButtonSeleccionado = i;
+        }
+    }
+    return radioButton[radioButtonSeleccionado].value;
 }

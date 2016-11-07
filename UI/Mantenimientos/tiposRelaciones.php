@@ -131,6 +131,12 @@ $utilitarios = new UtilitariosMantenimientos();
                 <div class="container">
                     <h3 class="text-center">Listado de Tipos de Relaciones</h3>
                     <hr>
+                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" onchange="TiposRelacionesCargarTiposRelacionesListado()">
+                        <input type="radio" name="tipoRelacion" id="noLineal" value="V" checked="checked">
+                        <label for="noLineal">Vertical</label>
+                        <input type="radio" name="tipoRelacion" id="lineal" value="H">
+                        <label for="lineal">Horizontal</label>
+                    </fieldset>
                     <form class="ui-filterable">
                         <input id="filtro" data-type="search" placeholder="Búsqueda">
                     </form>
@@ -142,7 +148,7 @@ $utilitarios = new UtilitariosMantenimientos();
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiMantenimientosPaginaMantenimientosTiposRelacionesDetalle()">Agregar</a></li>
+                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiMantenimientosPaginaMantenimientosTiposRelacionesDetalleAgregar()">Agregar</a></li>
                     </ul>
                 </div>
             </div>

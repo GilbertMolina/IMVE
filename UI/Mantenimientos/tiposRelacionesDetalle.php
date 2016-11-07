@@ -37,7 +37,7 @@ $utilitarios = new UtilitariosMantenimientos();
         <script src="../../Negocio/Mantenimientos/tiposRelacionesCN.js" type="text/javascript"></script>
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
     </head>
-    <body>
+    <body onload="TiposRelacionesDetalleOnLoad()">
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
@@ -134,35 +134,45 @@ $utilitarios = new UtilitariosMantenimientos();
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
                             <h3 class="text-center">Mantenimiento de Tipos de Relaciones</h3>
                             <hr>
-                            <form method="post" action="#" id="tiposRelacionesDetalle">
-                                <div>
-                                    <label for="txtNombreMasculino">Nombre masculino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                    <input type="text" name="txtNombreMasculino" id="txtNombreMasculino" maxlength="20" data-clear-btn="true"/>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="txtNombreFemenino">Nombre femenino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                    <input type="text" name="txtNombreFemenino" id="txtNombreFemenino" maxlength="20" data-clear-btn="true"/>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="txtNombreInversoMasculino">Nombre inverso masculino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                    <input type="text" name="txtNombreInversoMasculino" id="txtNombreInversoMasculino" maxlength="20" data-clear-btn="true"/>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="txtNombreInversoFemenino">Nombre inverso femenino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                    <input type="text" name="txtNombreInversoFemenino" id="txtNombreInversoFemenino" maxlength="20" data-clear-btn="true"/>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-xs-1"></div>
-                                    <div class="col-xs-10">
-                                        <button type="button" id="btnAceptar" data-theme="b" onclick="TiposRelacionesRegistrarTipoRelacion()" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
+                            <div id="tiposRelacionesDetalle">
+                                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" onchange="TiposRelacionesDetalleOcultarCamposRelacionesLineal()">
+                                    <input type="radio" name="tipoRelacion" id="noLineal" value="V" checked="checked">
+                                    <label for="noLineal">Vertical</label>
+                                    <input type="radio" name="tipoRelacion" id="lineal" value="H">
+                                    <label for="lineal">Horizontal</label>
+                                </fieldset>
+                                <form method="post" action="#">
+                                    <div>
+                                        <label for="txtNombreMasculino">Nombre masculino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                        <input type="text" name="txtNombreMasculino" id="txtNombreMasculino" maxlength="20" data-clear-btn="true" placeholder="Ejm: Abuelo"/>
                                     </div>
-                                    <div class="col-xs-1"></div>
-                                </div>
-                            </form>
+                                    <br>
+                                    <div>
+                                        <label for="txtNombreFemenino">Nombre femenino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                        <input type="text" name="txtNombreFemenino" id="txtNombreFemenino" maxlength="20" data-clear-btn="true" placeholder="Ejm: Abuela"/>
+                                    </div>
+                                    <br>
+                                    <div id="tipoRelacionNoLineal">
+                                        <div>
+                                            <label for="txtNombreInversoMasculino">Nombre relación inversa masculino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                            <input type="text" name="txtNombreInversoMasculino" id="txtNombreInversoMasculino" maxlength="20" data-clear-btn="true" placeholder="Ejm: Nieto"/>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <label for="txtNombreInversoFemenino">Nombre relación inversa femenino:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                            <input type="text" name="txtNombreInversoFemenino" id="txtNombreInversoFemenino" maxlength="20" data-clear-btn="true" placeholder="Ejm: Nieta"/>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-1"></div>
+                                        <div class="col-xs-10">
+                                            <button type="button" id="btnAceptar" data-theme="b" onclick="TiposRelacionesRegistrarTipoRelacion()" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
+                                        </div>
+                                        <div class="col-xs-1"></div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>
                     </div>

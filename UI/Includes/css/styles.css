@@ -8,6 +8,10 @@ html,body {
     font-family: 'Lato', sans-serif;
 }
 
+/*.jconfirm .jconfirm-box div.title-c .title{*/
+    /*text-align: center !important;*/
+/*}*/
+
 .content{
     text-align: justify !important;
     font-weight: normal !important;
@@ -23,8 +27,8 @@ html,body {
     border-color: #4CAE4C !important;
     text-shadow: 0 1px 0 #0088BB !important;
     font-size: 16px  !important;
-    font-weight: bold  !important;
-    text-align: center  !important;
+    font-weight: bold !important;
+    text-align: center !important;
 }
 
 .menu-actual {
@@ -66,7 +70,7 @@ html,body {
     background-color: #D9534F !important;
     border-color: #D43F3A !important;
     text-shadow: 0 1px 0 #0088BB !important;
-    font-size: 16px  !important;
+    font-size: 16px !important;
     font-weight: bold  !important;
     text-align: right !important;
 }

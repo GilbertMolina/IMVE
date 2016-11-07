@@ -20,6 +20,7 @@ class MySQL
         if (!isset($this->conexion))
         {
             $this->conexion = (mysqli_connect($this->host, $this->usuario, $this->clave, $this->nombreBD)) or die(mysqli_error());
+            mysqli_set_charset($this->conexion, "utf8_general_ci");
         }
     }
 

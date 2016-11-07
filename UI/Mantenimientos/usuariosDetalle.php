@@ -159,6 +159,15 @@ $utilitarios = new UtilitariosMantenimientos();
                                     <input type="password" name="txtConfirmarContrasena" id="txtConfirmarContrasena" maxlength="50" data-clear-btn="true">
                                 </div>
                                 <br>
+                                <div>
+                                    <label for="cboEstadoUsuario">Estado:</label>
+                                    <select name="cboEstadoUsuario" id="cboEstadoUsuario" disabled>
+                                        <option value="0">Seleccione</option>
+                                        <option value="A" selected>Activo</option>
+                                        <option value="I">Inactivo</option>
+                                    </select>
+                                </div>
+                                <br>
                                 <div class="row">
                                     <div class="col-xs-1"></div>
                                     <div class="col-xs-10">
