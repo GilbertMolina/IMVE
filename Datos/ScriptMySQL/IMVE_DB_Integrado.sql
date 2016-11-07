@@ -1864,8 +1864,7 @@ SELECT P.IdPersona
 FROM IMVE.TbUsuarios AS U 
 RIGHT JOIN IMVE.TbPersonas AS P
   ON U.IdPersona = P.IdPersona
-WHERE P.Activo = 'A' 
-  AND U.Contrasena IS NULL
+WHERE U.Contrasena IS NULL
 ORDER BY NombreCompleto;
 
 END //
