@@ -72,6 +72,7 @@ function PersonasCargarPersonasListado() {
 // Función para obtener todos las personas con sus celulares y correos
 function PersonasCargarPersonasAccionesSeleccion() {
     var accion = ObtenerValorRadioButtonPorNombre('filtroAccion');
+    var inicioHref = (accion == "S") ? "sms:" : "mailto:";
 
     // Se define el action que será consultado desde la clase de acceso a datos
     var d = "action=obtenerListadoPersonasCelularesCorreos&accion=" + accion;
@@ -86,14 +87,10 @@ function PersonasCargarPersonasAccionesSeleccion() {
         }
     });
 
-    if(accion == 'S')
-    {
-        $('#btnEnviarCorreo').attr("href", "mailto:");
-    }
-    else
-    {
-        $('#btnEnviarSMS').attr("href", "sms:");
-    }
+    $('#btnEnviarSMS').hide();
+	$('#btnEnviarSMS').attr("href", inicioHref);
+	$('#btnEnviarCorreo').hide();
+	$('#btnEnviarCorreo').attr("href", inicioHref);
 }
 
 // Función para el evento clic del botón btnEnviarSMS
