@@ -105,9 +105,6 @@ $utilitarios = new UtilitariosProcesos();
                         <li>
                             <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosPersonas()">Personas</a>
                         </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosSeguimientos()">Seguimientos</a>
-                        </li>
                         <li class="menu-actual">
                             Visitas
                         </li>

@@ -102,9 +102,6 @@ $utilitarios = new UtilitariosMantenimientos();
                             <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaProcesosPersonas()">Personas</a>
                         </li>
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaProcesosSeguimientos()">Seguimientos</a>
-                        </li>
-                        <li>
                             <a href="#" data-transition="slidedown" onclick="UtiMantenimientosPaginaProcesosVisitas()">Visitas</a>
                         </li>
                     </ul>
