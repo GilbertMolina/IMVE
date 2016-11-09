@@ -15,19 +15,99 @@ require("../conexionMySQL.php");
 $db = new MySQL();
 
 // Obtiene el listado de personas del sistema para mostrarlas en un ListView
-if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonas') {
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasPorOrdenamientoEstado') {
     try {
-        $sql          = "CALL TbPersonasListar()";
-        $consulta     = $db->consulta($sql);
-        $result       = array();
-        $cadena_datos = "";
+        $ordenamiento = $_POST['ordenamiento'];
+        $estado       = $_POST['estado'];
+
+        $sql               = "CALL TbPersonasListarPorOrdenamientoEstado('$ordenamiento', '$estado')";
+        $consulta          = $db->consulta($sql);
+        $consultaAcciones  = $db->consulta($sql);
+        $cadena_datos      = "";
 
         if($db->num_rows($consulta) != 0)
         {
+            $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-split-icon="gear" data-autodividers="true" data-inset="true">';
+
             while($resultados = $db->fetch_array($consulta))
             {
-                $cadena_datos .= '<li><a href="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</a></li>';
+                $cadena_datos .= '<li><a href="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</a><a href="#acciones_'. $resultados['IdPersona'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a></li>';
             }
+            $cadena_datos .= '</ul>';
+
+            if($db->num_rows($consultaAcciones) != 0)
+            {
+                while($resultadosAcciones = $db->fetch_array($consultaAcciones))
+                {
+                    $cadena_datos .= '<div data-role="popup" id="acciones_'. $resultadosAcciones['IdPersona'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
+                    $cadena_datos .= '<h3>Contacto</h3>';
+
+                    if($resultadosAcciones['Telefono'] == ""
+                        && $resultadosAcciones['Celular'] == ""
+                        && $resultadosAcciones['Correo'] == ""){
+                        $cadena_datos .= '<p>' . $resultadosAcciones['NombreCompleto'] . ' no tiene asociado un número de teléfono, celular ni un correo electrónico, con el cual se pueda contactar.</p>';
+                    }
+                    else{
+                        $cadena_datos .= '<p>Estas son las acciones disponibles para ' . $resultadosAcciones['NombreCompleto'] . ':</p>';
+                    }
+
+                    if($resultadosAcciones['Telefono'] != ""){
+                        $cadena_datos .= '<a href="tel:' . $resultadosAcciones['Telefono'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Casa</a>';
+                    }
+                    if($resultadosAcciones['Celular'] != ""){
+                        $cadena_datos .= '<a href="tel:' . $resultadosAcciones['Celular'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Celular</a>';
+                        $cadena_datos .= '<a href="sms:' . $resultadosAcciones['Celular'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini">SMS</a>';
+                    }
+                    if($resultadosAcciones['Correo'] != ""){
+                        $cadena_datos .= '<a href="mailto:' . $resultadosAcciones['Correo'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini">Correo</a>';
+                    }
+                    $cadena_datos .= '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Cancelar</a>';
+                    $cadena_datos .= '</div>';
+                }
+            }
+        }
+        else
+        {
+            $cadena_datos .= '<li>No hay personas para mostrar en la agenda en este estado.</li>';
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+
+
+// Obtiene el listado de personas del sistema para mostrarlas en un campo de select
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasCelularesCorreos') {
+    try {
+        $accion = $_POST['accion'];
+
+        $sql               = "CALL TbPersonasListarCelularesCorreos('$accion')";
+        $consulta          = $db->consulta($sql);
+        $cadena_datos      = "";
+
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos .= '<label for="accionesSeleccionPersonas" style="margin-top: 30px">Lista de personas para seleccionar:</label>';
+            $cadena_datos .= '<select name="accionesSeleccionPersonas" id="accionesSeleccionPersonas" data-filter="true" data-input="#filtroSeleccion" data-native-menu="false" multiple="multiple" data-iconpos="left" data-theme="a" onchange="PersonasAccionesSeleccionarPersonas()">';
+            $cadena_datos .= '<option>Seleccione</option>';
+
+            while($resultados = $db->fetch_array($consulta))
+            {
+                if ($accion == 'S'){
+                    $cadena_datos .= '<option value="' . $resultados['Celular'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+                }
+                else{
+                    $cadena_datos .= '<option value="' . $resultados['Correo'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+                }
+            }
+            $cadena_datos .= '</select>';
+        }
+        else
+        {
+            $cadena_datos .= '<option>No hay personas para mostrar</option>';
         }
         echo $cadena_datos;
     }
@@ -46,15 +126,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarPersona') {
         $fechaNacimiento      = $_POST['fechaNacimiento'];
         $distrito             = $_POST['distrito'];
         $direccionDomicilio   = $_POST['direccionDomicilio'];
-        //$foto                 = addslashes(file_get_contents($_FILES['foto']['tmp_name']));
-        $foto                 = $_POST['foto'];
         $telefono             = $_POST['telefono'];
         $celular              = $_POST['celular'];
         $correo               = $_POST['correo'];
         $sexo                 = $_POST['sexo'];
         $usuarioActual        = $_SESSION['idPersona'];
 
-        $sql = "CALL TbPersonasAgregar('$identificacion','$nombre','$apellido1','$apellido2','$fechaNacimiento','$distrito','$direccionDomicilio','$foto','$telefono','$celular','$correo','$sexo','$usuarioActual')";
+        $sql = "CALL TbPersonasAgregar('$identificacion','$nombre','$apellido1','$apellido2','$fechaNacimiento','$distrito','$direccionDomicilio','$telefono','$celular','$correo','$sexo','$usuarioActual')";
         $consulta = $db->consulta($sql);
 
         if ($db->num_rows($consulta) != 0) {

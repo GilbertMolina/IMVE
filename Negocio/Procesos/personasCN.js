@@ -5,11 +5,15 @@
  */
 
 // Variable para determinar si se debe de registar el usuario con el concentimiento de que no tendrá correo electrónico registrado
-var registarSinCorreo = false
+var registarSinCorreo = false;
 
 // Función que se ejecuta al cargar la pagina
-function PersonasOnLoad(){
+function PersonasOnLoad() {
     PersonasCargarPersonasListado();
+    PersonasCargarPersonasAccionesSeleccion();
+
+    $('#btnEnviarSMS').hide();
+    $('#btnEnviarCorreo').hide();
 }
 
 // Función que se ejecuta al cargar la pagina
@@ -46,26 +50,135 @@ function PersonasAsignarFechaActual()
     document.getElementById("txtFechaNacimiento").defaultValue = fechaCompleta;
 }
 
-// Función para obtener todos las personas registradas en el sistema
-function PersonasCargarPersonasListado()
-{
-    // Se define el action que será consultado desde la clase de acceso a datos
-    var d = "action=obtenerListadoPersonas";
+// Función para obtener todos las personas registradas
+function PersonasCargarPersonasListado() {
+    var ordenamiento = $('#ordenamientoSeleccion').val();
+    var estado = $('#estadoSeleccion').val();
 
-    // Enviar por Ajax a usuariosCAD.php
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=obtenerListadoPersonasPorOrdenamientoEstado&ordenamiento=" + ordenamiento + "&estado=" + estado;
+
+    // Enviar por Ajax a personasCAD.php
     $.ajax({
         type: "POST"
         , data: d
         , url: "../../../IMVE/Datos/Procesos/personasCAD.php"
         , success: function(a) {
-            $("#listaPersonas").html(a).listview("refresh");
+            $("#divListaPersonas").html(a).trigger("create");
         }
     })
 }
 
+// Función para obtener todos las personas con sus celulares y correos
+function PersonasCargarPersonasAccionesSeleccion() {
+    var accion = ObtenerValorRadioButtonPorNombre('filtroAccion');
+
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=obtenerListadoPersonasCelularesCorreos&accion=" + accion;
+
+    // Enviar por Ajax a personasCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/personasCAD.php"
+        , success: function(a) {
+            $("#accionesSeleccion").html(a).trigger("create");
+        }
+    });
+
+    if(accion == 'S')
+    {
+        $('#btnEnviarCorreo').attr("href", "mailto:");
+    }
+    else
+    {
+        $('#btnEnviarSMS').attr("href", "sms:");
+    }
+}
+
+// Función para el evento clic del botón btnEnviarSMS
+function PersonasBtnEnviarSMS() {
+    var valorHref = $('#btnEnviarSMS').attr("href");
+
+    if(valorHref == 'sms:'){
+        $.alert({
+            theme: 'material'
+            , animationBounce: 1.5
+            , animation: 'rotate'
+            , closeAnimation: 'rotate'
+            , title: 'Enviar SMS'
+            , content: 'No ha seleccionado ninguna persona para enviarle un mensaje de texto.'
+            , confirmButton: 'Aceptar'
+            , confirmButtonClass: 'btn-warning'
+        });
+
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+// Función para el evento clic del botón btnEnviarCorreo
+function PersonasBtnEnviarCorreo() {
+    var valorHref = $('#btnEnviarCorreo').attr("href");
+
+    if(valorHref == 'mailto:'){
+        $.alert({
+            theme: 'material'
+            , animationBounce: 1.5
+            , animation: 'rotate'
+            , closeAnimation: 'rotate'
+            , title: 'Enviar Correo'
+            , content: 'No ha seleccionado ninguna persona para enviarle un correo electrónico.'
+            , confirmButton: 'Aceptar'
+            , confirmButtonClass: 'btn-warning'
+        });
+
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+// Función para obtener todos las personas
+function PersonasAccionesSeleccionarPersonas() {
+    var accion = ObtenerValorRadioButtonPorNombre('filtroAccion');
+    var arregloSeleccionMasiva = $('#accionesSeleccionPersonas').val();
+    var inicioHref = (accion == "S") ? "sms:" : "mailto:";
+
+    if(arregloSeleccionMasiva != null){
+        var nuevoSeleccion = arregloSeleccionMasiva.toString().replace(",",";");
+        var valorCompletoHref = inicioHref + nuevoSeleccion.replace(",",";");
+
+        if(accion == 'S')
+        {
+            $('#btnEnviarSMS').show();
+            $('#btnEnviarSMS').attr("href", valorCompletoHref);
+        }
+        else
+        {
+            $('#btnEnviarCorreo').show();
+            $('#btnEnviarCorreo').attr("href", valorCompletoHref);
+        }
+    }
+    else{
+        if(accion == 'S')
+        {
+            $('#btnEnviarSMS').hide();
+            $('#btnEnviarSMS').attr("href", inicioHref);
+        }
+        else
+        {
+            $('#btnEnviarCorreo').hide();
+            $('#btnEnviarCorreo').attr("href", inicioHref);
+        }
+    }
+}
+
 // Función para registrar persona en el sistema
-function PersonasRegistrarPersona()
-{
+function PersonasRegistrarPersona() {
     var identificacion = $('#txtIdentificacion').val().trim();
     var nombre = $('#txtNombre').val().trim();
     var apellido1 = $('#txtApellido1').val().trim();

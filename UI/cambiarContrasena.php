@@ -64,35 +64,37 @@ $utilitarios = new UtilitariosBienvenida();
                         <a href="#" class="menu-inicio" data-transition="slidedown" onclick="UtiBienvenidaPaginaBienvenida()">Inicio</a>
                     </li>
                 </ul>
-                <div data-role="collapsible" data-theme="a">
-                    <h3>Mantenimientos</h3>
-                    <ul data-role="listview">
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosCategoriasPersonas()">Categorías de personas</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosCategoriasGrupos()">Categorías de grupos</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosMinisterios()">Ministerios</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosRolesUsuarios()">Roles de usuarios</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosTiposCompromisos()">Tipos de compromisos</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosTiposRelaciones()">Tipos de relaciones</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosTiposSeguimientos()">Tipos de seguimientos</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosUsuarios()">Usuarios</a>
-                        </li>
-                    </ul>
-                </div>
+                <?php if($utilitarios->ObtenerRolUsuario() == "Administrador"){ ?>
+                    <div data-role="collapsible" data-theme="a">
+                        <h3>Mantenimientos</h3>
+                        <ul data-role="listview">
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosCategoriasPersonas()">Categorías de personas</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosCategoriasGrupos()">Categorías de grupos</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosMinisterios()">Ministerios</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosRolesUsuarios()">Roles de usuarios</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosTiposCompromisos()">Tipos de compromisos</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosTiposRelaciones()">Tipos de relaciones</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosTiposSeguimientos()">Tipos de seguimientos</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiBienvenidaPaginaMantenimientosUsuarios()">Usuarios</a>
+                            </li>
+                        </ul>
+                    </div>
+                <?php } ?>
                 <div data-role="collapsible" data-theme="a">
                     <h3>Procesos</h3>
                     <ul data-role="listview">

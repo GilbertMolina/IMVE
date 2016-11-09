@@ -172,7 +172,7 @@ function UsuariosCargarPersonasPorId() {
             , data: d
             , url: "../../../IMVE/Datos/Mantenimientos/usuariosCAD.php"
             , success: function(a) {
-                $("#usuariosDetalle").html(a).trigger( "create" );
+                $("#usuariosDetalle").html(a).trigger("create");
             }
         });
     }

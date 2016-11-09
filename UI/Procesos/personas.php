@@ -62,35 +62,37 @@ $utilitarios = new UtilitariosProcesos();
                         <a href="#" class="menu-inicio" data-transition="slidedown" onclick="UtiProcesosPaginaBienvenida()">Inicio</a>
                     </li>
                 </ul>
-                <div data-role="collapsible" data-theme="a">
-                    <h3>Mantenimientos</h3>
-                    <ul data-role="listview">
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosCategoriasPersonas()">Categorías de personas</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosCategoriasGrupos()">Categorías de grupos</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosMinisterios()">Ministerios</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosRolesUsuarios()">Roles de usuarios</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosTiposCompromisos()">Tipos de compromisos</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosTiposRelaciones()">Tipos de relaciones</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosTiposSeguimientos()">Tipos de seguimientos</a>
-                        </li>
-                        <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosUsuarios()">Usuarios</a>
-                        </li>
-                    </ul>
-                </div>
+                <?php if($utilitarios->ObtenerRolUsuario() == "Administrador"){ ?>
+                    <div data-role="collapsible" data-theme="a">
+                        <h3>Mantenimientos</h3>
+                        <ul data-role="listview">
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosCategoriasPersonas()">Categorías de personas</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosCategoriasGrupos()">Categorías de grupos</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosMinisterios()">Ministerios</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosRolesUsuarios()">Roles de usuarios</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosTiposCompromisos()">Tipos de compromisos</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosTiposRelaciones()">Tipos de relaciones</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosTiposSeguimientos()">Tipos de seguimientos</a>
+                            </li>
+                            <li>
+                                <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaMantenimientosUsuarios()">Usuarios</a>
+                            </li>
+                        </ul>
+                    </div>
+                <?php } ?>
                 <div data-role="collapsible" data-theme="a">
                     <h3>Procesos</h3>
                     <ul data-role="listview">
@@ -141,20 +143,65 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="content">
                 <div class="container">
-                    <h3 class="text-center">Listado de Personas</h3>
+                    <h3 class="text-center">Agenda</h3>
                     <hr>
-                    <form class="ui-filterable">
-                        <input id="filtro" data-type="search" placeholder="Búsqueda">
-                    </form>
-                    <ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-autodividers="true" data-inset="true">
-                        <!-- Aquí se insertan los datos dinámicamente -->
-                    </ul>
+                    <div class="row">
+                        <div class="col-ws-12">
+                            <div data-role="collapsible" data-theme="b" data-content-theme="a">
+                                <h2>Enviar mensaje de texto o correo</h2>
+                                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-bottom: -10px" onchange="PersonasCargarPersonasAccionesSeleccion()">
+                                    <input type="radio" name="filtroAccion" id="sms" value="S" checked="checked">
+                                    <label for="sms">SMS</label>
+                                    <input type="radio" name="filtroAccion" id="correo" value="C">
+                                    <label for="correo">Correo</label>
+                                </fieldset>
+                                <br>
+                                <form class="ui-filterable" style="margin-bottom: -20px">
+                                    <input id="filtroSeleccion" data-type="search" placeholder="Filtro de acciones">
+                                </form>
+                                <div id="accionesSeleccion">
+                                    <!-- Aquí se insertan los datos dinámicamente -->
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col-ws-12">
+                                        <a href="sms:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini" id="btnEnviarSMS" onclick="PersonasBtnEnviarSMS()">Enviar SMS</a>
+                                        <a href="mailto:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini" id="btnEnviarCorreo" onclick="PersonasBtnEnviarCorreo()">Enviar Correo</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-right: -58px">
+                            <label for="ordenamientoSeleccion">Ordenamiento</label>
+                            <select name="ordenamientoSeleccion" id="ordenamientoSeleccion" data-native-menu="false" onchange="PersonasCargarPersonasListado()">
+                            <option value="N">Nombre</option>
+                                    <option value="A">Apellido</option>
+                                </select>
+                            <label for="estadoSeleccion">Estado</label>
+                            <select name="estadoSeleccion" id="estadoSeleccion" data-native-menu="false" onchange="PersonasCargarPersonasListado()">
+                                    <option value="A">Activos</option>
+                                    <option value="I">Inactivos</option>
+                                </select>
+                            <label for="select-custom-16">Fake</label>
+                        </fieldset>
+                    </div>
+                    <div class="row">
+                        <div class="col-ws-12">
+                            <form class="ui-filterable">
+                                <input id="filtro" data-type="search" placeholder="Búsqueda">
+                            </form>
+                            <div id="divListaPersonas">
+                                <!-- Aquí se insertan los datos dinámicamente -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosPersonasDetalle()">Agregar</a></li>
+                        <li><a href="#" data-transition="flip" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-plus" data-theme="b" onclick="UtiProcesosPaginaProcesosPersonasDetalle()">Agregar</a></li>
                     </ul>
                 </div>
             </div>

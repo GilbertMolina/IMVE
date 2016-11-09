@@ -38,4 +38,9 @@ class UtilitariosReportes
             return $mensajeInicioBienvenida . ' ' . $nombreUsuario;
         }
     }
+
+    function ObtenerRolUsuario()
+    {
+        return $_SESSION['rol'];
+    }
 }

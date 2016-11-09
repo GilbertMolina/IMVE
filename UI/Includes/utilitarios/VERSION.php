@@ -21,5 +21,3 @@ class VersionAPP
         return $NOMBRE_APP;
     }
 }
-
-?>
