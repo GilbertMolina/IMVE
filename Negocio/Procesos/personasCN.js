@@ -493,7 +493,7 @@ function PersonasValidarCorreo() {
                 , animationBounce: 1.5
                 , animation: 'rotate'
                 , closeAnimation: 'rotate'
-                , title: 'Error'
+                , title: 'Advertencia'
                 , content: 'El correo "' + correo +'" no es válido, por favor verifíquelo.'
                 , confirmButton: 'Aceptar'
                 , confirmButtonClass: 'btn-warning'
