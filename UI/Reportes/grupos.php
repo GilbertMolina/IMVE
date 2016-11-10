@@ -63,7 +63,7 @@ $utilitarios = new UtilitariosReportes();
                         <a href="#" class="menu-inicio" data-transition="slidedown" onclick="UtiReportesPaginaBienvenida()">Inicio</a>
                     </li>
                 </ul>
-                <?php if($utilitarios->ObtenerRolUsuario() == "Administrador"){ ?>
+                <?php if($utilitarios->ObtenerRolUsuario() == "SuperAdmin" || $utilitarios->ObtenerRolUsuario() == "Administrador"){ ?>
                     <div data-role="collapsible" data-theme="a">
                         <h3>Mantenimientos</h3>
                         <ul data-role="listview">

@@ -80,6 +80,19 @@ function CategoriasRegistrarCategoria() {
                         }
                     });
                 }
+                else if(resultado[0].includes("Duplicate"))
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Nueva categoría de persona'
+                        , content: 'La categoría de persona ya se encuentra registrada.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-warning'
+                    });
+                }
                 else
                 {
                     $.alert({

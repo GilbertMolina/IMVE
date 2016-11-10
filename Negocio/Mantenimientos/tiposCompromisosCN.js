@@ -80,6 +80,19 @@ function TiposCompromisosRegistrarTipoCompromiso() {
                         }
                     });
                 }
+                else if(resultado[0].includes("Duplicate"))
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Nuevo tipo de compromiso'
+                        , content: 'El tipo de compromiso ya se encuentra registrado.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-warning'
+                    });
+                }
                 else
                 {
                     $.alert({

@@ -108,6 +108,19 @@ function TiposRelacionesRegistrarTipoRelacion() {
                     }
                 });
             }
+            else if(resultado[0].includes("Duplicate"))
+            {
+                $.alert({
+                    theme: 'material'
+                    , animationBounce: 1.5
+                    , animation: 'rotate'
+                    , closeAnimation: 'rotate'
+                    , title: 'Nuevo tipo de relación'
+                    , content: 'El tipo de relación ya se encuentra registrada.'
+                    , confirmButton: 'Aceptar'
+                    , confirmButtonClass: 'btn-warning'
+                });
+            }
             else
             {
                 $.alert({

@@ -62,7 +62,7 @@ $utilitarios = new UtilitariosProcesos();
                         <a href="#" class="menu-inicio" data-transition="slidedown" onclick="UtiProcesosPaginaBienvenida()">Inicio</a>
                     </li>
                 </ul>
-                <?php if($utilitarios->ObtenerRolUsuario() == "Administrador"){ ?>
+                <?php if($utilitarios->ObtenerRolUsuario() == "SuperAdmin" || $utilitarios->ObtenerRolUsuario() == "Administrador"){ ?>
                     <div data-role="collapsible" data-theme="a">
                         <h3>Mantenimientos</h3>
                         <ul data-role="listview">
@@ -140,47 +140,84 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="content">
                 <div class="container">
-                    <h3 class="text-center">Agenda</h3>
-                    <hr>
-                    <div class="row">
-                        <div class="col-ws-12">
-                            <div data-role="collapsible" data-theme="b" data-content-theme="a">
-                                <h2>Enviar mensaje de texto o correo</h2>
-                                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-bottom: -10px" onchange="PersonasCargarPersonasAccionesSeleccion()">
-                                    <input type="radio" name="filtroAccion" id="sms" value="S" checked="checked">
-                                    <label for="sms">SMS</label>
-                                    <input type="radio" name="filtroAccion" id="correo" value="C">
-                                    <label for="correo">Correo</label>
-                                </fieldset>
-                                <br>
-                                <form class="ui-filterable" style="margin-bottom: -20px">
-                                    <input id="filtroSeleccion" data-type="search" placeholder="Filtro de acciones">
-                                </form>
-                                <div id="accionesSeleccion">
-                                    <!-- Aquí se insertan los datos dinámicamente -->
-                                </div>
-                                <div class="row text-center">
-                                    <div class="col-ws-12">
-                                        <a href="sms:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini" id="btnEnviarSMS" onclick="PersonasBtnEnviarSMS()">Enviar SMS</a>
-                                        <a href="mailto:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini" id="btnEnviarCorreo" onclick="PersonasBtnEnviarCorreo()">Enviar Correo</a>
+                    <div id="menuAcciones">
+                        <h3 class="text-center">Acciones</h3>
+                        <hr>
+                        <div class="row">
+                            <div class="col-ws-12">
+                                <div data-role="collapsible" data-theme="b" data-content-theme="a">
+                                    <h2>¿Que desea realizar?</h2>
+                                    <div class="row">
+                                        <div class="col-ws-12">
+                                            <div data-role="collapsible" data-theme="b" data-content-theme="a" data-inset="true">
+                                                <h2>Contactar personas</h2>
+                                                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-bottom: -10px" onchange="PersonasCargarPersonasAccionesSeleccion()">
+                                                    <input type="radio" name="filtroAccion" id="sms" value="S" checked="checked">
+                                                    <label for="sms">SMS</label>
+                                                    <input type="radio" name="filtroAccion" id="correo" value="C">
+                                                    <label for="correo">Correo</label>
+                                                </fieldset>
+                                                <br>
+                                                <form class="ui-filterable" style="margin-bottom: -20px">
+                                                    <input id="filtroSeleccion" data-type="search" placeholder="Filtrar personas">
+                                                </form>
+                                                <div id="accionesSeleccion">
+                                                    <!-- Aquí se insertan los datos dinámicamente -->
+                                                </div>
+                                                <div class="row text-center">
+                                                    <div class="col-ws-12">
+                                                        <a href="sms:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini" id="btnEnviarSMS" onclick="PersonasBtnEnviarSMS()">Enviar SMS</a>
+                                                        <a href="mailto:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini" id="btnEnviarCorreo" onclick="PersonasBtnEnviarCorreo()">Enviar Correo</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-ws-12">
+                                            <div data-role="collapsible" data-theme="b" data-content-theme="a" data-inset="true">
+                                                <h2>Activar o desactivar personas</h2>
+                                                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-bottom: -10px" onchange="PersonasCargarPersonasAccionesSeleccionActivasDesactivas()">
+                                                    <input type="radio" name="filtroActivasDesactivas" id="activar" value="A" checked="checked">
+                                                    <label for="activar">Activas</label>
+                                                    <input type="radio" name="filtroActivasDesactivas" id="desactivar" value="I">
+                                                    <label for="desactivar">Inactivas</label>
+                                                </fieldset>
+                                                <br>
+                                                <form class="ui-filterable" style="margin-bottom: -20px">
+                                                    <input id="filtroSeleccionActivasDesactivas" data-type="search" placeholder="Filtrar personas">
+                                                </form>
+                                                <div id="accionesSeleccionActivasDesactivas">
+                                                    <!-- Aquí se insertan los datos dinámicamente -->
+                                                </div>
+                                                <div class="row text-center">
+                                                    <div class="col-ws-12">
+                                                        <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" id="btnActivarPersonas" onclick="PersonasBtnActivarPersonas()">Activar</a>
+                                                        <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left ui-btn-inline ui-mini" id="btnDesactivarPersonas" onclick="PersonasBtnDesactivarPersonas()">Inactivar</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <h3 class="text-center">Agenda</h3>
+                    <hr>
                     <div class="row">
                         <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-right: -58px">
-                            <label for="ordenamientoSeleccion">Ordenamiento</label>
-                            <select name="ordenamientoSeleccion" id="ordenamientoSeleccion" data-native-menu="false" onchange="PersonasCargarPersonasListado()">
-                            <option value="N">Nombre</option>
-                                    <option value="A">Apellido</option>
-                                </select>
-                            <label for="estadoSeleccion">Estado</label>
-                            <select name="estadoSeleccion" id="estadoSeleccion" data-native-menu="false" onchange="PersonasCargarPersonasListado()">
-                                    <option value="A">Activos</option>
-                                    <option value="I">Inactivos</option>
-                                </select>
-                            <label for="select-custom-16">Fake</label>
+                                <label for="ordenamientoSeleccion">Ordenamiento</label>
+                                <select name="ordenamientoSeleccion" id="ordenamientoSeleccion" data-native-menu="false" onchange="PersonasCargarPersonasListado()">
+                                <option value="N">Nombre</option>
+                                <option value="A">Apellido</option>
+                            </select>
+                                <label for="estadoSeleccion">Estado</label>
+                                <select name="estadoSeleccion" id="estadoSeleccion" data-native-menu="false" onchange="PersonasCargarPersonasListado()">
+                                <option value="A">Activos</option>
+                                    <option value="I">Inactivos</option>
+                            </select>
+                                <label for="fake">Fake</label>
                         </fieldset>
                     </div>
                     <div class="row">
@@ -198,6 +235,7 @@ $utilitarios = new UtilitariosProcesos();
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
+                        <li><button href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-gear" data-theme="b" onclick="PersonasMostrarAcciones()">Acciones</button></li>
                         <li><a href="#" data-transition="flip" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-plus" data-theme="b" onclick="UtiProcesosPaginaProcesosPersonasDetalle()">Agregar</a></li>
                     </ul>
                 </div>

@@ -9,7 +9,7 @@ class VersionAPP
 {
     function obtenerVersionApp()
     {
-        $VERSION_APP = '1.0';
+        $VERSION_APP = '1.0 r54';
 
         return 'v' . $VERSION_APP;
     }

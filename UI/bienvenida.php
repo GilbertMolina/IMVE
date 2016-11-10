@@ -58,7 +58,7 @@ $utilitarios = new UtilitariosBienvenida();
                 <a href="#menuDerecha" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-user"></a>
             </div>
             <div data-role="panel" id="menuIzquierda" data-theme="b" data-display="reveal" data-dismissible="true">
-                <?php if($utilitarios->ObtenerRolUsuario() == "Administrador"){ ?>
+                <?php if($utilitarios->ObtenerRolUsuario() == "SuperAdmin" || $utilitarios->ObtenerRolUsuario() == "Administrador"){ ?>
                     <div data-role="collapsible" data-theme="a">
                         <h3>Mantenimientos</h3>
                         <ul data-role="listview">

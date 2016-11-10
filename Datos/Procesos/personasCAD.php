@@ -25,10 +25,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasPorOrd
         $consultaAcciones  = $db->consulta($sql);
         $cadena_datos      = "";
 
+        $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-split-icon="gear" data-autodividers="true" data-inset="true">';
+
         if($db->num_rows($consulta) != 0)
         {
-            $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-split-icon="gear" data-autodividers="true" data-inset="true">';
-
             while($resultados = $db->fetch_array($consulta))
             {
                 $cadena_datos .= '<li><a href="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</a><a href="#acciones_'. $resultados['IdPersona'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a></li>';
@@ -77,8 +77,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasPorOrd
     }
 }
 
-
-
 // Obtiene el listado de personas del sistema para mostrarlas en un campo de select
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasCelularesCorreos') {
     try {
@@ -88,10 +86,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasCelula
         $consulta          = $db->consulta($sql);
         $cadena_datos      = "";
 
+        $cadena_datos .= '<label for="accionesSeleccionPersonas" style="margin-top: 30px">Lista de personas para seleccionar:</label>';
+        $cadena_datos .= '<select name="accionesSeleccionPersonas" id="accionesSeleccionPersonas" data-filter="true" data-input="#filtroSeleccion" data-native-menu="false" multiple="multiple" data-iconpos="left" data-theme="a" onchange="PersonasAccionesSeleccionarPersonas()">';
+
         if($db->num_rows($consulta) != 0)
         {
-            $cadena_datos .= '<label for="accionesSeleccionPersonas" style="margin-top: 30px">Lista de personas para seleccionar:</label>';
-            $cadena_datos .= '<select name="accionesSeleccionPersonas" id="accionesSeleccionPersonas" data-filter="true" data-input="#filtroSeleccion" data-native-menu="false" multiple="multiple" data-iconpos="left" data-theme="a" onchange="PersonasAccionesSeleccionarPersonas()">';
             $cadena_datos .= '<option>Seleccione</option>';
 
             while($resultados = $db->fetch_array($consulta))
@@ -110,6 +109,57 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasCelula
             $cadena_datos .= '<option>No hay personas para mostrar</option>';
         }
         echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+// Obtiene el listado de personas filtradas por estado para mostrarlas en un campo de select
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasFiltradasPorEstado') {
+    try {
+        $estado = $_POST['estado'];
+
+        $sql               = "CALL TbPersonasListarActivosInactivos('$estado')";
+        $consulta          = $db->consulta($sql);
+        $cadena_datos      = "";
+
+        $cadena_datos .= '<label for="accionesSeleccionPersonasActivarDesactivar" style="margin-top: 30px">Lista de personas para seleccionar:</label>';
+        $cadena_datos .= '<select name="accionesSeleccionPersonasActivarDesactivar" id="accionesSeleccionPersonasActivarDesactivar" data-filter="true" data-input="#filtroSeleccionActivasDesactivas" data-native-menu="false" multiple="multiple" data-iconpos="left" data-theme="a" onchange="PersonasAccionesSeleccionarActivarDesactivarPersonas()">';
+
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos .= '<option>Seleccione</option>';
+
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+            }
+            $cadena_datos .= '</select>';
+        }
+        else
+        {
+            $cadena_datos .= '<option>No hay personas para mostrar</option>';
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+// Se actualiza el estado de personas
+if (isset($_POST['action']) && $_POST['action'] == 'modificarEstadoPersonas') {
+    try {
+        $estado        = $_POST['estado'];
+        $listaPersonas = json_decode(stripslashes($_POST['listaPersonas']));
+        $usuarioActual = $_SESSION['idPersona'];
+
+        foreach($listaPersonas as $persona){
+            $sql      = "CALL TbPersonasActualizarEstado('$estado','$persona','$usuarioActual')";
+            $consulta = $db->consulta(utf8_decode($sql));
+        }
+        echo 1;
     }
     catch (Exception $e) {
         echo 'Excepción capturada: ', $e->getMessage(), "\n";

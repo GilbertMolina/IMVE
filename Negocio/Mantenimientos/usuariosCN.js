@@ -43,7 +43,7 @@ function UsuariosCargarPersonasListadoComboBox() {
         , data: d
         , url: "../../../IMVE/Datos/Mantenimientos/usuariosCAD.php"
         , success: function(a) {
-            $("#cboIdPersona").html(a);
+            $("#cboIdPersona").html(a).html(a).trigger("create");
         }
     })
 }
@@ -60,7 +60,7 @@ function UsuariosCargarRolesComboBox()
         , data: d
         , url: "../../../IMVE/Datos/Mantenimientos/rolesUsuariosCAD.php"
         , success: function(a) {
-            $("#cboIdRol").html(a);
+            $("#cboIdRol").html(a).html(a).trigger("create");
         }
     })
 }

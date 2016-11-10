@@ -50,7 +50,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarTipoCompromiso') {
         $usuarioActual = $_SESSION['idPersona'];
 
         $sql = "CALL TbTiposCompromisosAgregar('$descripcion','$usuarioActual')";
-        $consulta = $db->consulta($sql);
+        $consulta = $db->consulta(utf8_decode($sql));
 
         if ($db->num_rows($consulta) != 0) {
             while ($resultados = $db->fetch_array($consulta)) {

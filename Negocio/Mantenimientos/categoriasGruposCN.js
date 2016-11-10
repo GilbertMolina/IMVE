@@ -71,13 +71,26 @@ function CategoriasGruposRegistrarCategoriaGrupo() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nueva categoría de persona'
+                        , title: 'Nueva categoría de grupo'
                         , content: 'La categoría de grupo se agregó satisfactoriamente.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
                         , confirm: function(){
                             RedireccionPagina('categoriasGrupos.php');
                         }
+                    });
+                }
+                else if(resultado[0].includes("Duplicate"))
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Nueva categoría de grupo'
+                        , content: 'La categoría de grupo ya se encuentra registrada.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-warning'
                     });
                 }
                 else
@@ -87,8 +100,8 @@ function CategoriasGruposRegistrarCategoriaGrupo() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nueva categoría de persona'
-                        , content: 'No se pudo agregar la categoría, intente de nuevo.'
+                        , title: 'Nueva categoría de grupo'
+                        , content: 'No se pudo agregar la categoría de grupo, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'
                     });

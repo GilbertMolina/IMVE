@@ -60,6 +60,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasCombob
                 $cadena_datos .= '<option value="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
             }
         }
+        else
+        {
+            $cadena_datos .= '<option value="0">Todas las personas tienen usuario</option>';
+        }
+
         echo $cadena_datos;
     }
     catch (Exception $e) {

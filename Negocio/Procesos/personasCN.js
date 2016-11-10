@@ -7,13 +7,19 @@
 // Variable para determinar si se debe de registar el usuario con el concentimiento de que no tendrá correo electrónico registrado
 var registarSinCorreo = false;
 
+var mostrarAcciones = false;
+
 // Función que se ejecuta al cargar la pagina
 function PersonasOnLoad() {
     PersonasCargarPersonasListado();
     PersonasCargarPersonasAccionesSeleccion();
+    PersonasCargarPersonasAccionesSeleccionActivasDesactivas();
 
     $('#btnEnviarSMS').hide();
     $('#btnEnviarCorreo').hide();
+    $('#btnActivarPersonas').hide();
+    $('#btnDesactivarPersonas').hide();
+    $('#menuAcciones').hide();
 }
 
 // Función que se ejecuta al cargar la pagina
@@ -36,6 +42,27 @@ function PersonasOnSelectedChangeCantones(){
     $('div#cboIdDistrito-button').children('span').html('Seleccione');
 
     CargarDistritos();
+}
+
+// Función que se ejecuta cuando cambia el cantón seleccionada
+function PersonasMostrarAcciones(){
+    if (mostrarAcciones == false)
+    {
+        mostrarAcciones = true;
+    }
+    else if (mostrarAcciones == true)
+    {
+        mostrarAcciones = false;
+    }
+
+    if (mostrarAcciones == false)
+    {
+        $("#menuAcciones").show();
+    }
+    else
+    {
+        $("#menuAcciones").hide();
+    }
 }
 
 // Función que carga la fecha actual en el campo de fecha de nacimiento
@@ -93,6 +120,27 @@ function PersonasCargarPersonasAccionesSeleccion() {
 	$('#btnEnviarCorreo').attr("href", inicioHref);
 }
 
+// Función para obtener todos las personas con sus celulares y correos
+function PersonasCargarPersonasAccionesSeleccionActivasDesactivas() {
+    var estado = ObtenerValorRadioButtonPorNombre('filtroActivasDesactivas');
+
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=obtenerListadoPersonasFiltradasPorEstado&estado=" + estado;
+
+    // Enviar por Ajax a personasCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/personasCAD.php"
+        , success: function(a) {
+            $("#accionesSeleccionActivasDesactivas").html(a).trigger("create");
+        }
+    });
+
+    $('#btnActivarPersonas').hide();
+    $('#btnDesactivarPersonas').hide();
+}
+
 // Función para el evento clic del botón btnEnviarSMS
 function PersonasBtnEnviarSMS() {
     var valorHref = $('#btnEnviarSMS').attr("href");
@@ -118,7 +166,7 @@ function PersonasBtnEnviarSMS() {
 
 // Función para el evento clic del botón btnEnviarCorreo
 function PersonasBtnEnviarCorreo() {
-    var valorHref = $('#btnEnviarCorreo').attr("href");
+    var valorHref = $('#btnActivarPersonas').attr("href");
 
     if(valorHref == 'mailto:'){
         $.alert({
@@ -126,8 +174,8 @@ function PersonasBtnEnviarCorreo() {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Enviar Correo'
-            , content: 'No ha seleccionado ninguna persona para enviarle un correo electrónico.'
+            , title: 'Activar personas'
+            , content: 'No ha seleccionado ninguna persona para activarla en el sistema.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
         });
@@ -139,7 +187,107 @@ function PersonasBtnEnviarCorreo() {
     }
 }
 
-// Función para obtener todos las personas
+// Función para el evento clic del botón btnActivarPersonas
+function PersonasBtnActivarPersonas() {
+    var estado = ObtenerValorRadioButtonPorNombre('filtroActivasDesactivas');
+    var estadoNuevo = (estado == 'A') ? 'I' : 'A';
+
+    var personasActualizar = $('#accionesSeleccionPersonasActivarDesactivar').val();
+    var listaPersonasJson = JSON.stringify(personasActualizar);
+
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=modificarEstadoPersonas&listaPersonas=" + listaPersonasJson + "&estado=" + estadoNuevo;
+
+    // Enviar por Ajax a personasCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/personasCAD.php"
+        , success: function(a) {
+            if (a == 1)
+            {
+                $.alert({
+                    theme: 'material'
+                    , animationBounce: 1.5
+                    , animation: 'rotate'
+                    , closeAnimation: 'rotate'
+                    , title: 'Actualización de estado'
+                    , content: 'A las personas seleccionadas se les ha cambiado su estado a activas.'
+                    , confirmButton: 'Aceptar'
+                    , confirmButtonClass: 'btn-success'
+                });
+            }
+            else
+            {
+                $.alert({
+                    theme: 'material'
+                    , animationBounce: 1.5
+                    , animation: 'rotate'
+                    , closeAnimation: 'rotate'
+                    , title: 'Actualización de estado'
+                    , content: 'No se pudo actualizar el estado de la persona, intente de nuevo.'
+                    , confirmButton: 'Aceptar'
+                    , confirmButtonClass: 'btn-danger'
+                });
+            }
+        }
+    });
+
+    PersonasCargarPersonasAccionesSeleccionActivasDesactivas();
+    PersonasCargarPersonasListado();
+}
+
+// Función para el evento clic del botón btnDesactivarPersonas
+function PersonasBtnDesactivarPersonas() {
+    var estado = ObtenerValorRadioButtonPorNombre('filtroActivasDesactivas');
+    var estadoNuevo = (estado == 'A') ? 'I' : 'A';
+
+    var personasActualizar = $('#accionesSeleccionPersonasActivarDesactivar').val();
+    var listaPersonasJson = JSON.stringify(personasActualizar);
+
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=modificarEstadoPersonas&listaPersonas=" + listaPersonasJson + "&estado=" + estadoNuevo;
+
+    // Enviar por Ajax a personasCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/personasCAD.php"
+        , success: function(a) {
+            if (a == 1)
+            {
+                $.alert({
+                    theme: 'material'
+                    , animationBounce: 1.5
+                    , animation: 'rotate'
+                    , closeAnimation: 'rotate'
+                    , title: 'Actualización de estado'
+                    , content: 'A las personas seleccionadas se les ha cambiado su estado a inactivas.'
+                    , confirmButton: 'Aceptar'
+                    , confirmButtonClass: 'btn-success'
+                });
+            }
+            else
+            {
+                $.alert({
+                    theme: 'material'
+                    , animationBounce: 1.5
+                    , animation: 'rotate'
+                    , closeAnimation: 'rotate'
+                    , title: 'Actualización de estado'
+                    , content: 'No se pudo actualizar el estado de la persona, intente de nuevo.'
+                    , confirmButton: 'Aceptar'
+                    , confirmButtonClass: 'btn-danger'
+                });
+            }
+        }
+    });
+
+    PersonasCargarPersonasAccionesSeleccionActivasDesactivas();
+    PersonasCargarPersonasListado();
+}
+
+// Función para enviar un sms o un correo a las personas seleccionadas
 function PersonasAccionesSeleccionarPersonas() {
     var accion = ObtenerValorRadioButtonPorNombre('filtroAccion');
     var arregloSeleccionMasiva = $('#accionesSeleccionPersonas').val();
@@ -174,6 +322,23 @@ function PersonasAccionesSeleccionarPersonas() {
     }
 }
 
+// Función para activar o desactivar las personas seleccionadas
+function PersonasAccionesSeleccionarActivarDesactivarPersonas(){
+    var estado = ObtenerValorRadioButtonPorNombre('filtroActivasDesactivas');
+    var personasActualizar = $('#accionesSeleccionPersonasActivarDesactivar').val();
+
+    if(personasActualizar != null){
+        if(estado == 'A'){
+            $('#btnDesactivarPersonas').show();
+        } else if(estado == 'I'){
+            $('#btnActivarPersonas').show();
+        }
+    } else {
+        $('#btnActivarPersonas').hide();
+        $('#btnDesactivarPersonas').hide();
+    }
+}
+
 // Función para registrar persona en el sistema
 function PersonasRegistrarPersona() {
     var identificacion = $('#txtIdentificacion').val().trim();
@@ -187,8 +352,6 @@ function PersonasRegistrarPersona() {
     var celular = $('#txtCelular').val().trim();
     var correo = $('#txtCorreo').val().trim();
     var sexo = $('#cboSexo').val();
-    //ar foto = $('#txtFoto').val();
-    var foto = '';
 
     if(identificacion == ""
         || nombre == ""

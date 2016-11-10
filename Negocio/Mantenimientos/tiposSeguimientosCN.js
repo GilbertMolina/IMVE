@@ -80,6 +80,19 @@ function TiposSeguimientosRegistrarTipoSeguimiento() {
                         }
                     });
                 }
+                else if(resultado[0].includes("Duplicate"))
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Nuevo tipo de seguimiento'
+                        , content: 'El tipo de seguimiento ya se encuentra registrado.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-warning'
+                    });
+                }
                 else
                 {
                     $.alert({

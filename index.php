@@ -89,24 +89,24 @@ $versionApp = new VersionAPP();
                     </ul>
                 </div>
             </div>
-            <div data-role="page" id="acercade" data-theme="a">
-                <div data-role="header" data-theme="b">
-                    <h1>Acerca de</h1>
-                </div>
-                <div data-role="content">
-                    <h2 class="text-center" style="margin-top: 0px">Iglesia Manantiales de Vida Eterna</h2>
-                    <p class="text-justify" style="margin-top: 20px">
-                        <b>Misión:</b> Manantiales de Vida Eterna, ministerio Cristo céntrico, llamado a ganar Cartago y Costa Rica para el reino de Dios. Proclama bajo la unción del Espíritu Santo, el evangelio que salva para vida eterna.
-                    </p>
-                    <br>
-                    <p class="text-justify" style="margin-top: -10px">
-                        <b>Visión:</b> Ser una Iglesia reconocida como un ministerio de alcance sólido y edificado conforme al carácter de Jesucristo, logrando la excelencia mediante la dirección del Señor.
-                    </p>
-                    <br>
-                    <p class="text-center" style="margin-top: 10px">
-                        <b><?php echo $versionApp->obtenerNombreApp() . ' ' . $versionApp->obtenerVersionApp()?></b>
-                    </p>
-                </div>
+        </div>
+        <div data-role="page" id="acercade" data-theme="a">
+            <div data-role="header" data-theme="b">
+                <h1>Acerca de</h1>
+            </div>
+            <div data-role="content">
+                <h2 class="text-center" style="margin-top: 0px">Iglesia Manantiales de Vida Eterna</h2>
+                <p class="text-justify" style="margin-top: 20px">
+                    <b>Misión:</b> Manantiales de Vida Eterna, ministerio Cristo céntrico, llamado a ganar Cartago y Costa Rica para el reino de Dios. Proclama bajo la unción del Espíritu Santo, el evangelio que salva para vida eterna.
+                </p>
+                <br>
+                <p class="text-justify" style="margin-top: -10px">
+                    <b>Visión:</b> Ser una Iglesia reconocida como un ministerio de alcance sólido y edificado conforme al carácter de Jesucristo, logrando la excelencia mediante la dirección del Señor.
+                </p>
+                <br>
+                <p class="text-center" style="margin-top: 10px">
+                    <b><?php echo $versionApp->obtenerNombreApp() . ' ' . $versionApp->obtenerVersionApp()?></b>
+                </p>
             </div>
         </div>
     </body>
