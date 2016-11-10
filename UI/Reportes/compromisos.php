@@ -148,44 +148,8 @@ $utilitarios = new UtilitariosReportes();
                             <hr>
                             <div class="jumbotron">
                                 <img src="../Includes/images/documentPDF.png" alt="Reporte 1">
-                                <h2>Título Reporte 1</h2>
-                                <p><strong>Descripción: </strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <div class="col-xs-8 col-sm-4">
-                                    <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left">Generar</button>
-                                </div>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-                        <div class="col-sm-1"></div>
-                    </div>
-                    <div class="row text-center">
-                        <div class="col-sm-1"></div>
-                        <div class="col-xs-12 col-sm-10">
-                            <div class="jumbotron">
-                                <img src="../Includes/images/documentPDF.png" alt="Reporte 2">
-                                <h2>Título Reporte 3</h2>
-                                <p><strong>Descripción: </strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <div class="col-xs-8 col-sm-4">
-                                    <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left">Generar</button>
-                                </div>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-                        <div class="col-sm-1"></div>
-                    </div>
-                    <div class="row text-center">
-                        <div class="col-sm-1"></div>
-                        <div class="col-xs-12 col-sm-10">
-                            <div class="jumbotron">
-                                <img src="../Includes/images/documentPDF.png" alt="Reporte 3">
-                                <h2>Título Reporte 3</h2>
-                                <p><strong>Descripción: </strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <h2>Reporte de compromisos con sus respectivas fechas y responsables</h2>
+                                <p><strong>Descripción: </strong>Se listan todos los compromisos ordenados por fecha, con sus respectivos responsables.</p>
                                 <div class="col-xs-2 col-sm-4"></div>
                                 <div class="col-xs-8 col-sm-4">
                                     <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left">Generar</button>

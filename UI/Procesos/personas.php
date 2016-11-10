@@ -141,7 +141,7 @@ $utilitarios = new UtilitariosProcesos();
             <div data-role="content">
                 <div class="container">
                     <div id="menuAcciones">
-                        <h3 class="text-center">Acciones</h3>
+                        <h3 class="text-center">Acciones Masivas</h3>
                         <hr>
                         <div class="row">
                             <div class="col-ws-12">
@@ -176,12 +176,12 @@ $utilitarios = new UtilitariosProcesos();
                                     <div class="row">
                                         <div class="col-ws-12">
                                             <div data-role="collapsible" data-theme="b" data-content-theme="a" data-inset="true">
-                                                <h2>Activar o desactivar personas</h2>
+                                                <h2>Activar o inactivar personas</h2>
                                                 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-bottom: -10px" onchange="PersonasCargarPersonasAccionesSeleccionActivasDesactivas()">
                                                     <input type="radio" name="filtroActivasDesactivas" id="activar" value="A" checked="checked">
-                                                    <label for="activar">Activas</label>
+                                                    <label for="activar">Activar</label>
                                                     <input type="radio" name="filtroActivasDesactivas" id="desactivar" value="I">
-                                                    <label for="desactivar">Inactivas</label>
+                                                    <label for="desactivar">Inactivar</label>
                                                 </fieldset>
                                                 <br>
                                                 <form class="ui-filterable" style="margin-bottom: -20px">

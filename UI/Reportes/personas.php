@@ -148,8 +148,8 @@ $utilitarios = new UtilitariosReportes();
                             <hr>
                             <div class="jumbotron">
                                 <img src="../Includes/images/documentPDF.png" alt="Reporte 1">
-                                <h2>Título Reporte 1</h2>
-                                <p><strong>Descripción: </strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <h2>Reporte de visitas con su fecha de ingreso</h2>
+                                <p><strong>Descripción: </strong>Se listan las personas registradas en el sistema, con su respectiva fecha en la que realizaron la visita por primera vez.</p>
                                 <div class="col-xs-2 col-sm-4"></div>
                                 <div class="col-xs-8 col-sm-4">
                                     <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left">Generar</button>

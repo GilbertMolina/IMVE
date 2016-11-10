@@ -52,7 +52,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasPorOrd
                     }
 
                     if($resultadosAcciones['Telefono'] != ""){
-                        $cadena_datos .= '<a href="tel:' . $resultadosAcciones['Telefono'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Casa</a>';
+                        $cadena_datos .= '<a href="tel:' . $resultadosAcciones['Telefono'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Teléfono</a>';
                     }
                     if($resultadosAcciones['Celular'] != ""){
                         $cadena_datos .= '<a href="tel:' . $resultadosAcciones['Celular'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Celular</a>';

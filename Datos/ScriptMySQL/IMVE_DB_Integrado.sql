@@ -626,17 +626,17 @@ CREATE PROCEDURE IMVE.TbUsuariosListar()
 BEGIN
 
 SELECT P.IdPersona
-  , P.Identificacion
+	, P.Identificacion
     , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
     , RU.Descripcion AS Rol
     , CASE U.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM TbUsuarios AS U
 INNER JOIN TbPersonas AS P
-  ON U.IdPersona = P.IdPersona
+	ON U.IdPersona = P.IdPersona
 INNER JOIN TbRolesUsuarios AS RU
-  ON U.IdRolUsuario = RU.IdRolUsuario
+	ON U.IdRolUsuario = RU.IdRolUsuario
 WHERE RU.Descripcion <> 'SuperAdmin'
-  AND P.Activo = 'A'
+	AND P.Activo = 'A'
     AND U.Activo = 'A'
 ORDER BY NombreCompleto;
 
@@ -653,18 +653,18 @@ CREATE PROCEDURE IMVE.TbUsuariosListarEstado(
 BEGIN
 
 SELECT P.IdPersona
-  , P.Identificacion
+	, P.Identificacion
     , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
     , RU.Descripcion AS Rol
     , CASE U.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM TbUsuarios AS U
 INNER JOIN TbPersonas AS P
-  ON U.IdPersona = P.IdPersona
+	ON U.IdPersona = P.IdPersona
 INNER JOIN TbRolesUsuarios AS RU
-  ON U.IdRolUsuario = RU.IdRolUsuario
+	ON U.IdRolUsuario = RU.IdRolUsuario
 WHERE RU.Descripcion <> 'SuperAdmin'
-  AND P.Activo = 'A'
-  AND U.Activo = p_Estado
+	AND P.Activo = 'A'
+	AND U.Activo = p_Estado
 ORDER BY NombreCompleto;
 
 END //
@@ -1094,7 +1094,7 @@ CREATE PROCEDURE IMVE.TbRolesUsuariosListar()
 BEGIN
 
 SELECT IdRolUsuario
-  , Descripcion
+	, Descripcion
     , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM IMVE.TbRolesUsuarios
 WHERE Activo = 'A'
@@ -1604,12 +1604,12 @@ DROP PROCEDURE IF EXISTS IMVE.TbMinisteriosListarEstado;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbMinisteriosListarEstado(
-  p_Estado CHAR(1)
+	p_Estado CHAR(1)
 )
 BEGIN
 
 SELECT IdMinisterio
-  , Descripcion
+	, Descripcion
     , CASE Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM IMVE.TbMinisterios
 WHERE Activo = p_Estado
@@ -1880,65 +1880,65 @@ CREATE PROCEDURE IMVE.TbPersonasListarPorOrdenamientoEstado(
 BEGIN
 
 IF p_Ordenamiento = 'N' THEN
-  SELECT P.IdPersona
-    , P.Identificacion
-    , P.Nombre
-    , P.Apellido1
-    , P.Apellido2
-    , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
-    , P.FechaNacimiento
-    , CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
-    , P.DireccionDomicilio
-    , P.Telefono
-    , P.Celular
-    , P.Correo
-    , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
-    , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-  FROM IMVE.TbPersonas AS P
+	SELECT P.IdPersona
+		, P.Identificacion
+		, P.Nombre
+		, P.Apellido1
+		, P.Apellido2
+		, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+		, P.FechaNacimiento
+		, CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
+		, P.DireccionDomicilio
+		, P.Telefono
+		, P.Celular
+		, P.Correo
+		, CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+		, CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+	FROM IMVE.TbPersonas AS P
     LEFT JOIN IMVE.TbDistritos AS D
-    ON P.IdDistrito = D.IdDistrito
-  LEFT JOIN IMVE.TbCantones AS C
-    ON D.IdCanton = C.IdCanton
-    AND D.IdProvincia = C.IdProvincia
-    AND D.IdPais = C.IdPais
-  LEFT JOIN IMVE.TbProvincias AS PR
-    ON C.IdProvincia = PR.IdProvincia
-    AND C.IdPais = PR.IdPais
-  LEFT JOIN IMVE.TbPaises AS PA
-    ON PR.IdPais = PA.IdPais
-  WHERE P.Activo = p_Estado
-    AND P.IdPersona <> 1
-  ORDER BY NombreCompleto;
+		ON P.IdDistrito = D.IdDistrito
+	LEFT JOIN IMVE.TbCantones AS C
+		ON D.IdCanton = C.IdCanton
+		AND D.IdProvincia = C.IdProvincia
+		AND D.IdPais = C.IdPais
+	LEFT JOIN IMVE.TbProvincias AS PR
+		ON C.IdProvincia = PR.IdProvincia
+		AND C.IdPais = PR.IdPais
+	LEFT JOIN IMVE.TbPaises AS PA
+		ON PR.IdPais = PA.IdPais
+	WHERE P.Activo = p_Estado
+		AND P.IdPersona <> 1
+	ORDER BY NombreCompleto;
 ELSE
-  SELECT P.IdPersona
-    , P.Identificacion
-    , P.Nombre
-    , P.Apellido1
-    , P.Apellido2
-    , CONCAT(P.Apellido1,' ',P.Apellido2, ' ',P.Nombre) AS NombreCompleto
-    , P.FechaNacimiento
-    , CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
-    , P.DireccionDomicilio
-    , P.Telefono
-    , P.Celular
-    , P.Correo
-    , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
-    , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-  FROM IMVE.TbPersonas AS P
-  LEFT JOIN IMVE.TbDistritos AS D 
-    ON P.IdDistrito = D.IdDistrito
-  LEFT JOIN IMVE.TbCantones AS C
-    ON D.IdCanton = C.IdCanton
-    AND D.IdProvincia = C.IdProvincia
-    AND D.IdPais = C.IdPais
-  LEFT JOIN IMVE.TbProvincias AS PR
-    ON C.IdProvincia = PR.IdProvincia
-    AND C.IdPais = PR.IdPais
-  LEFT JOIN IMVE.TbPaises AS PA
-    ON PR.IdPais = PA.IdPais
-  WHERE P.Activo = p_Estado
+	SELECT P.IdPersona
+		, P.Identificacion
+		, P.Nombre
+		, P.Apellido1
+		, P.Apellido2
+		, CONCAT(P.Apellido1,' ',P.Apellido2, ' ',P.Nombre) AS NombreCompleto
+		, P.FechaNacimiento
+		, CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
+		, P.DireccionDomicilio
+		, P.Telefono
+		, P.Celular
+		, P.Correo
+		, CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+		, CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+	FROM IMVE.TbPersonas AS P
+	LEFT JOIN IMVE.TbDistritos AS D 
+		ON P.IdDistrito = D.IdDistrito
+	LEFT JOIN IMVE.TbCantones AS C
+		ON D.IdCanton = C.IdCanton
+		AND D.IdProvincia = C.IdProvincia
+		AND D.IdPais = C.IdPais
+	LEFT JOIN IMVE.TbProvincias AS PR
+		ON C.IdProvincia = PR.IdProvincia
+		AND C.IdPais = PR.IdPais
+	LEFT JOIN IMVE.TbPaises AS PA
+		ON PR.IdPais = PA.IdPais
+	WHERE P.Activo = p_Estado
         AND P.IdPersona <> 1
-  ORDER BY NombreCompleto;
+	ORDER BY NombreCompleto;
 END IF;
 
 END //
@@ -1954,26 +1954,26 @@ CREATE PROCEDURE IMVE.TbPersonasListarCelularesCorreos(
 BEGIN
 
 IF p_accion = 'S' THEN
-  SELECT P.IdPersona
-    , P.Identificacion
-    , P.Nombre
-    , P.Apellido1
-    , P.Apellido2
-    , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
-    , P.FechaNacimiento
-    , P.DireccionDomicilio
-    , P.Celular
-    , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
-    , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-  FROM IMVE.TbPersonas AS P
-  INNER JOIN IMVE.TbUsuarios AS U
-    ON P.IdPersona = U.IdPersona
-  INNER JOIN IMVE.TbRolesUsuarios AS RU
-    ON U.IdRolUsuario = RU.IdRolUsuario
-  WHERE RU.Descripcion <> 'SuperAdmin'
-    AND P.Activo = 'A'
-    AND P.Celular <> ''
-  ORDER BY NombreCompleto;
+	SELECT P.IdPersona
+		, P.Identificacion
+		, P.Nombre
+		, P.Apellido1
+		, P.Apellido2
+		, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+		, P.FechaNacimiento
+		, P.DireccionDomicilio
+		, P.Celular
+		, CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+		, CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+	FROM IMVE.TbPersonas AS P
+	INNER JOIN IMVE.TbUsuarios AS U
+		ON P.IdPersona = U.IdPersona
+	INNER JOIN IMVE.TbRolesUsuarios AS RU
+		ON U.IdRolUsuario = RU.IdRolUsuario
+	WHERE RU.Descripcion <> 'SuperAdmin'
+		AND P.Activo = 'A'
+		AND P.Celular <> ''
+	ORDER BY NombreCompleto;
 ELSE 
   SELECT P.IdPersona
     , P.Identificacion
@@ -1987,14 +1987,14 @@ ELSE
     , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
     , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
   FROM IMVE.TbPersonas AS P
-  INNER JOIN IMVE.TbUsuarios AS U
-    ON P.IdPersona = U.IdPersona
-  INNER JOIN IMVE.TbRolesUsuarios AS RU
-    ON U.IdRolUsuario = RU.IdRolUsuario
-  WHERE RU.Descripcion <> 'SuperAdmin'
-    AND P.Activo = 'A'
-    AND P.Correo <> ''
-  ORDER BY NombreCompleto;
+	INNER JOIN IMVE.TbUsuarios AS U
+		ON P.IdPersona = U.IdPersona
+	INNER JOIN IMVE.TbRolesUsuarios AS RU
+		ON U.IdRolUsuario = RU.IdRolUsuario
+	WHERE RU.Descripcion <> 'SuperAdmin'
+		AND P.Activo = 'A'
+		AND P.Correo <> ''
+	ORDER BY NombreCompleto;
 END IF;
 
 END //
@@ -2010,24 +2010,24 @@ CREATE PROCEDURE IMVE.TbPersonasListarActivosInactivos(
 BEGIN
 
 SELECT P.IdPersona
-    , P.Identificacion
-    , P.Nombre
-    , P.Apellido1
-    , P.Apellido2
-    , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
-    , P.FechaNacimiento
-    , P.DireccionDomicilio
-    , P.Celular
-    , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
-    , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-  FROM IMVE.TbPersonas AS P
-  LEFT JOIN IMVE.TbUsuarios AS U
-    ON P.IdPersona = U.IdPersona
-  LEFT JOIN IMVE.TbRolesUsuarios AS RU
-    ON U.IdRolUsuario = RU.IdRolUsuario
-  WHERE P.IdPersona <> 1
-    AND P.Activo = p_estado
-  ORDER BY NombreCompleto;
+		, P.Identificacion
+		, P.Nombre
+		, P.Apellido1
+		, P.Apellido2
+		, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+		, P.FechaNacimiento
+		, P.DireccionDomicilio
+		, P.Celular
+		, CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+		, CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+	FROM IMVE.TbPersonas AS P
+	LEFT JOIN IMVE.TbUsuarios AS U
+		ON P.IdPersona = U.IdPersona
+	LEFT JOIN IMVE.TbRolesUsuarios AS RU
+		ON U.IdRolUsuario = RU.IdRolUsuario
+	WHERE P.IdPersona <> 1
+		AND P.Activo = p_estado
+	ORDER BY NombreCompleto;
 
 END //
 DELIMITER ;
@@ -2164,8 +2164,8 @@ DROP PROCEDURE IF EXISTS IMVE.TbPersonasActualizarEstado;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbPersonasActualizarEstado(
-  p_estado CHAR(1)
-  , p_idPersona INT
+	p_estado CHAR(1)
+	, p_idPersona INT
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
