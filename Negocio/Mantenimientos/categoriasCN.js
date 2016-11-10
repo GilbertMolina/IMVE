@@ -43,7 +43,7 @@ function CategoriasRegistrarCategoria() {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar la descripción de la categoría de persona.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -71,7 +71,7 @@ function CategoriasRegistrarCategoria() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nueva categoría de persona'
+                        , title: 'Información'
                         , content: 'La categoría de persona se agregó satisfactoriamente.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
@@ -87,7 +87,7 @@ function CategoriasRegistrarCategoria() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nueva categoría de persona'
+                        , title: 'Advertencia'
                         , content: 'La categoría de persona ya se encuentra registrada.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-warning'
@@ -100,8 +100,8 @@ function CategoriasRegistrarCategoria() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nueva categoría de persona'
-                        , content: 'No se pudo agregar la categoría, intente de nuevo.'
+                        , title: 'Error'
+                        , content: 'No se pudo agregar la categoría de persona, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'
                     });
@@ -146,7 +146,7 @@ function CategoriasModificarCategoria(p_idCategoria) {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar la descripción y el estado de la categoría de persona.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -172,13 +172,26 @@ function CategoriasModificarCategoria(p_idCategoria) {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Modificar categoría de persona'
+                        , title: 'Información'
                         , content: 'La categoría de persona se modificó satisfactoriamente.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
                         , confirm: function(){
                             RedireccionPagina('categorias.php');
                         }
+                    });
+                }
+                else if(a.includes("Duplicate"))
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Advertencia'
+                        , content: 'Una categoría de persona con la misma descripción ya se encuentra registrado.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-warning'
                     });
                 }
                 else
@@ -188,7 +201,7 @@ function CategoriasModificarCategoria(p_idCategoria) {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Modificar categoría de persona'
+                        , title: 'Error'
                         , content: 'No se pudo modificar la categoría de persona, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'

@@ -82,7 +82,7 @@ function UsuariosRegistrarUsuario() {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar los datos que son necesarios del formulario.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -97,7 +97,7 @@ function UsuariosRegistrarUsuario() {
                 , animationBounce: 1.5
                 , animation: 'rotate'
                 , closeAnimation: 'rotate'
-                , title: 'Verifique la contraseña'
+                , title: 'Advertencia'
                 , content: 'La contraseña no coincide, intente de nuevo.'
                 , confirmButton: 'Aceptar'
                 , confirmButtonClass: 'btn-warning'
@@ -129,7 +129,7 @@ function UsuariosRegistrarUsuario() {
                             , animationBounce: 1.5
                             , animation: 'rotate'
                             , closeAnimation: 'rotate'
-                            , title: 'Registro de usuario'
+                            , title: 'Información'
                             , content: 'El usuario se creó satisfactoriamente.'
                             , confirmButton: 'Aceptar'
                             , confirmButtonClass: 'btn-success'
@@ -145,7 +145,7 @@ function UsuariosRegistrarUsuario() {
                             , animationBounce: 1.5
                             , animation: 'rotate'
                             , closeAnimation: 'rotate'
-                            , title: 'Registro de usuario'
+                            , title: 'Error'
                             , content: 'No se pudo crear del usuario, intente de nuevo.'
                             , confirmButton: 'Aceptar'
                             , confirmButtonClass: 'btn-danger'
@@ -199,7 +199,7 @@ function UsuariosModificarUsuario(p_idPersona) {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de seleccionar el rol y el estado del usuario.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -215,7 +215,7 @@ function UsuariosModificarUsuario(p_idPersona) {
                 , animationBounce: 1.5
                 , animation: 'rotate'
                 , closeAnimation: 'rotate'
-                , title: 'Verifique la contraseña'
+                , title: 'Advertencia'
                 , content: 'La contraseña no coincide, intente de nuevo.'
                 , confirmButton: 'Aceptar'
                 , confirmButtonClass: 'btn-warning'
@@ -246,7 +246,7 @@ function UsuariosModificarUsuario(p_idPersona) {
                             , animationBounce: 1.5
                             , animation: 'rotate'
                             , closeAnimation: 'rotate'
-                            , title: 'Modificar usuario'
+                            , title: 'Información'
                             , content: 'El usuario se modificó satisfactoriamente.'
                             , confirmButton: 'Aceptar'
                             , confirmButtonClass: 'btn-success'
@@ -262,7 +262,7 @@ function UsuariosModificarUsuario(p_idPersona) {
                             , animationBounce: 1.5
                             , animation: 'rotate'
                             , closeAnimation: 'rotate'
-                            , title: 'Modificar usuario'
+                            , title: 'Error'
                             , content: 'No se pudo modificar el usuario, intente de nuevo.'
                             , confirmButton: 'Aceptar'
                             , confirmButtonClass: 'btn-danger'

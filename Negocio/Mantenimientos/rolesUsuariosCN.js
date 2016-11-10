@@ -43,7 +43,7 @@ function RolesUsuarioRegistrarRolUsuario() {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar la descripción del rol de usuario.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -71,7 +71,7 @@ function RolesUsuarioRegistrarRolUsuario() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nuevo rol de usuario'
+                        , title: 'Información'
                         , content: 'El rol de usuario se agregó satisfactoriamente.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
@@ -87,7 +87,7 @@ function RolesUsuarioRegistrarRolUsuario() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nuevo rol de usuario'
+                        , title: 'Advertencia'
                         , content: 'El rol de usuario ya se encuentra registrado.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-warning'
@@ -100,7 +100,7 @@ function RolesUsuarioRegistrarRolUsuario() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nuevo rol de usuario'
+                        , title: 'Error'
                         , content: 'No se pudo agregar el rol de usuario, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'
@@ -146,7 +146,7 @@ function RolesUsuarioModificarRolesUsuario(p_idRolUsuario) {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar la descripción y el estado del rol de usuario.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -172,13 +172,26 @@ function RolesUsuarioModificarRolesUsuario(p_idRolUsuario) {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Modificar rol de usuario'
+                        , title: 'Información'
                         , content: 'El rol de usuario se modificó satisfactoriamente.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
                         , confirm: function(){
                             RedireccionPagina('rolesUsuarios.php');
                         }
+                    });
+                }
+                else if(a.includes("Duplicate"))
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Advertencia'
+                        , content: 'Un rol de usuario con la misma descripción ya se encuentra registrado.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-warning'
                     });
                 }
                 else
@@ -188,7 +201,7 @@ function RolesUsuarioModificarRolesUsuario(p_idRolUsuario) {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Modificar rol de usuario'
+                        , title: 'Error'
                         , content: 'No se pudo modificar el rol de usuario, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'

@@ -151,7 +151,7 @@ function PersonasBtnEnviarSMS() {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Enviar SMS'
+            , title: 'Advertencia'
             , content: 'No ha seleccionado ninguna persona para enviarle un mensaje de texto.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -174,8 +174,8 @@ function PersonasBtnEnviarCorreo() {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Activar personas'
-            , content: 'No ha seleccionado ninguna persona para activarla en el sistema.'
+            , title: 'Advertencia'
+            , content: 'No ha seleccionado ninguna persona para enviarle un correo electrónico.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
         });
@@ -211,7 +211,7 @@ function PersonasBtnActivarPersonas() {
                     , animationBounce: 1.5
                     , animation: 'rotate'
                     , closeAnimation: 'rotate'
-                    , title: 'Actualización de estado'
+                    , title: 'Información'
                     , content: 'A las personas seleccionadas se les ha cambiado su estado a activas.'
                     , confirmButton: 'Aceptar'
                     , confirmButtonClass: 'btn-success'
@@ -224,7 +224,7 @@ function PersonasBtnActivarPersonas() {
                     , animationBounce: 1.5
                     , animation: 'rotate'
                     , closeAnimation: 'rotate'
-                    , title: 'Actualización de estado'
+                    , title: 'Error'
                     , content: 'No se pudo actualizar el estado de la persona, intente de nuevo.'
                     , confirmButton: 'Aceptar'
                     , confirmButtonClass: 'btn-danger'
@@ -261,7 +261,7 @@ function PersonasBtnDesactivarPersonas() {
                     , animationBounce: 1.5
                     , animation: 'rotate'
                     , closeAnimation: 'rotate'
-                    , title: 'Actualización de estado'
+                    , title: 'Información'
                     , content: 'A las personas seleccionadas se les ha cambiado su estado a inactivas.'
                     , confirmButton: 'Aceptar'
                     , confirmButtonClass: 'btn-success'
@@ -274,7 +274,7 @@ function PersonasBtnDesactivarPersonas() {
                     , animationBounce: 1.5
                     , animation: 'rotate'
                     , closeAnimation: 'rotate'
-                    , title: 'Actualización de estado'
+                    , title: 'Error'
                     , content: 'No se pudo actualizar el estado de la persona, intente de nuevo.'
                     , confirmButton: 'Aceptar'
                     , confirmButtonClass: 'btn-danger'
@@ -363,7 +363,7 @@ function PersonasRegistrarPersona() {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar los datos que son necesarios del formulario.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -385,7 +385,7 @@ function PersonasRegistrarPersona() {
                     , animationBounce: 1.5
                     , animation: 'rotate'
                     , closeAnimation: 'rotate'
-                    , title: 'Validación de correo'
+                    , title: 'Confirmación'
                     , content: '<p>El correo electrónico es necesario posteriormente para recordar la contraseña, en caso de que la olvide. <br><br> ¿Desea continuar sin ingresar un correo electrónico?</p>'
                     , confirmButton: 'Acepto'
                     , confirmButtonClass: 'btn-success'
@@ -404,8 +404,7 @@ function PersonasRegistrarPersona() {
                             , telefono
                             , celular
                             , correo
-                            , sexo
-                            , foto);
+                            , sexo);
                     }
                     , cancel: function(){
                         registarSinCorreo = false;
@@ -424,21 +423,18 @@ function PersonasRegistrarPersona() {
                     , telefono
                     , celular
                     , correo
-                    , sexo
-                    , foto);
+                    , sexo);
             }
         }
     };
 }
 
 // Función que registra el usuario del usuario a la base de datos por medio de Ajax
-function PersonasIngresarUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo, p_foto){
+function PersonasIngresarUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo){
     // Se define el action que será consultado desde la clase de acceso a datos
     var d = "action=registrarPersona&identificacion=" + p_Identificacion + "&nombre=" + p_Nombre + "&apellido1=" + p_Apellido1 + "&apellido2=" + p_Apellido2 + "&fechaNacimiento="
         + p_FechaNacimiento + "&distrito=" + p_Distrito + "&direccionDomicilio=" + p_DireccionDomicilio + "&telefono=" + p_Telefono + "&celular=" + p_Celular + "&correo=" + p_Correo
-        + "&sexo=" + p_Sexo + "&foto=" + p_foto;
-
-    console.log(d);
+        + "&sexo=" + p_Sexo;
 
     // Enviar por Ajax a personasCAD.php
     $.ajax({
@@ -457,7 +453,7 @@ function PersonasIngresarUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apel
                     , animationBounce: 1.5
                     , animation: 'rotate'
                     , closeAnimation: 'rotate'
-                    , title: 'Registro de usuario'
+                    , title: 'Información'
                     , content: 'La persona se registró satisfactoriamente.'
                     , confirmButton: 'Aceptar'
                     , confirmButtonClass: 'btn-success'
@@ -473,7 +469,7 @@ function PersonasIngresarUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apel
                     , animationBounce: 1.5
                     , animation: 'rotate'
                     , closeAnimation: 'rotate'
-                    , title: 'Registro de usuario'
+                    , title: 'Error'
                     , content: 'No se pudo realizar el registro de la persona, intente de nuevamente.'
                     , confirmButton: 'Aceptar'
                     , confirmButtonClass: 'btn-danger'
@@ -497,7 +493,7 @@ function PersonasValidarCorreo() {
                 , animationBounce: 1.5
                 , animation: 'rotate'
                 , closeAnimation: 'rotate'
-                , title: 'Validación de correo'
+                , title: 'Error'
                 , content: 'El correo "' + correo +'" no es válido, por favor verifíquelo.'
                 , confirmButton: 'Aceptar'
                 , confirmButtonClass: 'btn-warning'

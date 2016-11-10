@@ -43,7 +43,7 @@ function TiposSeguimientosRegistrarTipoSeguimiento() {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar la descripción del tipo de seguimiento'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -71,7 +71,7 @@ function TiposSeguimientosRegistrarTipoSeguimiento() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nuevo tipo de seguimiento'
+                        , title: 'Información'
                         , content: 'El tipo de seguimiento se agregó satisfactoriamente.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
@@ -87,7 +87,7 @@ function TiposSeguimientosRegistrarTipoSeguimiento() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nuevo tipo de seguimiento'
+                        , title: 'Advertencia'
                         , content: 'El tipo de seguimiento ya se encuentra registrado.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-warning'
@@ -100,7 +100,7 @@ function TiposSeguimientosRegistrarTipoSeguimiento() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nuevo tipo de seguimiento'
+                        , title: 'Error'
                         , content: 'No se pudo agregar el tipo de seguimiento, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'
@@ -146,7 +146,7 @@ function TiposSeguimientosModificarTipoSeguimiento(p_idTipoSeguimiento) {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar la descripción y el estado del tipo de seguimiento.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -172,13 +172,26 @@ function TiposSeguimientosModificarTipoSeguimiento(p_idTipoSeguimiento) {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Modificar tipo de seguimiento'
+                        , title: 'Información'
                         , content: 'El tipo de seguimiento se modificó satisfactoriamente.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
                         , confirm: function(){
                             RedireccionPagina('tiposSeguimientos.php');
                         }
+                    });
+                }
+                else if(a.includes("Duplicate"))
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Advertencia'
+                        , content: 'Un tipo de seguimiento con la misma descripción ya se encuentra registrado.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-warning'
                     });
                 }
                 else
@@ -188,7 +201,7 @@ function TiposSeguimientosModificarTipoSeguimiento(p_idTipoSeguimiento) {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Modificar tipo de seguimiento'
+                        , title: 'Error'
                         , content: 'No se pudo modificar el tipo de seguimiento, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'

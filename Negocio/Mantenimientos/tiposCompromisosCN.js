@@ -43,7 +43,7 @@ function TiposCompromisosRegistrarTipoCompromiso() {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar la descripción del tipo de compromiso'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -71,7 +71,7 @@ function TiposCompromisosRegistrarTipoCompromiso() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nuevo tipo de compromiso'
+                        , title: 'Información'
                         , content: 'El tipo de compromiso se agregó satisfactoriamente.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
@@ -87,7 +87,7 @@ function TiposCompromisosRegistrarTipoCompromiso() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nuevo tipo de compromiso'
+                        , title: 'Advertencia'
                         , content: 'El tipo de compromiso ya se encuentra registrado.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-warning'
@@ -100,7 +100,7 @@ function TiposCompromisosRegistrarTipoCompromiso() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nuevo tipo de compromiso'
+                        , title: 'Error'
                         , content: 'No se pudo agregar el tipo de compromiso, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'
@@ -146,7 +146,7 @@ function TiposCompromisosModificarTipoCompromiso(p_idTipoCompromiso) {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar la descripción y el estado del tipo de compromiso.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -172,13 +172,26 @@ function TiposCompromisosModificarTipoCompromiso(p_idTipoCompromiso) {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Modificar tipo de compromiso'
+                        , title: 'Información'
                         , content: 'El tipo de compromiso se modificó satisfactoriamente.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
                         , confirm: function(){
                             RedireccionPagina('tiposCompromisos.php');
                         }
+                    });
+                }
+                else if(a.includes("Duplicate"))
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Advertencia'
+                        , content: 'Un tipo de compromiso con la misma descripción ya se encuentra registrado.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-warning'
                     });
                 }
                 else
@@ -188,7 +201,7 @@ function TiposCompromisosModificarTipoCompromiso(p_idTipoCompromiso) {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Modificar tipo de compromiso'
+                        , title: 'Error'
                         , content: 'No se pudo modificar el tipo de compromiso, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'

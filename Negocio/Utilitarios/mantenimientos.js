@@ -230,7 +230,7 @@ function UtiMantenimientosCerrarSesion()
         , animationBounce: 1.5
         , animation: 'rotate'
         , closeAnimation: 'rotate'
-        , title: '<span class="jconfirm-customize">Cierre de sesión</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+        , title: '<span class="jconfirm-customize">Confirmación</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
         , content: '<span class="jconfirm-customize">¿Esta seguro que desea cerrar la sesión?</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
         , confirmButton: 'Aceptar'
         , confirmButtonClass: 'btn-success'
@@ -252,8 +252,8 @@ function UtiMantenimientosCerrarSesion()
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: '<span class="jconfirm-customize">Ha cerrado la sesión</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
-                        , content: '<span class="jconfirm-customize">Esperamos que vuelva pronto.</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+                        , title: '<span class="jconfirm-customize">Información</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+                        , content: '<span class="jconfirm-customize">Ha cerrado la sesión, esperamos que vuelva pronto.</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
                         , confirm: function(){

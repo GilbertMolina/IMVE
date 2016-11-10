@@ -43,7 +43,7 @@ function CategoriasGruposRegistrarCategoriaGrupo() {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar la descripción de la categoría de grupo.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -71,7 +71,7 @@ function CategoriasGruposRegistrarCategoriaGrupo() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nueva categoría de grupo'
+                        , title: 'Información'
                         , content: 'La categoría de grupo se agregó satisfactoriamente.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
@@ -87,7 +87,7 @@ function CategoriasGruposRegistrarCategoriaGrupo() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nueva categoría de grupo'
+                        , title: 'Advertencia'
                         , content: 'La categoría de grupo ya se encuentra registrada.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-warning'
@@ -100,7 +100,7 @@ function CategoriasGruposRegistrarCategoriaGrupo() {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Nueva categoría de grupo'
+                        , title: 'Error'
                         , content: 'No se pudo agregar la categoría de grupo, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'
@@ -146,7 +146,7 @@ function CategoriasGruposModificarCategoria(p_idCategoriaGrupo) {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar la descripción y el estado de la categoría de grupo.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -172,13 +172,26 @@ function CategoriasGruposModificarCategoria(p_idCategoriaGrupo) {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Modificar categoría de grupo'
+                        , title: 'Información'
                         , content: 'La categoría de grupo se modificó satisfactoriamente.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
                         , confirm: function(){
                             RedireccionPagina('categoriasGrupos.php');
                         }
+                    });
+                }
+                else if(a.includes("Duplicate"))
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Advertencia'
+                        , content: 'Una categoría de grupo con la misma descripción ya se encuentra registrado.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-warning'
                     });
                 }
                 else
@@ -188,7 +201,7 @@ function CategoriasGruposModificarCategoria(p_idCategoriaGrupo) {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Modificar categoría de grupo'
+                        , title: 'Error'
                         , content: 'No se pudo modificar la categoría de grupo, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'

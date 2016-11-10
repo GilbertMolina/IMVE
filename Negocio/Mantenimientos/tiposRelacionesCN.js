@@ -52,7 +52,7 @@ function TiposRelacionesRegistrarTipoRelacion() {
                 , animationBounce: 1.5
                 , animation: 'rotate'
                 , closeAnimation: 'rotate'
-                , title: 'Datos incompletos'
+                , title: 'Advertencia'
                 , content: 'Debe de ingresar todos los campos del formulario'
                 , confirmButton: 'Aceptar'
                 , confirmButtonClass: 'btn-warning'
@@ -70,7 +70,7 @@ function TiposRelacionesRegistrarTipoRelacion() {
                 , animationBounce: 1.5
                 , animation: 'rotate'
                 , closeAnimation: 'rotate'
-                , title: 'Datos incompletos'
+                , title: 'Advertencia'
                 , content: 'Debe de ingresar todos los campos del formulario'
                 , confirmButton: 'Aceptar'
                 , confirmButtonClass: 'btn-warning'
@@ -99,7 +99,7 @@ function TiposRelacionesRegistrarTipoRelacion() {
                     , animationBounce: 1.5
                     , animation: 'rotate'
                     , closeAnimation: 'rotate'
-                    , title: 'Nuevo tipo de relación'
+                    , title: 'Información'
                     , content: 'El tipo de relación se agregó satisfactoriamente.'
                     , confirmButton: 'Aceptar'
                     , confirmButtonClass: 'btn-success'
@@ -115,7 +115,7 @@ function TiposRelacionesRegistrarTipoRelacion() {
                     , animationBounce: 1.5
                     , animation: 'rotate'
                     , closeAnimation: 'rotate'
-                    , title: 'Nuevo tipo de relación'
+                    , title: 'Advertencia'
                     , content: 'El tipo de relación ya se encuentra registrada.'
                     , confirmButton: 'Aceptar'
                     , confirmButtonClass: 'btn-warning'
@@ -128,7 +128,7 @@ function TiposRelacionesRegistrarTipoRelacion() {
                     , animationBounce: 1.5
                     , animation: 'rotate'
                     , closeAnimation: 'rotate'
-                    , title: 'Nuevo tipo de relación'
+                    , title: 'Error'
                     , content: 'No se pudo agregar el tipo de relación, intente de nuevo.'
                     , confirmButton: 'Aceptar'
                     , confirmButtonClass: 'btn-danger'
@@ -179,7 +179,7 @@ function TiposRelacionesModificarTipoRelacion(p_idTipoRelacion) {
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar todos los campos del formulario'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -205,13 +205,26 @@ function TiposRelacionesModificarTipoRelacion(p_idTipoRelacion) {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Modificar tipo de relación'
+                        , title: 'Información'
                         , content: 'El tipo de relación se modificó satisfactoriamente.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
                         , confirm: function(){
                             RedireccionPagina('tiposRelaciones.php');
                         }
+                    });
+                }
+                else if(a.includes("Duplicate"))
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Advertencia'
+                        , content: 'Un tipo de relación con el mismo nombre masculino o femenino ya se encuentra registrado.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-warning'
                     });
                 }
                 else
@@ -221,7 +234,7 @@ function TiposRelacionesModificarTipoRelacion(p_idTipoRelacion) {
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Modificar tipo de relación'
+                        , title: 'Error'
                         , content: 'No se pudo modificar el tipo de relación, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'
@@ -241,7 +254,7 @@ function TiposRelacionesEliminar(p_idTipoRelacion){
         , animationBounce: 1.5
         , animation: 'rotate'
         , closeAnimation: 'rotate'
-        , title: '<span class="jconfirm-customize">Eliminar Tipo Relación</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+        , title: '<span class="jconfirm-customize">Confirmación</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
         , content: '<span class="jconfirm-customize">¿Esta seguro que desea eliminar el tipo de relación seleccionada?</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
         , confirmButton: 'Aceptar'
         , confirmButtonClass: 'btn-success'
@@ -266,7 +279,7 @@ function TiposRelacionesEliminar(p_idTipoRelacion){
                             , animationBounce: 1.5
                             , animation: 'rotate'
                             , closeAnimation: 'rotate'
-                            , title: 'Eliminar tipo de relación'
+                            , title: 'Información'
                             , content: 'El tipo de relación se eliminó satisfactoriamente.'
                             , confirmButton: 'Aceptar'
                             , confirmButtonClass: 'btn-success'
@@ -282,7 +295,7 @@ function TiposRelacionesEliminar(p_idTipoRelacion){
                             , animationBounce: 1.5
                             , animation: 'rotate'
                             , closeAnimation: 'rotate'
-                            , title: 'Eliminar tipo de relación'
+                            , title: 'Error'
                             , content: 'No se pudo eliminar el tipo de relación, debido a que el tipo de relación esta siendo utilizada.'
                             , confirmButton: 'Aceptar'
                             , confirmButtonClass: 'btn-danger'

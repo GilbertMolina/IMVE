@@ -18,7 +18,7 @@ function CambiarContrasena()
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar la contraseña y además confirmarla.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -33,7 +33,7 @@ function CambiarContrasena()
                 , animationBounce: 1.5
                 , animation: 'rotate'
                 , closeAnimation: 'rotate'
-                , title: 'Verifique la contraseña'
+                , title: 'Advertencia'
                 , content: 'La contraseña no coincide, intente de nuevo.'
                 , confirmButton: 'Aceptar'
                 , confirmButtonClass: 'btn-warning'
@@ -65,7 +65,7 @@ function CambiarContrasena()
                             , animationBounce: 1.5
                             , animation: 'rotate'
                             , closeAnimation: 'rotate'
-                            , title: 'Registro de usuario'
+                            , title: 'Información'
                             , content: 'Se cambió la contraseña satisfactoriamente.'
                             , confirmButton: 'Aceptar'
                             , confirmButtonClass: 'btn-success'
@@ -81,7 +81,7 @@ function CambiarContrasena()
                             , animationBounce: 1.5
                             , animation: 'rotate'
                             , closeAnimation: 'rotate'
-                            , title: 'Registro de usuario'
+                            , title: 'Error'
                             , content: 'No se pudo cambiar la contraseña del usuario, intente de nuevo.'
                             , confirmButton: 'Aceptar'
                             , confirmButtonClass: 'btn-danger'

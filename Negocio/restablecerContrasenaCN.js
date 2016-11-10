@@ -22,7 +22,7 @@ function RestablecerContrasena()
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar la identificación para poder restablecer su contraseña.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -35,7 +35,7 @@ function RestablecerContrasena()
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: '<span class="jconfirm-customize">Restablecer contraseña</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
+            , title: '<span class="jconfirm-customize">Confirmación</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
             , content: '<span class="jconfirm-customize">¿Esta seguro que desea restablecer la contraseña?</span>' //Se aplica este estilo a los .confirm, puesto que estos los suele colocar en negrita.
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-success'
@@ -69,7 +69,7 @@ function RestablecerContrasena()
                                         , animationBounce: 1.5
                                         , animation: 'rotate'
                                         , closeAnimation: 'rotate'
-                                        , title: 'Restablecer contraseña'
+                                        , title: 'Información'
                                         , content: 'La nueva contraseña fue enviada a su correo electrónico.'
                                         , confirmButton: 'Aceptar'
                                         , confirmButtonClass: 'btn-success'
@@ -85,7 +85,7 @@ function RestablecerContrasena()
                                         , animationBounce: 1.5
                                         , animation: 'rotate'
                                         , closeAnimation: 'rotate'
-                                        , title: 'Restablecer contraseña'
+                                        , title: 'Error'
                                         , content: 'Se produjo un error al intentar enviar el correo electrónico.'
                                         , confirmButton: 'Aceptar'
                                         , confirmButtonClass: 'btn-danger'
@@ -99,7 +99,7 @@ function RestablecerContrasena()
                                     , animationBounce: 1.5
                                     , animation: 'rotate'
                                     , closeAnimation: 'rotate'
-                                    , title: 'Restablecer contraseña'
+                                    , title: 'Error'
                                     , content: 'Se produjo un error al intentar restablecer la contraseña.'
                                     , confirmButton: 'Aceptar'
                                     , confirmButtonClass: 'btn-danger'
@@ -113,7 +113,7 @@ function RestablecerContrasena()
                                 , animationBounce: 1.5
                                 , animation: 'rotate'
                                 , closeAnimation: 'rotate'
-                                , title: 'Restablecer contraseña'
+                                , title: 'Error'
                                 , content: 'No existe un correo asociado, al cual se pueda enviar la nueva contraseña.<br>Además recuerde que el usuario se debe de encontrar activo en el sistema.'
                                 , confirmButton: 'Aceptar'
                                 , confirmButtonClass: 'btn-danger'

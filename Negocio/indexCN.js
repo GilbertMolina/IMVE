@@ -24,7 +24,7 @@ function IniciarSesion()
             , animationBounce: 1.5
             , animation: 'rotate'
             , closeAnimation: 'rotate'
-            , title: 'Datos incompletos'
+            , title: 'Advertencia'
             , content: 'Debe de ingresar tanto la identificación como la contraseña.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
@@ -60,7 +60,7 @@ function IniciarSesion()
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Inicio de sesión'
+                        , title: 'Información'
                         , content: mensajeCompletoBienvenida
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-success'
@@ -76,7 +76,7 @@ function IniciarSesion()
                         , animationBounce: 1.5
                         , animation: 'rotate'
                         , closeAnimation: 'rotate'
-                        , title: 'Inicio de sesión'
+                        , title: 'Error'
                         , content: 'No se pudo realizar el inicio de sesión, verifique que tanto la identificación como la contraseña sean correctas.<br>Además recuerde que el usuario se debe de encontrar activo en el sistema.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'
