@@ -28,7 +28,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoGruposPorEstad
         {
             while($resultados = $db->fetch_array($consulta))
             {
-                $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosGruposDetalleModificar(' . $resultados['IdGrupo'] . ')">' . utf8_encode($resultados['Descripcion']) . '</a></li>';
+                $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosGruposDetalleModificar(' . $resultados['IdGrupo'] . ')">' . utf8_encode($resultados['Descripcion']) . '</a><a href="#acciones_'. $resultados['IdGrupo'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a></li>';
             }
         }
         else

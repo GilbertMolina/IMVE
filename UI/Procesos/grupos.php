@@ -151,7 +151,7 @@ $utilitarios = new UtilitariosProcesos();
                     <form class="ui-filterable">
                         <input id="filtro" data-type="search" placeholder="Búsqueda">
                     </form>
-                    <ul data-role="listview" id="listaGrupos" data-filter="true" data-input="#filtro" data-autodividers="true" data-inset="true">
+                    <ul data-role="listview" id="listaGrupos" data-filter="true" data-input="#filtro" data-split-icon="gear" data-autodividers="true" data-inset="true">
                         <!-- Aquí se insertan los datos dinámicamente -->
                     </ul>
                 </div>
@@ -159,7 +159,6 @@ $utilitarios = new UtilitariosProcesos();
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
-                        <li><button href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-gear" data-theme="b" onclick="GruposMostrarAcciones()">Acciones masivas</button></li>
                         <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosGruposDetalleAgregar()">Agregar</a></li>
                     </ul>
                 </div>
