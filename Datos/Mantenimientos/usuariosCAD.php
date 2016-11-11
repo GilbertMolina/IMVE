@@ -28,7 +28,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoUsuariosPorEst
         {
             while($resultados = $db->fetch_array($consulta))
             {
-                $cadena_datos .= '<li><a href="#" onclick="UtiMantenimientosPaginaMantenimientosUsuariosDetaleModificar(' . $resultados['IdPersona'] . ')">' . utf8_encode($resultados['NombreCompleto']) . '</a></li>';
+                $cadena_datos .= '<li><a href="#" onclick="UtiMantenimientosPaginaMantenimientosUsuariosDetalleModificar(' . $resultados['IdPersona'] . ')">' . utf8_encode($resultados['NombreCompleto']) . '</a></li>';
             }
         }
         else

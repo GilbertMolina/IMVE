@@ -155,7 +155,7 @@ $utilitarios = new UtilitariosMantenimientos();
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiMantenimientosPaginaMantenimientosUsuariosDetaleAgregar()">Agregar</a></li>
+                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiMantenimientosPaginaMantenimientosUsuariosDetalleAgregar()">Agregar</a></li>
                     </ul>
                 </div>
             </div>

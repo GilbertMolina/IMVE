@@ -43,6 +43,28 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCategoriasGrup
     }
 }
 
+// Obtiene el listado de categorias de grupos activas o inactivas, para insertarlos en un ComboBox
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCategoriasGruposActivasCombobox') {
+    try {
+        $sql          = "CALL TbCategoriasGruposListar()";
+        $consulta     = $db->consulta($sql);
+        $result       = array();
+        $cadena_datos = "";
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos = '<option value="0">Seleccione</option>';
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdCategoriaGrupo'] . '">' . utf8_encode($resultados['Descripcion']) . '</option>';
+            }
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
 // Se realiza el registro de un nueva categoria de grupos
 if (isset($_POST['action']) && $_POST['action'] == 'registrarCategoriaGrupo') {
     try {

@@ -156,7 +156,7 @@ $utilitarios = new UtilitariosProcesos();
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosSeguimientosDetalle()">Agregar</a></li>
+                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleAgregar()">Agregar</a></li>
                     </ul>
                 </div>
             </div>

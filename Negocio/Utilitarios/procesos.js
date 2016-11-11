@@ -122,10 +122,16 @@ function UtiProcesosPaginaProcesosCompromisos()
     RedireccionPagina('compromisos.php');
 }
 
-// Función para ingresar a la pantalla de proceso de compromisos detalle
-function UtiProcesosPaginaProcesosCompromisosDetalle()
+// Función para ingresar a la pantalla de proceso de compromisos detalle para agregar
+function UtiProcesosPaginaProcesosCompromisosDetalleAgregar()
 {
     RedireccionPagina('compromisosDetalle.php');
+}
+
+// Función para ingresar a la pantalla de proceso de compromisos detalle para modificar
+function UtiProcesosPaginaProcesosCompromisosDetalleModificar(p_IdCompromiso)
+{
+    RedireccionPagina('compromisosDetalle.php?IdCompromiso=' + p_IdCompromiso);
 }
 
 // Función para ingresar a la pantalla de proceso de grupos
@@ -134,10 +140,16 @@ function UtiProcesosPaginaProcesosGrupos()
     RedireccionPagina('grupos.php');
 }
 
-// Función para ingresar a la pantalla de proceso de grupos detalle
-function UtiProcesosPaginaProcesosGruposDetalle()
+// Función para ingresar a la pantalla de proceso de grupos detalle agregar
+function UtiProcesosPaginaProcesosGruposDetalleAgregar()
 {
     RedireccionPagina('gruposDetalle.php');
+}
+
+// Función para ingresar a la pantalla de proceso de grupos detalle para modificar
+function UtiProcesosPaginaProcesosGruposDetalleModificar(p_IdGrupo)
+{
+    RedireccionPagina('gruposDetalle.php?IdGrupo=' + p_IdGrupo);
 }
 
 // Función para ingresar a la pantalla de proceso de personas
@@ -146,10 +158,16 @@ function UtiProcesosPaginaProcesosPersonas()
     RedireccionPagina('personas.php');
 }
 
-// Función para ingresar a la pantalla de proceso de personas detalle
-function UtiProcesosPaginaProcesosPersonasDetalle()
+// Función para ingresar a la pantalla de proceso de personas detalle agregar
+function UtiProcesosPaginaProcesosPersonasDetalleAgregar()
 {
     RedireccionPagina('personasDetalle.php');
+}
+
+// Función para ingresar a la pantalla de proceso de personas detalle para modificar
+function UtiProcesosPaginaProcesosPersonasDetalleModificar(p_IdPersona)
+{
+    RedireccionPagina('personasDetalle.php?IdPersona=' + p_IdPersona);
 }
 
 // Función para ingresar a la pantalla de proceso de seguimientos
@@ -158,10 +176,16 @@ function UtiProcesosPaginaProcesosSeguimientos()
     RedireccionPagina('seguimientos.php');
 }
 
-// Función para ingresar a la pantalla de proceso de seguimientos detalle
-function UtiProcesosPaginaProcesosSeguimientosDetalle()
+// Función para ingresar a la pantalla de proceso de seguimientos detalle agregar
+function UtiProcesosPaginaProcesosSeguimientosDetalleAgregar()
 {
     RedireccionPagina('seguimientosDetalle.php');
+}
+
+// Función para ingresar a la pantalla de proceso de seguimientos detalle modificar
+function UtiProcesosPaginaProcesosSeguimientosDetalleModificar(p_IdSeguimiento)
+{
+    RedireccionPagina('seguimientosDetalle.php?IdSeguimiento=' + p_IdSeguimiento);
 }
 
 // Función para ingresar a la pantalla de proceso de visitas
@@ -170,10 +194,16 @@ function UtiProcesosPaginaProcesosVisitas()
     RedireccionPagina('visitas.php');
 }
 
-// Función para ingresar a la pantalla de proceso de visitas detalle
-function UtiProcesosPaginaProcesosVisitasDetalle()
+// Función para ingresar a la pantalla de proceso de visitas detalle agregar
+function UtiProcesosPaginaProcesosVisitasDetalleAgregar()
 {
     RedireccionPagina('visitasDetalle.php');
+}
+
+// Función para ingresar a la pantalla de proceso de visitas detalle modificar
+function UtiProcesosPaginaProcesosVisitasDetalleModificar(p_IdVisita)
+{
+    RedireccionPagina('visitasDetalle.php?IdVisita=' + p_IdVisita);
 }
 
 // -----------------------------------------------------------------

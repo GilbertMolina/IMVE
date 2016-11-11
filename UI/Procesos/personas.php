@@ -206,18 +206,18 @@ $utilitarios = new UtilitariosProcesos();
                     <h3 class="text-center">Agenda</h3>
                     <hr>
                     <div class="row">
-                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-right: -58px">
-                                <label for="ordenamientoSeleccion">Ordenamiento</label>
-                                <select name="ordenamientoSeleccion" id="ordenamientoSeleccion" data-native-menu="false" onchange="PersonasCargarPersonasListado()">
+                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-right: -47px">
+                            <label for="ordenamientoSeleccion">Ordenamiento</label>
+                            <select name="ordenamientoSeleccion" id="ordenamientoSeleccion" data-native-menu="false" onchange="PersonasCargarPersonasListado()">
                                 <option value="N">Nombre</option>
                                 <option value="A">Apellido</option>
                             </select>
-                                <label for="estadoSeleccion">Estado</label>
-                                <select name="estadoSeleccion" id="estadoSeleccion" data-native-menu="false" onchange="PersonasCargarPersonasListado()">
+                            <label for="estadoSeleccion">Estado</label>
+                            <select name="estadoSeleccion" id="estadoSeleccion" data-native-menu="false" onchange="PersonasCargarPersonasListado()">
                                 <option value="A">Activos</option>
-                                    <option value="I">Inactivos</option>
+                                <option value="I">Inactivos</option>
                             </select>
-                                <label for="fake">Fake</label>
+                            <label for="fake">Fake</label>
                         </fieldset>
                     </div>
                     <div class="row">
@@ -235,8 +235,8 @@ $utilitarios = new UtilitariosProcesos();
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
-                        <li><button href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-gear" data-theme="b" onclick="PersonasMostrarAcciones()">Acciones</button></li>
-                        <li><a href="#" data-transition="flip" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-plus" data-theme="b" onclick="UtiProcesosPaginaProcesosPersonasDetalle()">Agregar</a></li>
+                        <li><button href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-gear" data-theme="b" onclick="PersonasMostrarAcciones()">Acciones masivas</button></li>
+                        <li><a href="#" data-transition="flip" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-plus" data-theme="b" onclick="UtiProcesosPaginaProcesosPersonasDetalleAgregar()">Agregar</a></li>
                     </ul>
                 </div>
             </div>

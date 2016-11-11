@@ -7,6 +7,7 @@
 // Variable para determinar si se debe de registar el usuario con el concentimiento de que no tendrá correo electrónico registrado
 var registarSinCorreo = false;
 
+// Variable que se utiliza para mostrar u ocultar las acciones masivas de las personas
 var mostrarAcciones = false;
 
 // Función que se ejecuta al cargar la pagina
@@ -24,8 +25,7 @@ function PersonasOnLoad() {
 
 // Función que se ejecuta al cargar la pagina
 function PersonasDetalleOnLoad(){
-    PersonasAsignarFechaActual();
-    CargarProvincias();
+    PesonasCargarPersonaPorId();
 }
 
 // Función que se ejecuta cuando cambia la provincia seleccionada
@@ -94,6 +94,32 @@ function PersonasCargarPersonasListado() {
             $("#divListaPersonas").html(a).trigger("create");
         }
     })
+}
+
+// Función para cargar una personas por su id
+function PesonasCargarPersonaPorId() {
+    var IdPersona = ObtenerParametroPorNombre('IdPersona');
+
+    if(IdPersona != ''){
+
+        // Se define el action que será consultado desde la clase de acceso a datos
+        var d = "action=cargarPersona&IdPersona=" + IdPersona;
+
+        // Enviar por Ajax a personasCAD.php
+        $.ajax({
+            type: "POST"
+            , data: d
+            , url: "../../../IMVE/Datos/Procesos/personasCAD.php"
+            , success: function(a) {
+                $("#personasDetalle").html(a).trigger("create");
+            }
+        });
+    }
+    else
+    {
+        PersonasAsignarFechaActual();
+        CargarProvincias();
+    }
 }
 
 // Función para obtener todos las personas con sus celulares y correos
@@ -460,6 +486,178 @@ function PersonasIngresarUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apel
                     , confirm: function(){
                         RedireccionPagina('personas.php');
                     }
+                });
+            }
+            else if(a.includes("Duplicate"))
+            {
+                $.alert({
+                    theme: 'material'
+                    , animationBounce: 1.5
+                    , animation: 'rotate'
+                    , closeAnimation: 'rotate'
+                    , title: 'Advertencia'
+                    , content: 'Una persona con la misma identificación ya se encuentra registrada.'
+                    , confirmButton: 'Aceptar'
+                    , confirmButtonClass: 'btn-warning'
+                });
+            }
+            else
+            {
+                $.alert({
+                    theme: 'material'
+                    , animationBounce: 1.5
+                    , animation: 'rotate'
+                    , closeAnimation: 'rotate'
+                    , title: 'Error'
+                    , content: 'No se pudo realizar el registro de la persona, intente de nuevamente.'
+                    , confirmButton: 'Aceptar'
+                    , confirmButtonClass: 'btn-danger'
+                });
+            }
+        }
+    });
+};
+
+// Función para modificar un grupo
+function PersonasModificarPersona(p_IdPersona) {
+    var idPersona = p_IdPersona;
+    var identificacion = $('#txtIdentificacion').val().trim();
+    var nombre = $('#txtNombre').val().trim();
+    var apellido1 = $('#txtApellido1').val().trim();
+    var apellido2 = $('#txtApellido2').val().trim();
+    var fechaNacimiento = $('#txtFechaNacimiento').val();
+    var distrito = $('#cboIdDistrito').val();
+    var direccionDomicilio = $('#txtDireccionDomicilio').val().trim();
+    var telefono = $('#txtTelefono').val().trim();
+    var celular = $('#txtCelular').val().trim();
+    var correo = $('#txtCorreo').val().trim();
+    var sexo = $('#cboSexo').val();
+    var estado = $('#cboEstadoPersona').val();
+
+    if(identificacion == ""
+        || nombre == ""
+        || apellido1 == ""
+        || sexo == "")
+    {
+        $.alert({
+            theme: 'material'
+            , animationBounce: 1.5
+            , animation: 'rotate'
+            , closeAnimation: 'rotate'
+            , title: 'Advertencia'
+            , content: 'Debe de ingresar los datos que son necesarios del formulario.'
+            , confirmButton: 'Aceptar'
+            , confirmButtonClass: 'btn-warning'
+        });
+    }
+    else
+    {
+        if(!PersonasValidarCorreo())
+        {
+            return false;
+        }
+        else
+        {
+            if(correo == ''
+                && registarSinCorreo == false)
+            {
+                $.confirm({
+                    theme: 'material'
+                    , animationBounce: 1.5
+                    , animation: 'rotate'
+                    , closeAnimation: 'rotate'
+                    , title: 'Confirmación'
+                    , content: '<p>El correo electrónico es necesario posteriormente para recordar la contraseña, en caso de que la olvide. <br><br> ¿Desea continuar sin ingresar un correo electrónico?</p>'
+                    , confirmButton: 'Acepto'
+                    , confirmButtonClass: 'btn-success'
+                    , cancelButton: 'No acepto'
+                    , cancelButtonClass: 'btn-warning'
+                    , confirm: function(){
+                        registarSinCorreo = true;
+
+                        PersonasModificarPersonaEspecifica(idPersona
+                            , identificacion
+                            , nombre
+                            , apellido1
+                            , apellido2
+                            , fechaNacimiento
+                            , distrito
+                            , direccionDomicilio
+                            , telefono
+                            , celular
+                            , correo
+                            , sexo
+                            , estado);
+                    }
+                    , cancel: function(){
+                        registarSinCorreo = false;
+                    }
+                });
+            }
+            else
+            {
+                PersonasModificarPersonaEspecifica(idPersona
+                    , identificacion
+                    , nombre
+                    , apellido1
+                    , apellido2
+                    , fechaNacimiento
+                    , distrito
+                    , direccionDomicilio
+                    , telefono
+                    , celular
+                    , correo
+                    , sexo
+                    , estado);
+            }
+        }
+    };
+}
+
+// Función que registra a la pesona a la base de datos por medio de Ajax
+function PersonasModificarPersonaEspecifica(p_IdPersona, p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo, p_Estado){
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=modificarPersona&idPersona=" + p_IdPersona + "&identificacion=" + p_Identificacion + "&nombre=" + p_Nombre + "&apellido1=" + p_Apellido1 + "&apellido2=" + p_Apellido2 + "&fechaNacimiento="
+        + p_FechaNacimiento + "&distrito=" + p_Distrito + "&direccionDomicilio=" + p_DireccionDomicilio + "&telefono=" + p_Telefono + "&celular=" + p_Celular + "&correo=" + p_Correo
+        + "&sexo=" + p_Sexo+ "&estado=" + p_Estado;
+
+    // Enviar por Ajax a personasCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/personasCAD.php"
+        , success: function(a)
+        {
+            // Se divide la variable separandola por comas.
+            var resultado = a.split(',');
+
+            if(resultado[0] == 1)
+            {
+                $.alert({
+                    theme: 'material'
+                    , animationBounce: 1.5
+                    , animation: 'rotate'
+                    , closeAnimation: 'rotate'
+                    , title: 'Información'
+                    , content: 'La persona se modificó satisfactoriamente.'
+                    , confirmButton: 'Aceptar'
+                    , confirmButtonClass: 'btn-success'
+                    , confirm: function(){
+                        RedireccionPagina('personas.php');
+                    }
+                });
+            }
+            else if(a.includes("Duplicate"))
+            {
+                $.alert({
+                    theme: 'material'
+                    , animationBounce: 1.5
+                    , animation: 'rotate'
+                    , closeAnimation: 'rotate'
+                    , title: 'Advertencia'
+                    , content: 'Una persona con la misma identificación ya se encuentra registrada.'
+                    , confirmButton: 'Aceptar'
+                    , confirmButtonClass: 'btn-warning'
                 });
             }
             else

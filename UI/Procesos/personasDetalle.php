@@ -153,9 +153,9 @@ $utilitarios = new UtilitariosProcesos();
                     <div class="row">
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
-                            <h3 class="text-center">Personas</h3>
+                            <h3 class="text-center">Mantenimiento de Personas</h3>
                             <hr>
-                            <form method="post" action="#" id="personas">
+                            <form method="post" action="#" id="personasDetalle">
                                 <div>
                                     <label for="txtIdentificacion">Identificación:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
                                     <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
@@ -211,18 +211,21 @@ $utilitarios = new UtilitariosProcesos();
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="txtTelefono">Teléfono:</label>
+                                    <label for="txtTelefono">Teléfono: </label>
                                     <input type="tel" name="txtTelefono" id="txtTelefono" placeholder="88888888" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                    <p class="bg-danger text-justify">Nota: Si proporciona el número de teléfono podrá ser contactado por medio de una llamada.</p>
                                 </div>
                                 <br>
                                 <div>
                                     <label for="txtCelular">Celular:</label>
                                     <input type="tel" name="txtCelular" id="txtCelular" placeholder="88888888" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                    <p class="bg-danger text-justify">Nota: Si proporciona el número de celular podrá ser contactado por medio de una llamada o un mensaje de texto.</p>
                                 </div>
                                 <br>
                                 <div>
                                     <label for="txtCorreo">Correo eléctronico:</label>
                                     <input type="text" name="txtCorreo" id="txtCorreo" placeholder="correo@ejemplo.com" maxlength="50" onblur="PersonasValidarCorreo()" data-clear-btn="true"/>
+                                    <p class="bg-danger text-justify">Nota: Si proporciona el correo electrónico podrá ser contactado por medio del mismo.</p>
                                 </div>
                                 <br>
                                 <div>
@@ -231,6 +234,15 @@ $utilitarios = new UtilitariosProcesos();
                                         <option value="0">Seleccione</option>
                                         <option value="F">Femenino</option>
                                         <option value="M">Masculino</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboEstadoPersona">Estado:</label>
+                                    <select name="cboEstadoPersona" id="cboEstadoPersona" disabled>
+                                        <option value="0">Seleccione</option>
+                                        <option value="A" selected>Activo</option>
+                                        <option value="I">Inactivo</option>
                                     </select>
                                 </div>
                                 <br>

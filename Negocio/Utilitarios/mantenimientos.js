@@ -151,13 +151,13 @@ function UtiMantenimientosPaginaMantenimientosUsuarios()
 }
 
 // Función para ingresar a la pantalla de mantenimiento de usuarios detalle para agregar
-function UtiMantenimientosPaginaMantenimientosUsuariosDetaleAgregar()
+function UtiMantenimientosPaginaMantenimientosUsuariosDetalleAgregar()
 {
     RedireccionPagina('usuariosDetalle.php');
 }
 
 // Función para ingresar a la pantalla de mantenimiento de usuarios detalle para modificar
-function UtiMantenimientosPaginaMantenimientosUsuariosDetaleModificar(p_IdPersona)
+function UtiMantenimientosPaginaMantenimientosUsuariosDetalleModificar(p_IdPersona)
 {
     RedireccionPagina('usuariosDetalle.php?IdPersona=' + p_IdPersona);
 }

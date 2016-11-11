@@ -49,7 +49,7 @@ $utilitarios = new UtilitariosProcesos();
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
         <!-- Fin carga de los archivos javascript -->
     </head>
-    <body>
+    <body onload="GruposOnLoad()">
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
@@ -140,8 +140,14 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="content">
                 <div class="container">
-                    <h3 class="text-center">Listado de Grupos</h3>
+                    <h3 class="text-center">Grupos</h3>
                     <hr>
+                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" onchange="GruposCargarGruposListado()">
+                        <input type="radio" name="estadoGrupo" id="activas" value="A" checked="checked">
+                        <label for="activas">Activos</label>
+                        <input type="radio" name="estadoGrupo" id="inactivas" value="I">
+                        <label for="inactivas">Inactivos</label>
+                    </fieldset>
                     <form class="ui-filterable">
                         <input id="filtro" data-type="search" placeholder="Búsqueda">
                     </form>
@@ -153,7 +159,8 @@ $utilitarios = new UtilitariosProcesos();
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosGruposDetalle()">Agregar</a></li>
+                        <li><button href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-gear" data-theme="b" onclick="GruposMostrarAcciones()">Acciones masivas</button></li>
+                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosGruposDetalleAgregar()">Agregar</a></li>
                     </ul>
                 </div>
             </div>
