@@ -83,18 +83,11 @@ function PersonasMostrarAcciones(){
     if (mostrarAcciones == false)
     {
         mostrarAcciones = true;
+        $("#menuAcciones").show();
     }
     else if (mostrarAcciones == true)
     {
         mostrarAcciones = false;
-    }
-
-    if (mostrarAcciones == false)
-    {
-        $("#menuAcciones").show();
-    }
-    else
-    {
         $("#menuAcciones").hide();
     }
 }
