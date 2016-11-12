@@ -179,9 +179,9 @@ $utilitarios = new UtilitariosProcesos();
                                                 <h2>Activar o inactivar personas</h2>
                                                 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-bottom: -10px" onchange="PersonasCargarPersonasAccionesSeleccionActivasDesactivas()">
                                                     <input type="radio" name="filtroActivasDesactivas" id="activar" value="A" checked="checked">
-                                                    <label for="activar">Activar</label>
+                                                    <label for="activar">Inactivar</label>
                                                     <input type="radio" name="filtroActivasDesactivas" id="desactivar" value="I">
-                                                    <label for="desactivar">Inactivar</label>
+                                                    <label for="desactivar">Activar</label>
                                                 </fieldset>
                                                 <br>
                                                 <form class="ui-filterable" style="margin-bottom: -20px">

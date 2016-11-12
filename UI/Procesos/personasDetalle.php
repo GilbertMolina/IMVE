@@ -158,7 +158,7 @@ $utilitarios = new UtilitariosProcesos();
                             <form method="post" action="#" id="personasDetalle">
                                 <div>
                                     <label for="txtIdentificacion">Identificación:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                    <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                    <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="Ejm: 102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
                                 </div>
                                 <br>
                                 <div>
@@ -211,20 +211,20 @@ $utilitarios = new UtilitariosProcesos();
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="txtTelefono">Teléfono: </label>
-                                    <input type="tel" name="txtTelefono" id="txtTelefono" placeholder="88888888" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                    <label for="txtTelefono">Teléfono fijo: </label>
+                                    <input type="tel" name="txtTelefono" id="txtTelefono" placeholder="Ejm: 405893685" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
                                     <p class="bg-danger text-justify">Nota: Si proporciona el número de teléfono podrá ser contactado por medio de una llamada.</p>
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="txtCelular">Celular:</label>
-                                    <input type="tel" name="txtCelular" id="txtCelular" placeholder="88888888" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                    <label for="txtCelular">Teléfono celular:</label>
+                                    <input type="tel" name="txtCelular" id="txtCelular" placeholder="Ejm: 86736592" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
                                     <p class="bg-danger text-justify">Nota: Si proporciona el número de celular podrá ser contactado por medio de una llamada o un mensaje de texto.</p>
                                 </div>
                                 <br>
                                 <div>
                                     <label for="txtCorreo">Correo eléctronico:</label>
-                                    <input type="text" name="txtCorreo" id="txtCorreo" placeholder="correo@ejemplo.com" maxlength="50" onblur="PersonasValidarCorreo()" data-clear-btn="true"/>
+                                    <input type="text" name="txtCorreo" id="txtCorreo" placeholder="Ejm: correo@ejemplo.com" maxlength="50" onblur="PersonasValidarCorreo()" data-clear-btn="true"/>
                                     <p class="bg-danger text-justify">Nota: Si proporciona el correo electrónico podrá ser contactado por medio del mismo.</p>
                                 </div>
                                 <br>
@@ -234,6 +234,22 @@ $utilitarios = new UtilitariosProcesos();
                                         <option value="0">Seleccione</option>
                                         <option value="F">Femenino</option>
                                         <option value="M">Masculino</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div id="divPersonaGruposLider">
+                                    <label for="PersonaGruposLider">Grupos en los cuales es líder:</label>
+                                    <select name="PersonaGruposLider" id="PersonaGruposLider" multiple="multiple" data-native-menu="false">
+                                        <option>Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div id="divPersonaGruposParticipante">
+                                    <label for="PersonaGruposParticipante">Grupos en los cuales es participante:</label>
+                                    <select name="PersonaGruposParticipante" id="PersonaGruposParticipante" multiple="multiple" data-native-menu="false">
+                                        <option>Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
                                     </select>
                                 </div>
                                 <br>

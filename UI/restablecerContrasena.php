@@ -54,7 +54,7 @@
                             <form method="post" action="#" id="restablecerContrasena">
                                 <div>
                                     <label for="txtIdentificacionRestablecer">Identificación:<img src="Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                    <input type="text" name="txtIdentificacionRestablecer" id="txtIdentificacionRestablecer" placeholder="102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true">
+                                    <input type="text" name="txtIdentificacionRestablecer" id="txtIdentificacionRestablecer" placeholder="Ejm: 102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true">
                                 </div>
                                 <br>
                                 <div class="row">

@@ -44,6 +44,40 @@ function PersonasOnSelectedChangeCantones(){
     CargarDistritos();
 }
 
+// Función para obtener todos los grupos activos y mostralos al usuarios para que seleccione en los cuales es participante
+function PersonasCargarGruposParticipante()
+{
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=obtenerGruposParticipantesListado";
+
+    // Enviar por Ajax a gruposCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/gruposCAD.php"
+        , success: function(a) {
+            $("#PersonaGruposParticipante").html(a).selectmenu('refresh');
+        }
+    })
+}
+
+// Función para obtener todos los grupos activos y mostralos al usuarios para que seleccione en los cuales es líder
+function PersonasCargarGruposLider()
+{
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=obtenerGruposLideresListado";
+
+    // Enviar por Ajax a gruposCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/gruposCAD.php"
+        , success: function(a) {
+            $("#PersonaGruposLider").html(a).selectmenu('refresh');
+        }
+    })
+}
+
 // Función que se ejecuta cuando cambia el cantón seleccionada
 function PersonasMostrarAcciones(){
     if (mostrarAcciones == false)
@@ -119,6 +153,8 @@ function PesonasCargarPersonaPorId() {
     {
         PersonasAsignarFechaActual();
         CargarProvincias();
+        PersonasCargarGruposParticipante();
+        PersonasCargarGruposLider();
     }
 }
 
@@ -374,10 +410,26 @@ function PersonasRegistrarPersona() {
     var fechaNacimiento = $('#txtFechaNacimiento').val();
     var distrito = $('#cboIdDistrito').val();
     var direccionDomicilio = $('#txtDireccionDomicilio').val().trim();
+    var direccionDomicilioNuevo = "";
     var telefono = $('#txtTelefono').val().trim();
     var celular = $('#txtCelular').val().trim();
     var correo = $('#txtCorreo').val().trim();
     var sexo = $('#cboSexo').val();
+
+    var gruposParticipante = $('#PersonaGruposParticipante').val();
+    var listaGruposParticipanteJson = JSON.stringify(gruposParticipante);
+
+    var gruposLider = $('#PersonaGruposLider').val();
+    var listaGruposLiderJson = JSON.stringify(gruposLider);
+
+    if(direccionDomicilio.includes("Clear text"))
+    {
+        direccionDomicilioNuevo = direccionDomicilio.substring(0, direccionDomicilio.length-10);
+    }
+    else
+    {
+        direccionDomicilioNuevo = direccionDomicilio;
+    }
 
     if(identificacion == ""
         || nombre == ""
@@ -426,11 +478,13 @@ function PersonasRegistrarPersona() {
                             , apellido2
                             , fechaNacimiento
                             , distrito
-                            , direccionDomicilio
+                            , direccionDomicilioNuevo
                             , telefono
                             , celular
                             , correo
-                            , sexo);
+                            , sexo
+                            , listaGruposParticipanteJson
+                            , listaGruposLiderJson);
                     }
                     , cancel: function(){
                         registarSinCorreo = false;
@@ -445,22 +499,24 @@ function PersonasRegistrarPersona() {
                     , apellido2
                     , fechaNacimiento
                     , distrito
-                    , direccionDomicilio
+                    , direccionDomicilioNuevo
                     , telefono
                     , celular
                     , correo
-                    , sexo);
+                    , sexo
+                    , listaGruposParticipanteJson
+                    , listaGruposLiderJson);
             }
         }
     };
 }
 
 // Función que registra el usuario del usuario a la base de datos por medio de Ajax
-function PersonasIngresarUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo){
+function PersonasIngresarUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo, p_listaGruposParticipante, p_listaGruposLider){
     // Se define el action que será consultado desde la clase de acceso a datos
     var d = "action=registrarPersona&identificacion=" + p_Identificacion + "&nombre=" + p_Nombre + "&apellido1=" + p_Apellido1 + "&apellido2=" + p_Apellido2 + "&fechaNacimiento="
         + p_FechaNacimiento + "&distrito=" + p_Distrito + "&direccionDomicilio=" + p_DireccionDomicilio + "&telefono=" + p_Telefono + "&celular=" + p_Celular + "&correo=" + p_Correo
-        + "&sexo=" + p_Sexo;
+        + "&sexo=" + p_Sexo + "&listaGruposParticipante=" + p_listaGruposParticipante + "&listaGruposLider=" + p_listaGruposLider;
 
     // Enviar por Ajax a personasCAD.php
     $.ajax({
@@ -528,11 +584,21 @@ function PersonasModificarPersona(p_IdPersona) {
     var fechaNacimiento = $('#txtFechaNacimiento').val();
     var distrito = $('#cboIdDistrito').val();
     var direccionDomicilio = $('#txtDireccionDomicilio').val().trim();
+    var direccionDomicilioNuevo = "";
     var telefono = $('#txtTelefono').val().trim();
     var celular = $('#txtCelular').val().trim();
     var correo = $('#txtCorreo').val().trim();
     var sexo = $('#cboSexo').val();
     var estado = $('#cboEstadoPersona').val();
+
+    if(direccionDomicilio.includes("Clear text"))
+    {
+        direccionDomicilioNuevo = direccionDomicilio.substring(0, direccionDomicilio.length-10);
+    }
+    else
+    {
+        direccionDomicilioNuevo = direccionDomicilio;
+    }
 
     if(identificacion == ""
         || nombre == ""
@@ -582,7 +648,7 @@ function PersonasModificarPersona(p_IdPersona) {
                             , apellido2
                             , fechaNacimiento
                             , distrito
-                            , direccionDomicilio
+                            , direccionDomicilioNuevo
                             , telefono
                             , celular
                             , correo
@@ -603,7 +669,7 @@ function PersonasModificarPersona(p_IdPersona) {
                     , apellido2
                     , fechaNacimiento
                     , distrito
-                    , direccionDomicilio
+                    , direccionDomicilioNuevo
                     , telefono
                     , celular
                     , correo

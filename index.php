@@ -58,7 +58,7 @@ $versionApp = new VersionAPP();
                             <form method="post" action="#" id="inicioSesion">
                                 <div>
                                     <label for="txtIdentificacion">Identificación:<img src="UI/Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                    <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true">
+                                    <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="Ejm: 102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true">
                                 </div>
                                 <br>
                                 <div>

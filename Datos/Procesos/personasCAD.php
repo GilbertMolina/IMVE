@@ -20,18 +20,18 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasPorOrd
         $ordenamiento = $_POST['ordenamiento'];
         $estado       = $_POST['estado'];
 
-        $sql               = "CALL TbPersonasListarPorOrdenamientoEstado('$ordenamiento', '$estado')";
-        $consulta          = $db->consulta($sql);
-        $consultaAcciones  = $db->consulta($sql);
+        $sqlPersona               = "CALL TbPersonasListarPorOrdenamientoEstado('$ordenamiento', '$estado')";
+        $consultaPersona          = $db->consulta($sqlPersona);
+        $consultaAcciones  = $db->consulta($sqlPersona);
         $cadena_datos      = "";
 
         $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-split-icon="gear" data-autodividers="true" data-inset="true">';
 
-        if($db->num_rows($consulta) != 0)
+        if($db->num_rows($consultaPersona) != 0)
         {
-            while($resultados = $db->fetch_array($consulta))
+            while($resultadosPersona = $db->fetch_array($consultaPersona))
             {
-                $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosPersonasDetalleModificar(' . $resultados['IdPersona'] . ')">' . utf8_encode($resultados['NombreCompleto']) . '</a><a href="#acciones_'. $resultados['IdPersona'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a></li>';
+                $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosPersonasDetalleModificar(' . $resultadosPersona['IdPersona'] . ')">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</a><a href="#acciones_'. $resultadosPersona['IdPersona'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a></li>';
             }
             $cadena_datos .= '</ul>';
 
@@ -45,21 +45,21 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasPorOrd
                     if($resultadosAcciones['Telefono'] == ""
                         && $resultadosAcciones['Celular'] == ""
                         && $resultadosAcciones['Correo'] == ""){
-                        $cadena_datos .= '<p>' . $resultadosAcciones['NombreCompleto'] . ' no tiene asociado un número de teléfono, celular ni un correo electrónico, con el cual se pueda contactar.</p>';
+                        $cadena_datos .= '<p>' . $resultadosAcciones['NombreCompleto'] . ' no tiene asociado un número de teléfono fijo, un número de teléfono móvil, ni un correo electrónico con el cual se pueda contactar.</p>';
                     }
                     else{
                         $cadena_datos .= '<p>Estas son las acciones disponibles para ' . $resultadosAcciones['NombreCompleto'] . ':</p>';
                     }
 
                     if($resultadosAcciones['Telefono'] != ""){
-                        $cadena_datos .= '<a href="tel:' . $resultadosAcciones['Telefono'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Fijo</a>';
+                        $cadena_datos .= '<p style="margin-bottom: -15px;"><a href="tel:' . $resultadosAcciones['Telefono'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Llamar a teléfono fijo</a></p>';
                     }
                     if($resultadosAcciones['Celular'] != ""){
-                        $cadena_datos .= '<a href="tel:' . $resultadosAcciones['Celular'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Móvil</a>';
-                        $cadena_datos .= '<a href="sms:' . $resultadosAcciones['Celular'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini">SMS</a>';
+                        $cadena_datos .= '<p style="margin-bottom: -15px;"><a href="tel:' . $resultadosAcciones['Celular'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Llamar a teléfono móvil</a></p>';
+                        $cadena_datos .= '<p style="margin-bottom: -15px;"><a href="sms:' . $resultadosAcciones['Celular'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini">Enviar SMS</a></p>';
                     }
                     if($resultadosAcciones['Correo'] != ""){
-                        $cadena_datos .= '<a href="mailto:' . $resultadosAcciones['Correo'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini">Correo</a>';
+                        $cadena_datos .= '<p><a href="mailto:' . $resultadosAcciones['Correo'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini">Enviar Correo</a></p>';
                     }
                     $cadena_datos .= '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Cancelar</a>';
                     $cadena_datos .= '</div>';
@@ -82,24 +82,24 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasCelula
     try {
         $accion = $_POST['accion'];
 
-        $sql               = "CALL TbPersonasListarCelularesCorreos('$accion')";
-        $consulta          = $db->consulta($sql);
+        $sqlPersona               = "CALL TbPersonasListarCelularesCorreos('$accion')";
+        $consultaPersona          = $db->consulta($sqlPersona);
         $cadena_datos      = "";
 
         $cadena_datos .= '<label for="accionesSeleccionPersonas" style="margin-top: 30px">Lista de personas para seleccionar:</label>';
         $cadena_datos .= '<select name="accionesSeleccionPersonas" id="accionesSeleccionPersonas" data-filter="true" data-input="#filtroSeleccion" data-native-menu="false" multiple="multiple" data-iconpos="left" data-theme="a" onchange="PersonasAccionesSeleccionarPersonas()">';
 
-        if($db->num_rows($consulta) != 0)
+        if($db->num_rows($consultaPersona) != 0)
         {
             $cadena_datos .= '<option>Seleccione</option>';
 
-            while($resultados = $db->fetch_array($consulta))
+            while($resultadosPersona = $db->fetch_array($consultaPersona))
             {
                 if ($accion == 'S'){
-                    $cadena_datos .= '<option value="' . $resultados['Celular'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+                    $cadena_datos .= '<option value="' . $resultadosPersona['Celular'] . '">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</option>';
                 }
                 else{
-                    $cadena_datos .= '<option value="' . $resultados['Correo'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+                    $cadena_datos .= '<option value="' . $resultadosPersona['Correo'] . '">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</option>';
                 }
             }
             $cadena_datos .= '</select>';
@@ -120,20 +120,20 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasFiltra
     try {
         $estado = $_POST['estado'];
 
-        $sql               = "CALL TbPersonasListarActivosInactivos('$estado')";
-        $consulta          = $db->consulta($sql);
+        $sqlPersona               = "CALL TbPersonasListarActivosInactivos('$estado')";
+        $consultaPersona          = $db->consulta($sqlPersona);
         $cadena_datos      = "";
 
         $cadena_datos .= '<label for="accionesSeleccionPersonasActivarDesactivar" style="margin-top: 30px">Lista de personas para seleccionar:</label>';
         $cadena_datos .= '<select name="accionesSeleccionPersonasActivarDesactivar" id="accionesSeleccionPersonasActivarDesactivar" data-filter="true" data-input="#filtroSeleccionActivasDesactivas" data-native-menu="false" multiple="multiple" data-iconpos="left" data-theme="a" onchange="PersonasAccionesSeleccionarActivarDesactivarPersonas()">';
 
-        if($db->num_rows($consulta) != 0)
+        if($db->num_rows($consultaPersona) != 0)
         {
             $cadena_datos .= '<option>Seleccione</option>';
 
-            while($resultados = $db->fetch_array($consulta))
+            while($resultadosPersona = $db->fetch_array($consultaPersona))
             {
-                $cadena_datos .= '<option value="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+                $cadena_datos .= '<option value="' . $resultadosPersona['IdPersona'] . '">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</option>';
             }
             $cadena_datos .= '</select>';
         }
@@ -156,8 +156,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'modificarEstadoPersonas') {
         $usuarioActual = $_SESSION['idPersona'];
 
         foreach($listaPersonas as $persona){
-            $sql      = "CALL TbPersonasActualizarEstado('$estado','$persona','$usuarioActual')";
-            $consulta = $db->consulta(utf8_decode($sql));
+            $sqlPersona      = "CALL TbPersonasActualizarEstado('$estado','$persona','$usuarioActual')";
+            $consultaPersona = $db->consulta(utf8_decode($sqlPersona));
         }
         echo 1;
     }
@@ -182,18 +182,54 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarPersona') {
         $sexo                 = $_POST['sexo'];
         $usuarioActual        = $_SESSION['idPersona'];
 
-        $sql = "CALL TbPersonasAgregar('$identificacion','$nombre','$apellido1','$apellido2','$fechaNacimiento','$distrito','$direccionDomicilio','$telefono','$celular','$correo','$sexo','$usuarioActual')";
-        $consulta = $db->consulta($sql);
+        $listaGruposParticipante = json_decode(stripslashes($_POST['listaGruposParticipante']));
+        $listaGruposLider = json_decode(stripslashes($_POST['listaGruposLider']));
 
-        if ($db->num_rows($consulta) != 0) {
-            while ($resultados = $db->fetch_array($consulta)) {
-                $idPersona = $resultados['Id'];
+        $idPersona = "";
+
+        $sqlPersona      = "CALL TbPersonasAgregar('$identificacion','$nombre','$apellido1','$apellido2','$fechaNacimiento','$distrito','$direccionDomicilio','$telefono','$celular','$correo','$sexo','$usuarioActual')";
+        $consultaPersona = $db->consulta($sqlPersona);
+
+        if ($db->num_rows($consultaPersona) != 0) {
+            while ($resultadosPersona = $db->fetch_array($consultaPersona)) {
+                $idPersona = $resultadosPersona['Id'];
                 $exito     = "1";
             }
 
         } else {
             $exito = "-1";
         }
+
+        if ($exito == "1"){
+            foreach($listaGruposParticipante as $grupoPersonaParticipante){
+                $sqlPersona                        = "CALL TbGruposPersonasAgregar('$idPersona','$grupoPersonaParticipante','N',$usuarioActual)";
+                $consultaGruposParticipante = $db->consulta(utf8_decode($sqlPersona));
+
+                if ($db->num_rows($consultaGruposParticipante) != 0) {
+                    while ($resultadosGruposPersonaParticipante = $db->fetch_array($consultaGruposParticipante)) {
+                        $idGrupoPersona = $resultadosGruposPersonaParticipante['Id'];
+                        $exito          = "1";
+                    }
+                } else {
+                    $exito = "-1";
+                }
+            }
+
+            foreach($listaGruposLider as $grupoPersonaLider){
+                $sqlPersona                 = "CALL TbGruposPersonasAgregar('$idPersona','$grupoPersonaLider','S',$usuarioActual)";
+                $consultaGruposLider = $db->consulta(utf8_decode($sqlPersona));
+
+                if ($db->num_rows($consultaGruposLider) != 0) {
+                    while ($resultadosGruposPersonaLider = $db->fetch_array($consultaGruposLider)) {
+                        $idGrupoPersona = $resultadosGruposPersonaLider['Id'];
+                        $exito          = "1";
+                    }
+                } else {
+                    $exito = "-1";
+                }
+            }
+        }
+
         echo $exito;
     }
     catch (Exception $e) {
@@ -219,8 +255,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'modificarPersona') {
         $estado               = $_POST['estado'];
         $usuarioActual        = $_SESSION['idPersona'];
 
-        $sql = "CALL TbPersonasModificar('$idPersona', '$identificacion','$nombre','$apellido1','$apellido2','$fechaNacimiento','$distrito','$direccionDomicilio','$telefono','$celular','$correo','$sexo','$estado','$usuarioActual')";
-        $consulta = $db->consulta(utf8_decode($sql));
+        $sqlPersona = "CALL TbPersonasModificar('$idPersona', '$identificacion','$nombre','$apellido1','$apellido2','$fechaNacimiento','$distrito','$direccionDomicilio','$telefono','$celular','$correo','$sexo','$estado','$usuarioActual')";
+        $consultaPersona = $db->consulta(utf8_decode($sqlPersona));
         echo 1;
     }
     catch (Exception $e) {
@@ -233,56 +269,87 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
     try {
         $idPersona = $_POST['IdPersona'];
 
-        $sql          = "CALL TbPersonasListarPorIdPersona('$idPersona')";
-        $consulta     = $db->consulta($sql);
-        $cadena_datos = "";
+        $sqlPersona      = "CALL TbPersonasListarPorIdPersona('$idPersona')";
+        $consultaPersona = $db->consulta($sqlPersona);
+        $cadena_datos    = "";
 
         $sqlProvincias      = "CALL TbProvinciasListar()";
         $consultaProvincias = $db->consulta($sqlProvincias);
+
+        $sqlTotalGruposLider      = "CALL TbGruposListar()";
+        $consultaTotalGruposLider = $db->consulta($sqlTotalGruposLider);
+
+        $sqlTotalGruposParticipante      = "CALL TbGruposListar()";
+        $consultaTotalGruposParticipante = $db->consulta($sqlTotalGruposParticipante);
+
+        $sqlGruposLider             = "CALL TbGruposPersonasListarPorIdPersonaLider('$idPersona')";
+        $consultaGruposLider        = $db->consulta($sqlGruposLider);
+        $arregloGruposPersonaLider  = array();
+
+        $sqlGruposParticipante      = "CALL TbGruposPersonasListarPorIdPersonaParticipante('$idPersona')";
+        $consultaGruposParticipante = $db->consulta($sqlGruposParticipante);
+        $arregloGruposPersonaParticipante  = array();
+
+        if($db->num_rows($consultaGruposLider) != 0)
+        {
+            while($resultadosGruposPersonaLider = $db->fetch_array($consultaGruposLider))
+            {
+                array_push($arregloGruposPersonaLider, $resultadosGruposPersonaLider["GrupoLider"]);
+            }
+        }
+
+        if($db->num_rows($consultaGruposParticipante) != 0)
+        {
+            while($resultadosGruposPersonaParticipante = $db->fetch_array($consultaGruposParticipante))
+            {
+                array_push($arregloGruposPersonaParticipante, $resultadosGruposPersonaParticipante["GrupoParticipante"]);
+            }
+        }
+
         $utilizarCantones = false;
         $utilizarDistritos = false;
 
 
-        if($db->num_rows($consulta) != 0)
+        if($db->num_rows($consultaPersona) != 0)
         {
-            while($resultados = $db->fetch_array($consulta))
+            while($resultadosPersona = $db->fetch_array($consultaPersona))
             {
-                if($resultados['Provincia'] != null){
-                    $sqlCantones      = "CALL TbCantonesListarFiltrado(". $resultados['Provincia'] . ")";
+                if($resultadosPersona['Provincia'] != null){
+                    $sqlCantones      = "CALL TbCantonesListarFiltrado(". $resultadosPersona['Provincia'] . ")";
                     $consultaCantones = $db->consulta($sqlCantones);
                     $utilizarCantones = true;
                 }
 
-                if($resultados['Provincia'] != null
-                    && $resultados['Canton'] != null){
-                    $sqlDistritos      = "CALL TbDistritosListarFiltrado(" . $resultados['Provincia'] . "," . $resultados['Canton'] . ")";
+                if($resultadosPersona['Provincia'] != null
+                    && $resultadosPersona['Canton'] != null){
+                    $sqlDistritos      = "CALL TbDistritosListarFiltrado(" . $resultadosPersona['Provincia'] . "," . $resultadosPersona['Canton'] . ")";
                     $consultaDistritos = $db->consulta($sqlDistritos);
                     $utilizarDistritos = true;
                 }
 
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="txtIdentificacion">Identificación:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
-                $cadena_datos .= '<input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true" value="' . $resultados['Identificacion'] . '"/>';
+                $cadena_datos .= '<input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="Ejm: 102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true" value="' . $resultadosPersona['Identificacion'] . '"/>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="txtNombre">Nombre:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
-                $cadena_datos .= '<input type="text" name="txtNombre" id="txtNombre" maxlength="20" data-clear-btn="true" value="' . $resultados['Nombre'] . '"/>';
+                $cadena_datos .= '<input type="text" name="txtNombre" id="txtNombre" maxlength="20" data-clear-btn="true" value="' . $resultadosPersona['Nombre'] . '"/>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="txtApellido1">Primer apellido:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
-                $cadena_datos .= '<input type="text" name="txtApellido1" id="txtApellido1" maxlength="20" data-clear-btn="true" value="' . $resultados['Apellido1'] . '"/>';
+                $cadena_datos .= '<input type="text" name="txtApellido1" id="txtApellido1" maxlength="20" data-clear-btn="true" value="' . $resultadosPersona['Apellido1'] . '"/>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="txtApellido2">Segundo apellido:</label>';
-                $cadena_datos .= '<input type="text" name="txtApellido2" id="txtApellido2" maxlength="20" data-clear-btn="true" value="' . $resultados['Apellido2'] . '"/>';
+                $cadena_datos .= '<input type="text" name="txtApellido2" id="txtApellido2" maxlength="20" data-clear-btn="true" value="' . $resultadosPersona['Apellido2'] . '"/>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="txtFechaNacimiento">Fecha de nacimiento:</label>';
-                $cadena_datos .= '<input type="date" name="txtFechaNacimiento" id="txtFechaNacimiento" value="' . explode(" ", $resultados['FechaNacimiento'])[0] . '">';
+                $cadena_datos .= '<input type="date" name="txtFechaNacimiento" id="txtFechaNacimiento" value="' . explode(" ", $resultadosPersona['FechaNacimiento'])[0] . '">';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
@@ -293,7 +360,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 {
                     while($resultadosProvincias= $db->fetch_array($consultaProvincias))
                     {
-                        if ($resultadosProvincias['IdProvincia'] == $resultados['Provincia']){
+                        if ($resultadosProvincias['IdProvincia'] == $resultadosPersona['Provincia']){
                             $cadena_datos .= '<option value="' . $resultadosProvincias['IdProvincia'] . '" selected>' . utf8_encode($resultadosProvincias['Descripcion']) . '</option>';
                         }
                         else
@@ -314,7 +381,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                     {
                         while($resultadosCantones= $db->fetch_array($consultaCantones))
                         {
-                            if ($resultadosCantones['IdCanton'] == $resultados['Canton']){
+                            if ($resultadosCantones['IdCanton'] == $resultadosPersona['Canton']){
                                 $cadena_datos .= '<option value="' . $resultadosCantones['IdCanton'] . '" selected>' . utf8_encode($resultadosCantones['Descripcion']) . '</option>';
                             }
                             else
@@ -336,7 +403,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                     {
                         while($resultadosDistritos= $db->fetch_array($consultaDistritos))
                         {
-                            if ($resultadosDistritos['IdDistrito'] == $resultados['Distrito']){
+                            if ($resultadosDistritos['IdDistrito'] == $resultadosPersona['Distrito']){
                                 $cadena_datos .= '<option value="' . $resultadosDistritos['IdDistrito'] . '" selected>' . utf8_encode($resultadosDistritos['Descripcion']) . '</option>';
                             }
                             else
@@ -351,24 +418,45 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="txtDireccionDomicilio">Dirección domicilio:</label>';
-                $cadena_datos .= '<textarea name="txtDireccionDomicilio" id="txtDireccionDomicilio" maxlength="250" placeholder="Dirección exacta de su domicilio." data-clear-btn="true">' . utf8_encode($resultados['DireccionDomicilio']) . '</textarea>';
+                $cadena_datos .= '<textarea name="txtDireccionDomicilio" id="txtDireccionDomicilio" maxlength="250" placeholder="Dirección exacta de su domicilio." data-clear-btn="true">' . utf8_encode($resultadosPersona['DireccionDomicilio']) . '</textarea>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
-                $cadena_datos .= '<label for="txtTelefono">Teléfono: </label>';
-                $cadena_datos .= '<input type="tel" name="txtTelefono" id="txtTelefono" placeholder="88888888" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true" value="' . $resultados['Telefono'] . '"/>';
+                if($resultadosPersona['Telefono'] != '')
+                {
+                    $cadena_datos .= '<label for="txtTelefono">Teléfono fijo:<a style="margin-top: -4px; float: right; margin-right: 0px; height: 27px; padding-top: 5px" href="tel:' . $resultadosPersona['Telefono']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Llamar</a></label>';
+                }
+                else
+                {
+                    $cadena_datos .= '<label for="txtTelefono">Teléfono fijo:</label>';
+                }
+                $cadena_datos .= '<input type="tel" name="txtTelefono" id="txtTelefono" placeholder="Ejm: 405893685" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true" value="' . $resultadosPersona['Telefono'] . '"/>';
                 $cadena_datos .= '<p class="bg-danger text-justify">Nota: Si proporciona el número de teléfono podrá ser contactado por medio de una llamada.</p>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
-                $cadena_datos .= '<label for="txtCelular">Celular:</label>';
-                $cadena_datos .= '<input type="tel" name="txtCelular" id="txtCelular" placeholder="88888888" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true" value="' . $resultados['Celular'] . '"/>';
+                if($resultadosPersona['Celular'] != '')
+                {
+                    $cadena_datos .= '<label for="txtCelular">Teléfono celular:<a style="margin-top: -4px; float: right; margin-right: 0px; height: 27px; padding-top: 5px" href="tel:' . $resultadosPersona['Celular']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini">Llamar</a><a style="margin-top: -4px; float: right; margin-right: 2px; height: 27px; padding-top: 6px" href="sms:' . $resultadosPersona['Celular']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">SMS</a></label>';
+                }
+                else
+                {
+                    $cadena_datos .= '<label for="txtCelular">Teléfono celular:</label>';
+                }
+                $cadena_datos .= '<input type="tel" name="txtCelular" id="txtCelular" placeholder="Ejm: 86736592" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true" value="' . $resultadosPersona['Celular'] . '"/>';
                 $cadena_datos .= '<p class="bg-danger text-justify">Nota: Si proporciona el número de celular podrá ser contactado por medio de una llamada o un mensaje de texto.</p>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
-                $cadena_datos .= '<label for="txtCorreo">Correo eléctronico:</label>';
-                $cadena_datos .= '<input type="text" name="txtCorreo" id="txtCorreo" placeholder="correo@ejemplo.com" maxlength="50" onblur="PersonasValidarCorreo()" data-clear-btn="true" value="' . $resultados['Correo'] . '"/>';
+                if($resultadosPersona['Correo'] != '')
+                {
+                    $cadena_datos .= '<label for="txtCorreo">Correo eléctronico:<a style="margin-top: -4px; float: right; margin-right: 0px; height: 27px; padding-top: 5px" href="mailto:' . $resultadosPersona['Correo']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini">Correo</a></label>';
+                }
+                else
+                {
+                    $cadena_datos .= '<label for="txtCorreo">Correo eléctronico:</label>';
+                }
+                $cadena_datos .= '<input type="text" name="txtCorreo" id="txtCorreo" placeholder="Ejm: correo@ejemplo.com" maxlength="50" onblur="PersonasValidarCorreo()" data-clear-btn="true" value="' . $resultadosPersona['Correo'] . '"/>';
                 $cadena_datos .= '<p class="bg-danger text-justify">Nota: Si proporciona el correo electrónico podrá ser contactado por medio del mismo.</p>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
@@ -376,7 +464,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 $cadena_datos .= '<label for="cboSexo">Género:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
                 $cadena_datos .= '<select name="cboSexo" id="cboSexo">';
                 $cadena_datos .= '<option value="0">Seleccione</option>';
-                if ($resultados['Sexo'] == 'F'){
+                if ($resultadosPersona['Sexo'] == 'F'){
                     $cadena_datos .= '<option value="F" selected>Femenino</option>';
                     $cadena_datos .= '<option value="M">Masculino</option>';
                 }
@@ -388,11 +476,53 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 $cadena_datos .= '</select>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
+                $cadena_datos .= '<div id="divPersonaGruposLider">';
+                $cadena_datos .= '<label for="PersonaGruposLider">Grupos en los cuales es líder:</label>';
+                $cadena_datos .= '<select name="PersonaGruposLider" id="PersonaGruposLider" multiple="multiple" data-native-menu="false">';
+                $cadena_datos .= '<option>Seleccione</option>';
+                if($db->num_rows($consultaTotalGruposLider) != 0)
+                {
+                    while($resultadosGruposLider= $db->fetch_array($consultaTotalGruposLider))
+                    {
+                        if(in_array($resultadosGruposLider['IdGrupo'], $arregloGruposPersonaLider))
+                        {
+                            $cadena_datos .= '<option value="' . $resultadosGruposLider['IdGrupo'] . '" selected>' . utf8_encode($resultadosGruposLider['Descripcion']) . '</option>';
+                        }
+                        else
+                        {
+                            $cadena_datos .= '<option value="' . $resultadosGruposLider['IdGrupo'] . '">' . utf8_encode($resultadosGruposLider['Descripcion']) . '</option>';
+                        }
+                    }
+                }
+                $cadena_datos .= '</select>';
+                $cadena_datos .= '</div>';
+                $cadena_datos .= '<br>';
+                $cadena_datos .= '<div id="divPersonaGruposParticipante">';
+                $cadena_datos .= '<label for="PersonaGruposParticipante">Grupos en los cuales es participante:</label>';
+                $cadena_datos .= '<select name="PersonaGruposParticipante" id="PersonaGruposParticipante" multiple="multiple" data-native-menu="false">';
+                $cadena_datos .= '<option>Seleccione</option>';
+                if($db->num_rows($consultaTotalGruposParticipante) != 0)
+                {
+                    while($resultadosGruposParticipante= $db->fetch_array($consultaTotalGruposParticipante))
+                    {
+                        if(in_array($resultadosGruposParticipante['IdGrupo'], $arregloGruposPersonaParticipante))
+                        {
+                            $cadena_datos .= '<option value="' . $resultadosGruposParticipante['IdGrupo'] . '" selected>' . utf8_encode($resultadosGruposParticipante['Descripcion']) . '</option>';
+                        }
+                        else
+                        {
+                            $cadena_datos .= '<option value="' . $resultadosGruposParticipante['IdGrupo'] . '">' . utf8_encode($resultadosGruposParticipante['Descripcion']) . '</option>';
+                        }
+                    }
+                }
+                $cadena_datos .= '</select>';
+                $cadena_datos .= '</div>';
+                $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="cboEstadoPersona">Estado:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
                 $cadena_datos .= '<select name="cboEstadoPersona" id="cboEstadoPersona">';
                 $cadena_datos .= '<option value="0">Seleccione</option>';
-                if ($resultados['Estado'] == 'A'){
+                if ($resultadosPersona['Estado'] == 'A'){
                     $cadena_datos .= '<option value="A" selected>Activo</option>';
                     $cadena_datos .= '<option value="I">Inactivo</option>';
                 }
@@ -405,7 +535,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 $cadena_datos .= '<div class="row">';
                 $cadena_datos .= '<div class="col-xs-1"></div>';
                 $cadena_datos .= '<div class="col-xs-10">';
-                $cadena_datos .= '<button type="button" id="btnAceptar" data-theme="b" onclick="PersonasModificarPersona(' . $resultados['IdPersona'] . ')" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Modificar</button>';
+                $cadena_datos .= '<button type="button" id="btnAceptar" data-theme="b" onclick="PersonasModificarPersona(' . $resultadosPersona['IdPersona'] . ')" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Modificar</button>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<div class="col-xs-1"></div>';
                 $cadena_datos .= '</div>';
