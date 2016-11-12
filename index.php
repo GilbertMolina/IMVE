@@ -97,15 +97,21 @@ $versionApp = new VersionAPP();
             <div data-role="content">
                 <h2 class="text-center" style="margin-top: 0px">Iglesia Manantiales de Vida Eterna</h2>
                 <p class="text-justify" style="margin-top: 20px">
-                    <b>Misión:</b> Manantiales de Vida Eterna, ministerio Cristo céntrico, llamado a ganar Cartago y Costa Rica para el reino de Dios. Proclama bajo la unción del Espíritu Santo, el evangelio que salva para vida eterna.
+                    <strong>Misión:</strong> Manantiales de Vida Eterna, ministerio Cristo céntrico, llamado a ganar Cartago y Costa Rica para el reino de Dios. Proclama bajo la unción del Espíritu Santo, el evangelio que salva para vida eterna.
                 </p>
                 <br>
                 <p class="text-justify" style="margin-top: -10px">
-                    <b>Visión:</b> Ser una Iglesia reconocida como un ministerio de alcance sólido y edificado conforme al carácter de Jesucristo, logrando la excelencia mediante la dirección del Señor.
+                    <strong>Visión:</strong> Ser una Iglesia reconocida como un ministerio de alcance sólido y edificado conforme al carácter de Jesucristo, logrando la excelencia mediante la dirección del Señor.
                 </p>
-                <br>
+                <hr>
+                <p class="text-center" style="margin-top: -10px">
+                    <strong>Desarrollador:</strong> Gilbert Molina Castrillo.
+                </p>
+                <p class="text-center" style="margin-top: -10px">
+                    <strong>Contacto:</strong> <a href="mailto:gmolinac@outlook.com">gmolinac@outlook.com</a>.
+                </p>
                 <p class="text-center" style="margin-top: 10px">
-                    <b><?php echo $versionApp->obtenerNombreApp() . ' ' . $versionApp->obtenerVersionApp()?></b>
+                    <strong><?php echo $versionApp->obtenerNombreApp() . ' ' . $versionApp->obtenerVersionApp()?></strong>
                 </p>
             </div>
         </div>
