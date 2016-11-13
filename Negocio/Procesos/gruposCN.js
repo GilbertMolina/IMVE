@@ -66,6 +66,40 @@ function GruposCargarMinisteriosComboBox()
     })
 }
 
+// Función para obtener todos los grupos activos y mostralos al usuarios para que seleccione en los cuales es líder
+function GruposCargarLideres()
+{
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=obtenerPersonasLideresListado";
+
+    // Enviar por Ajax a gruposCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/personasCAD.php"
+        , success: function(a) {
+            $("#GrupoPersonasLideres").html(a).selectmenu('refresh');
+        }
+    })
+}
+
+// Función para obtener todos los grupos activos y mostralos al usuarios para que seleccione en los cuales es participante
+function GruposCargarParticipantes()
+{
+// Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=obtenerPersonasParticipantesListado";
+
+    // Enviar por Ajax a gruposCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/personasCAD.php"
+        , success: function(a) {
+            $("#GrupoPersonasParticipantes").html(a).selectmenu('refresh');
+        }
+    })
+}
+
 // Función para cargar un grupo por su id
 function GruposCargarGrupoPorId() {
     var IdGrupo = ObtenerParametroPorNombre('IdGrupo');
@@ -81,6 +115,7 @@ function GruposCargarGrupoPorId() {
             , data: d
             , url: "../../../IMVE/Datos/Procesos/gruposCAD.php"
             , success: function(a) {
+                console.log(a);
                 $("#gruposDetalle").html(a).trigger("create");
             }
         });
@@ -89,6 +124,8 @@ function GruposCargarGrupoPorId() {
     {
         GruposCargarCategoriasGruposComboBox();
         GruposCargarMinisteriosComboBox();
+        GruposCargarLideres();
+        GruposCargarParticipantes();
     }
 }
 
@@ -97,6 +134,12 @@ function GruposRegistrarGrupo() {
     var idCategoriaGrupo = $('#cboIdCategoriasGrupos').val();
     var idMinisterio     = $('#cboIdMinisterios').val();
     var descripcion      = $('#txtDescripcionGrupo').val();
+
+    var personasLideres = $('#GrupoPersonasLideres').val();
+    var listaPersonasLideresJson = JSON.stringify(personasLideres);
+
+    var personasParticipantes = $('#GrupoPersonasParticipantes').val();
+    var listaPersonasParticipantesJson = JSON.stringify(personasParticipantes);
 
     if(idCategoriaGrupo == 0
         && descripcion == "")
@@ -115,7 +158,7 @@ function GruposRegistrarGrupo() {
     else
     {
         // Se define el action que será consultado desde la clase de acceso a datos
-        var d = "action=registrarGrupo&idCategoriaGrupo=" + idCategoriaGrupo + "&idMinisterio=" + idMinisterio + "&descripcion=" + descripcion;
+        var d = "action=registrarGrupo&idCategoriaGrupo=" + idCategoriaGrupo + "&idMinisterio=" + idMinisterio + "&descripcion=" + descripcion + "&listaPersonasLideres=" + listaPersonasLideresJson + "&listaPersonasParticipantes=" + listaPersonasParticipantesJson;
 
         // Enviar por Ajax a gruposCAD.php
         $.ajax({

@@ -1865,6 +1865,7 @@ LEFT JOIN IMVE.TbProvincias AS PR
 LEFT JOIN IMVE.TbPaises AS PA
 	ON PR.IdPais = PA.IdPais
 WHERE P.Activo = 'A'
+	AND P.IdPersona <> 1
 ORDER BY NombreCompleto;
 
 END //
@@ -2430,9 +2431,13 @@ SELECT GP.IdPersona
 FROM IMVE.TbGruposPersonas AS GP
 INNER JOIN IMVE.TbGrupos AS G
 	ON GP.IdGrupo = G.IdGrupo
+INNER JOIN IMVE.TbPersonas AS P
+	ON GP.IdPersona = P.IdPersona
 WHERE GP.IdPersona = p_IdPersona
 	AND GP.EsLider = 'S' 
-    AND GP.FechaFin IS NULL;
+    AND GP.FechaFin IS NULL
+    AND G.Activo = 'A'
+    AND P.Activo = 'A';
 
 END //
 DELIMITER ;
@@ -2456,9 +2461,77 @@ SELECT GP.IdPersona
 FROM IMVE.TbGruposPersonas AS GP
 INNER JOIN IMVE.TbGrupos AS G
 	ON GP.IdGrupo = G.IdGrupo
+INNER JOIN IMVE.TbPersonas AS P
+	ON GP.IdPersona = P.IdPersona
 WHERE GP.IdPersona = p_IdPersona
-	AND GP.EsLider = 'N'
-    AND GP.FechaFin IS NULL;
+	AND GP.EsLider = 'N' 
+    AND GP.FechaFin IS NULL
+    AND G.Activo = 'A'
+    AND P.Activo = 'A';
+
+END //
+DELIMITER ;
+
+-- TbGruposPersonasListarPorIdGrupoLideres
+DROP PROCEDURE IF EXISTS IMVE.TbGruposPersonasListarPorIdGrupoLideres;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbGruposPersonasListarPorIdGrupoLideres(
+	p_IdGrupo INT
+)
+BEGIN
+
+SELECT GP.IdGrupo
+	, GP.IdPersona AS PersonaLider
+    , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+    , P.Telefono
+    , P.Celular
+    , P.Correo
+    , GP.FechaInicio
+    , GP.FechaFin
+    , GP.EsLider
+FROM IMVE.TbGruposPersonas AS GP
+INNER JOIN IMVE.TbGrupos AS G
+	ON GP.IdGrupo = G.IdGrupo
+INNER JOIN IMVE.TbPersonas AS P
+	ON GP.IdPersona = P.IdPersona
+WHERE GP.IdGrupo = p_IdGrupo
+	AND GP.EsLider = 'S' 
+    AND GP.FechaFin IS NULL
+    AND G.Activo = 'A'
+    AND P.Activo = 'A';
+
+END //
+DELIMITER ;
+
+-- TbGruposPersonasListarPorIdGrupoParticipantes
+DROP PROCEDURE IF EXISTS IMVE.TbGruposPersonasListarPorIdGrupoParticipantes;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbGruposPersonasListarPorIdGrupoParticipantes(
+	p_IdGrupo INT
+)
+BEGIN
+
+SELECT GP.IdGrupo
+	, GP.IdPersona AS PersonaParticipante
+    , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+    , P.Telefono
+    , P.Celular
+    , P.Correo
+    , GP.FechaInicio
+    , GP.FechaFin
+    , GP.EsLider
+FROM IMVE.TbGruposPersonas AS GP
+INNER JOIN IMVE.TbGrupos AS G
+	ON GP.IdGrupo = G.IdGrupo
+INNER JOIN IMVE.TbPersonas AS P
+	ON GP.IdPersona = P.IdPersona
+WHERE GP.IdGrupo = p_IdGrupo
+	AND GP.EsLider = 'N' 
+    AND GP.FechaFin IS NULL
+    AND G.Activo = 'A'
+    AND P.Activo = 'A';
 
 END //
 DELIMITER ;

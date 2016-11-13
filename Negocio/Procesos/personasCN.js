@@ -44,23 +44,6 @@ function PersonasOnSelectedChangeCantones(){
     CargarDistritos();
 }
 
-// Función para obtener todos los grupos activos y mostralos al usuarios para que seleccione en los cuales es participante
-function PersonasCargarGruposParticipante()
-{
-    // Se define el action que será consultado desde la clase de acceso a datos
-    var d = "action=obtenerGruposParticipantesListado";
-
-    // Enviar por Ajax a gruposCAD.php
-    $.ajax({
-        type: "POST"
-        , data: d
-        , url: "../../../IMVE/Datos/Procesos/gruposCAD.php"
-        , success: function(a) {
-            $("#PersonaGruposParticipante").html(a).selectmenu('refresh');
-        }
-    })
-}
-
 // Función para obtener todos los grupos activos y mostralos al usuarios para que seleccione en los cuales es líder
 function PersonasCargarGruposLider()
 {
@@ -74,6 +57,23 @@ function PersonasCargarGruposLider()
         , url: "../../../IMVE/Datos/Procesos/gruposCAD.php"
         , success: function(a) {
             $("#PersonaGruposLider").html(a).selectmenu('refresh');
+        }
+    })
+}
+
+// Función para obtener todos los grupos activos y mostralos al usuarios para que seleccione en los cuales es participante
+function PersonasCargarGruposParticipante()
+{
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=obtenerGruposParticipantesListado";
+
+    // Enviar por Ajax a gruposCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/gruposCAD.php"
+        , success: function(a) {
+            $("#PersonaGruposParticipante").html(a).selectmenu('refresh');
         }
     })
 }
@@ -146,8 +146,8 @@ function PesonasCargarPersonaPorId() {
     {
         PersonasAsignarFechaActual();
         CargarProvincias();
-        PersonasCargarGruposParticipante();
         PersonasCargarGruposLider();
+        PersonasCargarGruposParticipante();
     }
 }
 
@@ -409,11 +409,11 @@ function PersonasRegistrarPersona() {
     var correo = $('#txtCorreo').val().trim();
     var sexo = $('#cboSexo').val();
 
-    var gruposParticipante = $('#PersonaGruposParticipante').val();
-    var listaGruposParticipanteJson = JSON.stringify(gruposParticipante);
-
     var gruposLider = $('#PersonaGruposLider').val();
     var listaGruposLiderJson = JSON.stringify(gruposLider);
+
+    var gruposParticipante = $('#PersonaGruposParticipante').val();
+    var listaGruposParticipanteJson = JSON.stringify(gruposParticipante);
 
     if(direccionDomicilio.includes("Clear text"))
     {
@@ -476,8 +476,8 @@ function PersonasRegistrarPersona() {
                             , celular
                             , correo
                             , sexo
-                            , listaGruposParticipanteJson
-                            , listaGruposLiderJson);
+                            , listaGruposLiderJson
+                            , listaGruposParticipanteJson);
                     }
                     , cancel: function(){
                         registarSinCorreo = false;
@@ -497,19 +497,19 @@ function PersonasRegistrarPersona() {
                     , celular
                     , correo
                     , sexo
-                    , listaGruposParticipanteJson
-                    , listaGruposLiderJson);
+                    , listaGruposLiderJson
+                    , listaGruposParticipanteJson);
             }
         }
     };
 }
 
 // Función que registra el usuario del usuario a la base de datos por medio de Ajax
-function PersonasIngresarUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo, p_listaGruposParticipante, p_listaGruposLider){
+function PersonasIngresarUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo, p_listaGruposLider, p_listaGruposParticipante){
     // Se define el action que será consultado desde la clase de acceso a datos
     var d = "action=registrarPersona&identificacion=" + p_Identificacion + "&nombre=" + p_Nombre + "&apellido1=" + p_Apellido1 + "&apellido2=" + p_Apellido2 + "&fechaNacimiento="
         + p_FechaNacimiento + "&distrito=" + p_Distrito + "&direccionDomicilio=" + p_DireccionDomicilio + "&telefono=" + p_Telefono + "&celular=" + p_Celular + "&correo=" + p_Correo
-        + "&sexo=" + p_Sexo + "&listaGruposParticipante=" + p_listaGruposParticipante + "&listaGruposLider=" + p_listaGruposLider;
+        + "&sexo=" + p_Sexo + "&listaGruposLider=" + p_listaGruposLider + "&listaGruposParticipante=" + p_listaGruposParticipante;
 
     // Enviar por Ajax a personasCAD.php
     $.ajax({

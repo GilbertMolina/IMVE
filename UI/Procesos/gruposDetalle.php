@@ -167,6 +167,22 @@ $utilitarios = new UtilitariosProcesos();
                                     <input type="text" name="txtDescripcionGrupo" id="txtDescripcionGrupo" maxlength="50" data-clear-btn="true"/>
                                 </div>
                                 <br>
+                                <div id="divGrupoPersonasLider">
+                                    <label for="GrupoPersonasLideres">Personas que son lideres del grupo:</label>
+                                    <select name="GrupoPersonasLideres" id="GrupoPersonasLideres" multiple="multiple" data-native-menu="false">
+                                        <option>Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div id="divGrupoPersonasParticipantes">
+                                    <label for="GrupoPersonasParticipantes">Personas que participan en el grupo:</label>
+                                    <select name="GrupoPersonasParticipantes" id="GrupoPersonasParticipantes" multiple="multiple" data-native-menu="false">
+                                        <option>Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
                                 <div>
                                     <label for="cboEstadoGrupo">Estado:</label>
                                     <select name="cboEstadoGrupo" id="cboEstadoGrupo" disabled>

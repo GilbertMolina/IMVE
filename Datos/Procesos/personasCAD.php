@@ -169,23 +169,21 @@ if (isset($_POST['action']) && $_POST['action'] == 'modificarEstadoPersonas') {
 // Se realiza el registro de una nueva persona en el sistema
 if (isset($_POST['action']) && $_POST['action'] == 'registrarPersona') {
     try {
-        $identificacion       = $_POST['identificacion'];
-        $nombre               = $_POST['nombre'];
-        $apellido1            = $_POST['apellido1'];
-        $apellido2            = $_POST['apellido2'];
-        $fechaNacimiento      = $_POST['fechaNacimiento'];
-        $distrito             = $_POST['distrito'];
-        $direccionDomicilio   = $_POST['direccionDomicilio'];
-        $telefono             = $_POST['telefono'];
-        $celular              = $_POST['celular'];
-        $correo               = $_POST['correo'];
-        $sexo                 = $_POST['sexo'];
-        $usuarioActual        = $_SESSION['idPersona'];
-
+        $identificacion          = $_POST['identificacion'];
+        $nombre                  = $_POST['nombre'];
+        $apellido1               = $_POST['apellido1'];
+        $apellido2               = $_POST['apellido2'];
+        $fechaNacimiento         = $_POST['fechaNacimiento'];
+        $distrito                = $_POST['distrito'];
+        $direccionDomicilio      = $_POST['direccionDomicilio'];
+        $telefono                = $_POST['telefono'];
+        $celular                 = $_POST['celular'];
+        $correo                  = $_POST['correo'];
+        $sexo                    = $_POST['sexo'];
+        $listaGruposLider        = json_decode(stripslashes($_POST['listaGruposLider']));
         $listaGruposParticipante = json_decode(stripslashes($_POST['listaGruposParticipante']));
-        $listaGruposLider = json_decode(stripslashes($_POST['listaGruposLider']));
-
-        $idPersona = "";
+        $usuarioActual           = $_SESSION['idPersona'];
+        $idPersona               = "";
 
         $sqlPersona      = "CALL TbPersonasAgregar('$identificacion','$nombre','$apellido1','$apellido2','$fechaNacimiento','$distrito','$direccionDomicilio','$telefono','$celular','$correo','$sexo','$usuarioActual')";
         $consultaPersona = $db->consulta($sqlPersona);
@@ -201,13 +199,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarPersona') {
         }
 
         if ($exito == "1"){
-            foreach($listaGruposParticipante as $grupoPersonaParticipante){
-                $sqlPersona                        = "CALL TbGruposPersonasAgregar('$idPersona','$grupoPersonaParticipante','N',$usuarioActual)";
-                $consultaGruposParticipante = $db->consulta(utf8_decode($sqlPersona));
+            foreach($listaGruposLider as $grupoPersonaLider){
+                $sqlGrupoPersona     = "CALL TbGruposPersonasAgregar('$idPersona','$grupoPersonaLider','S',$usuarioActual)";
+                $consultaGruposLider = $db->consulta(utf8_decode($sqlGrupoPersona));
 
-                if ($db->num_rows($consultaGruposParticipante) != 0) {
-                    while ($resultadosGruposPersonaParticipante = $db->fetch_array($consultaGruposParticipante)) {
-                        $idGrupoPersona = $resultadosGruposPersonaParticipante['Id'];
+                if ($db->num_rows($consultaGruposLider) != 0) {
+                    while ($resultadosGruposPersonaLider = $db->fetch_array($consultaGruposLider)) {
+                        $idGrupoPersona = $resultadosGruposPersonaLider['Id'];
                         $exito          = "1";
                     }
                 } else {
@@ -215,13 +213,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarPersona') {
                 }
             }
 
-            foreach($listaGruposLider as $grupoPersonaLider){
-                $sqlPersona                 = "CALL TbGruposPersonasAgregar('$idPersona','$grupoPersonaLider','S',$usuarioActual)";
-                $consultaGruposLider = $db->consulta(utf8_decode($sqlPersona));
+            foreach($listaGruposParticipante as $grupoPersonaParticipante){
+                $sqlGrupoPersona            = "CALL TbGruposPersonasAgregar('$idPersona','$grupoPersonaParticipante','N',$usuarioActual)";
+                $consultaGruposParticipante = $db->consulta(utf8_decode($sqlGrupoPersona));
 
-                if ($db->num_rows($consultaGruposLider) != 0) {
-                    while ($resultadosGruposPersonaLider = $db->fetch_array($consultaGruposLider)) {
-                        $idGrupoPersona = $resultadosGruposPersonaLider['Id'];
+                if ($db->num_rows($consultaGruposParticipante) != 0) {
+                    while ($resultadosGruposPersonaParticipante = $db->fetch_array($consultaGruposParticipante)) {
+                        $idGrupoPersona = $resultadosGruposPersonaParticipante['Id'];
                         $exito          = "1";
                     }
                 } else {
@@ -255,7 +253,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'modificarPersona') {
         $estado               = $_POST['estado'];
         $usuarioActual        = $_SESSION['idPersona'];
 
-        $sqlPersona = "CALL TbPersonasModificar('$idPersona', '$identificacion','$nombre','$apellido1','$apellido2','$fechaNacimiento','$distrito','$direccionDomicilio','$telefono','$celular','$correo','$sexo','$estado','$usuarioActual')";
+        $sqlPersona      = "CALL TbPersonasModificar('$idPersona', '$identificacion','$nombre','$apellido1','$apellido2','$fechaNacimiento','$distrito','$direccionDomicilio','$telefono','$celular','$correo','$sexo','$estado','$usuarioActual')";
         $consultaPersona = $db->consulta(utf8_decode($sqlPersona));
         echo 1;
     }
@@ -268,6 +266,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'modificarPersona') {
 if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
     try {
         $idPersona = $_POST['IdPersona'];
+        
+        $utilizarCantones = false;
+        $utilizarDistritos = false;
 
         $sqlPersona      = "CALL TbPersonasListarPorIdPersona('$idPersona')";
         $consultaPersona = $db->consulta($sqlPersona);
@@ -305,10 +306,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 array_push($arregloGruposPersonaParticipante, $resultadosGruposPersonaParticipante["GrupoParticipante"]);
             }
         }
-
-        $utilizarCantones = false;
-        $utilizarDistritos = false;
-
 
         if($db->num_rows($consultaPersona) != 0)
         {
@@ -542,6 +539,53 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
             }
         }
 
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+// Obtiene las personas que son lideres de un grupo para mostrarlos en el select de lideres
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasLideresListado') {
+    try {
+        $sql          = "CALL TbPersonasListar()";
+        $consulta     = $db->consulta($sql);
+        $result       = array();
+        $cadena_datos = "";
+
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos = '<option>Seleccione</option>';
+
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+            }
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+// Obtiene las personas que son participantes de un grupo para mostrarlos en el select de participantes
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasParticipantesListado') {
+    try {
+        $sql          = "CALL TbPersonasListar()";
+        $consulta     = $db->consulta($sql);
+        $result       = array();
+        $cadena_datos = "";
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos = '<option>Seleccione</option>';
+
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+            }
+        }
         echo $cadena_datos;
     }
     catch (Exception $e) {
