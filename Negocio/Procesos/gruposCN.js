@@ -4,9 +4,18 @@
  * Fecha creación: 11/11/16
  */
 
+// Variable que se utiliza para mostrar u ocultar las acciones masivas de los grupos
+var mostrarAccionesGrupos = false;
+
 // Función que se ejecuta al cargar la pagina de grupos
 function GruposOnLoad() {
     GruposCargarGruposListado();
+    GruposCargarPersonasGrupoAccionesSeleccion();
+
+    $('#menuAccionesGrupos').hide();
+
+    $('#btnGruposEnviarSMS').hide();
+    $('#btnGruposEnviarCorreo').hide();
 }
 
 // Función que se ejecuta al cargar la pagina de grupos detalle
@@ -27,7 +36,7 @@ function GruposCargarGruposListado() {
         , data: d
         , url: "../../../IMVE/Datos/Procesos/gruposCAD.php"
         , success: function(a) {
-            $("#listaGrupos").html(a).listview("refresh");
+            $("#divListaGrupos").html(a).trigger("create");
         }
     })
 }
@@ -100,6 +109,20 @@ function GruposCargarParticipantes()
     })
 }
 
+// Función que muestra o oculta las accciones masivas de los grupos
+function GruposMostrarAccionesMasivas(){
+    if (mostrarAccionesGrupos == false)
+    {
+        mostrarAccionesGrupos = true;
+        $("#menuAccionesGrupos").show();
+    }
+    else if (mostrarAccionesGrupos == true)
+    {
+        mostrarAccionesGrupos = false;
+        $("#menuAccionesGrupos").hide();
+    }
+}
+
 // Función para cargar un grupo por su id
 function GruposCargarGrupoPorId() {
     var IdGrupo = ObtenerParametroPorNombre('IdGrupo');
@@ -115,7 +138,6 @@ function GruposCargarGrupoPorId() {
             , data: d
             , url: "../../../IMVE/Datos/Procesos/gruposCAD.php"
             , success: function(a) {
-                console.log(a);
                 $("#gruposDetalle").html(a).trigger("create");
             }
         });
@@ -126,6 +148,112 @@ function GruposCargarGrupoPorId() {
         GruposCargarMinisteriosComboBox();
         GruposCargarLideres();
         GruposCargarParticipantes();
+    }
+}
+
+// Función para obtener todos las personas con sus celulares y correos
+function GruposCargarPersonasGrupoAccionesSeleccion() {
+    var contacto = ObtenerValorRadioButtonPorNombre('filtroGruposContacto');
+    var tipoIntegrante = ObtenerValorRadioButtonPorNombre('filtroGruposTipoIntegrante');
+    var inicioHref = (contacto == "S") ? "sms:" : "mailto:";
+
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=obtenerListadoGruposPersonasEsLider&contacto=" + contacto + "&tipoIntegrante=" + tipoIntegrante;
+    
+    // Enviar por Ajax a gruposCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/gruposCAD.php"
+        , success: function(a) {
+            $("#GruposAccionesSeleccion").html(a).trigger("create");
+        }
+    });
+    
+    $('#btnGruposEnviarSMS').hide();
+    $('#btnGruposEnviarSMS').attr("href", inicioHref);
+    $('#btnGruposEnviarCorreo').hide();
+    $('#btnGruposEnviarCorreo').attr("href", inicioHref);
+}
+
+// Función para el evento clic del botón btnGruposEnviarSMS
+function GruposBtnEnviarSMS() {
+    var valorHref = $('#btnGruposEnviarSMS').attr("href");
+
+    if(valorHref == 'sms:'){
+        $.alert({
+            theme: 'material'
+            , animationBounce: 1.5
+            , animation: 'rotate'
+            , closeAnimation: 'rotate'
+            , title: 'Advertencia'
+            , content: 'No ha seleccionado ninguna persona para enviarle un mensaje de texto.'
+            , confirmButton: 'Aceptar'
+            , confirmButtonClass: 'btn-warning'
+        });
+
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+// Función para el evento clic del botón btnGruposEnviarCorreo
+function GruposBtnEnviarCorreo() {
+    var valorHref = $('#btnGruposEnviarCorreo').attr("href");
+
+    if(valorHref == 'mailto:'){
+        $.alert({
+            theme: 'material'
+            , animationBounce: 1.5
+            , animation: 'rotate'
+            , closeAnimation: 'rotate'
+            , title: 'Advertencia'
+            , content: 'No ha seleccionado ninguna persona para enviarle un correo electrónico.'
+            , confirmButton: 'Aceptar'
+            , confirmButtonClass: 'btn-warning'
+        });
+
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+// Función para enviar un sms o un correo a las personas seleccionadas
+function GruposAccionesSeleccionarIntegrantes() {
+    var accion = ObtenerValorRadioButtonPorNombre('filtroGruposContacto');
+    var arregloSeleccionMasiva = $('#accionesSeleccionGrupos').val();
+    var inicioHref = (accion == "S") ? "sms:" : "mailto:";
+
+    if(arregloSeleccionMasiva != null){
+        var nuevoSeleccion = arregloSeleccionMasiva.toString().replace(",",";");
+        var valorCompletoHref = inicioHref + nuevoSeleccion.replace(",",";");
+
+        if(accion == 'S')
+        {
+            $('#btnGruposEnviarSMS').show();
+            $('#btnGruposEnviarSMS').attr("href", valorCompletoHref);
+        }
+        else
+        {
+            $('#btnGruposEnviarCorreo').show();
+            $('#btnGruposEnviarCorreo').attr("href", valorCompletoHref);
+        }
+    }
+    else{
+        if(accion == 'S')
+        {
+            $('#btnGruposEnviarSMS').hide();
+            $('#btnGruposEnviarSMS').attr("href", inicioHref);
+        }
+        else
+        {
+            $('#btnGruposEnviarCorreo').hide();
+            $('#btnGruposEnviarCorreo').attr("href", inicioHref);
+        }
     }
 }
 

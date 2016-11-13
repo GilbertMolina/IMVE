@@ -140,7 +140,7 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="content">
                 <div class="container">
-                    <div id="menuAcciones">
+                    <div id="menuAccionesPersonas">
                         <h3 class="text-center">Acciones Masivas</h3>
                         <hr>
                         <div class="row">
@@ -166,8 +166,8 @@ $utilitarios = new UtilitariosProcesos();
                                                 </div>
                                                 <div class="row text-center">
                                                     <div class="col-ws-12">
-                                                        <a href="sms:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini" id="btnEnviarSMS" onclick="PersonasBtnEnviarSMS()">Enviar SMS</a>
-                                                        <a href="mailto:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini" id="btnEnviarCorreo" onclick="PersonasBtnEnviarCorreo()">Enviar Correo</a>
+                                                        <a href="sms:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini" id="btnPersonasEnviarSMS" onclick="PersonasBtnEnviarSMS()">Enviar SMS</a>
+                                                        <a href="mailto:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini" id="btnPersonasEnviarCorreo" onclick="PersonasBtnEnviarCorreo()">Enviar Correo</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -235,7 +235,7 @@ $utilitarios = new UtilitariosProcesos();
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
-                        <li><button href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-gear" data-theme="b" onclick="PersonasMostrarAcciones()">Acciones masivas</button></li>
+                        <li><button href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-gear" data-theme="b" onclick="PersonasMostrarAccionesMasivas()">Acciones masivas</button></li>
                         <li><a href="#" data-transition="flip" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-plus" data-theme="b" onclick="UtiProcesosPaginaProcesosPersonasDetalleAgregar()">Agregar</a></li>
                     </ul>
                 </div>

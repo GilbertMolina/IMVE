@@ -8,7 +8,7 @@
 var registarSinCorreo = false;
 
 // Variable que se utiliza para mostrar u ocultar las acciones masivas de las personas
-var mostrarAcciones = false;
+var mostrarAccionesPersonas = false;
 
 // Función que se ejecuta al cargar la pagina
 function PersonasOnLoad() {
@@ -16,11 +16,11 @@ function PersonasOnLoad() {
     PersonasCargarPersonasAccionesSeleccion();
     PersonasCargarPersonasAccionesSeleccionActivasDesactivas();
 
-    $('#btnEnviarSMS').hide();
-    $('#btnEnviarCorreo').hide();
+    $('#menuAccionesPersonas').hide();
+    $('#btnPersonasEnviarSMS').hide();
+    $('#btnPersonasEnviarCorreo').hide();
     $('#btnActivarPersonas').hide();
     $('#btnDesactivarPersonas').hide();
-    $('#menuAcciones').hide();
 }
 
 // Función que se ejecuta al cargar la pagina
@@ -78,17 +78,17 @@ function PersonasCargarGruposParticipante()
     })
 }
 
-// Función que se ejecuta cuando cambia el cantón seleccionada
-function PersonasMostrarAcciones(){
-    if (mostrarAcciones == false)
+// Función que muestra o oculta las accciones masivas de las personas
+function PersonasMostrarAccionesMasivas(){
+    if (mostrarAccionesPersonas == false)
     {
-        mostrarAcciones = true;
-        $("#menuAcciones").show();
+        mostrarAccionesPersonas = true;
+        $("#menuAccionesPersonas").show();
     }
-    else if (mostrarAcciones == true)
+    else if (mostrarAccionesPersonas == true)
     {
-        mostrarAcciones = false;
-        $("#menuAcciones").hide();
+        mostrarAccionesPersonas = false;
+        $("#menuAccionesPersonas").hide();
     }
 }
 
@@ -169,10 +169,10 @@ function PersonasCargarPersonasAccionesSeleccion() {
         }
     });
 
-    $('#btnEnviarSMS').hide();
-	$('#btnEnviarSMS').attr("href", inicioHref);
-	$('#btnEnviarCorreo').hide();
-	$('#btnEnviarCorreo').attr("href", inicioHref);
+    $('#btnPersonasEnviarSMS').hide();
+	$('#btnPersonasEnviarSMS').attr("href", inicioHref);
+	$('#btnPersonasEnviarCorreo').hide();
+	$('#btnPersonasEnviarCorreo').attr("href", inicioHref);
 }
 
 // Función para obtener todos las personas con sus celulares y correos
@@ -196,9 +196,9 @@ function PersonasCargarPersonasAccionesSeleccionActivasDesactivas() {
     $('#btnDesactivarPersonas').hide();
 }
 
-// Función para el evento clic del botón btnEnviarSMS
+// Función para el evento clic del botón btnPersonasEnviarSMS
 function PersonasBtnEnviarSMS() {
-    var valorHref = $('#btnEnviarSMS').attr("href");
+    var valorHref = $('#btnPersonasEnviarSMS').attr("href");
 
     if(valorHref == 'sms:'){
         $.alert({
@@ -219,7 +219,7 @@ function PersonasBtnEnviarSMS() {
     }
 }
 
-// Función para el evento clic del botón btnEnviarCorreo
+// Función para el evento clic del botón btnPersonasEnviarCorreo
 function PersonasBtnEnviarCorreo() {
     var valorHref = $('#btnActivarPersonas').attr("href");
 
@@ -354,25 +354,25 @@ function PersonasAccionesSeleccionarPersonas() {
 
         if(accion == 'S')
         {
-            $('#btnEnviarSMS').show();
-            $('#btnEnviarSMS').attr("href", valorCompletoHref);
+            $('#btnPersonasEnviarSMS').show();
+            $('#btnPersonasEnviarSMS').attr("href", valorCompletoHref);
         }
         else
         {
-            $('#btnEnviarCorreo').show();
-            $('#btnEnviarCorreo').attr("href", valorCompletoHref);
+            $('#btnPersonasEnviarCorreo').show();
+            $('#btnPersonasEnviarCorreo').attr("href", valorCompletoHref);
         }
     }
     else{
         if(accion == 'S')
         {
-            $('#btnEnviarSMS').hide();
-            $('#btnEnviarSMS').attr("href", inicioHref);
+            $('#btnPersonasEnviarSMS').hide();
+            $('#btnPersonasEnviarSMS').attr("href", inicioHref);
         }
         else
         {
-            $('#btnEnviarCorreo').hide();
-            $('#btnEnviarCorreo').attr("href", inicioHref);
+            $('#btnPersonasEnviarCorreo').hide();
+            $('#btnPersonasEnviarCorreo').attr("href", inicioHref);
         }
     }
 }

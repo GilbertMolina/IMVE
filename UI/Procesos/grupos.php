@@ -140,6 +140,51 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="content">
                 <div class="container">
+                    <div id="menuAccionesGrupos">
+                        <h3 class="text-center">Acciones Masivas</h3>
+                        <hr>
+                        <div class="row">
+                            <div class="col-ws-12">
+                                <div data-role="collapsible" data-theme="b" data-content-theme="a">
+                                    <h2>¿Que desea realizar?</h2>
+                                    <div class="row">
+                                        <div class="col-ws-12">
+                                            <div data-role="collapsible" data-theme="b" data-content-theme="a" data-inset="true">
+                                                <h2>Contactar personas</h2>
+                                                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-bottom: 0px" onchange="GruposCargarPersonasGrupoAccionesSeleccion()">
+                                                    <input type="radio" name="filtroGruposContacto" id="sms" value="S" checked="checked">
+                                                    <label for="sms">SMS</label>
+                                                    <input type="radio" name="filtroGruposContacto" id="correo" value="C">
+                                                    <label for="correo">Correo</label>
+                                                </fieldset>
+                                                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-bottom: -10px" onchange="GruposCargarPersonasGrupoAccionesSeleccion()">
+                                                    <input type="radio" name="filtroGruposTipoIntegrante" id="lideres" value="S" checked="checked">
+                                                    <label for="lideres">Líderes</label>
+                                                    <input type="radio" name="filtroGruposTipoIntegrante" id="participantes" value="N">
+                                                    <label for="participantes">Participantes</label>
+                                                    <input type="radio" name="filtroGruposTipoIntegrante" id="todos" value="">
+                                                    <label for="todos">Todos</label>
+                                                </fieldset>
+                                                <br>
+                                                <form class="ui-filterable" style="margin-bottom: -20px">
+                                                    <input id="filtroSeleccion" data-type="search" placeholder="Filtrar personas">
+                                                </form>
+                                                <div id="GruposAccionesSeleccion">
+                                                    <!-- Aquí se insertan los datos dinámicamente -->
+                                                </div>
+                                                <div class="row text-center">
+                                                    <div class="col-ws-12">
+                                                        <a href="sms:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini" id="btnGruposEnviarSMS" onclick="GruposBtnEnviarSMS()">Enviar SMS</a>
+                                                        <a href="mailto:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini" id="btnGruposEnviarCorreo" onclick="GruposBtnEnviarCorreo()">Enviar Correo</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <h3 class="text-center">Grupos</h3>
                     <hr>
                     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" onchange="GruposCargarGruposListado()">
@@ -151,14 +196,15 @@ $utilitarios = new UtilitariosProcesos();
                     <form class="ui-filterable">
                         <input id="filtro" data-type="search" placeholder="Búsqueda">
                     </form>
-                    <ul data-role="listview" id="listaGrupos" data-filter="true" data-input="#filtro" data-split-icon="gear" data-autodividers="true" data-inset="true">
+                    <div id="divListaGrupos">
                         <!-- Aquí se insertan los datos dinámicamente -->
-                    </ul>
+                    </div>
                 </div>
             </div>
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
+                        <li><button href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-gear" data-theme="b" onclick="GruposMostrarAccionesMasivas()">Acciones masivas</button></li>
                         <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosGruposDetalleAgregar()">Agregar</a></li>
                     </ul>
                 </div>

@@ -20,8 +20,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasPorOrd
         $ordenamiento = $_POST['ordenamiento'];
         $estado       = $_POST['estado'];
 
-        $sqlPersona               = "CALL TbPersonasListarPorOrdenamientoEstado('$ordenamiento', '$estado')";
-        $consultaPersona          = $db->consulta($sqlPersona);
+        $sqlPersona        = "CALL TbPersonasListarPorOrdenamientoEstado('$ordenamiento', '$estado')";
+        $consultaPersona   = $db->consulta($sqlPersona);
         $consultaAcciones  = $db->consulta($sqlPersona);
         $cadena_datos      = "";
 
@@ -41,11 +41,12 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasPorOrd
                 {
                     $cadena_datos .= '<div data-role="popup" id="acciones_'. $resultadosAcciones['IdPersona'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
                     $cadena_datos .= '<h3>Contacto</h3>';
+                    $cadena_datos .= '<hr>';
 
                     if($resultadosAcciones['Telefono'] == ""
                         && $resultadosAcciones['Celular'] == ""
                         && $resultadosAcciones['Correo'] == ""){
-                        $cadena_datos .= '<p>' . $resultadosAcciones['NombreCompleto'] . ' no tiene asociado un número de teléfono fijo, un número de teléfono móvil, ni un correo electrónico con el cual se pueda contactar.</p>';
+                        $cadena_datos .= '<p>Lo sentimos, ' . $resultadosAcciones['NombreCompleto'] . ' no tiene asociado un número de teléfono fijo, un número de teléfono móvil, ni un correo electrónico con el cual se pueda contactar.</p>';
                     }
                     else{
                         $cadena_datos .= '<p>Estas son las acciones disponibles para ' . $resultadosAcciones['NombreCompleto'] . ':</p>';
@@ -82,8 +83,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasCelula
     try {
         $accion = $_POST['accion'];
 
-        $sqlPersona               = "CALL TbPersonasListarCelularesCorreos('$accion')";
-        $consultaPersona          = $db->consulta($sqlPersona);
+        $sqlPersona        = "CALL TbPersonasListarCelularesCorreos('$accion')";
+        $consultaPersona   = $db->consulta($sqlPersona);
         $cadena_datos      = "";
 
         $cadena_datos .= '<label for="accionesSeleccionPersonas" style="margin-top: 30px">Lista de personas para seleccionar:</label>';
@@ -120,8 +121,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasFiltra
     try {
         $estado = $_POST['estado'];
 
-        $sqlPersona               = "CALL TbPersonasListarActivosInactivos('$estado')";
-        $consultaPersona          = $db->consulta($sqlPersona);
+        $sqlPersona        = "CALL TbPersonasListarActivosInactivos('$estado')";
+        $consultaPersona   = $db->consulta($sqlPersona);
         $cadena_datos      = "";
 
         $cadena_datos .= '<label for="accionesSeleccionPersonasActivarDesactivar" style="margin-top: 30px">Lista de personas para seleccionar:</label>';
@@ -199,31 +200,35 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarPersona') {
         }
 
         if ($exito == "1"){
-            foreach($listaGruposLider as $grupoPersonaLider){
-                $sqlGrupoPersona     = "CALL TbGruposPersonasAgregar('$idPersona','$grupoPersonaLider','S',$usuarioActual)";
-                $consultaGruposLider = $db->consulta(utf8_decode($sqlGrupoPersona));
+            if(count($listaGruposLider) > 0){
+                foreach($listaGruposLider as $grupoPersonaLider){
+                    $sqlGrupoPersona     = "CALL TbGruposPersonasAgregar('$idPersona','$grupoPersonaLider','S',$usuarioActual)";
+                    $consultaGruposLider = $db->consulta(utf8_decode($sqlGrupoPersona));
 
-                if ($db->num_rows($consultaGruposLider) != 0) {
-                    while ($resultadosGruposPersonaLider = $db->fetch_array($consultaGruposLider)) {
-                        $idGrupoPersona = $resultadosGruposPersonaLider['Id'];
-                        $exito          = "1";
+                    if ($db->num_rows($consultaGruposLider) != 0) {
+                        while ($resultadosGruposPersonaLider = $db->fetch_array($consultaGruposLider)) {
+                            $idGrupoPersona = $resultadosGruposPersonaLider['Id'];
+                            $exito          = "1";
+                        }
+                    } else {
+                        $exito = "-1";
                     }
-                } else {
-                    $exito = "-1";
                 }
             }
 
-            foreach($listaGruposParticipante as $grupoPersonaParticipante){
-                $sqlGrupoPersona            = "CALL TbGruposPersonasAgregar('$idPersona','$grupoPersonaParticipante','N',$usuarioActual)";
-                $consultaGruposParticipante = $db->consulta(utf8_decode($sqlGrupoPersona));
+            if(count($listaGruposParticipante) > 0) {
+                foreach($listaGruposParticipante as $grupoPersonaParticipante){
+                    $sqlGrupoPersona            = "CALL TbGruposPersonasAgregar('$idPersona','$grupoPersonaParticipante','N',$usuarioActual)";
+                    $consultaGruposParticipante = $db->consulta(utf8_decode($sqlGrupoPersona));
 
-                if ($db->num_rows($consultaGruposParticipante) != 0) {
-                    while ($resultadosGruposPersonaParticipante = $db->fetch_array($consultaGruposParticipante)) {
-                        $idGrupoPersona = $resultadosGruposPersonaParticipante['Id'];
-                        $exito          = "1";
+                    if ($db->num_rows($consultaGruposParticipante) != 0) {
+                        while ($resultadosGruposPersonaParticipante = $db->fetch_array($consultaGruposParticipante)) {
+                            $idGrupoPersona = $resultadosGruposPersonaParticipante['Id'];
+                            $exito          = "1";
+                        }
+                    } else {
+                        $exito = "-1";
                     }
-                } else {
-                    $exito = "-1";
                 }
             }
         }

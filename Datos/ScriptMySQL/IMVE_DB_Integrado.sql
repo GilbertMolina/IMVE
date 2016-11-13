@@ -2472,6 +2472,37 @@ WHERE GP.IdPersona = p_IdPersona
 END //
 DELIMITER ;
 
+-- TbGruposPersonasListarPersonasPorIdGrupo
+DROP PROCEDURE IF EXISTS IMVE.TbGruposPersonasListarPersonasPorIdGrupo;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbGruposPersonasListarPersonasPorIdGrupo(
+	p_IdGrupo INT
+)
+BEGIN
+
+SELECT GP.IdGrupo
+	, GP.IdPersona AS PersonaParticipante
+    , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+    , P.Telefono
+    , P.Celular
+    , P.Correo
+    , GP.FechaInicio
+    , GP.FechaFin
+    , GP.EsLider
+FROM IMVE.TbGruposPersonas AS GP
+INNER JOIN IMVE.TbGrupos AS G
+	ON GP.IdGrupo = G.IdGrupo
+INNER JOIN IMVE.TbPersonas AS P
+	ON GP.IdPersona = P.IdPersona
+WHERE GP.IdGrupo = p_IdGrupo
+    AND GP.FechaFin IS NULL
+    AND G.Activo = 'A'
+    AND P.Activo = 'A';
+
+END //
+DELIMITER ;
+
 -- TbGruposPersonasListarPorIdGrupoLideres
 DROP PROCEDURE IF EXISTS IMVE.TbGruposPersonasListarPorIdGrupoLideres;
 
@@ -2532,6 +2563,56 @@ WHERE GP.IdGrupo = p_IdGrupo
     AND GP.FechaFin IS NULL
     AND G.Activo = 'A'
     AND P.Activo = 'A';
+
+END //
+DELIMITER ;
+
+-- TbGruposPersonasListarPorEsLider
+DROP PROCEDURE IF EXISTS IMVE.TbGruposPersonasListarPorEsLider;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbGruposPersonasListarPorEsLider(
+	p_EsLider CHAR(1)
+)
+BEGIN
+
+IF p_EsLider <> '' THEN
+	SELECT DISTINCT P.IdPersona
+		, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+		, P.Telefono
+		, P.Celular
+		, P.Correo
+		, GP.FechaInicio
+		, GP.FechaFin
+		, GP.EsLider
+	FROM IMVE.TbGruposPersonas AS GP
+	INNER JOIN IMVE.TbGrupos AS G
+		ON GP.IdGrupo = G.IdGrupo
+	INNER JOIN IMVE.TbPersonas AS P
+		ON GP.IdPersona = P.IdPersona
+	WHERE GP.EsLider = p_EsLider
+		AND GP.FechaFin IS NULL
+		AND G.Activo = 'A'
+		AND P.Activo = 'A'
+	ORDER BY NombreCompleto;
+ELSE 
+	SELECT DISTINCT P.IdPersona
+		, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+		, P.Telefono
+		, P.Celular
+		, P.Correo
+		, GP.FechaInicio
+		, GP.FechaFin
+	FROM IMVE.TbGruposPersonas AS GP
+	INNER JOIN IMVE.TbGrupos AS G
+		ON GP.IdGrupo = G.IdGrupo
+	INNER JOIN IMVE.TbPersonas AS P
+		ON GP.IdPersona = P.IdPersona
+	WHERE GP.FechaFin IS NULL
+		AND G.Activo = 'A'
+		AND P.Activo = 'A'
+	ORDER BY NombreCompleto;
+END IF;
 
 END //
 DELIMITER ;
