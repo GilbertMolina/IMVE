@@ -145,58 +145,49 @@ $utilitarios = new UtilitariosProcesos();
                         <hr>
                         <div class="row">
                             <div class="col-ws-12">
-                                <div data-role="collapsible" data-theme="b" data-content-theme="a">
-                                    <h2>¿Que desea realizar?</h2>
-                                    <div class="row">
+                                <div data-role="collapsible" data-theme="b" data-content-theme="a" data-inset="true">
+                                    <h2>Contactar personas</h2>
+                                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-bottom: -10px" onchange="PersonasCargarPersonasAccionesSeleccion()">
+                                        <input type="radio" name="filtroAccion" id="sms" value="S" checked="checked">
+                                        <label for="sms">SMS</label>
+                                        <input type="radio" name="filtroAccion" id="correo" value="C">
+                                        <label for="correo">Correo</label>
+                                    </fieldset>
+                                    <br>
+                                    <form class="ui-filterable" style="margin-bottom: -20px">
+                                        <input id="filtroSeleccion" data-type="search" placeholder="Filtrar personas">
+                                    </form>
+                                    <div id="accionesSeleccion">
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </div>
+                                    <div class="row text-center">
                                         <div class="col-ws-12">
-                                            <div data-role="collapsible" data-theme="b" data-content-theme="a" data-inset="true">
-                                                <h2>Contactar personas</h2>
-                                                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-bottom: -10px" onchange="PersonasCargarPersonasAccionesSeleccion()">
-                                                    <input type="radio" name="filtroAccion" id="sms" value="S" checked="checked">
-                                                    <label for="sms">SMS</label>
-                                                    <input type="radio" name="filtroAccion" id="correo" value="C">
-                                                    <label for="correo">Correo</label>
-                                                </fieldset>
-                                                <br>
-                                                <form class="ui-filterable" style="margin-bottom: -20px">
-                                                    <input id="filtroSeleccion" data-type="search" placeholder="Filtrar personas">
-                                                </form>
-                                                <div id="accionesSeleccion">
-                                                    <!-- Aquí se insertan los datos dinámicamente -->
-                                                </div>
-                                                <div class="row text-center">
-                                                    <div class="col-ws-12">
-                                                        <a href="sms:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini" id="btnPersonasEnviarSMS" onclick="PersonasBtnEnviarSMS()">Enviar SMS</a>
-                                                        <a href="mailto:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini" id="btnPersonasEnviarCorreo" onclick="PersonasBtnEnviarCorreo()">Enviar Correo</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <a href="sms:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini" id="btnPersonasEnviarSMS" onclick="PersonasBtnEnviarSMS()">Enviar SMS</a>
+                                            <a href="mailto:" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini" id="btnPersonasEnviarCorreo" onclick="PersonasBtnEnviarCorreo()">Enviar Correo</a>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                </div>
+                            </div>
+                            <div class="col-ws-12">
+                                <div data-role="collapsible" data-theme="b" data-content-theme="a" data-inset="true">
+                                    <h2>Activar o inactivar personas</h2>
+                                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-bottom: -10px" onchange="PersonasCargarPersonasAccionesSeleccionActivasDesactivas()">
+                                        <input type="radio" name="filtroActivasDesactivas" id="activar" value="A" checked="checked">
+                                        <label for="activar">Inactivar</label>
+                                        <input type="radio" name="filtroActivasDesactivas" id="desactivar" value="I">
+                                        <label for="desactivar">Activar</label>
+                                    </fieldset>
+                                    <br>
+                                    <form class="ui-filterable" style="margin-bottom: -20px">
+                                        <input id="filtroSeleccionActivasDesactivas" data-type="search" placeholder="Filtrar personas">
+                                    </form>
+                                    <div id="accionesSeleccionActivasDesactivas">
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </div>
+                                    <div class="row text-center">
                                         <div class="col-ws-12">
-                                            <div data-role="collapsible" data-theme="b" data-content-theme="a" data-inset="true">
-                                                <h2>Activar o inactivar personas</h2>
-                                                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" style="margin-bottom: -10px" onchange="PersonasCargarPersonasAccionesSeleccionActivasDesactivas()">
-                                                    <input type="radio" name="filtroActivasDesactivas" id="activar" value="A" checked="checked">
-                                                    <label for="activar">Inactivar</label>
-                                                    <input type="radio" name="filtroActivasDesactivas" id="desactivar" value="I">
-                                                    <label for="desactivar">Activar</label>
-                                                </fieldset>
-                                                <br>
-                                                <form class="ui-filterable" style="margin-bottom: -20px">
-                                                    <input id="filtroSeleccionActivasDesactivas" data-type="search" placeholder="Filtrar personas">
-                                                </form>
-                                                <div id="accionesSeleccionActivasDesactivas">
-                                                    <!-- Aquí se insertan los datos dinámicamente -->
-                                                </div>
-                                                <div class="row text-center">
-                                                    <div class="col-ws-12">
-                                                        <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" id="btnActivarPersonas" onclick="PersonasBtnActivarPersonas()">Activar</a>
-                                                        <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left ui-btn-inline ui-mini" id="btnDesactivarPersonas" onclick="PersonasBtnDesactivarPersonas()">Inactivar</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" id="btnActivarPersonas" onclick="PersonasBtnActivarPersonas()">Activar</a>
+                                            <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left ui-btn-inline ui-mini" id="btnDesactivarPersonas" onclick="PersonasBtnDesactivarPersonas()">Inactivar</a>
                                         </div>
                                     </div>
                                 </div>
