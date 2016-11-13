@@ -243,23 +243,75 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarPersona') {
 // Se realiza la modificación de una persona existente
 if (isset($_POST['action']) && $_POST['action'] == 'modificarPersona') {
     try {
-        $idPersona            = $_POST['idPersona'];
-        $identificacion       = $_POST['identificacion'];
-        $nombre               = $_POST['nombre'];
-        $apellido1            = $_POST['apellido1'];
-        $apellido2            = $_POST['apellido2'];
-        $fechaNacimiento      = $_POST['fechaNacimiento'];
-        $distrito             = $_POST['distrito'];
-        $direccionDomicilio   = $_POST['direccionDomicilio'];
-        $telefono             = $_POST['telefono'];
-        $celular              = $_POST['celular'];
-        $correo               = $_POST['correo'];
-        $sexo                 = $_POST['sexo'];
-        $estado               = $_POST['estado'];
-        $usuarioActual        = $_SESSION['idPersona'];
+        $idPersona           = $_POST['idPersona'];
+        $identificacion      = $_POST['identificacion'];
+        $nombre              = $_POST['nombre'];
+        $apellido1           = $_POST['apellido1'];
+        $apellido2           = $_POST['apellido2'];
+        $fechaNacimiento     = $_POST['fechaNacimiento'];
+        $distrito            = $_POST['distrito'];
+        $direccionDomicilio  = $_POST['direccionDomicilio'];
+        $telefono            = $_POST['telefono'];
+        $celular             = $_POST['celular'];
+        $correo              = $_POST['correo'];
+        $sexo                = $_POST['sexo'];
+        $estado              = $_POST['estado'];
+        $usuarioActual       = $_SESSION['idPersona'];
+
+        $listaGruposLideresAgregado         = json_decode(stripslashes($_POST['listaGruposLideresAgregado']));
+        $listaGruposParticipantesAgregado   = json_decode(stripslashes($_POST['listaGruposParticipantesAgregado']));
+        $listaGruposLideresEliminados       = json_decode(stripslashes($_POST['listaGruposLideresEliminados']));
+        $listaGruposParticipantesEliminados = json_decode(stripslashes($_POST['listaGruposParticipantesEliminados']));
 
         $sqlPersona      = "CALL TbPersonasModificar('$idPersona', '$identificacion','$nombre','$apellido1','$apellido2','$fechaNacimiento','$distrito','$direccionDomicilio','$telefono','$celular','$correo','$sexo','$estado','$usuarioActual')";
         $consultaPersona = $db->consulta(utf8_decode($sqlPersona));
+
+        if(count($listaGruposLideresAgregado) > 0){
+            foreach($listaGruposLideresAgregado as $grupoPersonaLiderAgregar){
+                $sqlGrupoPersonaLiderAgregar = "CALL TbGruposPersonasAgregar('$idPersona','$grupoPersonaLiderAgregar','S',$usuarioActual)";
+                $consultaGruposLiderAgregar  = $db->consulta(utf8_decode($sqlGrupoPersonaLiderAgregar));
+
+                if ($db->num_rows($consultaGruposLiderAgregar) != 0) {
+                    while ($resultadosGruposPersonaLiderAgregar = $db->fetch_array($consultaGruposLiderAgregar)) {
+                        $idGrupoPersonaLiderAgregado = $resultadosGruposPersonaLiderAgregar['Id'];
+                        $exito                       = "1";
+                    }
+                } else {
+                    $exito = "-1";
+                }
+            }
+        }
+
+        if(count($listaGruposParticipantesAgregado) > 0){
+            foreach($listaGruposParticipantesAgregado as $grupoPersonaParticipanteAgregar){
+                $sqlGrupoPersonaParticipanteAgregar = "CALL TbGruposPersonasAgregar('$idPersona','$grupoPersonaParticipanteAgregar','N',$usuarioActual)";
+                $consultaGruposParticipanteAgregar  = $db->consulta(utf8_decode($sqlGrupoPersonaParticipanteAgregar));
+
+                if ($db->num_rows($consultaGruposParticipanteAgregar) != 0) {
+                    while ($resultadosGruposPersonaParticipanteAgregar = $db->fetch_array($consultaGruposParticipanteAgregar)) {
+                        $idGrupoPersonaParticipanteAgregado = $resultadosGruposPersonaParticipanteAgregar['Id'];
+                        $exito                              = "1";
+                    }
+                } else {
+                    $exito = "-1";
+                }
+            }
+        }
+
+        if(count($listaGruposLideresEliminados) > 0){
+            foreach($listaGruposLideresEliminados as $grupoPersonaLiderEliminado){
+                $sqlGrupoPersonaLiderEliminado = "CALL TbGruposPersonasModificar('$idPersona','$grupoPersonaLiderEliminado','S',$usuarioActual)";
+                $consultaGruposLiderEliminado  = $db->consulta(utf8_decode($sqlGrupoPersonaLiderEliminado));
+            }
+        }
+
+        if(count($listaGruposParticipantesEliminados) > 0){
+            foreach($listaGruposParticipantesEliminados as $grupoPersonaParticipanteEliminado){
+                $sqlGrupoPersonaParticipanteEliminado = "CALL TbGruposPersonasModificar('$idPersona','$grupoPersonaParticipanteEliminado','N',$usuarioActual)";
+                $consultaGruposParticipanteEliminado  = $db->consulta(utf8_decode($sqlGrupoPersonaParticipanteEliminado));
+            }
+        }
+
         echo 1;
     }
     catch (Exception $e) {
@@ -274,6 +326,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
         
         $utilizarCantones = false;
         $utilizarDistritos = false;
+
+        $listaTodalPersonasGruposLider = "";
+        $listaTodalPersonasGruposParticipante = "";
 
         $sqlPersona      = "CALL TbPersonasListarPorIdPersona('$idPersona')";
         $consultaPersona = $db->consulta($sqlPersona);
@@ -489,6 +544,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                         if(in_array($resultadosGruposLider['IdGrupo'], $arregloGruposPersonaLider))
                         {
                             $cadena_datos .= '<option value="' . $resultadosGruposLider['IdGrupo'] . '" selected>' . utf8_encode($resultadosGruposLider['Descripcion']) . '</option>';
+                            $listaTodalPersonasGruposLider .= $resultadosGruposLider['IdGrupo'] . ',';
                         }
                         else
                         {
@@ -498,6 +554,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 }
                 $cadena_datos .= '</select>';
                 $cadena_datos .= '</div>';
+                $cadena_datos .= '<input type="hidden" name="hdfPersonasLider" id="hdfPersonasLider" value="' . substr($listaTodalPersonasGruposLider,0,strlen($listaTodalPersonasGruposLider)-1) . '">';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div id="divPersonaGruposParticipante">';
                 $cadena_datos .= '<label for="PersonaGruposParticipante">Grupos en los cuales es participante:</label>';
@@ -510,6 +567,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                         if(in_array($resultadosGruposParticipante['IdGrupo'], $arregloGruposPersonaParticipante))
                         {
                             $cadena_datos .= '<option value="' . $resultadosGruposParticipante['IdGrupo'] . '" selected>' . utf8_encode($resultadosGruposParticipante['Descripcion']) . '</option>';
+                            $listaTodalPersonasGruposParticipante .= $resultadosGruposParticipante['IdGrupo'] . ',';
                         }
                         else
                         {
@@ -519,6 +577,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 }
                 $cadena_datos .= '</select>';
                 $cadena_datos .= '</div>';
+                $cadena_datos .= '<input type="hidden" name="hdfPersonasParticipante" id="hdfPersonasParticipante" value="' . substr($listaTodalPersonasGruposParticipante,0,strlen($listaTodalPersonasGruposParticipante)-1) . '">';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="cboEstadoPersona">Estado:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';

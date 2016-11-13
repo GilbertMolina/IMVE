@@ -49,7 +49,7 @@ $utilitarios = new UtilitariosProcesos();
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
         <!-- Fin carga de los archivos javascript -->
     </head>
-    <body>
+    <body onload="CompromisosDetalleOnLoad()">
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
@@ -143,10 +143,95 @@ $utilitarios = new UtilitariosProcesos();
                     <div class="row">
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
-                            <h3 class="text-center">Compromisos</h3>
+                            <h3 class="text-center">Mantenimientos de Compromisos</h3>
                             <hr>
-                            <form method="post" action="#" id="compromisos">
-
+                            <form method="post" action="#" id="compromisosDetalle">
+                                <div>
+                                    <label for="cboIdMinisterios">Ministerios:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <select name="cboIdMinisterios" id="cboIdMinisterios">
+                                        <option value="0">Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboIdTiposCompromisos">Tipos compromisos:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <select name="cboIdTiposCompromisos" id="cboIdTiposCompromisos">
+                                        <option value="0">Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtDescripcionCompromiso">Descripción:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtDescripcionCompromiso" id="txtDescripcionCompromiso" maxlength="50" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtFechaInicio">Fecha y hora de inicio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="datetime-local" name="txtFechaInicio" id="txtFechaInicio" data-clear-btn="true" value="" >
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtFechaFinal">Fecha y hora de fin:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="datetime-local" name="txtFechaFinal" id="txtFechaFinal" data-clear-btn="true" value="" >
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtLugar">Lugar:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtLugar" id="txtLugar" maxlength="100" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtTipoResponsable">Tipo responsable:</label>
+                                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-center" onchange="CompromisosCambiarTipoReponsable()">
+                                        <input type="radio" name="tipoResponsable" id="persona" value="P" checked="checked">
+                                        <label for="persona">Personas</label>
+                                        <input type="radio" name="tipoResponsable" id="grupo" value="G">
+                                        <label for="grupo">Grupos</label>
+                                    </fieldset>
+                                </div>
+                                <div id="divCompromisosPersonasResponsables">
+                                    <br>
+                                    <label for="CompromisosPersonasResponsables">Personas reponsables:</label>
+                                    <select name="CompromisosPersonasResponsables" id="CompromisosPersonasResponsables" multiple="multiple" data-native-menu="false">
+                                        <option>Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <div id="divCompromisosGruposResponsables">
+                                    <br>
+                                    <label for="CompromisosGruposResponsables">Grupos responsables:</label>
+                                    <select name="CompromisosGruposResponsables" id="CompromisosGruposResponsables" multiple="multiple" data-native-menu="false">
+                                        <option>Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div id="divCompromisosPersonasParticipantes">
+                                    <label for="CompromisosPersonasParticipantes">Personas participantes:</label>
+                                    <select name="CompromisosPersonasParticipantes" id="CompromisosPersonasParticipantes" multiple="multiple" data-native-menu="false">
+                                        <option>Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboEstadoGrupo">Estado:</label>
+                                    <select name="cboEstadoGrupo" id="cboEstadoGrupo" disabled>
+                                        <option value="0">Seleccione</option>
+                                        <option value="A" selected>Activo</option>
+                                        <option value="I">Inactivo</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-1"></div>
+                                    <div class="col-xs-10">
+                                        <button type="button" id="btnAceptar" data-theme="b" onclick="GruposRegistrarGrupo()" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
+                                    </div>
+                                    <div class="col-xs-1"></div>
+                                </div>
                             </form>
                         </div>
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>
@@ -155,9 +240,17 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
-                    <ul>
-                        <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosCompromisos()">Atrás</a></li>
-                    </ul>
+                    <div id="DesdeListaCompromisos">
+                        <ul>
+                            <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosCompromisos()">Atrás</a></li>
+                        </ul>
+                    </div>
+                    <div id="DesdeGrupos">
+                        <ul>
+                            <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosGruposDetalleRegresar(ObtenerParametroPorNombre('IdGrupo'))">Regresar al grupo</a></li>
+                            <li><a href="#" data-transition="flip" data-icon="carat-r" data-theme="b" onclick="UtiProcesosPaginaProcesosCompromisos()">Compromisos</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

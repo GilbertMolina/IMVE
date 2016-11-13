@@ -207,9 +207,17 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
-                    <ul>
-                        <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosGrupos()">Atrás</a></li>
-                    </ul>
+                    <div id="NuevoGrupo">
+                        <ul>
+                            <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosGrupos()">Atrás</a></li>
+                        </ul>
+                    </div>
+                    <div id="DetalleGrupo">
+                        <ul>
+                            <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosGrupos()">Atrás</a></li>
+                            <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosCompromisosDetalleAgregarDesdeGrupo(ObtenerParametroPorNombre('IdGrupo'))">Agregar Compromiso</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

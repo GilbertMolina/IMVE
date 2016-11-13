@@ -128,6 +128,12 @@ function UtiProcesosPaginaProcesosCompromisosDetalleAgregar()
     RedireccionPagina('compromisosDetalle.php');
 }
 
+// Función para ingresar a la pantalla de proceso de compromisos detalle para agregar
+function UtiProcesosPaginaProcesosCompromisosDetalleAgregarDesdeGrupo(p_IdGrupo)
+{
+    RedireccionPagina('compromisosDetalle.php?IdGrupo=' + p_IdGrupo);
+}
+
 // Función para ingresar a la pantalla de proceso de compromisos detalle para modificar
 function UtiProcesosPaginaProcesosCompromisosDetalleModificar(p_IdCompromiso)
 {
@@ -148,6 +154,12 @@ function UtiProcesosPaginaProcesosGruposDetalleAgregar()
 
 // Función para ingresar a la pantalla de proceso de grupos detalle para modificar
 function UtiProcesosPaginaProcesosGruposDetalleModificar(p_IdGrupo)
+{
+    RedireccionPagina('gruposDetalle.php?IdGrupo=' + p_IdGrupo);
+}
+
+// Función para ingresar a la pantalla de proceso de grupos detalle para modificar
+function UtiProcesosPaginaProcesosGruposDetalleRegresar(p_IdGrupo)
 {
     RedireccionPagina('gruposDetalle.php?IdGrupo=' + p_IdGrupo);
 }

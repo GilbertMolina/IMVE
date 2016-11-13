@@ -584,6 +584,102 @@ function PersonasModificarPersona(p_IdPersona) {
     var sexo = $('#cboSexo').val();
     var estado = $('#cboEstadoPersona').val();
 
+    // Se obtiene la lista inicial de los grupos en los cuales es lideres y/o participantes
+    var listadoInicialPersonasGruposLider = $('#hdfPersonasLider').val();
+    var listadoInicialPersonasGruposParticipante = $('#hdfPersonasParticipante').val();
+
+    // Se obtiene la lista actual de los grupos en los cuales es lideres y/o participantes
+    var gruposLider = $('#PersonaGruposLider').val();
+    var gruposParticipante = $('#PersonaGruposParticipante').val();
+
+    // Variables para obtener la lista de los grupos lideres y/o participantes en los cuales se acaba de integrar al grupo
+    var listaGruposLideresAgregado = [];
+    var listaGruposParticipantesAgregado = [];
+
+    // Variables para obtener la lista de los grupos lideres y/o participantes en los cuales ya no participa
+    var listaGruposLideresEliminados = [];
+    var listaGruposParticipantesEliminados = [];
+
+    if(gruposLider != null){
+        // Se pregunta si la lista inicial tiene algun registro
+        if(listadoInicialPersonasGruposLider.length > 0){
+            // Se obtiene los grupos en los cuales era líder
+            for(var i = 0; i < listadoInicialPersonasGruposLider.length; i++){
+                var busquedaEnArregloLideresEliminados = jQuery.inArray(listadoInicialPersonasGruposLider[i],gruposLider);
+                if(busquedaEnArregloLideresEliminados == -1){
+                    listaGruposLideresEliminados.push(listadoInicialPersonasGruposLider[i]);
+                }
+            }
+
+            // Se obtiene los grupos en los cuales ahora es líder
+            for(var i = 0; i < gruposLider.length; i++){
+                var busquedaEnArregloLideresAgregados = jQuery.inArray(gruposLider[i],listadoInicialPersonasGruposLider);
+                if(busquedaEnArregloLideresAgregados == -1){
+                    listaGruposLideresAgregado.push(gruposLider[i]);
+                }
+            }
+        }
+        else
+        {
+            // Se obtiene los grupos en los cuales ahora es líder
+            for(var i = 0; i < gruposLider.length; i++){
+                listaGruposLideresAgregado.push(gruposLider[i]);
+            }
+        }
+    }
+
+    // Si la lista de lideres actual es nula y la lista inicial de lideres no esta vacia quiere decir que todos los que habian en la lista inicial, fueron eliminados
+    if(gruposLider == null
+        && listadoInicialPersonasGruposLider.length > 0){
+        // Se obtiene los grupos en los cuales era líder
+        for(var i = 0; i < listadoInicialPersonasGruposLider.length; i++){
+            listaGruposLideresEliminados.push(listadoInicialPersonasGruposLider[i]);
+        }
+    }
+
+    if(gruposParticipante != null){
+        // Se pregunta si la lista inicial tiene algun registro
+        if(listadoInicialPersonasGruposParticipante.length > 0){
+            // Se obtiene los grupos en los cuales era participante
+            for(var i = 0; i < listadoInicialPersonasGruposParticipante.length; i++){
+                var busquedaEnArregloParticipantesEliminados = jQuery.inArray(listadoInicialPersonasGruposParticipante[i],gruposParticipante);
+                if(busquedaEnArregloParticipantesEliminados == -1){
+                    listaGruposParticipantesEliminados.push(listadoInicialPersonasGruposParticipante[i]);
+                }
+            }
+
+            // Se obtiene los grupos en los cuales ahora es participante
+            for(var i = 0; i < gruposParticipante.length; i++){
+                var busquedaEnArregloParticipantesAgregadoss = jQuery.inArray(gruposParticipante[i],listadoInicialPersonasGruposParticipante);
+                if(busquedaEnArregloParticipantesAgregadoss == -1){
+                    listaGruposParticipantesAgregado.push(gruposParticipante[i]);
+                }
+            }
+        }
+        else
+        {
+            // Se obtiene los grupos en los cuales ahora es participante
+            for(var i = 0; i < gruposParticipante.length; i++){
+                listaGruposParticipantesAgregado.push(gruposParticipante[i]);
+            }
+        }
+    }
+
+    // Si la lista de participantes actual es nula y la lista inicial de participantes no esta vacia quiere decir que todos los que habian en la lista inicial, fueron eliminados
+    if(gruposParticipante == null
+        && listadoInicialPersonasGruposParticipante.length > 0){
+        // Se obtiene los grupos en los cuales era participante
+        for(var i = 0; i < listadoInicialPersonasGruposParticipante.length; i++){
+            listaGruposParticipantesEliminados.push(listadoInicialPersonasGruposParticipante[i]);
+        }
+    }
+
+    // Se convierten a formato JSON las listas
+    var listaGruposLideresAgregadoJson = JSON.stringify(listaGruposLideresAgregado);
+    var listaGruposLideresEliminadosJson = JSON.stringify(listaGruposLideresEliminados);
+    var listaGruposParticipantesAgregadoJson = JSON.stringify(listaGruposParticipantesAgregado);
+    var listaGruposParticipantesEliminadosJson = JSON.stringify(listaGruposParticipantesEliminados);
+
     if(direccionDomicilio.includes("Clear text"))
     {
         direccionDomicilioNuevo = direccionDomicilio.substring(0, direccionDomicilio.length-10);
@@ -646,7 +742,11 @@ function PersonasModificarPersona(p_IdPersona) {
                             , celular
                             , correo
                             , sexo
-                            , estado);
+                            , estado
+                            , listaGruposLideresAgregadoJson
+                            , listaGruposLideresEliminadosJson
+                            , listaGruposParticipantesAgregadoJson
+                            , listaGruposParticipantesEliminadosJson);
                     }
                     , cancel: function(){
                         registarSinCorreo = false;
@@ -667,18 +767,23 @@ function PersonasModificarPersona(p_IdPersona) {
                     , celular
                     , correo
                     , sexo
-                    , estado);
+                    , estado
+                    , listaGruposLideresAgregadoJson
+                    , listaGruposLideresEliminadosJson
+                    , listaGruposParticipantesAgregadoJson
+                    , listaGruposParticipantesEliminadosJson);
             }
         }
     };
 }
-
 // Función que registra a la pesona a la base de datos por medio de Ajax
-function PersonasModificarPersonaEspecifica(p_IdPersona, p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo, p_Estado){
+function PersonasModificarPersonaEspecifica(p_IdPersona, p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo, p_Estado
+    , p_ListaGruposLideresAgregado, p_ListaGruposLideresEliminados, p_ListaGruposParticipantesAgregado, p_ListaGruposParticipantesEliminados){
     // Se define el action que será consultado desde la clase de acceso a datos
     var d = "action=modificarPersona&idPersona=" + p_IdPersona + "&identificacion=" + p_Identificacion + "&nombre=" + p_Nombre + "&apellido1=" + p_Apellido1 + "&apellido2=" + p_Apellido2 + "&fechaNacimiento="
         + p_FechaNacimiento + "&distrito=" + p_Distrito + "&direccionDomicilio=" + p_DireccionDomicilio + "&telefono=" + p_Telefono + "&celular=" + p_Celular + "&correo=" + p_Correo
-        + "&sexo=" + p_Sexo+ "&estado=" + p_Estado;
+        + "&sexo=" + p_Sexo+ "&estado=" + p_Estado + "&listaGruposLideresAgregado=" + p_ListaGruposLideresAgregado + "&listaGruposLideresEliminados=" + p_ListaGruposLideresEliminados
+        + "&listaGruposParticipantesAgregado=" + p_ListaGruposParticipantesAgregado + "&listaGruposParticipantesEliminados=" + p_ListaGruposParticipantesEliminados;
 
     // Enviar por Ajax a personasCAD.php
     $.ajax({

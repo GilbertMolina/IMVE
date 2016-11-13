@@ -136,7 +136,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarUsuario') {
             while($resultados = $db->fetch_array($consulta))
             {
                 $cadena_datos .= '<div>';
-                $cadena_datos .= '<label for="txtNombreUsuario">Usuario:</label>';
+                $cadena_datos .= '<label for="txtNombreUsuario">Persona:</label>';
                 $cadena_datos .= '<input type="text" name="txtNombreUsuario" id="txtNombreUsuario" maxlength="50" data-clear-btn="true" value="' . utf8_encode($resultados['NombreCompleto']) . '" disabled>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';

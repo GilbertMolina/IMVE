@@ -43,6 +43,28 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposCompromis
     }
 }
 
+// Obtiene el listado de tipos de compromisos activos, para insertarlos en un ComboBox
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposCompromisosActivosCombobox') {
+    try {
+        $sql          = "CALL TbTiposCompromisosListar()";
+        $consulta     = $db->consulta($sql);
+        $cadena_datos = "";
+
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos = '<option value="0">Seleccione</option>';
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdTipoCompromiso'] . '">' . utf8_encode($resultados['Descripcion']) . '</option>';
+            }
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
 // Se realiza el registro de un nuevo tipo de compromiso
 if (isset($_POST['action']) && $_POST['action'] == 'registrarTipoCompromiso') {
     try {

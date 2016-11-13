@@ -233,8 +233,60 @@ if (isset($_POST['action']) && $_POST['action'] == 'modificarGrupo') {
         $estado           = $_POST['estado'];
         $usuarioActual    = $_SESSION['idPersona'];
 
+        $listaPersonasLideresAgregado         = json_decode(stripslashes($_POST['listaPersonasLideresAgregado']));
+        $listaPersonasParticipantesAgregado   = json_decode(stripslashes($_POST['listaPersonasParticipantesAgregado']));
+        $listaPersonasLideresEliminados       = json_decode(stripslashes($_POST['listaPersonasLideresEliminados']));
+        $listaPersonasParticipantesEliminados = json_decode(stripslashes($_POST['listaPersonasParticipantesEliminados']));
+
         $sqlGrupo = "CALL TbGruposModificar('$idGrupo', '$idCategoriaGrupo','$idMinisterio','$descripcion','$estado','$usuarioActual')";
         $consultaGrupo = $db->consulta(utf8_decode($sqlGrupo));
+
+        if(count($listaPersonasLideresAgregado) > 0){
+            foreach($listaPersonasLideresAgregado as $personaGrupoLiderAgregar){
+                $sqlPersonaGrupoLiderAgregar  = "CALL TbGruposPersonasAgregar('$personaGrupoLiderAgregar','$idGrupo','S',$usuarioActual)";
+                $consultaPersonasLiderAgregar = $db->consulta(utf8_decode($sqlPersonaGrupoLiderAgregar));
+
+                if ($db->num_rows($consultaPersonasLiderAgregar) != 0) {
+                    while ($resultadosPersonaGruposLiderAgregar = $db->fetch_array($consultaPersonasLiderAgregar)) {
+                        $idPersonaGrupoLiderAgregado = $resultadosPersonaGruposLiderAgregar['Id'];
+                        $exito                       = "1";
+                    }
+                } else {
+                    $exito = "-1";
+                }
+            }
+        }
+
+        if(count($listaPersonasParticipantesAgregado) > 0){
+            foreach($listaPersonasParticipantesAgregado as $personaGrupoParticipanteAgregar){
+                $sqlPersonaGrupoParticipanteAgregar  = "CALL TbGruposPersonasAgregar('$personaGrupoParticipanteAgregar','$idGrupo','N',$usuarioActual)";
+                $consultaPersonasParticipanteAgregar = $db->consulta(utf8_decode($sqlPersonaGrupoParticipanteAgregar));
+
+                if ($db->num_rows($consultaPersonasParticipanteAgregar) != 0) {
+                    while ($resultadosPersonaGruposParticipanteAgregar = $db->fetch_array($consultaPersonasParticipanteAgregar)) {
+                        $idPersonaGrupoParticipanteAgregado = $resultadosPersonaGruposParticipanteAgregar['Id'];
+                        $exito                              = "1";
+                    }
+                } else {
+                    $exito = "-1";
+                }
+            }
+        }
+
+        if(count($listaPersonasLideresEliminados) > 0){
+            foreach($listaPersonasLideresEliminados as $personaGrupoLiderEliminado){
+                $sqlPersonaGrupoLiderEliminado = "CALL TbGruposPersonasModificar('$personaGrupoLiderEliminado','$idGrupo','S',$usuarioActual)";
+                $consultaPersonaLiderEliminado = $db->consulta(utf8_decode($sqlPersonaGrupoLiderEliminado));
+            }
+        }
+
+        if(count($listaPersonasParticipantesEliminados) > 0){
+            foreach($listaPersonasParticipantesEliminados as $personaGrupoParticipanteEliminado){
+                $sqlPersonaGrupoParticipanteEliminado = "CALL TbGruposPersonasModificar('$personaGrupoParticipanteEliminado','$idGrupo','N',$usuarioActual)";
+                $consultaPersonaParticipanteEliminado = $db->consulta(utf8_decode($sqlPersonaGrupoParticipanteEliminado));
+            }
+        }
+        
         echo 1;
     }
     catch (Exception $e) {
@@ -250,6 +302,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarGrupo') {
         $sqlGrupo      = "CALL TbGruposListarPorIdGrupo('$idGrupo')";
         $consultaGrupo = $db->consulta($sqlGrupo);
         $cadena_datos  = "";
+
+        $listaTodalGruposPersonasLider = "";
+        $listaTodalGruposPersonasParticipante = "";
 
         $smsLideres               = "";
         $smsFinalLideres          = "";
@@ -378,6 +433,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarGrupo') {
                         if(in_array($resultadosPersonasLideres['IdPersona'], $arregloPersonasLideres))
                         {
                             $cadena_datos .= '<option value="' . $resultadosPersonasLideres['IdPersona'] . '" selected>' . utf8_encode($resultadosPersonasLideres['NombreCompleto']) . '</option>';
+                            $listaTodalGruposPersonasLider .= $resultadosPersonasLideres['IdPersona'] . ',';
                         }
                         else
                         {
@@ -387,6 +443,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarGrupo') {
                 }
                 $cadena_datos .= '</select>';
                 $cadena_datos .= '</div>';
+                $cadena_datos .= '<input type="hidden" name="hdfGruposPersonaLider" id="hdfGruposPersonaLider" value="' . substr($listaTodalGruposPersonasLider,0,strlen($listaTodalGruposPersonasLider)-1) . '">';
                 $cadena_datos .= '<br>';
                 if($smsFinalLideres != ""
                     || $correoFinalLideres != ""){
@@ -416,6 +473,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarGrupo') {
                         if(in_array($resultadosGruposParticipantes['IdPersona'], $arregloPersonasParticipantes))
                         {
                             $cadena_datos .= '<option value="' . $resultadosGruposParticipantes['IdPersona'] . '" selected>' . utf8_encode($resultadosGruposParticipantes['NombreCompleto']) . '</option>';
+                            $listaTodalGruposPersonasParticipante .= $resultadosGruposParticipantes['IdPersona'] . ',';
                         }
                         else
                         {
@@ -425,6 +483,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarGrupo') {
                 }
                 $cadena_datos .= '</select>';
                 $cadena_datos .= '</div>';
+                $cadena_datos .= '<input type="hidden" name="hdfGruposPersonaParticipante" id="hdfGruposPersonaParticipante" value="' . substr($listaTodalGruposPersonasParticipante,0,strlen($listaTodalGruposPersonasParticipante)-1) . '">';
                 $cadena_datos .= '<br>';
                 if($smsFinalParticipantes != ""
                     || $correoFinalParticipantes != ""){
@@ -504,6 +563,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerGruposLideresListado'
         $sqlGrupo      = "CALL TbGruposListar()";
         $consultaGrupo = $db->consulta($sqlGrupo);
         $cadena_datos  = "";
+
         if($db->num_rows($consultaGrupo) != 0)
         {
             $cadena_datos = '<option>Seleccione</option>';
