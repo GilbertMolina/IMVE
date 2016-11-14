@@ -2375,6 +2375,32 @@ WHERE IdGrupo = p_IdGrupo;
 END //
 DELIMITER ;
 
+-- TbVisitasModificar
+DROP PROCEDURE IF EXISTS IMVE.TbVisitasModificar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbVisitasModificar(
+	p_IdVisita INT
+    , p_IdMinisterio INT
+    , p_Descripcion VARCHAR(50)
+    , p_FechaVisita DATETIME
+    , p_Cerrada CHAR(1)
+    , p_UsuarioUltimaModificacion INT
+)
+BEGIN
+
+UPDATE IMVE.TbVisitas
+SET  IdMinisterio = p_IdMinisterio
+	, Descripcion = p_Descripcion
+    , FechaVisita = p_FechaVisita
+    , Cerrada = p_Cerrada
+	, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+	, FechaUltimaModificacion = CURRENT_TIMESTAMP()
+WHERE IdVisita = p_IdVisita;
+
+END //
+DELIMITER ;
+
 -- TbGruposPersonasAgregar
 DROP PROCEDURE IF EXISTS IMVE.TbGruposPersonasAgregar;
 
@@ -2408,6 +2434,24 @@ VALUES
 );
 
 SELECT LAST_INSERT_ID() AS Id;
+
+END //
+DELIMITER ;
+
+-- TbPersonasVisitasEliminar
+DROP PROCEDURE IF EXISTS IMVE.TbPersonasVisitasEliminar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbPersonasVisitasEliminar(
+	p_IdVisita INT
+    , p_IdPersona INT
+)
+BEGIN
+
+DELETE
+FROM IMVE.TbPersonasVisitas
+WHERE IdVisita = p_IdVisita
+	AND IdPersona = p_IdPersona;
 
 END //
 DELIMITER ;
@@ -2685,36 +2729,6 @@ SELECT LAST_INSERT_ID() AS Id;
 END //
 DELIMITER ;
 
--- TbPersonasVisitasAgregar
-DROP PROCEDURE IF EXISTS IMVE.TbPersonasVisitasAgregar;
-
-DELIMITER //
-CREATE PROCEDURE IMVE.TbPersonasVisitasAgregar(
-	p_IdVisita INT
-    , p_IdPersona INT
-    , p_UsuarioUltimaModificacion INT
-)
-BEGIN
-
-INSERT INTO IMVE.TbPersonasVisitas(
-	IdVisita
-    , IdPersona
-    , UsuarioUltimaModificacion
-    , FechaUltimaModificacion
-)
-VALUES
-(
-	p_IdVisita
-    , p_IdPersona
-    , p_UsuarioUltimaModificacion
-    , CURRENT_TIMESTAMP()
-);
-
-SELECT LAST_INSERT_ID() AS Id;
-
-END //
-DELIMITER ;
-
 -- TbParticipantesCompromisosAgregar
 DROP PROCEDURE IF EXISTS IMVE.TbParticipantesCompromisosAgregar;
 
@@ -2796,6 +2810,154 @@ VALUES
 (
 	p_IdPersona
     , p_IdCompromiso
+    , p_UsuarioUltimaModificacion
+    , CURRENT_TIMESTAMP()
+);
+
+SELECT LAST_INSERT_ID() AS Id;
+
+END //
+DELIMITER ;
+
+-- TbVisitasListar
+DROP PROCEDURE IF EXISTS IMVE.TbVisitasListar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbVisitasListar()
+BEGIN
+
+SELECT V.IdVisita
+	, V.IdMinisterio
+    , M.Descripcion AS Ministerio
+    , V.Descripcion
+    , V.FechaVisita
+    , CASE V.Cerrada WHEN 'S' THEN 'Cerrada' ELSE 'Abierta' END AS Estado
+FROM IMVE.TbVisitas AS V
+INNER JOIN IMVE.TbMinisterios AS M
+	ON V.IdMinisterio = M.IdMinisterio;
+
+END //
+DELIMITER ;
+
+-- TbVisitasListarPorEstado
+DROP PROCEDURE IF EXISTS IMVE.TbVisitasListarPorEstado;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbVisitasListarPorEstado(
+	p_Estado CHAR(1)
+)
+BEGIN
+
+SELECT V.IdVisita
+	, V.IdMinisterio
+    , M.Descripcion AS Ministerio
+    , V.Descripcion
+    , V.FechaVisita
+    , V.Cerrada AS Estado
+FROM IMVE.TbVisitas AS V
+INNER JOIN IMVE.TbMinisterios AS M
+	ON V.IdMinisterio = M.IdMinisterio
+WHERE V.Cerrada = p_Estado;
+
+END //
+DELIMITER ;
+
+-- TbVisitasListarPorIdVisita
+DROP PROCEDURE IF EXISTS IMVE.TbVisitasListarPorIdVisita;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbVisitasListarPorIdVisita(
+	p_IdVisita INT
+)
+BEGIN
+
+SELECT V.IdVisita
+	, V.IdMinisterio
+    , M.Descripcion AS Ministerio
+    , V.Descripcion
+    , V.FechaVisita
+    , V.Cerrada AS Estado
+FROM IMVE.TbVisitas AS V
+INNER JOIN IMVE.TbMinisterios AS M
+	ON V.IdMinisterio = M.IdMinisterio
+WHERE IdVisita = p_IdVisita;
+
+END //
+DELIMITER ;
+
+-- TbVisitasAgregar
+DROP PROCEDURE IF EXISTS IMVE.TbVisitasAgregar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbVisitasAgregar(
+	p_IdMinisterio INT
+    , p_Descripcion VARCHAR(50)
+    , p_FechaVisita DATETIME
+    , p_UsuarioUltimaModificacion INT
+)
+BEGIN
+
+INSERT INTO IMVE.TbVisitas(
+	IdMinisterio
+    , Descripcion
+    , FechaVisita
+    , UsuarioUltimaModificacion
+    , FechaUltimaModificacion
+    , Cerrada
+)
+VALUES
+(
+	p_IdMinisterio
+    , p_Descripcion
+    , p_FechaVisita
+    , p_UsuarioUltimaModificacion
+    , CURRENT_TIMESTAMP()
+    , 'N'
+);
+
+SELECT LAST_INSERT_ID() AS Id;
+
+END //
+DELIMITER ;
+
+-- TbPersonasVisitasPorIdVisita
+DROP PROCEDURE IF EXISTS IMVE.TbPersonasVisitasPorIdVisita;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbPersonasVisitasPorIdVisita(
+	p_IdVisita INT
+)
+BEGIN
+
+SELECT IdVisita
+	, IdPersona
+FROM IMVE.TbPersonasVisitas
+WHERE IdVisita = p_IdVisita;
+
+END //
+DELIMITER ;
+
+-- TbPersonasVisitasAgregar
+DROP PROCEDURE IF EXISTS IMVE.TbPersonasVisitasAgregar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbPersonasVisitasAgregar(
+	p_IdVisita INT
+    , p_IdPersona INT
+    , p_UsuarioUltimaModificacion INT
+)
+BEGIN
+
+INSERT INTO IMVE.TbPersonasVisitas(
+	IdVisita
+    , IdPersona
+    , UsuarioUltimaModificacion
+    , FechaUltimaModificacion
+)
+VALUES
+(
+	p_IdVisita
+    , p_IdPersona
     , p_UsuarioUltimaModificacion
     , CURRENT_TIMESTAMP()
 );
@@ -3506,4 +3668,12 @@ INSERT INTO IMVE.TbCompromisos(IdMinisterio,IdTipoCompromiso,Descripcion,FechaIn
 , (3,1,'Reunión','2016-11-12','2016-11-14','Plaza Paraíso',1,CURRENT_TIMESTAMP,'A')
 , (4,1,'Reunión','2016-11-11','2016-11-11','Jardín Lankester',1,CURRENT_TIMESTAMP,'A')
 , (5,1,'Reunión','2016-11-14','2016-11-15','Laguna de Doña Ana',1,CURRENT_TIMESTAMP,'A')
-, (1,1,'Reunión','2016-11-13','2016-11-14','Plaza de la Cultura',1,CURRENT_TIMESTAMP,'A')
+, (1,1,'Reunión','2016-11-13','2016-11-14','Plaza de la Cultura',1,CURRENT_TIMESTAMP,'A');
+
+INSERT INTO IMVE.TbVisitas(IdMinisterio,Descripcion,FechaVisita,UsuarioUltimaModificacion,FechaUltimaModificacion,Cerrada) VALUES
+(1,'Solicitud de comestible','2016-11-10',1,CURRENT_TIMESTAMP,'N')
+, (2,'Solicitud de consejería','2016-11-11',1,CURRENT_TIMESTAMP,'S');
+
+INSERT INTO IMVE.TbPersonasVisitas(IdVisita,IdPersona,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
+(1,2,1,CURRENT_TIMESTAMP)
+, (1,3,1,CURRENT_TIMESTAMP);

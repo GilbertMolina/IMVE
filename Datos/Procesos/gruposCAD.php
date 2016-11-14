@@ -185,7 +185,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarGrupo') {
         if ($exito == "1"){
             if(count($listaPersonasLideres) > 0){
                 foreach($listaPersonasLideres as $personaLider){
-                    $sqlGrupoPersona              = "CALL TbGruposPersonasAgregar('$personaLider','$idGrupo','S',$usuarioActual)";
+                    $sqlGrupoPersona              = "CALL TbGruposPersonasAgregar('$personaLider','$idGrupo','S','$usuarioActual')";
                     $consultaGrupoPersonasLideres = $db->consulta(utf8_decode($sqlGrupoPersona));
 
                     if ($db->num_rows($consultaGrupoPersonasLideres) != 0) {
@@ -201,7 +201,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarGrupo') {
 
             if(count($listaPersonasParticipantes) > 0){
                 foreach($listaPersonasParticipantes as $personaParticipante){
-                    $sqlGrupoPersona                    = "CALL TbGruposPersonasAgregar('$personaParticipante','$idGrupo','N',$usuarioActual)";
+                    $sqlGrupoPersona                    = "CALL TbGruposPersonasAgregar('$personaParticipante','$idGrupo','N','$usuarioActual')";
                     $consultaGrupoPersonasParticipantes = $db->consulta(utf8_decode($sqlGrupoPersona));
 
                     if ($db->num_rows($consultaGrupoPersonasParticipantes) != 0) {
@@ -243,7 +243,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'modificarGrupo') {
 
         if(count($listaPersonasLideresAgregado) > 0){
             foreach($listaPersonasLideresAgregado as $personaGrupoLiderAgregar){
-                $sqlPersonaGrupoLiderAgregar  = "CALL TbGruposPersonasAgregar('$personaGrupoLiderAgregar','$idGrupo','S',$usuarioActual)";
+                $sqlPersonaGrupoLiderAgregar  = "CALL TbGruposPersonasAgregar('$personaGrupoLiderAgregar','$idGrupo','S','$usuarioActual')";
                 $consultaPersonasLiderAgregar = $db->consulta(utf8_decode($sqlPersonaGrupoLiderAgregar));
 
                 if ($db->num_rows($consultaPersonasLiderAgregar) != 0) {
@@ -259,7 +259,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'modificarGrupo') {
 
         if(count($listaPersonasParticipantesAgregado) > 0){
             foreach($listaPersonasParticipantesAgregado as $personaGrupoParticipanteAgregar){
-                $sqlPersonaGrupoParticipanteAgregar  = "CALL TbGruposPersonasAgregar('$personaGrupoParticipanteAgregar','$idGrupo','N',$usuarioActual)";
+                $sqlPersonaGrupoParticipanteAgregar  = "CALL TbGruposPersonasAgregar('$personaGrupoParticipanteAgregar','$idGrupo','N','$usuarioActual')";
                 $consultaPersonasParticipanteAgregar = $db->consulta(utf8_decode($sqlPersonaGrupoParticipanteAgregar));
 
                 if ($db->num_rows($consultaPersonasParticipanteAgregar) != 0) {
@@ -275,14 +275,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'modificarGrupo') {
 
         if(count($listaPersonasLideresEliminados) > 0){
             foreach($listaPersonasLideresEliminados as $personaGrupoLiderEliminado){
-                $sqlPersonaGrupoLiderEliminado = "CALL TbGruposPersonasModificar('$personaGrupoLiderEliminado','$idGrupo','S',$usuarioActual)";
+                $sqlPersonaGrupoLiderEliminado = "CALL TbGruposPersonasModificar('$personaGrupoLiderEliminado','$idGrupo','S','$usuarioActual')";
                 $consultaPersonaLiderEliminado = $db->consulta(utf8_decode($sqlPersonaGrupoLiderEliminado));
             }
         }
 
         if(count($listaPersonasParticipantesEliminados) > 0){
             foreach($listaPersonasParticipantesEliminados as $personaGrupoParticipanteEliminado){
-                $sqlPersonaGrupoParticipanteEliminado = "CALL TbGruposPersonasModificar('$personaGrupoParticipanteEliminado','$idGrupo','N',$usuarioActual)";
+                $sqlPersonaGrupoParticipanteEliminado = "CALL TbGruposPersonasModificar('$personaGrupoParticipanteEliminado','$idGrupo','N','$usuarioActual')";
                 $consultaPersonaParticipanteEliminado = $db->consulta(utf8_decode($sqlPersonaGrupoParticipanteEliminado));
             }
         }

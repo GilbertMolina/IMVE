@@ -49,7 +49,7 @@ $utilitarios = new UtilitariosProcesos();
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
         <!-- Fin carga de los archivos javascript -->
     </head>
-    <body>
+    <body onload="VisitasOnLoad()">
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
@@ -140,8 +140,14 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="content">
                 <div class="container">
-                    <h3 class="text-center">Listado de Visitas</h3>
+                    <h3 class="text-center">Visitas</h3>
                     <hr>
+                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" onchange="VisitasCargarVisitasListado()">
+                        <input type="radio" name="estadoVisitas" id="abierta" value="N" checked="checked">
+                        <label for="abierta">Abiertas</label>
+                        <input type="radio" name="estadoVisitas" id="cerradas" value="S">
+                        <label for="cerradas">Cerradas</label>
+                    </fieldset>
                     <form class="ui-filterable">
                         <input id="filtro" data-type="search" placeholder="Búsqueda">
                     </form>

@@ -360,11 +360,11 @@ function GruposRegistrarGrupo() {
 
 // Función para modificar un grupo
 function GruposModificarGrupo(p_IdGrupo) {
-    var idGrupo             = p_IdGrupo;
-    var idCategoriaGrupo    = $('#cboIdCategoriasGrupos').val();
-    var idMinisterio        = $('#cboIdMinisterios').val();
-    var descripcion         = $('#txtDescripcionGrupo').val();
-    var estado              = $('#cboEstadoGrupo').val();
+    var idGrupo          = p_IdGrupo;
+    var idCategoriaGrupo = $('#cboIdCategoriasGrupos').val();
+    var idMinisterio     = $('#cboIdMinisterios').val();
+    var descripcion      = $('#txtDescripcionGrupo').val();
+    var estado           = $('#cboEstadoGrupo').val();
 
     // Se obtiene la lista inicial de las personas que son lideres y/o participantes
     var listadoInicialGruposPersonaLider        = $('#hdfGruposPersonaLider').val();

@@ -50,9 +50,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarCompromiso') {
             $exito = "-1";
         }
 
-
-//        var_dump('$db->num_rows($consultaCompromiso) : ' . $db->num_rows($consultaCompromiso));
-
         if ($exito == "1"){
             if($tipoResposable == 'P') {
                 if(count($listaPersonasResponsables) > 0){
@@ -68,8 +65,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarCompromiso') {
                         } else {
                             $exito = "-1";
                         }
-
-//                        var_dump('$db->num_rows($consultaPersonaResponsable) : ' . $db->num_rows($consultaPersonaResponsable));
                     }
                 }
             }
@@ -88,8 +83,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarCompromiso') {
                         } else {
                             $exito = "-1";
                         }
-
-//                        var_dump('$db->num_rows($consultaGrupoResponsable) : ' . $db->num_rows($consultaGrupoResponsable));
                     }
                 }
             }
@@ -107,13 +100,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarCompromiso') {
                     } else {
                         $exito = "-1";
                     }
-
-//                    var_dump('$db->num_rows($consultaPersonaParticipante) : ' . $db->num_rows($consultaPersonaParticipante));
                 }
             }
         }
-
-//        var_dump('$exito: ' . $exito);
 
         echo $exito;
     }

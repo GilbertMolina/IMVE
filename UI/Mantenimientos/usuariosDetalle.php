@@ -143,14 +143,14 @@ $utilitarios = new UtilitariosMantenimientos();
                             <hr>
                             <form method="post" action="#" id="usuariosDetalle">
                                 <div>
-                                    <label for="cboIdPersona">Personas que no poseen usuario:</label>
+                                    <label for="cboIdPersona">Personas sin usuario:</label>
                                     <select name="cboIdPersona" id="cboIdPersona">
                                         <option value="0">Seleccione</option>
                                     </select>
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="cboIdRol">Roles disponibles:</label>
+                                    <label for="cboIdRol">Roles:</label>
                                     <select name="cboIdRol" id="cboIdRol">
                                         <option value="0">Seleccione</option>
                                     </select>

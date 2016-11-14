@@ -160,7 +160,7 @@ $utilitarios = new UtilitariosProcesos();
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="txtFechaVisita">Fecha y hora de inicio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <label for="txtFechaVisita">Fecha de visita:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
                                     <input type="date" name="txtFechaVisita" id="txtFechaVisita" data-clear-btn="true" value="" >
                                 </div>
                                 <br>
@@ -173,18 +173,18 @@ $utilitarios = new UtilitariosProcesos();
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="cboEstadoGrupo">Estado:</label>
-                                    <select name="cboEstadoGrupo" id="cboEstadoGrupo" disabled>
+                                    <label for="cboEstadoVisita">Estado:</label>
+                                    <select name="cboEstadoVisita" id="cboEstadoVisita" disabled>
                                         <option value="0">Seleccione</option>
-                                        <option value="A" selected>Activo</option>
-                                        <option value="I">Inactivo</option>
+                                        <option value="N" selected>Abierta</option>
+                                        <option value="S">Cerrada</option>
                                     </select>
                                 </div>
                                 <br>
                                 <div class="row">
                                     <div class="col-xs-1"></div>
                                     <div class="col-xs-10">
-                                        <button type="button" id="btnAceptar" data-theme="b" onclick="GruposRegistrarGrupo()" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
+                                        <button type="button" id="btnAceptar" data-theme="b" onclick="VisitasRegistrarVisita()" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
                                     </div>
                                     <div class="col-xs-1"></div>
                                 </div>
