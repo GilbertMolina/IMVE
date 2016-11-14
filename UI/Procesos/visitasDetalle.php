@@ -49,7 +49,7 @@ $utilitarios = new UtilitariosProcesos();
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
         <!-- Fin carga de los archivos javascript -->
     </head>
-    <body>
+    <body onload="VisitasDetalleOnLoad()">
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
@@ -145,8 +145,49 @@ $utilitarios = new UtilitariosProcesos();
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
                             <h3 class="text-center">Visitas</h3>
                             <hr>
-                            <form method="post" action="#" id="visitas">
-
+                            <form method="post" action="#" id="visitasDetalle">
+                                <div>
+                                    <label for="cboIdMinisterios">Ministerios:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <select name="cboIdMinisterios" id="cboIdMinisterios">
+                                        <option value="0">Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtDescripcionVisita">Descripción:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtDescripcionVisita" id="txtDescripcionVisita" maxlength="50" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtFechaVisita">Fecha y hora de inicio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="date" name="txtFechaVisita" id="txtFechaVisita" data-clear-btn="true" value="" >
+                                </div>
+                                <br>
+                                <div id="divVisitasPersonasVisitas">
+                                    <label for="VisitasPersonasVisitas">Personas visitantes:</label>
+                                    <select name="VisitasPersonasVisitas" id="VisitasPersonasVisitas" multiple="multiple" data-native-menu="false">
+                                        <option>Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboEstadoGrupo">Estado:</label>
+                                    <select name="cboEstadoGrupo" id="cboEstadoGrupo" disabled>
+                                        <option value="0">Seleccione</option>
+                                        <option value="A" selected>Activo</option>
+                                        <option value="I">Inactivo</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-1"></div>
+                                    <div class="col-xs-10">
+                                        <button type="button" id="btnAceptar" data-theme="b" onclick="GruposRegistrarGrupo()" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
+                                    </div>
+                                    <div class="col-xs-1"></div>
+                                </div>
                             </form>
                         </div>
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>
@@ -155,9 +196,18 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
-                    <ul>
-                        <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosVisitas()">Atrás</a></li>
-                    </ul>
+                    <div id="NuevaVisita">
+                        <ul>
+                            <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosVisitas()">Visitas</a></li>
+                            <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosPersonasDetalleAgregarDesdeVisita('visita')">Agregar Persona</a></li>
+                        </ul>
+                    </div>
+                    <div id="DetalleVisita">
+                        <ul>
+                            <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosVisitas()">Visitas</a></li>
+                            <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleAgregarDesdeVisita(ObtenerParametroPorNombre('IdVisita'))">Agregar Seguimiento</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

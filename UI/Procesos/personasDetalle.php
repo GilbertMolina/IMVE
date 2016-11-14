@@ -277,9 +277,17 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
-                    <ul>
-                        <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosPersonas()">Atrás</a></li>
-                    </ul>
+                    <div id="NuevaPersona">
+                        <ul>
+                            <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosPersonas()">Atrás</a></li>
+                        </ul>
+                    </div>
+                    <div id="DetallePersona">
+                        <ul>
+                            <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosPersonas()">Agenda</a></li>
+                            <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosVisitasDetalleAgregar()">Volver a la Visita</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

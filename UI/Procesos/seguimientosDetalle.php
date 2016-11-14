@@ -49,7 +49,7 @@ $utilitarios = new UtilitariosProcesos();
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
         <!-- Fin carga de los archivos javascript -->
     </head>
-    <body>
+    <body onload="SeguimientosDetalleOnLoad()">
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
@@ -143,9 +143,9 @@ $utilitarios = new UtilitariosProcesos();
                     <div class="row">
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
-                            <h3 class="text-center">Seguimientos</h3>
+                            <h3 class="text-center">Mantenimiento de Seguimientos</h3>
                             <hr>
-                            <form method="post" action="#" id="seguimientos">
+                            <form method="post" action="#" id="seguimientosDetalle">
 
                             </form>
                         </div>
@@ -155,9 +155,17 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
-                    <ul>
-                        <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosSeguimientos()">Atrás</a></li>
-                    </ul>
+                    <div id="NuevoSeguimiento">
+                        <ul>
+                            <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosSeguimientos()">Atrás</a></li>
+                        </ul>
+                    </div>
+                    <div id="DetalleSeguimiento">
+                        <ul>
+                            <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosSeguimientos()">Seguimientos</a></li>
+                            <li><a href="#" data-transition="flip" data-icon="carat-r" data-theme="b" onclick="UtiProcesosPaginaProcesosVisitasDetalleAgregarDesdeSeguimiento(ObtenerParametroPorNombre('IdVisita'))">Volver a la Visita</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

@@ -2641,6 +2641,170 @@ END IF;
 END //
 DELIMITER ;
 
+-- TbCompromisosAgregar
+DROP PROCEDURE IF EXISTS IMVE.TbCompromisosAgregar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbCompromisosAgregar(
+	p_IdMinisterio INT
+    , p_IdTipoCompromiso INT
+    , p_Descripcion VARCHAR(50)
+    , p_FechaInicio DATETIME
+    , p_FechaFinal DATETIME
+    , p_Lugar VARCHAR(50)
+    , p_UsuarioUltimaModificacion INT
+)
+BEGIN
+
+INSERT INTO IMVE.TbCompromisos(
+	IdMinisterio
+    , IdTipoCompromiso
+    , Descripcion
+    , FechaInicio
+    , FechaFinal
+    , Lugar
+    , UsuarioUltimaModificacion
+    , FechaUltimaModificacion
+    , Activo
+)
+VALUES
+(
+	p_IdMinisterio
+    , p_IdTipoCompromiso
+    , p_Descripcion
+    , p_FechaInicio
+    , p_FechaFinal
+    , p_Lugar
+    , p_UsuarioUltimaModificacion
+    , CURRENT_TIMESTAMP()
+    , 'A'
+);
+
+SELECT LAST_INSERT_ID() AS Id;
+
+END //
+DELIMITER ;
+
+-- TbPersonasVisitasAgregar
+DROP PROCEDURE IF EXISTS IMVE.TbPersonasVisitasAgregar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbPersonasVisitasAgregar(
+	p_IdVisita INT
+    , p_IdPersona INT
+    , p_UsuarioUltimaModificacion INT
+)
+BEGIN
+
+INSERT INTO IMVE.TbPersonasVisitas(
+	IdVisita
+    , IdPersona
+    , UsuarioUltimaModificacion
+    , FechaUltimaModificacion
+)
+VALUES
+(
+	p_IdVisita
+    , p_IdPersona
+    , p_UsuarioUltimaModificacion
+    , CURRENT_TIMESTAMP()
+);
+
+SELECT LAST_INSERT_ID() AS Id;
+
+END //
+DELIMITER ;
+
+-- TbParticipantesCompromisosAgregar
+DROP PROCEDURE IF EXISTS IMVE.TbParticipantesCompromisosAgregar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbParticipantesCompromisosAgregar(
+	p_IdPersona INT
+    , p_IdCompromiso INT
+    , p_UsuarioUltimaModificacion INT
+)
+BEGIN
+
+INSERT INTO IMVE.TbParticipantesCompromisos(
+	IdPersona
+    , IdCompromiso
+    , UsuarioUltimaModificacion
+    , FechaUltimaModificacion
+)
+VALUES
+(
+	p_IdPersona
+    , p_IdCompromiso
+    , p_UsuarioUltimaModificacion
+    , CURRENT_TIMESTAMP()
+);
+
+SELECT LAST_INSERT_ID() AS Id;
+
+END //
+DELIMITER ;
+
+-- TbReponsablesGruposCompromisosAgregar
+DROP PROCEDURE IF EXISTS IMVE.TbReponsablesGruposCompromisosAgregar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbReponsablesGruposCompromisosAgregar(
+	p_IdGrupo INT
+    , p_IdCompromiso INT
+    , p_UsuarioUltimaModificacion INT
+)
+BEGIN
+
+INSERT INTO IMVE.TbReponsablesGruposCompromisos(
+	 IdGrupo
+    , IdCompromiso
+    , UsuarioUltimaModificacion
+    , FechaUltimaModificacion
+)
+VALUES
+(
+	p_IdGrupo
+    , p_IdCompromiso
+    , p_UsuarioUltimaModificacion
+    , CURRENT_TIMESTAMP()
+);
+
+SELECT LAST_INSERT_ID() AS Id;
+
+END //
+DELIMITER ;
+
+-- TbResponsablesCompromisosAgregar
+DROP PROCEDURE IF EXISTS IMVE.TbResponsablesCompromisosAgregar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbResponsablesCompromisosAgregar(
+	p_IdPersona INT
+    , p_IdCompromiso INT
+    , p_UsuarioUltimaModificacion INT
+)
+BEGIN
+
+INSERT INTO IMVE.TbResponsablesCompromisos(
+	IdPersona 
+    , IdCompromiso
+    , UsuarioUltimaModificacion
+    , FechaUltimaModificacion
+)
+VALUES
+(
+	p_IdPersona
+    , p_IdCompromiso
+    , p_UsuarioUltimaModificacion
+    , CURRENT_TIMESTAMP()
+);
+
+SELECT LAST_INSERT_ID() AS Id;
+
+END //
+DELIMITER ;
+
 -- -----------------------------------------------------------------------------
 -- CREACIÓN INSERTS
 -- -----------------------------------------------------------------------------

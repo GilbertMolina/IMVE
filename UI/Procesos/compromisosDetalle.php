@@ -228,7 +228,7 @@ $utilitarios = new UtilitariosProcesos();
                                 <div class="row">
                                     <div class="col-xs-1"></div>
                                     <div class="col-xs-10">
-                                        <button type="button" id="btnAceptar" data-theme="b" onclick="GruposRegistrarGrupo()" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
+                                        <button type="button" id="btnAceptar" data-theme="b" onclick="CompromisoRegistrarCompromiso()" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
                                     </div>
                                     <div class="col-xs-1"></div>
                                 </div>

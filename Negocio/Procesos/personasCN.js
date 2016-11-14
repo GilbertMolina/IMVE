@@ -26,7 +26,21 @@ function PersonasOnLoad() {
 // Función que se ejecuta al cargar la pagina
 function PersonasDetalleOnLoad(){
     PesonasCargarPersonaPorId();
+    GruposCambiarBarraNavegacionFooter();
 }
+
+// Función que cambia la barra navegación del footer dependiendo de la pantalla de donde se ejecute
+function GruposCambiarBarraNavegacionFooter() {
+    var accion = ObtenerParametroPorNombre('Accion');
+
+    if(accion != ''){
+        $('#NuevaPersona').hide();
+    }
+    else{
+        $('#DetallePersona').hide();
+    }
+}
+
 
 // Función que se ejecuta cuando cambia la provincia seleccionada
 function PersonasOnSelectedChangeProvincias(){
@@ -506,6 +520,8 @@ function PersonasRegistrarPersona() {
 
 // Función que registra el usuario del usuario a la base de datos por medio de Ajax
 function PersonasIngresarUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo, p_listaGruposLider, p_listaGruposParticipante){
+    var accion = ObtenerParametroPorNombre('Accion');
+
     // Se define el action que será consultado desde la clase de acceso a datos
     var d = "action=registrarPersona&identificacion=" + p_Identificacion + "&nombre=" + p_Nombre + "&apellido1=" + p_Apellido1 + "&apellido2=" + p_Apellido2 + "&fechaNacimiento="
         + p_FechaNacimiento + "&distrito=" + p_Distrito + "&direccionDomicilio=" + p_DireccionDomicilio + "&telefono=" + p_Telefono + "&celular=" + p_Celular + "&correo=" + p_Correo
@@ -533,7 +549,12 @@ function PersonasIngresarUsuario(p_Identificacion, p_Nombre, p_Apellido1, p_Apel
                     , confirmButton: 'Aceptar'
                     , confirmButtonClass: 'btn-success'
                     , confirm: function(){
-                        RedireccionPagina('personas.php');
+                        if(accion != ''){
+                            RedireccionPagina('visitasDetalle.php');
+                        }
+                        else{
+                            RedireccionPagina('personas.php');
+                        }
                     }
                 });
             }

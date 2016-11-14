@@ -176,6 +176,12 @@ function UtiProcesosPaginaProcesosPersonasDetalleAgregar()
     RedireccionPagina('personasDetalle.php');
 }
 
+// Función para ingresar a la pantalla de proceso de personas detalle agregar
+function UtiProcesosPaginaProcesosPersonasDetalleAgregarDesdeVisita(accion)
+{
+    RedireccionPagina('personasDetalle.php?Accion=' + accion);
+}
+
 // Función para ingresar a la pantalla de proceso de personas detalle para modificar
 function UtiProcesosPaginaProcesosPersonasDetalleModificar(p_IdPersona)
 {
@@ -194,6 +200,12 @@ function UtiProcesosPaginaProcesosSeguimientosDetalleAgregar()
     RedireccionPagina('seguimientosDetalle.php');
 }
 
+// Función para ingresar a la pantalla de proceso de compromisos detalle para agregar
+function UtiProcesosPaginaProcesosSeguimientosDetalleAgregarDesdeVisita(p_IdVisita)
+{
+    RedireccionPagina('seguimientosDetalle.php?IdVisita=' + p_IdVisita);
+}
+
 // Función para ingresar a la pantalla de proceso de seguimientos detalle modificar
 function UtiProcesosPaginaProcesosSeguimientosDetalleModificar(p_IdSeguimiento)
 {
@@ -210,6 +222,12 @@ function UtiProcesosPaginaProcesosVisitas()
 function UtiProcesosPaginaProcesosVisitasDetalleAgregar()
 {
     RedireccionPagina('visitasDetalle.php');
+}
+
+// Función para ingresar a la pantalla de proceso de visitas detalle agregar
+function UtiProcesosPaginaProcesosVisitasDetalleAgregarDesdeSeguimiento(p_IdVisita)
+{
+    RedireccionPagina('visitasDetalle.php?IdVisita=' + p_IdVisita);
 }
 
 // Función para ingresar a la pantalla de proceso de visitas detalle modificar
