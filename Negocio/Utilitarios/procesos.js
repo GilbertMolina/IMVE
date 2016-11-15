@@ -189,15 +189,21 @@ function UtiProcesosPaginaProcesosPersonasDetalleModificar(p_IdPersona)
 }
 
 // Función para ingresar a la pantalla de proceso de seguimientos
-function UtiProcesosPaginaProcesosSeguimientos()
+function UtiProcesosPaginaProcesosSeguimientos(p_IdVisita)
 {
-    RedireccionPagina('seguimientos.php');
+    RedireccionPagina('seguimientos.php?IdVisita=' + p_IdVisita);
+}
+
+// Función para ingresar a la pantalla de proceso de seguimientos para una visita en especifíco
+function UtiProcesosPaginaProcesosSeguimientosDesdeVisita(p_IdVisita)
+{
+    RedireccionPagina('seguimientos.php?IdVisita=' + p_IdVisita);
 }
 
 // Función para ingresar a la pantalla de proceso de seguimientos detalle agregar
-function UtiProcesosPaginaProcesosSeguimientosDetalleAgregar()
+function UtiProcesosPaginaProcesosSeguimientosDetalleAgregar(p_IdVisita)
 {
-    RedireccionPagina('seguimientosDetalle.php');
+    RedireccionPagina('seguimientosDetalle.php?IdVisita=' + p_IdVisita);
 }
 
 // Función para ingresar a la pantalla de proceso de compromisos detalle para agregar

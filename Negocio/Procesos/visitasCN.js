@@ -4,11 +4,6 @@
  * Fecha creación: 13/11/16
  */
 
-function VisitasMostrarFechaActualSeleccionada(){
-    var fechaVisita = $("#txtFechaVisita").val();
-    console.log('fechaVisita: ' + fechaVisita);
-}
-
 // Función que se ejecuta al cargar la pagina de visitas
 function VisitasOnLoad() {
     VisitasCargarVisitasListado();
@@ -39,7 +34,7 @@ function VisitasAsignarFechaVisita(){
     var d = date.getDate();
     var m = date.getMonth() + 1;
     var a = date.getFullYear();
-    var fechaHoy = a+ '-' + m + '-' + d;
+    var fechaHoy = a + '-' + m + '-' + d;
 
     $("#txtFechaVisita").attr("value", fechaHoy);
 }
@@ -85,6 +80,7 @@ function VisitasCargarVisitaPorId() {
     {
         VisitasCargarMinisteriosComboBox();
         VisitasCargarPersonasVisitantes();
+        VisitasCargarPersonasResponsablesComboBox();
     }
 }
 
@@ -101,6 +97,23 @@ function VisitasCargarMinisteriosComboBox()
         , url: "../../../IMVE/Datos/Mantenimientos/ministeriosCAD.php"
         , success: function(a) {
             $("#cboIdMinisterios").html(a).trigger("create");
+        }
+    })
+}
+
+// Función para obtener todas las personas activas
+function VisitasCargarPersonasResponsablesComboBox()
+{
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=obtenerListadoPersonasActivasCombobox";
+
+    // Enviar por Ajax a personasCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/personasCAD.php"
+        , success: function(a) {
+            $("#IdResponsables").html(a).trigger("create");
         }
     })
 }
@@ -124,9 +137,10 @@ function VisitasCargarPersonasVisitantes()
 
 // Función para registrar un visita
 function VisitasRegistrarVisita() {
-    var idMinisterio     = $('#cboIdMinisterios').val();
-    var descripcion      = $('#txtDescripcionVisita').val();
-    var fechaVisita      = $('#txtFechaVisita').val();
+    var idMinisterio        = $('#cboIdMinisterios').val();
+    var descripcion         = $('#txtDescripcionVisita').val();
+    var fechaVisita         = $('#txtFechaVisita').val();
+    var idPersonaReponsable = $('#cboIdResponsables').val();
 
     var personasParticipante = $('#VisitasPersonasVisitas').val();
     var listaPersonasParticipantesJson = JSON.stringify(personasParticipante);
@@ -141,7 +155,7 @@ function VisitasRegistrarVisita() {
             , animation: 'rotate'
             , closeAnimation: 'rotate'
             , title: 'Advertencia'
-            , content: 'Debe de seleccionar el ministerio, digitar la descripción, seleccionar la fecha de la visita y seleccionar el estado.'
+            , content: 'Debe de ingresar los datos que son necesarios del formulario.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
         });
@@ -149,7 +163,7 @@ function VisitasRegistrarVisita() {
     else
     {
         // Se define el action que será consultado desde la clase de acceso a datos
-        var d = "action=registrarVisita&idMinisterio=" + idMinisterio + "&descripcion=" + descripcion + "&fechaVisita=" + fechaVisita + "&listaPersonasParticipantes=" + listaPersonasParticipantesJson;
+        var d = "action=registrarVisita&idMinisterio=" + idMinisterio + "&descripcion=" + descripcion + "&fechaVisita=" + fechaVisita + "&listaPersonasParticipantes=" + listaPersonasParticipantesJson + "&idPersonaReponsable=" + idPersonaReponsable;
 
         // Enviar por Ajax a visitasCAD.php
         $.ajax({

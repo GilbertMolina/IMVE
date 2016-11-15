@@ -678,3 +678,36 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasVisitantesLis
         echo 'Excepción capturada: ', $e->getMessage(), "\n";
     }
 }
+
+// Obtiene el listado de personas activas, para insertarlas en un ComboBox
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasActivasCombobox') {
+    try {
+        $usuarioActual = $_SESSION['idPersona'];
+
+        $sqlPersonaResponsable      = "CALL TbPersonasListar()";
+        $consultaPersonaResponsable = $db->consulta($sqlPersonaResponsable);
+        $cadena_datos               = "";
+
+        if($db->num_rows($consultaPersonaResponsable) != 0)
+        {
+            $cadena_datos .= '<label for="cboIdResponsables">Responsable:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
+            $cadena_datos .= '<select name="cboIdResponsables" id="cboIdResponsables">';
+            $cadena_datos .= '<option value="0">Seleccione</option>';
+            while($resultadosPersonaReponsable = $db->fetch_array($consultaPersonaResponsable))
+            {
+                if ($resultadosPersonaReponsable['IdPersona'] == $usuarioActual){
+                    $cadena_datos .= '<option value="' . $resultadosPersonaReponsable['IdPersona'] . '" selected>' . utf8_encode($resultadosPersonaReponsable['NombreCompleto']) . '</option>';
+                }
+                else
+                {
+                    $cadena_datos .= '<option value="' . $resultadosPersonaReponsable['IdPersona'] . '">' . utf8_encode($resultadosPersonaReponsable['NombreCompleto']) . '</option>';
+                }
+            }
+            $cadena_datos .= '</select>';
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}

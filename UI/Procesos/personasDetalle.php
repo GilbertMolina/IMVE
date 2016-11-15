@@ -285,7 +285,7 @@ $utilitarios = new UtilitariosProcesos();
                     <div id="DetallePersona">
                         <ul>
                             <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosPersonas()">Agenda</a></li>
-                            <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosVisitasDetalleAgregar()">Volver a la Visita</a></li>
+                            <li><a href="#" data-transition="flip" data-icon="carat-r" data-theme="b" onclick="UtiProcesosPaginaProcesosVisitasDetalleAgregar()">Volver a la Visita</a></li>
                         </ul>
                     </div>
                 </div>

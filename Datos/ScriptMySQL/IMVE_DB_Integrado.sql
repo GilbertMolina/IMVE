@@ -2967,6 +2967,97 @@ SELECT LAST_INSERT_ID() AS Id;
 END //
 DELIMITER ;
 
+-- TbSeguimientosListarPorVisita
+DROP PROCEDURE IF EXISTS IMVE.TbSeguimientosListarPorVisita;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbSeguimientosListarPorVisita(
+	p_IdVisita INT
+    , p_Estado CHAR(1)
+)
+BEGIN
+
+SELECT S.IdSeguimiento
+	, S.IdVisita
+    , V.Descripcion AS Visita
+	, S.IdMinisterio
+    , M.Descripcion AS Ministerio
+	, S.IdPersonaResponsable
+    , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+	, S.IdTipoSeguimiento
+    , TS.Descripcion AS TipoSeguimiento
+	, S.Descripcion
+	, S.FechaPropuesta
+	, S.FechaPropuesta
+	, S.FechaRealizacion
+	, S.Observaciones
+    , CASE S.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+FROM IMVE.TbSeguimientos AS S
+INNER JOIN IMVE.TbVisitas AS V
+	ON S.IdVisita = V.IdVisita
+INNER JOIN IMVE.TbMinisterios AS M
+	ON S.IdMinisterio = M.IdMinisterio
+INNER JOIN IMVE.TbPersonas AS P
+	ON S.IdPersonaResponsable = P.IdPersona
+INNER JOIN IMVE.TbTiposSeguimientos AS TS
+	ON S.IdTipoSeguimiento = TS.IdTipoSeguimiento
+WHERE S.IdVisita = p_IdVisita
+	AND S.Activo = p_Estado
+ORDER BY Descripcion;
+
+END //
+DELIMITER ;
+
+-- TbSeguimientosAgregar
+DROP PROCEDURE IF EXISTS IMVE.TbSeguimientosAgregar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbSeguimientosAgregar(
+	p_IdVisita INT
+    , p_IdMinisterio INT
+    , p_IdPersonaResponsable INT
+    , p_IdTipoSeguimiento INT
+    , p_Descripcion VARCHAR(50)
+    , p_FechaPropuesta DATETIME
+    , p_FechaRealizacion DATETIME
+    , p_Observaciones VARCHAR(50)
+    , p_UsuarioUltimaModificacion INT
+)
+BEGIN
+
+INSERT INTO IMVE.TbSeguimientos(
+	IdVisita
+    , IdMinisterio
+    , IdPersonaResponsable
+    , IdTipoSeguimiento
+    , Descripcion
+    , FechaPropuesta
+    , FechaRealizacion
+    , Observaciones
+    , UsuarioUltimaModificacion
+    , FechaUltimaModificacion
+    , Activo
+)
+VALUES
+(
+	p_IdVisita
+    , p_IdMinisterio
+    , p_IdPersonaResponsable
+    , p_IdTipoSeguimiento
+    , p_Descripcion
+    , p_FechaPropuesta
+    , p_FechaRealizacion
+    , p_Observaciones
+    , p_UsuarioUltimaModificacion
+    , CURRENT_TIMESTAMP()
+    , 'A'
+);
+
+SELECT LAST_INSERT_ID() AS Id;
+
+END //
+DELIMITER ;
+
 -- -----------------------------------------------------------------------------
 -- CREACIÓN INSERTS
 -- -----------------------------------------------------------------------------
@@ -3671,9 +3762,14 @@ INSERT INTO IMVE.TbCompromisos(IdMinisterio,IdTipoCompromiso,Descripcion,FechaIn
 , (1,1,'Reunión','2016-11-13','2016-11-14','Plaza de la Cultura',1,CURRENT_TIMESTAMP,'A');
 
 INSERT INTO IMVE.TbVisitas(IdMinisterio,Descripcion,FechaVisita,UsuarioUltimaModificacion,FechaUltimaModificacion,Cerrada) VALUES
-(1,'Solicitud de comestible','2016-11-10',1,CURRENT_TIMESTAMP,'N')
-, (2,'Solicitud de consejería','2016-11-11',1,CURRENT_TIMESTAMP,'S');
+(2,'Consejería marital','2016-11-15',1,CURRENT_TIMESTAMP,'N')
+, (1,'Solicitud de comestible','2016-11-10',1,CURRENT_TIMESTAMP,'N');
 
 INSERT INTO IMVE.TbPersonasVisitas(IdVisita,IdPersona,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
 (1,2,1,CURRENT_TIMESTAMP)
 , (1,3,1,CURRENT_TIMESTAMP);
+
+INSERT INTO IMVE.TbSeguimientos(IdVisita,IdMinisterio,IdPersonaResponsable,IdTipoSeguimiento,Descripcion,FechaPropuesta,FechaRealizacion,Observaciones,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
+(1,2,5,1,'Llamada #1','2016-11-22',NULL,'',1,CURRENT_TIMESTAMP,'A')
+, (1,2,5,1,'Llamada #2','2016-11-29',NULL,'',1,CURRENT_TIMESTAMP,'A')
+, (1,2,5,1,'Llamada #3','2016-12-06',NULL,'',1,CURRENT_TIMESTAMP,'A');

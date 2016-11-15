@@ -59,9 +59,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarVisitas') {
         $sqlTotalPersonas      = "CALL TbPersonasListar()";
         $consultaTotalPersonas = $db->consulta($sqlTotalPersonas);
 
+        $sqlPersonaResponsable      = "CALL TbPersonasListar()";
+        $consultaPersonaResponsable = $db->consulta($sqlPersonaResponsable);
+
         $sqlTotalPersonasVisitantes      = "CALL TbPersonasVisitasPorIdVisita('$idVisita')";
         $consultaTotalPersonasVisitantes = $db->consulta($sqlTotalPersonasVisitantes);
         $arregloPersonasVisitantes       = array();
+
+        $usuarioActual = $_SESSION['idPersona'];
 
         if($db->num_rows($consultaTotalPersonasVisitantes) != 0)
         {
@@ -128,6 +133,23 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarVisitas') {
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<input type="hidden" name="hdfVisitasPersonasVisitantes" id="hdfVisitasPersonasVisitantes" value="' . substr($listaTodalVisitasPersonasVisitantes,0,strlen($listaTodalVisitasPersonasVisitantes)-1) . '">';
                 $cadena_datos .= '<br>';
+                $cadena_datos .= '<div id="IdResponsables">';
+                $cadena_datos .= '<label for="cboIdResponsables">Responsable:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
+                $cadena_datos .= '<select name="cboIdResponsables" id="cboIdResponsables">';
+                $cadena_datos .= '<option value="0">Seleccione</option>';
+                while($resultadosPersonaReponsable = $db->fetch_array($consultaPersonaResponsable))
+                {
+                    if ($resultadosPersonaReponsable['IdPersona'] == $usuarioActual){
+                        $cadena_datos .= '<option value="' . $resultadosPersonaReponsable['IdPersona'] . '" selected>' . utf8_encode($resultadosPersonaReponsable['NombreCompleto']) . '</option>';
+                    }
+                    else
+                    {
+                        $cadena_datos .= '<option value="' . $resultadosPersonaReponsable['IdPersona'] . '">' . utf8_encode($resultadosPersonaReponsable['NombreCompleto']) . '</option>';
+                    }
+                }
+                $cadena_datos .= '</select>';
+                $cadena_datos .= '</div>';
+                $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="cboEstadoVisita">Estado:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
                 $cadena_datos .= '<select name="cboEstadoVisita" id="cboEstadoVisita">';
@@ -167,6 +189,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarVisita') {
         $descripcion            = $_POST['descripcion'];
         $fechaVisita            = $_POST['fechaVisita'];
         $listaPersonasVisitante = json_decode(stripslashes($_POST['listaPersonasParticipantes']));
+        $idPersonaReponsable    = $_POST['idPersonaReponsable'];
         $usuarioActual          = $_SESSION['idPersona'];
         $idVisita               = "";
 
@@ -184,6 +207,25 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarVisita') {
         }
 
         if ($exito == "1"){
+            // Se agregan los tres seguimientos por defecto
+
+            // Los seguimientos se realizan cada semana, por lo que los tres seguimientos por defecto siguen esa lógica.
+
+            // El primer seguimiento tendrá fecha para una semana después de la visita, y el segundo seguimiento una semana después del primer seguimiento y asi sucesivamente.
+            $fechaSeguimiento1 = date('Y-m-d', strtotime("$fechaVisita + 7 day"));
+            $fechaSeguimiento2 = date('Y-m-d', strtotime("$fechaSeguimiento1 + 7 day"));
+            $fechaSeguimiento3 = date('Y-m-d', strtotime("$fechaSeguimiento2 + 7 day"));
+
+            $sqlSeguimiento1      = "CALL TbSeguimientosAgregar('$idVisita','$idMinisterio','$idPersonaReponsable','1','Llamada #1','$fechaSeguimiento1','','','$usuarioActual')";
+            $consultaSeguimiento1 = $db->consulta(utf8_decode($sqlSeguimiento1));
+
+            $sqlSeguimiento2      = "CALL TbSeguimientosAgregar('$idVisita','$idMinisterio','$idPersonaReponsable','1','Llamada #2','$fechaSeguimiento2','','','$usuarioActual')";
+            $consultaSeguimiento2 = $db->consulta(utf8_decode($sqlSeguimiento2));
+
+            $sqlSeguimiento3      = "CALL TbSeguimientosAgregar('$idVisita','$idMinisterio','$idPersonaReponsable','1','Llamada #3','$fechaSeguimiento3','','','$usuarioActual')";
+            $consultaSeguimiento3 = $db->consulta(utf8_decode($sqlSeguimiento3));
+
+            // Se agregan las personas visitas, si las hubieran
             if(count($listaPersonasVisitante) > 0){
                 foreach($listaPersonasVisitante as $personaVisitante){
                     $sqlPersonaVisitante      = "CALL TbPersonasVisitasAgregar('$idVisita','$personaVisitante','$usuarioActual')";

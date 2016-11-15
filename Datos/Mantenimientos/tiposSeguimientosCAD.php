@@ -42,6 +42,28 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposSeguimien
     }
 }
 
+// Obtiene el listado de tipos de seguimientos activos, para insertarlos en un ComboBox
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposSeguimientosActivosCombobox') {
+    try {
+        $sql          = "CALL TbTiposSeguimientosListar()";
+        $consulta     = $db->consulta($sql);
+        $cadena_datos = "";
+
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos = '<option value="0">Seleccione</option>';
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdTipoSeguimiento'] . '">' . utf8_encode($resultados['Descripcion']) . '</option>';
+            }
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
 // Se realiza el registro de un nuevo tipo de seguimiento
 if (isset($_POST['action']) && $_POST['action'] == 'registrarTipoSeguimiento') {
     try {

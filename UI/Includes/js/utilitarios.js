@@ -157,8 +157,7 @@ function SHA1(mensaje) {
 // Función que permite obtener los parámetros de la URL
 function ObtenerParametroPorNombre(nombre) {
     nombre = nombre.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + nombre + "=([^&#]*)"),
-        resultados = regex.exec(location.search);
+    var regex = new RegExp("[\\?&]" + nombre + "=([^&#]*)"), resultados = regex.exec(location.search);
     return resultados === null ? "" : decodeURIComponent(resultados[1].replace(/\+/g, " "));
 }
 
@@ -172,4 +171,27 @@ function ObtenerValorRadioButtonPorNombre(nombre) {
         }
     }
     return radioButton[radioButtonSeleccionado].value;
+}
+
+// Función que suma N cantidad de días a una fecha dada
+function SumarRestaFecha(cantidadDias){
+    var milisegundos = parseInt(35 * 24 * 60 * 60 * 1000);
+    var fecha = new Date();
+    var dia = fecha.getDate();
+    var mes = fecha.getMonth() + 1;
+    var anno = fecha.getFullYear();
+    var tiempo = fecha.getTime();
+    
+    milisegundos = parseInt(cantidadDias * 24 * 60 * 60 * 1000);
+    total = fecha.setTime(tiempo + milisegundos);
+    var dia = fecha.getDate();
+    var mes = fecha.getMonth() + 1;
+    var anno = fecha.getFullYear();
+
+    dia = (dia.toString().length == 1) ? '0' + dia : dia;
+    mes = (mes.toString().length == 1) ? '0' + mes : mes;
+    
+    var fechaFinal = anno + '-' + mes + '-' + dia;
+    
+    return fechaFinal;
 }

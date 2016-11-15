@@ -49,7 +49,7 @@ $utilitarios = new UtilitariosProcesos();
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
         <!-- Fin carga de los archivos javascript -->
     </head>
-    <body>
+    <body onload="SeguimientosCargarSeguimientosListado()">
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
@@ -105,9 +105,6 @@ $utilitarios = new UtilitariosProcesos();
                         <li>
                             <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosPersonas()">Personas</a>
                         </li>
-                        <li class="menu-actual">
-                            Seguimientos
-                        </li>
                         <li>
                             <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosVisitas()">Visitas</a>
                         </li>
@@ -143,8 +140,14 @@ $utilitarios = new UtilitariosProcesos();
             </div>
             <div data-role="content">
                 <div class="container">
-                    <h3 class="text-center">Listado de Seguimientos</h3>
+                    <h3 class="text-center">Seguimientos</h3>
                     <hr>
+                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" onchange="SeguimientosCargarSeguimientosListado()">
+                        <input type="radio" name="estadoSeguimientos" id="activos" value="A" checked="checked">
+                        <label for="activos">Activos</label>
+                        <input type="radio" name="estadoSeguimientos" id="inactivos" value="I">
+                        <label for="inactivos">Inactivos</label>
+                    </fieldset>
                     <form class="ui-filterable">
                         <input id="filtro" data-type="search" placeholder="Búsqueda">
                     </form>
@@ -156,7 +159,8 @@ $utilitarios = new UtilitariosProcesos();
             <div data-role="footer" data-theme="b" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleAgregar()">Agregar</a></li>
+                        <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosVisitasDetalleAgregarDesdeSeguimiento(ObtenerParametroPorNombre('IdVisita'))">Volver a la Visita</a></li>
+                        <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleAgregar(ObtenerParametroPorNombre('IdVisita'))">Agregar</a></li>
                     </ul>
                 </div>
             </div>

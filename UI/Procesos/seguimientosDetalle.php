@@ -146,7 +146,45 @@ $utilitarios = new UtilitariosProcesos();
                             <h3 class="text-center">Mantenimiento de Seguimientos</h3>
                             <hr>
                             <form method="post" action="#" id="seguimientosDetalle">
-
+                                <div>
+                                    <label for="cboIdTipoSeguimiento">Tipo de seguimiento:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <select name="cboIdTipoSeguimiento" id="cboIdTipoSeguimiento">
+                                        <option value="0">Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtDescripcionSeguimiento">Descripción:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtDescripcionSeguimiento" id="txtDescripcionSeguimiento" maxlength="50" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtFechaPropuesta">Fecha propuesta de realización:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="date" name="txtFechaPropuesta" id="txtFechaPropuesta" data-clear-btn="true" value="" />
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtObservacionesSeguimiento">Observaciones:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtObservacionesSeguimiento" id="txtObservacionesSeguimiento" maxlength="50" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboEstadoSeguimiento">Estado:</label>
+                                    <select name="cboEstadoSeguimiento" id="cboEstadoSeguimiento" disabled>
+                                        <option value="0">Seleccione</option>
+                                        <option value="A" selected>Activo</option>
+                                        <option value="I">Inactivo</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-1"></div>
+                                    <div class="col-xs-10">
+                                        <button type="button" id="btnAceptar" data-theme="b" onclick="" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
+                                    </div>
+                                    <div class="col-xs-1"></div>
+                                </div>
                             </form>
                         </div>
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>
@@ -162,7 +200,7 @@ $utilitarios = new UtilitariosProcesos();
                     </div>
                     <div id="DetalleSeguimiento">
                         <ul>
-                            <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosSeguimientos()">Seguimientos</a></li>
+                            <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosSeguimientos(ObtenerParametroPorNombre('IdVisita'))">Seguimientos</a></li>
                             <li><a href="#" data-transition="flip" data-icon="carat-r" data-theme="b" onclick="UtiProcesosPaginaProcesosVisitasDetalleAgregarDesdeSeguimiento(ObtenerParametroPorNombre('IdVisita'))">Volver a la Visita</a></li>
                         </ul>
                     </div>

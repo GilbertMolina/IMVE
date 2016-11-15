@@ -172,6 +172,14 @@ $utilitarios = new UtilitariosProcesos();
                                     </select>
                                 </div>
                                 <br>
+                                <div id="IdResponsables">
+                                    <label for="cboIdResponsables">Responsable:</label>
+                                    <select name="cboIdResponsables" id="cboIdResponsables">
+                                        <option value="0">Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
                                 <div>
                                     <label for="cboEstadoVisita">Estado:</label>
                                     <select name="cboEstadoVisita" id="cboEstadoVisita" disabled>
@@ -205,6 +213,7 @@ $utilitarios = new UtilitariosProcesos();
                     <div id="DetalleVisita">
                         <ul>
                             <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosVisitas()">Visitas</a></li>
+                            <li><a href="#" data-transition="flip" data-icon="eye" data-theme="b" onclick="UtiProcesosPaginaProcesosSeguimientosDesdeVisita(ObtenerParametroPorNombre('IdVisita'))">Ver Seguimientos Asignados</a></li>
                             <li><a href="#" data-transition="flip" data-icon="plus" data-theme="b" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleAgregarDesdeVisita(ObtenerParametroPorNombre('IdVisita'))">Agregar Seguimiento</a></li>
                         </ul>
                     </div>
