@@ -21,7 +21,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoRelacionesPorT
 
         $sql          = "CALL TbTiposRelacionesListarTipoRelacion('$tipoRelacion')";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
 
         if($db->num_rows($consulta) != 0)
@@ -105,7 +104,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarTipoRelacion') {
 
         $sql          = "CALL TbTiposRelacionesListarPorIdTipoRelacion('$idTipoRelacion')";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
 
         if($db->num_rows($consulta) != 0)

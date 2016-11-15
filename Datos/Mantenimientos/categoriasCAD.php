@@ -21,7 +21,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCategoriasPorE
 
         $sql          = "CALL TbCategoriasListarEstado('$estado')";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
 
         if($db->num_rows($consulta) != 0)
@@ -92,7 +91,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarCategoria') {
 
         $sql          = "CALL TbCategoriasListarPorIdCategoria('$idCategoria')";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
 
         if($db->num_rows($consulta) != 0)

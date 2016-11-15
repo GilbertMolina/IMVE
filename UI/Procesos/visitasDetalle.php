@@ -147,7 +147,7 @@ $utilitarios = new UtilitariosProcesos();
                             <hr>
                             <form method="post" action="#" id="visitasDetalle">
                                 <div>
-                                    <label for="cboIdMinisterios">Ministerios:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <label for="cboIdMinisterios">Ministerio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
                                     <select name="cboIdMinisterios" id="cboIdMinisterios">
                                         <option value="0">Seleccione</option>
                                         <!-- Aquí se insertan los datos dinámicamente -->

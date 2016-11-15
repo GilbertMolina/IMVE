@@ -3571,7 +3571,7 @@ INSERT INTO IMVE.TbRolesUsuarios(Descripcion,UsuarioUltimaModificacion,FechaUlti
 , ('Colaborador',1,CURRENT_TIMESTAMP,'A');
 
 INSERT INTO IMVE.TbPersonas(Identificacion,Nombre,Apellido1,Apellido2,FechaNacimiento,IdDistrito,DireccionDomicilio,Telefono,Celular,Correo,Sexo,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
-('101110111','Admin','Sistema','IMVE',NULL,0,'1991-05-11',251,40335942,'gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
+('101110111','Admin','Sistema','IMVE','1991-05-11',251,'Llanos de Santa Lucía',86073518,40335942,'gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
 , ('304540214','Gilbert','Molina','Castrillo','1991-05-11',251,'300mts sur del estadio de Paraíso','40335942','86073518','gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
 , ('303110303','Antonio','Molina','Rojas','1970-11-08',251,'300mts sur del estadio de Paraíso','40335942','87566245','gmolinac91@gmail.com','M',1,CURRENT_TIMESTAMP,'A')
 , ('501870174','Sonia','Castrillo','Baltodano','1960-05-31',251,'300mts sur del estadio de Paraíso','','86859385','','F',1,CURRENT_TIMESTAMP,'A')

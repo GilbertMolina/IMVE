@@ -688,15 +688,6 @@ function PersonasModificarPersona(p_IdPersona) {
     var listaGruposParticipantesAgregadoJson = JSON.stringify(listaGruposParticipantesAgregado);
     var listaGruposParticipantesEliminadosJson = JSON.stringify(listaGruposParticipantesEliminados);
 
-    if(direccionDomicilio.includes("Clear text"))
-    {
-        direccionDomicilioNuevo = direccionDomicilio.substring(0, direccionDomicilio.length-10);
-    }
-    else
-    {
-        direccionDomicilioNuevo = direccionDomicilio;
-    }
-
     if(identificacion == ""
         || nombre == ""
         || apellido1 == ""

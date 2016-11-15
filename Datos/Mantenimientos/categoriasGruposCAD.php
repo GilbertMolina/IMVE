@@ -21,7 +21,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCategoriasGrup
 
         $sql          = "CALL TbCategoriasGruposListarEstado('$estado')";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
 
         if($db->num_rows($consulta) != 0)
@@ -48,7 +47,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCategoriasGrup
     try {
         $sql          = "CALL TbCategoriasGruposListar()";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
         if($db->num_rows($consulta) != 0)
         {
@@ -114,7 +112,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarCategoriaGrupo') {
 
         $sql          = "CALL TbCategoriasGruposListarPorIdCategoriaGrupo('$idCategoriaGrupo')";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
 
         if($db->num_rows($consulta) != 0)

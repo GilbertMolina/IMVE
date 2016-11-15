@@ -21,7 +21,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoUsuariosPorEst
 
         $sql          = "CALL TbUsuariosListarEstado('$estado')";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
         
         if($db->num_rows($consulta) != 0)
@@ -48,7 +47,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasCombob
     try {
         $sql          = "CALL TbPersonasListarSinUsuario()";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
 
         if($db->num_rows($consulta) != 0)
@@ -124,7 +122,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarUsuario') {
 
         $sql          = "CALL TbUsuariosListarPorIdPersona('$IdPersona')";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
 
         $sqlRolesUsuario      = "CALL TbRolesUsuariosListar()";

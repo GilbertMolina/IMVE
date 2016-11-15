@@ -76,7 +76,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarVisitas') {
             while($resultados = $db->fetch_array($consulta))
             {
                 $cadena_datos .= '<div>';
-                $cadena_datos .= '<label for="cboIdMinisterios">Ministerios:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
+                $cadena_datos .= '<label for="cboIdMinisterios">Ministerio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
                 $cadena_datos .= '<select name="cboIdMinisterios" id="cboIdMinisterios">';
                 $cadena_datos .= '<option value="0">Seleccione</option>';
                 if($db->num_rows($consultaMinisterios) != 0)

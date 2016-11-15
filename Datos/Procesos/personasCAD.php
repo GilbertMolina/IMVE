@@ -475,7 +475,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="txtDireccionDomicilio">Dirección domicilio:</label>';
-                $cadena_datos .= '<textarea name="txtDireccionDomicilio" id="txtDireccionDomicilio" maxlength="250" placeholder="Dirección exacta de su domicilio." data-clear-btn="true">' . utf8_encode($resultadosPersona['DireccionDomicilio']) . '</textarea>';
+                $cadena_datos .= '<textarea name="txtDireccionDomicilio" id="txtDireccionDomicilio" maxlength="250" placeholder="Dirección exacta de su domicilio.">' . utf8_encode($resultadosPersona['DireccionDomicilio']) . '</textarea>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
@@ -615,7 +615,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasLideresListad
     try {
         $sql          = "CALL TbPersonasListar()";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
 
         if($db->num_rows($consulta) != 0)
@@ -639,8 +638,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasParticipantes
     try {
         $sql          = "CALL TbPersonasListar()";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
+
         if($db->num_rows($consulta) != 0)
         {
             $cadena_datos = '<option>Seleccione</option>';
@@ -662,8 +661,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasVisitantesLis
     try {
         $sql          = "CALL TbPersonasListar()";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
+
         if($db->num_rows($consulta) != 0)
         {
             $cadena_datos = '<option>Seleccione</option>';

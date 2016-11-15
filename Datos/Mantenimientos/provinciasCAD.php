@@ -19,7 +19,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerProvincias') {
     try {
         $sql          = "CALL TbProvinciasListar()";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
 
         if($db->num_rows($consulta) != 0)

@@ -207,7 +207,7 @@ $utilitarios = new UtilitariosProcesos();
                                 <br>
                                 <div>
                                     <label for="txtDireccionDomicilio">Dirección domicilio:</label>
-                                    <textarea name="txtDireccionDomicilio" id="txtDireccionDomicilio" maxlength="250" placeholder="Dirección exacta de su domicilio." data-clear-btn="true"></textarea>
+                                    <textarea name="txtDireccionDomicilio" id="txtDireccionDomicilio" maxlength="250" placeholder="Dirección exacta de su domicilio."></textarea>
                                 </div>
                                 <br>
                                 <div>

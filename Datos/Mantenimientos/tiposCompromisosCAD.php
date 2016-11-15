@@ -21,7 +21,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposCompromis
 
         $sql          = "CALL TbTiposCompromisosListarEstado('$estado')";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
 
         if($db->num_rows($consulta) != 0)
@@ -114,7 +113,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarTipoCompromiso') {
 
         $sql          = "CALL TbTiposCompromisosListarPorIdTipoCompromiso('$idTipoCompromiso')";
         $consulta     = $db->consulta($sql);
-        $result       = array();
         $cadena_datos = "";
 
         if($db->num_rows($consulta) != 0)
