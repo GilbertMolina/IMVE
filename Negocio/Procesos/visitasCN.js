@@ -4,6 +4,11 @@
  * Fecha creación: 13/11/16
  */
 
+function VisitasMostrarFechaActualSeleccionada(){
+    var fechaVisita = $("#txtFechaVisita").val();
+    console.log('fechaVisita: ' + fechaVisita);
+}
+
 // Función que se ejecuta al cargar la pagina de visitas
 function VisitasOnLoad() {
     VisitasCargarVisitasListado();
@@ -12,6 +17,7 @@ function VisitasOnLoad() {
 // Función que se ejecuta al cargar la pagina de visitas detalle
 function VisitasDetalleOnLoad() {
     VisitasCargarVisitaPorId();
+    VisitasAsignarFechaVisita();
     VisitasCambiarBarraNavegacionFooter();
 }
 
@@ -25,6 +31,17 @@ function VisitasCambiarBarraNavegacionFooter() {
     else{
         $('#DetalleVisita').hide();
     }
+}
+
+// Función que carga la fecha actual en el campo de fecha visita
+function VisitasAsignarFechaVisita(){
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth() + 1;
+    var a = date.getFullYear();
+    var fechaHoy = a+ '-' + m + '-' + d;
+
+    $("#txtFechaVisita").attr("value", fechaHoy);
 }
 
 // Función para obtener todos los ministerios activos o inactivos

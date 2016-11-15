@@ -178,7 +178,7 @@ $utilitarios = new UtilitariosProcesos();
                                 <br>
                                 <div>
                                     <label for="txtFechaNacimiento">Fecha de nacimiento:</label>
-                                    <input type="date" name="txtFechaNacimiento" id="txtFechaNacimiento" value="">
+                                    <input type="date" name="txtFechaNacimiento" id="txtFechaNacimiento" value=""/>
                                 </div>
                                 <br>
                                 <div>

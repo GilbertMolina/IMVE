@@ -106,18 +106,6 @@ function PersonasMostrarAccionesMasivas(){
     }
 }
 
-// Función que carga la fecha actual en el campo de fecha de nacimiento
-function PersonasAsignarFechaActual()
-{
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth() + 1;
-    var a = date.getFullYear();
-    var fechaCompleta = d + '/' + m + '/' + a;
-
-    document.getElementById("txtFechaNacimiento").defaultValue = fechaCompleta;
-}
-
 // Función para obtener todos las personas registradas
 function PersonasCargarPersonasListado() {
     var ordenamiento = $('#ordenamientoSeleccion').val();
@@ -158,7 +146,6 @@ function PesonasCargarPersonaPorId() {
     }
     else
     {
-        PersonasAsignarFechaActual();
         CargarProvincias();
         PersonasCargarGruposLider();
         PersonasCargarGruposParticipante();

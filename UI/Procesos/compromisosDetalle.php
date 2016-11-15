@@ -183,7 +183,7 @@ $utilitarios = new UtilitariosProcesos();
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="txtTipoResponsable">Tipo responsable:</label>
+                                    <label for="txtTipoResponsable">Tipo de responsable:</label>
                                     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-center" onchange="CompromisosCambiarTipoReponsable()">
                                         <input type="radio" name="tipoResponsable" id="persona" value="P" checked="checked">
                                         <label for="persona">Personas</label>
