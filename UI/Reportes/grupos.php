@@ -46,7 +46,7 @@ $utilitarios = new UtilitariosReportes();
         <script src="../Includes/jqueryconfirm/jquery-confirm.min.js" type="text/javascript"></script>
         <script src="../../Negocio/Utilitarios/reportes.js" type="text/javascript"></script>
         <script src="../../Negocio/Mantenimientos/usuariosCN.js" type="text/javascript"></script>
-        <script src="../../Negocio/Reportes/gruposCN.js" type="text/javascript"></script>
+        <script src="../../Negocio/Reportes/gruposReportesCN.js" type="text/javascript"></script>
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
         <!-- Fin carga de los archivos javascript -->
     </head>

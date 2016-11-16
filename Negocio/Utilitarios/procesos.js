@@ -213,9 +213,9 @@ function UtiProcesosPaginaProcesosSeguimientosDetalleAgregarDesdeVisita(p_IdVisi
 }
 
 // Función para ingresar a la pantalla de proceso de seguimientos detalle modificar
-function UtiProcesosPaginaProcesosSeguimientosDetalleModificar(p_IdSeguimiento)
+function UtiProcesosPaginaProcesosSeguimientosDetalleModificar(p_IdVisita, p_IdSeguimiento)
 {
-    RedireccionPagina('seguimientosDetalle.php?IdSeguimiento=' + p_IdSeguimiento);
+    RedireccionPagina('seguimientosDetalle.php?IdVisita=' + p_IdVisita + '&IdSeguimiento=' + p_IdSeguimiento);
 }
 
 // Función para ingresar a la pantalla de proceso de visitas

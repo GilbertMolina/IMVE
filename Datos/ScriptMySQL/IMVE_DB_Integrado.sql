@@ -3058,6 +3058,68 @@ SELECT LAST_INSERT_ID() AS Id;
 END //
 DELIMITER ;
 
+-- TbPersonasReportePersonasVisitas
+DROP PROCEDURE IF EXISTS IMVE.TbPersonasReportePersonasVisitas;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbPersonasReportePersonasVisitas(
+	p_FechaInicio DATETIME
+    , p_FechaFin DATETIME
+)
+BEGIN
+
+SELECT PV.IdVisita
+	, PV.IdPersona
+    , P.NombreCompleto AS Persona
+    , P.Distrito
+    , P.Telefono
+    , P.Celular
+    , P.Correo
+    , P.Sexo
+	, V.Descripcion AS Visita
+    , M.Descripcion AS Ministerio
+    , V.FechaVisita
+    , CASE V.Cerrada WHEN 'N' THEN 'Abierta' ELSE 'Cerrada' END AS Estado
+FROM IMVE.TbVisitas AS V
+INNER JOIN IMVE.TbPersonasVisitas AS PV
+	ON PV.IdVisita = V.IdVisita
+INNER JOIN IMVE.TbMinisterios AS M
+	ON V.IdMinisterio = M.IdMinisterio
+INNER JOIN (SELECT P.IdPersona
+				, P.Identificacion
+				, P.Nombre
+				, P.Apellido1
+				, P.Apellido2
+				, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+				, P.FechaNacimiento
+				, CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
+				, P.DireccionDomicilio
+				, P.Telefono
+				, P.Celular
+				, P.Correo
+				, CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+				, CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+			FROM IMVE.TbPersonas AS P
+			LEFT JOIN IMVE.TbDistritos AS D 
+				ON P.IdDistrito = D.IdDistrito
+			LEFT JOIN IMVE.TbCantones AS C
+				ON D.IdCanton = C.IdCanton
+				AND D.IdProvincia = C.IdProvincia
+				AND D.IdPais = C.IdPais
+			LEFT JOIN IMVE.TbProvincias AS PR
+				ON C.IdProvincia = PR.IdProvincia
+				AND C.IdPais = PR.IdPais
+			LEFT JOIN IMVE.TbPaises AS PA
+				ON PR.IdPais = PA.IdPais
+			WHERE P.Activo = 'A'
+				AND P.IdPersona <> 1
+			ORDER BY NombreCompleto) AS P
+	ON PV.IdPersona = P.IdPersona
+WHERE V.FechaVisita BETWEEN p_FechaInicio AND p_FechaFin;
+
+END //
+DELIMITER ;
+
 -- -----------------------------------------------------------------------------
 -- CREACIÓN INSERTS
 -- -----------------------------------------------------------------------------
@@ -3762,14 +3824,14 @@ INSERT INTO IMVE.TbCompromisos(IdMinisterio,IdTipoCompromiso,Descripcion,FechaIn
 , (1,1,'Reunión','2016-11-13','2016-11-14','Plaza de la Cultura',1,CURRENT_TIMESTAMP,'A');
 
 INSERT INTO IMVE.TbVisitas(IdMinisterio,Descripcion,FechaVisita,UsuarioUltimaModificacion,FechaUltimaModificacion,Cerrada) VALUES
-(2,'Consejería marital','2016-11-15',1,CURRENT_TIMESTAMP,'N')
-, (1,'Solicitud de comestible','2016-11-10',1,CURRENT_TIMESTAMP,'N');
+(1,'Solicitud de comestible','2016-10-10',1,CURRENT_TIMESTAMP,'N')
+, (2,'Consejería marital','2016-11-15',1,CURRENT_TIMESTAMP,'N');
 
 INSERT INTO IMVE.TbPersonasVisitas(IdVisita,IdPersona,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
 (1,2,1,CURRENT_TIMESTAMP)
-, (1,3,1,CURRENT_TIMESTAMP);
+, (2,3,1,CURRENT_TIMESTAMP);
 
 INSERT INTO IMVE.TbSeguimientos(IdVisita,IdMinisterio,IdPersonaResponsable,IdTipoSeguimiento,Descripcion,FechaPropuesta,FechaRealizacion,Observaciones,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
 (1,2,5,1,'Llamada #1','2016-11-22',NULL,'',1,CURRENT_TIMESTAMP,'A')
 , (1,2,5,1,'Llamada #2','2016-11-29',NULL,'',1,CURRENT_TIMESTAMP,'A')
-, (1,2,5,1,'Llamada #3','2016-12-06',NULL,'',1,CURRENT_TIMESTAMP,'A');
+, (1,2,5,2,'Visita','2016-12-06',NULL,'',1,CURRENT_TIMESTAMP,'A');

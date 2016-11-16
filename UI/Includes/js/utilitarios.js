@@ -9,6 +9,14 @@ function RedireccionPagina(url) {
     window.location.href = url;
 }
 
+// Función para redireccionar pagina en nueva ventana
+function RedireccionPaginaNuevaVentana(url) {
+    window.open(
+        url
+        , '_black'
+    );
+}
+
 // Función que permite ingresar solamente números
 function SoloNumeros(e) {
     var key = window.Event ? e.which : e.keyCode;

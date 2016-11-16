@@ -46,7 +46,7 @@ $utilitarios = new UtilitariosReportes();
         <script src="../Includes/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="../../Negocio/Utilitarios/reportes.js" type="text/javascript"></script>
         <script src="../../Negocio/Mantenimientos/usuariosCN.js" type="text/javascript"></script>
-        <script src="../../Negocio/Reportes/personasCN.js" type="text/javascript"></script>
+        <script src="../../Negocio/Reportes/personasReportesCN.js" type="text/javascript"></script>
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
         <!-- Fin carga de los archivos javascript -->
     </head>
@@ -146,18 +146,31 @@ $utilitarios = new UtilitariosReportes();
                         <div class="col-xs-12 col-sm-10">
                             <h3 class="text-center">Reportes de Personas</h3>
                             <hr>
-                            <div class="jumbotron">
-                                <img src="../Includes/images/documentPDF.png" alt="Reporte 1">
-                                <h2>Reporte de visitas con su fecha de ingreso</h2>
-                                <p><strong>Descripción: </strong>Se listan las personas registradas en el sistema, con su respectiva fecha en la que realizaron la visita por primera vez.</p>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <div class="col-xs-8 col-sm-4">
-                                    <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left">Generar</button>
+                            <form method="post" action="#" id="reportePersonas">
+                                <div class="jumbotron">
+                                    <img src="../Includes/images/documentPDF.png" alt="Reporte">
+                                    <h2>Reporte de visitas con su fecha de ingreso</h2>
+                                    <p><strong>Descripción: </strong>Se listan las personas registradas en el sistema, con su respectiva fecha en la que realizaron la visita por primera vez.</p>
+                                    <p><strong>Filtros:</strong></p>
+                                    <div class="text-left">
+                                        <div>
+                                            <label for="txtFechaInicioPersonasReporte">Fecha de inicio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                            <input type="date" name="txtFechaInicioPersonasReporte" id="txtFechaInicioPersonasReporte" data-clear-btn="true" value="" />
+                                        </div>
+                                        <div>
+                                            <label for="txtFechaFinPersonasReporte">Fecha de fin:</label>
+                                            <input type="date" name="txtFechaFinPersonasReporte" id="txtFechaFinPersonasReporte" data-clear-btn="true" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-4"></div>
+                                    <div class="col-xs-8 col-sm-4">
+                                        <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left" type="button" onclick="return PersonasReportesGenerarOnClick()">Generar</button>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-4"></div>
+                                    <br>
+                                    <br>
                                 </div>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <br>
-                                <br>
-                            </div>
+                            </form>
                         </div>
                         <div class="col-sm-1"></div>
                     </div>

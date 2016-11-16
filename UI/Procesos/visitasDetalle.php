@@ -173,7 +173,7 @@ $utilitarios = new UtilitariosProcesos();
                                 </div>
                                 <br>
                                 <div id="IdResponsables">
-                                    <label for="cboIdResponsables">Responsable:</label>
+                                    <label for="cboIdResponsables">Responsable para los seguimientos por defecto:</label>
                                     <select name="cboIdResponsables" id="cboIdResponsables">
                                         <option value="0">Seleccione</option>
                                         <!-- Aquí se insertan los datos dinámicamente -->

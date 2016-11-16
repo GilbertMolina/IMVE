@@ -59,14 +59,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarVisitas') {
         $sqlTotalPersonas      = "CALL TbPersonasListar()";
         $consultaTotalPersonas = $db->consulta($sqlTotalPersonas);
 
-        $sqlPersonaResponsable      = "CALL TbPersonasListar()";
-        $consultaPersonaResponsable = $db->consulta($sqlPersonaResponsable);
-
         $sqlTotalPersonasVisitantes      = "CALL TbPersonasVisitasPorIdVisita('$idVisita')";
         $consultaTotalPersonasVisitantes = $db->consulta($sqlTotalPersonasVisitantes);
         $arregloPersonasVisitantes       = array();
-
-        $usuarioActual = $_SESSION['idPersona'];
 
         if($db->num_rows($consultaTotalPersonasVisitantes) != 0)
         {
@@ -132,23 +127,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarVisitas') {
                 $cadena_datos .= '</select>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<input type="hidden" name="hdfVisitasPersonasVisitantes" id="hdfVisitasPersonasVisitantes" value="' . substr($listaTodalVisitasPersonasVisitantes,0,strlen($listaTodalVisitasPersonasVisitantes)-1) . '">';
-                $cadena_datos .= '<br>';
-                $cadena_datos .= '<div id="IdResponsables">';
-                $cadena_datos .= '<label for="cboIdResponsables">Responsable:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
-                $cadena_datos .= '<select name="cboIdResponsables" id="cboIdResponsables">';
-                $cadena_datos .= '<option value="0">Seleccione</option>';
-                while($resultadosPersonaReponsable = $db->fetch_array($consultaPersonaResponsable))
-                {
-                    if ($resultadosPersonaReponsable['IdPersona'] == $usuarioActual){
-                        $cadena_datos .= '<option value="' . $resultadosPersonaReponsable['IdPersona'] . '" selected>' . utf8_encode($resultadosPersonaReponsable['NombreCompleto']) . '</option>';
-                    }
-                    else
-                    {
-                        $cadena_datos .= '<option value="' . $resultadosPersonaReponsable['IdPersona'] . '">' . utf8_encode($resultadosPersonaReponsable['NombreCompleto']) . '</option>';
-                    }
-                }
-                $cadena_datos .= '</select>';
-                $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="cboEstadoVisita">Estado:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';

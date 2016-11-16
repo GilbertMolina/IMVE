@@ -28,7 +28,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPo
         {
             while($resultados = $db->fetch_array($consulta))
             {
-                $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleModificar(' . $resultados['IdVisita'] . ')">' . utf8_encode($resultados['Descripcion']) . '</a></li>';
+                $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleModificar(' . $resultados["IdVisita"] . ',' . $resultados["IdSeguimiento"] . ')">' . utf8_encode($resultados['Descripcion']) . '</a></li>';
             }
         }
         else
