@@ -3832,6 +3832,9 @@ INSERT INTO IMVE.TbPersonasVisitas(IdVisita,IdPersona,UsuarioUltimaModificacion,
 , (2,3,1,CURRENT_TIMESTAMP);
 
 INSERT INTO IMVE.TbSeguimientos(IdVisita,IdMinisterio,IdPersonaResponsable,IdTipoSeguimiento,Descripcion,FechaPropuesta,FechaRealizacion,Observaciones,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
-(1,2,5,1,'Llamada #1','2016-11-22',NULL,'',1,CURRENT_TIMESTAMP,'A')
-, (1,2,5,1,'Llamada #2','2016-11-29',NULL,'',1,CURRENT_TIMESTAMP,'A')
-, (1,2,5,2,'Visita','2016-12-06',NULL,'',1,CURRENT_TIMESTAMP,'A');
+(1,1,4,1,'Llamada #1','2016-11-22',NULL,'',1,CURRENT_TIMESTAMP,'A')
+, (1,1,4,1,'Llamada #2','2016-11-29',NULL,'',1,CURRENT_TIMESTAMP,'A')
+, (1,1,4,2,'Visita','2016-12-06',NULL,'',1,CURRENT_TIMESTAMP,'A')
+, (2,2,5,1,'Llamada #1','2016-11-22',NULL,'',1,CURRENT_TIMESTAMP,'A')
+, (2,2,5,1,'Llamada #2','2016-11-29',NULL,'',1,CURRENT_TIMESTAMP,'A')
+, (2,2,5,2,'Visita','2016-12-06',NULL,'',1,CURRENT_TIMESTAMP,'A');
