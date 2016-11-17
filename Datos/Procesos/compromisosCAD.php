@@ -27,12 +27,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarCompromiso') {
 
         $listaPersonasResponsables = "";
         $listaGruposResponsables = "";
+
         if($tipoResposable == 'P'){
             $listaPersonasResponsables = json_decode(stripslashes($_POST['listaPersonasResponsables']));
         }
         else{
             $listaGruposResponsables = json_decode(stripslashes($_POST['listaGruposResponsables']));
         }
+        
         $listaPersonasParticipantes = json_decode(stripslashes($_POST['listaPersonasParticipantes']));
         $usuarioActual              = $_SESSION['idPersona'];
         $idCompromiso               = "";

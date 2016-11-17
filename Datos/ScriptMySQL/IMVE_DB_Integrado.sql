@@ -2759,6 +2759,23 @@ SELECT LAST_INSERT_ID() AS Id;
 END //
 DELIMITER ;
 
+-- TbReponsablesGruposCompromisosListar
+DROP PROCEDURE IF EXISTS IMVE.TbReponsablesGruposCompromisosListar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbReponsablesGruposCompromisosListar()
+BEGIN
+
+SELECT RGP.IdCompromiso
+	, RGP.IdGrupo
+	, G.Descripcion
+FROM IMVE.TbReponsablesGruposCompromisos AS RGP
+INNER JOIN IMVE.TbGrupos AS G
+	ON RGP.IdGrupo = G.IdGrupo;
+
+END //
+DELIMITER ;
+
 -- TbReponsablesGruposCompromisosAgregar
 DROP PROCEDURE IF EXISTS IMVE.TbReponsablesGruposCompromisosAgregar;
 
@@ -2785,6 +2802,23 @@ VALUES
 );
 
 SELECT LAST_INSERT_ID() AS Id;
+
+END //
+DELIMITER ;
+
+-- TbResponsablesCompromisosListar
+DROP PROCEDURE IF EXISTS IMVE.TbResponsablesCompromisosListar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbResponsablesCompromisosListar()
+BEGIN
+
+SELECT RC.IdCompromiso
+	, RC.IdPersona
+	, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+FROM IMVE.TbResponsablesCompromisos AS RC
+INNER JOIN IMVE.TbPersonas AS P
+	ON RC.IdPersona = P.IdPersona;
 
 END //
 DELIMITER ;
@@ -3058,11 +3092,11 @@ SELECT LAST_INSERT_ID() AS Id;
 END //
 DELIMITER ;
 
--- TbPersonasReportePersonasVisitas
-DROP PROCEDURE IF EXISTS IMVE.TbPersonasReportePersonasVisitas;
+-- ReportePersonasFechasVisitas
+DROP PROCEDURE IF EXISTS IMVE.ReportePersonasFechasVisitas;
 
 DELIMITER //
-CREATE PROCEDURE IMVE.TbPersonasReportePersonasVisitas(
+CREATE PROCEDURE IMVE.ReportePersonasFechasVisitas(
 	p_FechaInicio DATETIME
     , p_FechaFin DATETIME
 )
@@ -3119,6 +3153,177 @@ WHERE V.FechaVisita BETWEEN p_FechaInicio AND p_FechaFin;
 
 END //
 DELIMITER ;
+
+-- ReporteCompromisosResponsables
+DROP PROCEDURE IF EXISTS IMVE.ReporteCompromisosResponsables;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.ReporteCompromisosResponsables(
+	p_FechaInicio DATETIME
+    , p_FechaFin DATETIME
+    , p_TipoReponsable CHAR(1)
+)
+BEGIN
+
+IF p_TipoReponsable = 'P' THEN
+	SELECT C.IdCompromiso
+		, C.Descripcion AS Compromiso
+		, TC.Descripcion AS TipoCompromiso
+		, M.Descripcion AS Ministerio
+		, P.NombreCompleto AS Responsable
+		, C.FechaInicio
+		, C.FechaFinal
+		, C.Lugar
+		, CASE C.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+	FROM IMVE.TbCompromisos AS C
+	INNER JOIN IMVE.TbMinisterios AS M
+		ON C.IdMinisterio = M.IdMinisterio
+	INNER JOIN IMVE.TbTiposCompromisos AS TC
+		ON C.IdTipoCompromiso = TC.IdTipoCompromiso
+	INNER JOIN IMVE.TbResponsablesCompromisos AS RC
+		ON C.IdCompromiso = RC.IdCompromiso
+	INNER JOIN (SELECT P.IdPersona
+					, P.Identificacion
+					, P.Nombre
+					, P.Apellido1
+					, P.Apellido2
+					, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+					, P.FechaNacimiento
+					, CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
+					, P.DireccionDomicilio
+					, P.Telefono
+					, P.Celular
+					, P.Correo
+					, CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+					, CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+				FROM IMVE.TbPersonas AS P
+				LEFT JOIN IMVE.TbDistritos AS D 
+					ON P.IdDistrito = D.IdDistrito
+				LEFT JOIN IMVE.TbCantones AS C
+					ON D.IdCanton = C.IdCanton
+					AND D.IdProvincia = C.IdProvincia
+					AND D.IdPais = C.IdPais
+				LEFT JOIN IMVE.TbProvincias AS PR
+					ON C.IdProvincia = PR.IdProvincia
+					AND C.IdPais = PR.IdPais
+				LEFT JOIN IMVE.TbPaises AS PA
+					ON PR.IdPais = PA.IdPais
+				WHERE P.Activo = 'A'
+					AND P.IdPersona <> 1
+				ORDER BY NombreCompleto) AS P
+		ON RC.IdPersona = P.IdPersona
+	WHERE C.FechaInicio BETWEEN p_FechaInicio AND p_FechaFin
+    ORDER BY C.FechaInicio DESC
+		, C.FechaFinal DESC;
+    
+ELSEIF p_TipoReponsable = 'G' THEN
+	SELECT C.IdCompromiso
+		, C.Descripcion AS Compromiso
+		, TC.Descripcion AS TipoCompromiso
+		, M.Descripcion AS Ministerio
+		, G.Descripcion AS Responsable
+		, C.FechaInicio
+		, C.FechaFinal
+		, C.Lugar
+		, CASE C.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+	FROM IMVE.TbCompromisos AS C
+	INNER JOIN IMVE.TbMinisterios AS M
+		ON C.IdMinisterio = M.IdMinisterio
+	INNER JOIN IMVE.TbTiposCompromisos AS TC
+		ON C.IdTipoCompromiso = TC.IdTipoCompromiso
+	INNER JOIN IMVE.TbReponsablesGruposCompromisos AS RGC
+		ON C.IdCompromiso = RGC.IdCompromiso
+	INNER JOIN IMVE.TbGrupos AS G
+		ON RGC.IdGrupo = G.IdGrupo
+	WHERE C.FechaInicio BETWEEN p_FechaInicio AND p_FechaFin
+    ORDER BY C.FechaInicio DESC
+		, C.FechaFinal DESC;
+    
+ELSE
+	SELECT C.IdCompromiso
+		, C.Compromiso
+		, C.TipoCompromiso
+		, C.Ministerio
+		, C.Responsable
+		, C.FechaInicio
+		, C.FechaFinal
+		, C.Lugar
+		, C.Estado
+    FROM(SELECT C.IdCompromiso
+			, C.Descripcion AS Compromiso
+			, TC.Descripcion AS TipoCompromiso
+			, M.Descripcion AS Ministerio
+			, P.NombreCompleto AS Responsable
+			, C.FechaInicio
+			, C.FechaFinal
+			, C.Lugar
+			, CASE C.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+		FROM IMVE.TbCompromisos AS C
+		INNER JOIN IMVE.TbMinisterios AS M
+			ON C.IdMinisterio = M.IdMinisterio
+		INNER JOIN IMVE.TbTiposCompromisos AS TC
+			ON C.IdTipoCompromiso = TC.IdTipoCompromiso
+		INNER JOIN IMVE.TbResponsablesCompromisos AS RC
+			ON C.IdCompromiso = RC.IdCompromiso
+		INNER JOIN (SELECT P.IdPersona
+						, P.Identificacion
+						, P.Nombre
+						, P.Apellido1
+						, P.Apellido2
+						, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+						, P.FechaNacimiento
+						, CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
+						, P.DireccionDomicilio
+						, P.Telefono
+						, P.Celular
+						, P.Correo
+						, CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+						, CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+					FROM IMVE.TbPersonas AS P
+					LEFT JOIN IMVE.TbDistritos AS D 
+						ON P.IdDistrito = D.IdDistrito
+					LEFT JOIN IMVE.TbCantones AS C
+						ON D.IdCanton = C.IdCanton
+						AND D.IdProvincia = C.IdProvincia
+						AND D.IdPais = C.IdPais
+					LEFT JOIN IMVE.TbProvincias AS PR
+						ON C.IdProvincia = PR.IdProvincia
+						AND C.IdPais = PR.IdPais
+					LEFT JOIN IMVE.TbPaises AS PA
+						ON PR.IdPais = PA.IdPais
+					WHERE P.Activo = 'A'
+						AND P.IdPersona <> 1
+					ORDER BY NombreCompleto) AS P
+			ON RC.IdPersona = P.IdPersona
+
+		UNION ALL
+
+		SELECT C.IdCompromiso
+			, C.Descripcion AS Compromiso
+			, TC.Descripcion AS TipoCompromiso
+			, M.Descripcion AS Ministerio
+			, G.Descripcion AS Responsable
+			, C.FechaInicio
+			, C.FechaFinal
+			, C.Lugar
+			, CASE C.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+		FROM IMVE.TbCompromisos AS C
+		INNER JOIN IMVE.TbMinisterios AS M
+			ON C.IdMinisterio = M.IdMinisterio
+		INNER JOIN IMVE.TbTiposCompromisos AS TC
+			ON C.IdTipoCompromiso = TC.IdTipoCompromiso
+		INNER JOIN IMVE.TbReponsablesGruposCompromisos AS RGC
+			ON C.IdCompromiso = RGC.IdCompromiso
+		INNER JOIN IMVE.TbGrupos AS G
+			ON RGC.IdGrupo = G.IdGrupo) AS C
+	WHERE C.FechaInicio BETWEEN p_FechaInicio AND p_FechaFin
+    ORDER BY C.FechaInicio DESC
+		, C.FechaFinal DESC;
+END IF;
+
+END //
+DELIMITER ;
+
 
 -- -----------------------------------------------------------------------------
 -- CREACIÓN INSERTS
@@ -3813,15 +4018,23 @@ INSERT INTO IMVE.TbTiposSeguimientos(Descripcion,UsuarioUltimaModificacion,Fecha
 , ('Mensaje',1,CURRENT_TIMESTAMP,'A');
 
 INSERT INTO IMVE.TbCompromisos(IdMinisterio,IdTipoCompromiso,Descripcion,FechaInicio,FechaFinal,Lugar,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
-(1,1,'Reunión','2016-11-10','2016-11-11','Iglesia Manantiales de Vida Eterna, Salón Principal',1,CURRENT_TIMESTAMP,'A')
+(1,1,'Reunión','2016-11-10','2016-11-11','Iglesia, Salón Principal',1,CURRENT_TIMESTAMP,'A')
 , (1,1,'Reunión','2016-11-11','2016-11-13','Salón Comunal',1,CURRENT_TIMESTAMP,'A')
 , (2,1,'Reunión','2016-11-10','2016-11-12','Parque de Paraíso',1,CURRENT_TIMESTAMP,'A')
 , (2,1,'Reunión','2016-11-11','2016-11-12','Ruinas de Ujarrás',1,CURRENT_TIMESTAMP,'A')
-, (3,1,'Reunión','2016-11-11','2016-11-12','Iglesia Manantiales de Vida Eterna',1,CURRENT_TIMESTAMP,'A')
+, (3,1,'Reunión','2016-11-11','2016-11-12','Iglesia',1,CURRENT_TIMESTAMP,'A')
 , (3,1,'Reunión','2016-11-12','2016-11-14','Plaza Paraíso',1,CURRENT_TIMESTAMP,'A')
 , (4,1,'Reunión','2016-11-11','2016-11-11','Jardín Lankester',1,CURRENT_TIMESTAMP,'A')
 , (5,1,'Reunión','2016-11-14','2016-11-15','Laguna de Doña Ana',1,CURRENT_TIMESTAMP,'A')
 , (1,1,'Reunión','2016-11-13','2016-11-14','Plaza de la Cultura',1,CURRENT_TIMESTAMP,'A');
+
+INSERT INTO IMVE.TbResponsablesCompromisos(IdPersona,IdCompromiso,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
+(5,1,1,CURRENT_TIMESTAMP)
+, (2,2,1,CURRENT_TIMESTAMP);
+
+INSERT INTO IMVE.TbReponsablesGruposCompromisos(IdGrupo,IdCompromiso,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
+(1,4,1,CURRENT_TIMESTAMP)
+, (2,4,1,CURRENT_TIMESTAMP);
 
 INSERT INTO IMVE.TbVisitas(IdMinisterio,Descripcion,FechaVisita,UsuarioUltimaModificacion,FechaUltimaModificacion,Cerrada) VALUES
 (1,'Solicitud de comestible','2016-10-10',1,CURRENT_TIMESTAMP,'N')

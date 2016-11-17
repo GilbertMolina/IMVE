@@ -656,6 +656,29 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasParticipantes
     }
 }
 
+// Obtiene las personas activas del sistema de un grupo para mostrarlos en el select de lideres
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasResponsablesGruposListado') {
+    try {
+        $sql          = "CALL TbPersonasListar()";
+        $consulta     = $db->consulta($sql);
+        $cadena_datos = "";
+
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos = '<option>Seleccione</option>';
+
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+            }
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
 // Obtiene las personas que son visitasntes en la iglesia para mostrarlas en el select de visitantes
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasVisitantesListado') {
     try {

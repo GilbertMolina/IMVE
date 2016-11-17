@@ -129,7 +129,7 @@ function CompromisosCargarTiposCompromisosComboBox()
 function CompromisosCargarPersonasResponsables()
 {
     // Se define el action que será consultado desde la clase de acceso a datos
-    var d = "action=obtenerPersonasLideresListado";
+    var d = "action=obtenerPersonasResponsablesGruposListado";
 
     // Limpiar el valor del select cuando se hace el cambio del tipo de integrante
     $("#CompromisosPersonasResponsables").html("<option>Seleccione</option>").selectmenu('refresh');

@@ -50,7 +50,7 @@ $utilitarios = new UtilitariosReportes();
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
         <!-- Fin carga de los archivos javascript -->
     </head>
-    <body>
+    <body onload="CompromisosReportesOnLoad()">
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
@@ -146,18 +146,43 @@ $utilitarios = new UtilitariosReportes();
                         <div class="col-xs-12 col-sm-10">
                             <h3 class="text-center">Reportes de Compromisos</h3>
                             <hr>
-                            <div class="jumbotron">
-                                <img src="../Includes/images/documentPDF.png" alt="Reporte 1">
-                                <h2>Reporte de compromisos con sus respectivas fechas y responsables</h2>
-                                <p><strong>Descripción: </strong>Se listan todos los compromisos ordenados por fecha, con sus respectivos responsables.</p>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <div class="col-xs-8 col-sm-4">
-                                    <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left">Generar</button>
+                            <form method="post" action="#" id="reporteCompromisos">
+                                <div class="jumbotron">
+                                    <img src="../Includes/images/documentPDF.png" alt="Reporte 1">
+                                    <h2>Reporte de compromisos con sus respectivas fechas y responsables</h2>
+                                    <p><strong>Descripción: </strong>Se listan todos los compromisos ordenados por fecha, con sus respectivos responsables.</p>
+                                    <p><strong>Filtros:</strong></p>
+                                    <div class="text-left">
+                                        <div>
+                                            <label for="txtFechaInicioCompromisosReporte">Fecha de inicio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                            <input type="date" name="txtFechaInicioCompromisosReporte" id="txtFechaInicioCompromisosReporte" data-clear-btn="true" value="" />
+                                        </div>
+                                        <div>
+                                            <label for="txtFechaFinCompromisosReporte">Fecha de fin:</label>
+                                            <input type="date" name="txtFechaFinCompromisosReporte" id="txtFechaFinCompromisosReporte" data-clear-btn="true" value="" />
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <label for="txtTipoCompromisoReporteResponsable">Responsable:</label>
+                                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-center">
+                                                <input type="radio" name="tipoCompromisoReporteResponsable" id="persona" value="P" checked="checked">
+                                                <label for="persona">Personas</label>
+                                                <input type="radio" name="tipoCompromisoReporteResponsable" id="grupo" value="G">
+                                                <label for="grupo">Grupos</label>
+                                                <input type="radio" name="tipoCompromisoReporteResponsable" id="todos" value="T">
+                                                <label for="todos">Todos</label>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-4"></div>
+                                    <div class="col-xs-8 col-sm-4">
+                                        <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left" type="button" onclick="return CompromisosReportesGenerarOnClick()">Generar</button>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-4"></div>
+                                    <br>
+                                    <br>
                                 </div>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <br>
-                                <br>
-                            </div>
+                            </form>
                         </div>
                         <div class="col-sm-1"></div>
                     </div>

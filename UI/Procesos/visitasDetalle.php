@@ -161,7 +161,7 @@ $utilitarios = new UtilitariosProcesos();
                                 <br>
                                 <div>
                                     <label for="txtFechaVisita">Fecha de visita:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                    <input type="date" name="txtFechaVisita" id="txtFechaVisita" data-clear-btn="true" value="" />
+                                    <input type="datetime-local" name="txtFechaVisita" id="txtFechaVisita" data-clear-btn="true" value="" />
                                 </div>
                                 <br>
                                 <div id="divVisitasPersonasVisitas">

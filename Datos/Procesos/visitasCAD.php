@@ -194,13 +194,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarVisita') {
             $fechaSeguimiento2 = date('Y-m-d', strtotime("$fechaSeguimiento1 + 7 day"));
             $fechaSeguimiento3 = date('Y-m-d', strtotime("$fechaSeguimiento2 + 7 day"));
 
-            $sqlSeguimiento1      = "CALL TbSeguimientosAgregar('$idVisita','$idMinisterio','$idPersonaReponsable','1','Llamada #1','$fechaSeguimiento1','','','$usuarioActual')";
+            $sqlSeguimiento1      = "CALL TbSeguimientosAgregar('$idVisita','$idMinisterio','$idPersonaReponsable','1','Llamada #1 (Por defecto)','$fechaSeguimiento1','','','$usuarioActual')";
             $consultaSeguimiento1 = $db->consulta(utf8_decode($sqlSeguimiento1));
 
-            $sqlSeguimiento2      = "CALL TbSeguimientosAgregar('$idVisita','$idMinisterio','$idPersonaReponsable','1','Llamada #2','$fechaSeguimiento2','','','$usuarioActual')";
+            $sqlSeguimiento2      = "CALL TbSeguimientosAgregar('$idVisita','$idMinisterio','$idPersonaReponsable','1','Llamada #2 (Por defecto)','$fechaSeguimiento2','','','$usuarioActual')";
             $consultaSeguimiento2 = $db->consulta(utf8_decode($sqlSeguimiento2));
 
-            $sqlSeguimiento3      = "CALL TbSeguimientosAgregar('$idVisita','$idMinisterio','$idPersonaReponsable','1','Llamada #3','$fechaSeguimiento3','','','$usuarioActual')";
+            $sqlSeguimiento3      = "CALL TbSeguimientosAgregar('$idVisita','$idMinisterio','$idPersonaReponsable','2','Visita #1 (Por defecto)','$fechaSeguimiento3','','','$usuarioActual')";
             $consultaSeguimiento3 = $db->consulta(utf8_decode($sqlSeguimiento3));
 
             // Se agregan las personas visitas, si las hubieran

@@ -6,12 +6,9 @@
 
 // Función que registra el usuario del usuario a la base de datos por medio de Ajax
 function PersonasReportesGenerarOnClick(){
-    var fechaInicio = '';
-    var fechaFin = '';
+    var fechaInicio = $('#txtFechaInicioPersonasReporte').val();
+    var fechaFin = $('#txtFechaFinPersonasReporte').val();
     var fechaFinParaEnviar = '';
-
-    fechaInicio = $('#txtFechaInicioPersonasReporte').val();
-    fechaFin = $('#txtFechaFinPersonasReporte').val();
 
     if (fechaFin == "")
     {
@@ -48,5 +45,4 @@ function PersonasReportesGenerarOnClick(){
 
     // Se redirecciona a la pagina que mostrará el reporte
     RedireccionPaginaNuevaVentana(url);
-    
 };

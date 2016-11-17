@@ -149,7 +149,7 @@ $utilitarios = new UtilitariosReportes();
                             <div class="jumbotron">
                                 <img src="../Includes/images/documentPDF.png" alt="Reporte 1">
                                 <h2>Reporte de actividad de grupos</h2>
-                                <p><strong>Descripción: </strong>Se listan todos los grupos con sus respectivas actividades, o compromisos.</p>
+                                <p><strong>Descripción: </strong>Se listan todos los grupos con sus respectivos compromisos.</p>
                                 <div class="col-xs-2 col-sm-4"></div>
                                 <div class="col-xs-8 col-sm-4">
                                     <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left">Generar</button>

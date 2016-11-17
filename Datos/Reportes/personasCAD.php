@@ -24,7 +24,7 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
         $fechaInicio = $_GET['fechaInicio'];
         $fechaFin    = $_GET['fechaFin'];
 
-        $sqlPersona      = "CALL TbPersonasReportePersonasVisitas('$fechaInicio', '$fechaFin')";
+        $sqlPersona      = "CALL ReportePersonasFechasVisitas('$fechaInicio', '$fechaFin')";
         $consultaPersona = $db->consulta($sqlPersona);
         $cadena_datos    = "";
 
@@ -118,13 +118,16 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
         // Se procede a generar el PDF con el header, el contenido y footer
         $mpdf = new mPDF('c', 'Letter-L');
         $mpdf->setHeader('|' . $nombreSistema . '|');
-        $mpdf->setFooter('|' . $nombreIglesia . '|');
+        date_default_timezone_set('America/Costa_Rica');
+        $mpdf->setFooter('|' . $nombreIglesia . '|' . date('m/d/Y g:ia'));
         // Se configura el CSS a utilizar
         $css = file_get_contents('../../UI/Includes/bootstrap/css/bootstrap.min.css');
         $mpdf->writeHTML($css, 1);
         $mpdf->writeHTML($html);
-        // Se configura el nombre del reporte cuando se vaya a descargar
+        // Se coloca el nombre del reporte, y configura para que sea desplegado en el navegador web
         $mpdf->Output('ReportePersonas.pdf', 'I');
+        // Se coloca el nombre del reporte, y configura para que sea descargado inmediantamente
+        //$mpdf->Output('ReportePersonas.pdf', 'D');
 
     }
     catch (Exception $e) {
