@@ -74,3 +74,13 @@ html,body {
     font-weight: bold !important;
     text-align: right !important;
 }
+
+.fc-time,.fc-title{
+    color: #FFFFFF !important;
+    font-weight: lighter !important
+}
+
+.fc-header>.fc-title{
+    color: #000000 !important;
+    font-weight: bold !important
+}

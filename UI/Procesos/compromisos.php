@@ -39,8 +39,16 @@ $utilitarios = new UtilitariosProcesos();
         <link href="../Includes/css/fonts/Lato.css" rel="stylesheet" type="text/css">
         <link href="../Includes/css/styles.css" rel="stylesheet" type="text/css"/>
         <!-- Fin carga de las hojas de estilo -->
-        <!-- Se cargan los archivos javascript -->
+        <!-- Se cargan la librerìa de jQuery -->
         <script src="../Includes/jquerymobile/jquery-1.9.1.min.js" type="text/javascript"></script>
+        <!-- Fin carga de la librerìa de jQuery -->
+        <!-- Se cargan los archivos necesarios para el calendario -->
+        <link href="../Includes/calendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
+        <link href="../Includes/calendar/fullcalendar.print.css" rel="stylesheet" media="print" type="text/css"/>
+        <script src="../Includes/calendar/lib/moment.min.js" type="text/javascript"></script>
+        <script src="../Includes/calendar/fullcalendar.min.js" type="text/javascript"></script>
+        <!-- Fin carga de los archivos necesarios para el calendario -->
+        <!-- Se cargan los archivos javascript -->
         <script src="../Includes/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="../Includes/jquerymobile/jquery.mobile-1.4.2.min.js" type="text/javascript"></script>
         <script src="../Includes/jqueryconfirm/jquery-confirm.min.js" type="text/javascript"></script>
@@ -48,6 +56,7 @@ $utilitarios = new UtilitariosProcesos();
         <script src="../../Negocio/Procesos/compromisosCN.js" type="text/javascript"></script>
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
         <!-- Fin carga de los archivos javascript -->
+
     </head>
     <body onload="CompromisosOnLoad()">
         <div data-role="page">
@@ -142,12 +151,13 @@ $utilitarios = new UtilitariosProcesos();
                 <div class="container">
                     <h3 class="text-center">Compromisos</h3>
                     <hr>
-                    <form class="ui-filterable">
+                    <div id="calendar"></div>
+                    <!-- <form class="ui-filterable">
                         <input id="filtro" data-type="search" placeholder="Búsqueda">
-                    </form>
-                    <ul data-role="listview" id="listaCompromisos" data-filter="true" data-input="#filtro" data-autodividers="true" data-inset="true">
+                    </form> -->
+                    <!-- <ul data-role="listview" id="listaCompromisos" data-filter="true" data-input="#filtro" data-autodividers="true" data-inset="true"> -->
                         <!-- Aquí se insertan los datos dinámicamente -->
-                        <ul data-role="listview" data-inset="true">
+                        <!-- <ul data-role="listview" data-inset="true">
                             <li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2</span></li>
                             <li>
                                 <a href="index.html">
@@ -174,8 +184,8 @@ $utilitarios = new UtilitariosProcesos();
                                     <p class="ui-li-aside"><strong>4:48</strong>PM</p>
                                 </a>
                             </li>
-                        </ul>
-                    </ul>
+                        </ul> -->
+                    <!-- </ul> -->
                 </div>
             </div>
             <div data-role="footer" data-theme="b" data-position="fixed">
