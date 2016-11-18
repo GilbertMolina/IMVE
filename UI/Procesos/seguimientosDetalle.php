@@ -166,22 +166,22 @@ $utilitarios = new UtilitariosProcesos();
                                 <br>
                                 <div>
                                     <label for="txtObservacionesSeguimiento">Observaciones:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                    <input type="text" name="txtObservacionesSeguimiento" id="txtObservacionesSeguimiento" maxlength="50" data-clear-btn="true"/>
+                                    <textarea name="txtObservacionesSeguimiento" id="txtObservacionesSeguimiento" maxlength="250" placeholder="Observaciones del seguimiento."></textarea>
                                 </div>
                                 <br>
                                 <div>
                                     <label for="cboEstadoSeguimiento">Estado:</label>
                                     <select name="cboEstadoSeguimiento" id="cboEstadoSeguimiento" disabled>
                                         <option value="0">Seleccione</option>
-                                        <option value="A" selected>Activo</option>
-                                        <option value="I">Inactivo</option>
+                                        <option value="N" selected>Abierto</option>
+                                        <option value="S">Cerrado</option>
                                     </select>
                                 </div>
                                 <br>
                                 <div class="row">
                                     <div class="col-xs-1"></div>
                                     <div class="col-xs-10">
-                                        <button type="button" id="btnAceptar" data-theme="b" onclick="" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
+                                        <button type="button" id="btnAceptar" data-theme="b" onclick="SeguimientosRegistrarSeguimiento(ObtenerParametroPorNombre('IdVisita'))" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Agregar</button>
                                     </div>
                                     <div class="col-xs-1"></div>
                                 </div>

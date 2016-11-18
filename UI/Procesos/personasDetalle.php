@@ -156,112 +156,126 @@ $utilitarios = new UtilitariosProcesos();
                         <h3 class="text-center">Mantenimiento de Personas</h3>
                         <hr>
                         <form method="post" action="#" id="personasDetalle">
-                            <div>
-                                <label for="txtIdentificacion">Identificación:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="Ejm: 102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                            <div id="formPersonaDetalle">
+                                <div>
+                                    <label for="txtIdentificacion">Identificación:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="Ejm: 102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtNombre">Nombre:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtNombre" id="txtNombre" maxlength="20" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtApellido1">Primer apellido:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="text" name="txtApellido1" id="txtApellido1" maxlength="20" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtApellido2">Segundo apellido:</label>
+                                    <input type="text" name="txtApellido2" id="txtApellido2" maxlength="20" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtFechaNacimiento">Fecha de nacimiento:</label>
+                                    <input type="date" name="txtFechaNacimiento" id="txtFechaNacimiento" value=""/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboIdProvincia">Provincia:</label>
+                                    <select name="cboIdProvincia" id="cboIdProvincia" onchange="PersonasOnSelectedChangeProvincias()">
+                                        <option value="0">Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboIdCanton">Cantón:</label>
+                                    <select name="cboIdCanton" id="cboIdCanton" onchange="PersonasOnSelectedChangeCantones()">
+                                        <option value="0">Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboIdDistrito">Distrito:</label>
+                                    <select name="cboIdDistrito" id="cboIdDistrito">
+                                        <option value="0">Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtDireccionDomicilio">Dirección domicilio:</label>
+                                    <textarea name="txtDireccionDomicilio" id="txtDireccionDomicilio" maxlength="250" placeholder="Dirección exacta de su domicilio."></textarea>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtTelefono">Teléfono fijo:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="tel" name="txtTelefono" id="txtTelefono" placeholder="Ejm: 405893685" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                    <p class="bg-danger text-justify">Nota: Si proporciona el número de teléfono podrá ser contactado por medio de una llamada.</p>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtCelular">Teléfono móvil:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <input type="tel" name="txtCelular" id="txtCelular" placeholder="Ejm: 86736592" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                    <p class="bg-danger text-justify">Nota: Si proporciona el número de celular podrá ser contactado por medio de una llamada o un mensaje de texto.</p>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtCorreo">Correo eléctronico:</label>
+                                    <input type="text" name="txtCorreo" id="txtCorreo" placeholder="Ejm: correo@ejemplo.com" maxlength="50" onblur="PersonasValidarCorreo()" data-clear-btn="true"/>
+                                    <p class="bg-danger text-justify">Nota: Si proporciona el correo electrónico podrá ser contactado por medio del mismo.</p>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboSexo">Género:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <select name="cboSexo" id="cboSexo">
+                                        <option value="0">Seleccione</option>
+                                        <option value="F">Femenino</option>
+                                        <option value="M">Masculino</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div id="divPersonaGruposLider">
+                                    <label for="PersonaGruposLider">Grupos en los cuales es líder:</label>
+                                    <select name="PersonaGruposLider" id="PersonaGruposLider" multiple="multiple" data-native-menu="false">
+                                        <option>Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div id="divPersonaGruposParticipante">
+                                    <label for="PersonaGruposParticipante">Grupos en los cuales es participante:</label>
+                                    <select name="PersonaGruposParticipante" id="PersonaGruposParticipante" multiple="multiple" data-native-menu="false">
+                                        <option>Seleccione</option>
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="cboEstadoPersona">Estado:</label>
+                                    <select name="cboEstadoPersona" id="cboEstadoPersona" disabled>
+                                        <option value="0">Seleccione</option>
+                                        <option value="A" selected>Activo</option>
+                                        <option value="I">Inactivo</option>
+                                    </select>
+                                </div>
+                                <br>
                             </div>
-                            <br>
-                            <div>
-                                <label for="txtNombre">Nombre:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                <input type="text" name="txtNombre" id="txtNombre" maxlength="20" data-clear-btn="true"/>
+                            <div id="formPersonaRelaciones">
+                                <div>
+                                    <label for="txtIdentificacion">Relaciones 1:</label>
+                                    <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="Ejm: 102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="txtIdentificacion">Relaciones 2:</label>
+                                    <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="Ejm: 102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                </div>
+                                <br>
                             </div>
-                            <br>
-                            <div>
-                                <label for="txtApellido1">Primer apellido:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                <input type="text" name="txtApellido1" id="txtApellido1" maxlength="20" data-clear-btn="true"/>
-                            </div>
-                            <br>
-                            <div>
-                                <label for="txtApellido2">Segundo apellido:</label>
-                                <input type="text" name="txtApellido2" id="txtApellido2" maxlength="20" data-clear-btn="true"/>
-                            </div>
-                            <br>
-                            <div>
-                                <label for="txtFechaNacimiento">Fecha de nacimiento:</label>
-                                <input type="date" name="txtFechaNacimiento" id="txtFechaNacimiento" value=""/>
-                            </div>
-                            <br>
-                            <div>
-                                <label for="cboIdProvincia">Provincia:</label>
-                                <select name="cboIdProvincia" id="cboIdProvincia" onchange="PersonasOnSelectedChangeProvincias()">
-                                    <option value="0">Seleccione</option>
-                                    <!-- Aquí se insertan los datos dinámicamente -->
-                                </select>
-                            </div>
-                            <br>
-                            <div>
-                                <label for="cboIdCanton">Cantón:</label>
-                                <select name="cboIdCanton" id="cboIdCanton" onchange="PersonasOnSelectedChangeCantones()">
-                                    <option value="0">Seleccione</option>
-                                    <!-- Aquí se insertan los datos dinámicamente -->
-                                </select>
-                            </div>
-                            <br>
-                            <div>
-                                <label for="cboIdDistrito">Distrito:</label>
-                                <select name="cboIdDistrito" id="cboIdDistrito">
-                                    <option value="0">Seleccione</option>
-                                    <!-- Aquí se insertan los datos dinámicamente -->
-                                </select>
-                            </div>
-                            <br>
-                            <div>
-                                <label for="txtDireccionDomicilio">Dirección domicilio:</label>
-                                <textarea name="txtDireccionDomicilio" id="txtDireccionDomicilio" maxlength="250" placeholder="Dirección exacta de su domicilio."></textarea>
-                            </div>
-                            <br>
-                            <div>
-                                <label for="txtTelefono">Teléfono fijo:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                <input type="tel" name="txtTelefono" id="txtTelefono" placeholder="Ejm: 405893685" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
-                                <p class="bg-danger text-justify">Nota: Si proporciona el número de teléfono podrá ser contactado por medio de una llamada.</p>
-                            </div>
-                            <br>
-                            <div>
-                                <label for="txtCelular">Teléfono móvil:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                <input type="tel" name="txtCelular" id="txtCelular" placeholder="Ejm: 86736592" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
-                                <p class="bg-danger text-justify">Nota: Si proporciona el número de celular podrá ser contactado por medio de una llamada o un mensaje de texto.</p>
-                            </div>
-                            <br>
-                            <div>
-                                <label for="txtCorreo">Correo eléctronico:</label>
-                                <input type="text" name="txtCorreo" id="txtCorreo" placeholder="Ejm: correo@ejemplo.com" maxlength="50" onblur="PersonasValidarCorreo()" data-clear-btn="true"/>
-                                <p class="bg-danger text-justify">Nota: Si proporciona el correo electrónico podrá ser contactado por medio del mismo.</p>
-                            </div>
-                            <br>
-                            <div>
-                                <label for="cboSexo">Género:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                <select name="cboSexo" id="cboSexo">
-                                    <option value="0">Seleccione</option>
-                                    <option value="F">Femenino</option>
-                                    <option value="M">Masculino</option>
-                                </select>
-                            </div>
-                            <br>
-                            <div id="divPersonaGruposLider">
-                                <label for="PersonaGruposLider">Grupos en los cuales es líder:</label>
-                                <select name="PersonaGruposLider" id="PersonaGruposLider" multiple="multiple" data-native-menu="false">
-                                    <option>Seleccione</option>
-                                    <!-- Aquí se insertan los datos dinámicamente -->
-                                </select>
-                            </div>
-                            <br>
-                            <div id="divPersonaGruposParticipante">
-                                <label for="PersonaGruposParticipante">Grupos en los cuales es participante:</label>
-                                <select name="PersonaGruposParticipante" id="PersonaGruposParticipante" multiple="multiple" data-native-menu="false">
-                                    <option>Seleccione</option>
-                                    <!-- Aquí se insertan los datos dinámicamente -->
-                                </select>
-                            </div>
-                            <br>
-                            <div>
-                                <label for="cboEstadoPersona">Estado:</label>
-                                <select name="cboEstadoPersona" id="cboEstadoPersona" disabled>
-                                    <option value="0">Seleccione</option>
-                                    <option value="A" selected>Activo</option>
-                                    <option value="I">Inactivo</option>
-                                </select>
-                            </div>
-                            <br>
                             <div class="row">
                                 <div class="col-xs-1"></div>
                                 <div class="col-xs-10">
@@ -280,6 +294,7 @@ $utilitarios = new UtilitariosProcesos();
                 <div id="NuevaPersona">
                     <ul>
                         <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosPersonas()">Atrás</a></li>
+                        <li><button href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-plus" data-theme="b" onclick="PersonasMostrarSeccionRelaciones()">Agregar relaciones</button></li>
                     </ul>
                 </div>
                 <div id="DetallePersona">

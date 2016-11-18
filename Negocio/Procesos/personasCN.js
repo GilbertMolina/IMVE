@@ -10,6 +10,9 @@ var registarSinCorreo = false;
 // Variable que se utiliza para mostrar u ocultar las acciones masivas de las personas
 var mostrarAccionesPersonas = false;
 
+// Variable que se utiliza para mostrar u ocultar las relaciones personales
+var mostrarRelacionesPersonales = false;
+
 // Función que se ejecuta al cargar la pagina
 function PersonasOnLoad() {
     PersonasCargarPersonasListado();
@@ -41,6 +44,21 @@ function GruposCambiarBarraNavegacionFooter() {
     }
 }
 
+// Función para agregar relaciones personales de la persona
+function PersonasMostrarSeccionRelaciones() {
+    if (mostrarRelacionesPersonales == false)
+    {
+        mostrarRelacionesPersonales = true;
+        $("#formPersonaRelaciones").show();
+        $("#formPersonaDetalle").hide();
+    }
+    else if (mostrarRelacionesPersonales == true)
+    {
+        mostrarRelacionesPersonales = false;
+        $("#formPersonaRelaciones").hide();
+        $("#formPersonaDetalle").show();
+    }
+}
 
 // Función que se ejecuta cuando cambia la provincia seleccionada
 function PersonasOnSelectedChangeProvincias(){

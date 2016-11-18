@@ -31,10 +31,13 @@ function VisitasCambiarBarraNavegacionFooter() {
 // Función que carga la fecha actual en el campo de fecha visita
 function VisitasAsignarFechaVisita(){
     var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth() + 1;
-    var a = date.getFullYear();
-    var fechaHoy = a + '-' + m + '-' + d;
+    var mi  = (date.getMinutes().toString().length == 1) ? '0' + date.getMinutes() : date.getMinutes();
+    var h  = (date.getHours().toString().length == 1) ? '0' + date.getHours() : date.getHours();
+    var d = (date.getDate().toString().length == 1) ? '0' + date.getDate() : date.getDate();
+    var m  = date.getMonth() + 1;
+    m = (m.toString().length == 1) ? '0' + m : m;
+    var a  = date.getFullYear();
+    var fechaHoy = a + '-' + m + '-' + d + 'T' + h + ':' + mi;
 
     $("#txtFechaVisita").attr("value", fechaHoy);
 }
@@ -225,10 +228,11 @@ function VisitasRegistrarVisita() {
 // Función para modificar un grupo
 function VisitasModificarVisita(p_idVisita) {
     var idVisita          = p_idVisita;
-    var idMinisterio     = $('#cboIdMinisterios').val();
-    var descripcion      = $('#txtDescripcionVisita').val();
-    var fechaVisita      = $('#txtFechaVisita').val();
-    var estado           = $('#cboEstadoVisita').val();
+    var idMinisterio      = $('#cboIdMinisterios').val();
+    var descripcion       = $('#txtDescripcionVisita').val();
+    var fechaVisita       = $('#txtFechaVisita').val();
+    var responsableVisita = $('#cboIdResponsables').val();
+    var estado            = $('#cboEstadoVisita').val();
 
     // Se obtiene la lista inicial de las personas visitantes
     var listadoInicialPersonasVisitante = $('#hdfVisitasPersonasVisitantes').val();
@@ -236,52 +240,9 @@ function VisitasModificarVisita(p_idVisita) {
     // Se obtiene la lista actual de las personas que son visitantes
     var personasParticipante = $('#VisitasPersonasVisitas').val();
 
-    // Variables para obtener la lista de las personas visitantes que fueron agregadas
-    var listaPersonasVisitantesAgregado = [];
-
-    // Variables para obtener la lista de las personas visitantes que fieron eliminadas
-    var listaPersonasVisitantesEliminadas = [];
-
-    if(personasParticipante != null){
-        // Se pregunta si la lista inicial tiene algun registro
-        if(listadoInicialPersonasVisitante.length > 0){
-            // Se obtienen las personas que pertenecian a la visita
-            for(var i = 0; i < listadoInicialPersonasVisitante.length; i++){
-                var busquedaEnArregloLideresEliminados = jQuery.inArray(listadoInicialPersonasVisitante[i],personasParticipante);
-                if(busquedaEnArregloLideresEliminados == -1){
-                    listaPersonasVisitantesEliminadas.push(listadoInicialPersonasVisitante[i]);
-                }
-            }
-
-            // Se obtienen las personas que ahora pertenecen a la visita
-            for(var i = 0; i < personasParticipante.length; i++){
-                var busquedaEnArregloLideresAgregados = jQuery.inArray(personasParticipante[i],listadoInicialPersonasVisitante);
-                if(busquedaEnArregloLideresAgregados == -1){
-                    listaPersonasVisitantesAgregado.push(personasParticipante[i]);
-                }
-            }
-        }
-        else
-        {
-            // Se obtienen las personas que ahora pertenecen a la visita
-            for(var i = 0; i < personasParticipante.length; i++){
-                listaPersonasVisitantesAgregado.push(personasParticipante[i]);
-            }
-        }
-    }
-
-    // Si la lista de los visitantes es nula y la lista inicial de los visitantes no esta vacia quiere decir que todos los que habian en la lista inicial, fueron eliminados
-    if(personasParticipante == null
-        && listadoInicialPersonasVisitante.length > 0){
-        // Se obtienen las personas que pertenecian a la visita
-        for(var i = 0; i < listadoInicialPersonasVisitante.length; i++){
-            listaPersonasVisitantesEliminadas.push(listadoInicialPersonasVisitante[i]);
-        }
-    }
-
     // Se convierten a formato JSON las listas
-    var listaPersonasVisitantesAgregadoJson = JSON.stringify(listaPersonasVisitantesAgregado);
-    var listaPersonasVisitantesEliminadosJson = JSON.stringify(listaPersonasVisitantesEliminadas);
+    var listaPersonasVisitantesAgregadoJson = JSON.stringify(ObtenerValoresAgregados(listadoInicialPersonasVisitante,personasParticipante));
+    var listaPersonasVisitantesEliminadosJson = JSON.stringify(ObtenerValoresEliminados(listadoInicialPersonasVisitante,personasParticipante));
 
     if(idMinisterio == 0
         || descripcion == ""
@@ -302,8 +263,8 @@ function VisitasModificarVisita(p_idVisita) {
     else
     {
         // Se define el action que será consultado desde la clase de acceso a datos
-        var d = "action=modificarVisita&idVisita=" + idVisita + "&idMinisterio=" + idMinisterio + "&descripcion=" + descripcion + "&fechaVisita=" + fechaVisita + "&estado=" + estado
-            + "&listaPersonasVisitantesAgregado=" + listaPersonasVisitantesAgregadoJson + "&listaPersonasVisitantesEliminados=" + listaPersonasVisitantesEliminadosJson;
+        var d = "action=modificarVisita&idVisita=" + idVisita + "&idMinisterio=" + idMinisterio + "&descripcion=" + descripcion + "&fechaVisita=" + fechaVisita + "&idPersonaResponsable=" + responsableVisita +
+            "&estado=" + estado + "&listaPersonasVisitantesAgregado=" + listaPersonasVisitantesAgregadoJson + "&listaPersonasVisitantesEliminados=" + listaPersonasVisitantesEliminadosJson;
 
         // Enviar por Ajax a visitasCAD.php
         $.ajax({

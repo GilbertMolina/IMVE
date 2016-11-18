@@ -164,18 +164,18 @@ $utilitarios = new UtilitariosProcesos();
                                     <input type="datetime-local" name="txtFechaVisita" id="txtFechaVisita" data-clear-btn="true" value="" />
                                 </div>
                                 <br>
-                                <div id="divVisitasPersonasVisitas">
-                                    <label for="VisitasPersonasVisitas">Personas visitantes:</label>
-                                    <select name="VisitasPersonasVisitas" id="VisitasPersonasVisitas" multiple="multiple" data-native-menu="false">
-                                        <option>Seleccione</option>
+                                <div id="IdResponsables">
+                                    <label for="cboIdResponsables">Responsable:</label>
+                                    <select name="cboIdResponsables" id="cboIdResponsables">
+                                        <option value="0">Seleccione</option>
                                         <!-- Aquí se insertan los datos dinámicamente -->
                                     </select>
                                 </div>
                                 <br>
-                                <div id="IdResponsables">
-                                    <label for="cboIdResponsables">Responsable para los seguimientos por defecto:</label>
-                                    <select name="cboIdResponsables" id="cboIdResponsables">
-                                        <option value="0">Seleccione</option>
+                                <div id="divVisitasPersonasVisitas">
+                                    <label for="VisitasPersonasVisitas">Personas visitantes:</label>
+                                    <select name="VisitasPersonasVisitas" id="VisitasPersonasVisitas" multiple="multiple" data-native-menu="false">
+                                        <option>Seleccione</option>
                                         <!-- Aquí se insertan los datos dinámicamente -->
                                     </select>
                                 </div>

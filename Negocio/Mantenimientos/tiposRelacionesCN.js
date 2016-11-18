@@ -296,7 +296,7 @@ function TiposRelacionesEliminar(p_idTipoRelacion){
                             , animation: 'rotate'
                             , closeAnimation: 'rotate'
                             , title: 'Error'
-                            , content: 'No se pudo eliminar el tipo de relación, debido a que el tipo de relación esta siendo utilizada.'
+                            , content: 'No se pudo eliminar el tipo de relación, debido a que está siendo utilizada.'
                             , confirmButton: 'Aceptar'
                             , confirmButtonClass: 'btn-danger'
                         });

@@ -143,10 +143,10 @@ $utilitarios = new UtilitariosProcesos();
                     <h3 class="text-center">Seguimientos</h3>
                     <hr>
                     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-right" onchange="SeguimientosCargarSeguimientosListado()">
-                        <input type="radio" name="estadoSeguimientos" id="activos" value="A" checked="checked">
-                        <label for="activos">Activos</label>
-                        <input type="radio" name="estadoSeguimientos" id="inactivos" value="I">
-                        <label for="inactivos">Inactivos</label>
+                        <input type="radio" name="estadoSeguimientos" id="abiertos" value="N" checked="checked">
+                        <label for="abiertos">Abiertos</label>
+                        <input type="radio" name="estadoSeguimientos" id="cerrados" value="S">
+                        <label for="cerrados">Cerrados</label>
                     </fieldset>
                     <form class="ui-filterable">
                         <input id="filtro" data-type="search" placeholder="Búsqueda">
