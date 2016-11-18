@@ -156,3 +156,46 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposCompromis
         echo 'Excepción capturada: ', $e->getMessage(), "\n";
     }
 }
+
+// Obtiene el listado de compromisos filtrados por estado
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCompromisosPorEstado') {
+    try {
+        $estado = $_POST['estado'];
+
+        $sqlCompromiso      = "CALL TbCompromisosListarPorEstado('$estado')";
+        $consultaCompromiso = $db->consulta($sqlCompromiso);
+        $cadena_datos = "";
+
+        $compromisos = array();
+
+        while($fila = $db->fetch_array($consultaCompromiso))
+        {
+            $idCompromiso = utf8_encode($fila['IdCompromiso']);
+            $idMinisterio = utf8_encode($fila['IdMinisterio']);
+            $idTipoCompromiso = utf8_encode($fila['IdTipoCompromiso']);
+            $descripcion = utf8_encode($fila['Descripcion']);
+            $fechaInicio = utf8_encode($fila['FechaInicio']);
+            $fechaFinal = utf8_encode($fila['FechaFinal']);
+            $lugar = utf8_encode($fila['Lugar']);
+            $estado = utf8_encode($fila['Estado']);
+
+            $compromisos[] = array(
+                'IdCompromiso'=> $idCompromiso
+                , 'IdMinisterio'=> $idMinisterio
+                , 'IdTipoCompromiso'=> $idTipoCompromiso
+                , 'Descripcion'=> $descripcion
+                , 'FechaInicio'=> $fechaInicio
+                , 'FechaFinal'=> $fechaFinal
+                , 'Lugar'=> $lugar
+                , 'Estado'=> $estado
+            );
+        }
+
+        $compromisosJSON = json_encode($compromisos);
+
+        echo $compromisosJSON;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}

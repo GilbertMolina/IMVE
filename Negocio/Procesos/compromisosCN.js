@@ -6,7 +6,7 @@
 
 // Función que se ejecuta al cargar la pagina de compromisos
 function CompromisosOnLoad() {
-
+    CompromisosListarCompromisos();
 }
 
 // Función que se ejecuta al cargar la pagina de compromisos detalle
@@ -26,6 +26,26 @@ function CompromisosCambiarBarraNavegacionFooter() {
     else{
         $('#DesdeGrupos').hide();
     }
+}
+
+// Función que obtiene todos los compromisos en formato JSON filtrados por estado
+function CompromisosListarCompromisos(){
+    var estado = "A";
+    var listadoCompromisos;
+
+    // Se define el action que será consultado desde la clase de acceso a datos
+    var d = "action=obtenerListadoCompromisosPorEstado&estado=" + estado;
+
+    // Enviar por Ajax a compromisosCAD.php
+    $.ajax({
+        type: "POST"
+        , data: d
+        , url: "../../../IMVE/Datos/Procesos/compromisosCAD.php"
+        , success: function(a) {
+            listadoCompromisos = a;
+            console.log(listadoCompromisos);
+        }
+    })
 }
 
 // Función para cargar un compromiso por su id
