@@ -374,93 +374,11 @@ function GruposModificarGrupo(p_IdGrupo) {
     var personasLider = $('#GrupoPersonasLideres').val();
     var personasParticipante = $('#GrupoPersonasParticipantes').val();
 
-    // Variables para obtener la lista de las personas lideres y/o participantes en los cuales se acaba de integrar la persona
-    var listaPersonasLideresAgregado = [];
-    var listaPersonasParticipantesAgregado = [];
-
-    // Variables para obtener la lista de las personas lideres y/o participantes en los cuales ya no participa
-    var listaPersonasLideresEliminados = [];
-    var listaPersonasParticipantesEliminados = [];
-
-    if(personasLider != null){
-        // Se pregunta si la lista inicial tiene algun registro
-        if(listadoInicialGruposPersonaLider.length > 0){
-            // Se obtienen las personas que eran lideres
-            for(var i = 0; i < listadoInicialGruposPersonaLider.length; i++){
-                var busquedaEnArregloLideresEliminados = jQuery.inArray(listadoInicialGruposPersonaLider[i],personasLider);
-                if(busquedaEnArregloLideresEliminados == -1){
-                    listaPersonasLideresEliminados.push(listadoInicialGruposPersonaLider[i]);
-                }
-            }
-
-            // Se obtienen las personas que ahora son lideres
-            for(var i = 0; i < personasLider.length; i++){
-                var busquedaEnArregloLideresAgregados = jQuery.inArray(personasLider[i],listadoInicialGruposPersonaLider);
-                if(busquedaEnArregloLideresAgregados == -1){
-                    listaPersonasLideresAgregado.push(personasLider[i]);
-                }
-            }
-        }
-        else
-        {
-            // Se obtienen las personas que ahora son lideres
-            for(var i = 0; i < personasLider.length; i++){
-                listaPersonasLideresAgregado.push(personasLider[i]);
-            }
-        }
-    }
-
-    // Si la lista de lideres actual es nula y la lista inicial de lideres no esta vacia quiere decir que todos los que habian en la lista inicial, fueron eliminados
-    if(personasLider == null
-        && listadoInicialGruposPersonaLider.length > 0){
-        // Se obtienen las personas que eran lideres
-        for(var i = 0; i < listadoInicialGruposPersonaLider.length; i++){
-            listaPersonasLideresEliminados.push(listadoInicialGruposPersonaLider[i]);
-        }
-    }
-
-    if(personasParticipante != null){
-        // Se pregunta si la lista inicial tiene algun registro
-        if(listadoInicialGruposPersonaParticipante.length > 0){
-            // Se obtienen las personas que eran participantes
-            for(var i = 0; i < listadoInicialGruposPersonaParticipante.length; i++){
-                var busquedaEnArregloParticipantesEliminados = jQuery.inArray(listadoInicialGruposPersonaParticipante[i],personasParticipante);
-                if(busquedaEnArregloParticipantesEliminados == -1){
-                    listaPersonasParticipantesEliminados.push(listadoInicialGruposPersonaParticipante[i]);
-                }
-            }
-
-            // Se obtienen las personas que ahora son participantes
-            for(var i = 0; i < personasParticipante.length; i++){
-                var busquedaEnArregloParticipantesAgregadoss = jQuery.inArray(personasParticipante[i],listadoInicialGruposPersonaParticipante);
-                if(busquedaEnArregloParticipantesAgregadoss == -1){
-                    listaPersonasParticipantesAgregado.push(personasParticipante[i]);
-                }
-            }
-        }
-        else
-        {
-            // Se obtienen las personas que ahora son participantes
-            for(var i = 0; i < personasParticipante.length; i++){
-                listaPersonasParticipantesAgregado.push(personasParticipante[i]);
-            }
-        }
-    }
-
-    // Si la lista de participantes actual es nula y la lista inicial de participantes no esta vacia quiere decir que todos los que habian en la lista inicial, fueron eliminados
-    if(personasParticipante == null
-        && listadoInicialGruposPersonaParticipante.length > 0){
-        // Se obtienen las personas que eran participantes
-        for(var i = 0; i < listadoInicialGruposPersonaParticipante.length; i++){
-            listaPersonasParticipantesEliminados.push(listadoInicialGruposPersonaParticipante[i]);
-        }
-    }
-
     // Se convierten a formato JSON las listas
-    var listaPersonasLideresAgregadoJson = JSON.stringify(listaPersonasLideresAgregado);
-    var listaPersonasLideresEliminadosJson = JSON.stringify(listaPersonasLideresEliminados);
-    var listaPersonasParticipantesAgregadoJson = JSON.stringify(listaPersonasParticipantesAgregado);
-    var listaPersonasParticipantesEliminadosJson = JSON.stringify(listaPersonasParticipantesEliminados);
+    var listaPersonasLideresAgregadoJson = JSON.stringify(ObtenerValoresAgregados(listadoInicialGruposPersonaLider,personasLider));
+    var listaPersonasLideresEliminadosJson = JSON.stringify(ObtenerValoresEliminados(listadoInicialGruposPersonaLider,personasLider));
+    var listaPersonasParticipantesAgregadoJson = JSON.stringify(ObtenerValoresAgregados(listadoInicialGruposPersonaParticipante,personasParticipante));
+    var listaPersonasParticipantesEliminadosJson = JSON.stringify(ObtenerValoresEliminados(listadoInicialGruposPersonaParticipante,personasParticipante));
 
     if(idCategoriaGrupo == 0
         || descripcion == ""

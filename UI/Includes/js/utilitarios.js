@@ -203,3 +203,52 @@ function SumarRestaFecha(cantidadDias){
     
     return fechaFinal;
 }
+
+// Función para comparar dos listas (original y actual) y retornar los elementos nuevos en la lista actual
+function ObtenerValoresAgregados(listaInicial, listaActual) {
+    var listaAgregados = [];
+
+    if(listaActual != null){
+        if(listaInicial.length > 0){
+            for(var i = 0; i < listaActual.length; i++){
+                var busquedaEnArregloLideresAgregados = jQuery.inArray(listaActual[i],listaInicial);
+                if(busquedaEnArregloLideresAgregados == -1){
+                    listaAgregados.push(listaActual[i]);
+                }
+            }
+        }
+        else
+        {
+            for(var i = 0; i < listaActual.length; i++){
+                listaAgregados.push(listaActual[i]);
+            }
+        }
+    }
+
+    return listaAgregados;
+}
+
+// Función para comparar dos listas (original y actual) y retornar los elementos eliminados en la lista actual
+function ObtenerValoresEliminados(listaInicial, listaActual) {
+    var listaEliminados = [];
+
+    if(listaActual != null){
+        if(listaInicial.length > 0){
+            for(var i = 0; i < listaInicial.length; i++){
+                var busquedaEnArregloLideresEliminados = jQuery.inArray(listaInicial[i],listaActual);
+                if(busquedaEnArregloLideresEliminados == -1){
+                    listaEliminados.push(listaInicial[i]);
+                }
+            }
+        }
+    }
+
+    if(listaActual == null
+        && listaInicial.length > 0){
+        for(var i = 0; i < listaInicial.length; i++){
+            listaEliminados.push(listaInicial[i]);
+        }
+    }
+
+    return listaEliminados;
+}
