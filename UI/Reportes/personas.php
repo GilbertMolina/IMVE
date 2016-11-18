@@ -149,7 +149,7 @@ $utilitarios = new UtilitariosReportes();
                             <form method="post" action="#" id="reportePersonas">
                                 <div class="jumbotron">
                                     <img src="../Includes/images/documentPDF.png" alt="Reporte">
-                                    <h2>Reporte de visitas de personas</h2>
+                                    <h2>Reporte de personas con su fecha de visita</h2>
                                     <p><strong>Descripción: </strong>Se listan las personas registradas en el sistema, con su respectiva fecha en la que realizaron la visita.</p>
                                     <p><strong>Filtros:</strong></p>
                                     <div class="text-left">

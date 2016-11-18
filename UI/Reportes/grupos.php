@@ -149,7 +149,7 @@ $utilitarios = new UtilitariosReportes();
                             <form method="post" action="#" id="reporteGrupos1">
                                 <div class="jumbotron">
                                     <img src="../Includes/images/documentPDF.png" alt="Reporte 1">
-                                    <h2>Reporte de compromisos de grupos</h2>
+                                    <h2>Reporte de grupos con sus compromisos</h2>
                                     <p><strong>Descripción: </strong>Se listan los grupos con sus respectivos compromisos.</p>
                                     <p><strong>Filtros:</strong></p>
                                     <div class="text-left">
@@ -212,7 +212,7 @@ $utilitarios = new UtilitariosReportes();
                             <form method="post" action="#" id="reporteGrupos3">
                                 <div class="jumbotron">
                                     <img src="../Includes/images/documentPDF.png" alt="Reporte 3">
-                                    <h2>Reporte histórico de grupos con sus integrantes</h2>
+                                    <h2>Reporte de grupos con sus integrantes pasados</h2>
                                     <p><strong>Descripción: </strong>Se listan los grupos con los respectivas integrantes que en algún momento formaron parte de ellos.</p>
                                     <div class="col-xs-2 col-sm-4"></div>
                                     <div class="col-xs-8 col-sm-4">
