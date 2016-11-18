@@ -18,7 +18,7 @@ $db = new MySQL();
 // Se realiza la llamada de la librería para generar PDF
 require_once('../Utilitarios/MPDF57/mpdf.php');
 
-// Obtiene el listado de personas del sistema para mostrarlas en un ListView
+// Genera el reporte de visitas por persona
 if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
     try {
         $fechaInicio = $_GET['fechaInicio'];
@@ -26,7 +26,6 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
 
         $sqlPersona      = "CALL ReportePersonasFechasVisitas('$fechaInicio', '$fechaFin')";
         $consultaPersona = $db->consulta($sqlPersona);
-        $cadena_datos    = "";
 
         // Encabezado del reporte
         $html =
@@ -44,17 +43,17 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th colspan="2" class="text-center" style="background-color: #008200; color: #FFFFFF">Filtros proporcionados</th>
+                                    <th colspan="2" class="text-center" style="background-color: #008200; color: #FFFFFF; height: 30px">Filtros proporcionados</th>
                                 </tr>
                                 <tr>
-                                    <th class="text-center" style="background-color: #1164b4; color: #FFFFFF">Fecha inicio</th>
-                                    <th class="text-center" style="background-color: #1164b4; color: #FFFFFF">Fecha fin</th>
+                                    <th class="text-center" style="background-color: #1164b4; color: #FFFFFF; height: 30px">Fecha inicio</th>
+                                    <th class="text-center" style="background-color: #1164b4; color: #FFFFFF; height: 30px">Fecha fin</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
                                 <tr>
-                                    <td class="text-center">' . $fechaInicio . '</td>
-                                    <td class="text-center">' . $fechaFin . '</td>
+                                    <td class="text-center" style="height: 30px">' . $fechaInicio . '</td>
+                                    <td class="text-center" style="height: 30px">' . $fechaFin . '</td>
                                 </tr>
                             </tbody>
                         </table>';
@@ -66,14 +65,14 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
                 '<table class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Persona</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Teléfono fijo</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Celular móvil</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Género</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Visita</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Ministerio</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Fecha de la visita</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Estado de la visita</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Persona</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Teléfono fijo</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Celular móvil</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Género</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Visita</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Ministerio</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha de la visita</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Estado de la visita</th>
                         </tr>
                     </thead>
                     <tbody class="text-center">';
@@ -82,14 +81,14 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
                         while($resultadosPersona = $db->fetch_array($consultaPersona))
                         {
                             $html .= '<tr>
-                                        <td class="text-center">' . utf8_encode($resultadosPersona["Persona"]) . '</td>
-                                        <td class="text-center">' . utf8_encode($resultadosPersona["Telefono"]) . '</td>
-                                        <td class="text-center">' . utf8_encode($resultadosPersona["Celular"]) . '</td>
-                                        <td class="text-center">' . utf8_encode($resultadosPersona["Sexo"]) . '</td>
-                                        <td class="text-center">' . utf8_encode($resultadosPersona["Visita"]) . '</td>
-                                        <td class="text-center">' . utf8_encode($resultadosPersona["Ministerio"]) . '</td>
-                                        <td class="text-center">' . utf8_encode($resultadosPersona["FechaVisita"]) . '</td>
-                                        <td class="text-center">' . utf8_encode($resultadosPersona["Estado"]) . '</td>
+                                        <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["Persona"]) . '</td>
+                                        <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["Telefono"]) . '</td>
+                                        <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["Celular"]) . '</td>
+                                        <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["Sexo"]) . '</td>
+                                        <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["Visita"]) . '</td>
+                                        <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["Ministerio"]) . '</td>
+                                        <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["FechaVisita"]) . '</td>
+                                        <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["Estado"]) . '</td>
                                     </tr>';
                         }
                     }

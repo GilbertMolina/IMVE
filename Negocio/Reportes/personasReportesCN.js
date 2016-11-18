@@ -4,7 +4,7 @@
  * Fecha creación: 16/11/16
  */
 
-// Función que registra el usuario del usuario a la base de datos por medio de Ajax
+// Función que genera el reporte de visitas por persona
 function PersonasReportesGenerarOnClick(){
     var fechaInicio = $('#txtFechaInicioPersonasReporte').val();
     var fechaFin = $('#txtFechaFinPersonasReporte').val();

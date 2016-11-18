@@ -63,7 +63,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerGruposReponsablesComp
     }
 }
 
-// Obtiene el listado de personas del sistema para mostrarlas en un ListView
+// Genera el reporte de compromisos por grupo
 if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin']) && isset($_GET['tipoResponsable'])) {
     try {
         $fechaInicio     = $_GET['fechaInicio'];
@@ -89,25 +89,25 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin']) && isset($_GET['tipo
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th colspan="3" class="text-center" style="background-color: #008200; color: #FFFFFF">Filtros proporcionados</th>
+                                    <th colspan="3" class="text-center" style="background-color: #008200; color: #FFFFFF; height: 30px">Filtros proporcionados</th>
                                 </tr>
                                 <tr>
-                                    <th class="text-center" style="background-color: #1164b4; color: #FFFFFF">Fecha inicio</th>
-                                    <th class="text-center" style="background-color: #1164b4; color: #FFFFFF">Fecha fin</th>
-                                    <th class="text-center" style="background-color: #1164b4; color: #FFFFFF">Responsable</th>
+                                    <th class="text-center" style="background-color: #1164b4; color: #FFFFFF; height: 30px">Fecha inicio</th>
+                                    <th class="text-center" style="background-color: #1164b4; color: #FFFFFF; height: 30px">Fecha fin</th>
+                                    <th class="text-center" style="background-color: #1164b4; color: #FFFFFF; height: 30px">Responsable</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
                                 <tr>
-                                    <td class="text-center">' . $fechaInicio . '</td>
-                                    <td class="text-center">' . $fechaFin . '</td>';
+                                    <td class="text-center" style="height: 30px">' . $fechaInicio . '</td>
+                                    <td class="text-center" style="height: 30px">' . $fechaFin . '</td>';
                                     if($tipoResponsable == 'P' || $tipoResponsable == 'p'){
-                                        $html .= '<td class="text-center">Personas</td>';
+                                        $html .= '<td class="text-center" style="height: 30px">Personas</td>';
                                     }else if($tipoResponsable == 'G' || $tipoResponsable == 'g'){
-                                        $html .= '<td class="text-center">Grupos</td>';
+                                        $html .= '<td class="text-center" style="height: 30px">Grupos</td>';
                                     }
                                     else{
-                                        $html .= '<td class="text-center">Personas y Grupos</td>';
+                                        $html .= '<td class="text-center" style="height: 30px">Personas y Grupos</td>';
                                     }
                                 $html .= '</tr>
                             </tbody>
@@ -120,22 +120,22 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin']) && isset($_GET['tipo
                 '<table class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Compromiso</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Tipo de compromiso</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Ministerio</th>';
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Compromiso</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Tipo de compromiso</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Ministerio</th>';
                             if($tipoResponsable == 'P' || $tipoResponsable == 'p'){
-                                $html .= '<th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Persona</th>';
+                                $html .= '<th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Persona</th>';
                             }else if($tipoResponsable == 'G' || $tipoResponsable == 'g'){
-                                $html .= '<th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Grupo</th>';
+                                $html .= '<th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Grupo</th>';
                             }
                             else{
-                                $html .= '<th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Reponsable</th>';
+                                $html .= '<th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Reponsable</th>';
                             }
 
-                  $html .= '<th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Fecha de inicio</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Fecha de fin</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Lugar</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle">Estado del compromiso</th>
+                  $html .= '<th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha de inicio</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha de fin</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Lugar</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Estado del compromiso</th>
                         </tr>
                     </thead>
                     <tbody class="text-center">';
@@ -144,14 +144,14 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin']) && isset($_GET['tipo
                 while($resultadosCompromiso = $db->fetch_array($consultaCompromiso))
                 {
                     $html .= '<tr>
-                                <td class="text-center">' . utf8_encode($resultadosCompromiso["Compromiso"]) . '</td>
-                                <td class="text-center">' . utf8_encode($resultadosCompromiso["TipoCompromiso"]) . '</td>
-                                <td class="text-center">' . utf8_encode($resultadosCompromiso["Ministerio"]) . '</td>
-                                <td class="text-center">' . utf8_encode($resultadosCompromiso["Responsable"]) . '</td>
-                                <td class="text-center">' . utf8_encode($resultadosCompromiso["FechaInicio"]) . '</td>
-                                <td class="text-center">' . utf8_encode($resultadosCompromiso["FechaFinal"]) . '</td>
-                                <td class="text-center">' . utf8_encode($resultadosCompromiso["Lugar"]) . '</td>
-                                <td class="text-center">' . utf8_encode($resultadosCompromiso["Estado"]) . '</td>
+                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["Compromiso"]) . '</td>
+                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["TipoCompromiso"]) . '</td>
+                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["Ministerio"]) . '</td>
+                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["Responsable"]) . '</td>
+                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["FechaInicio"]) . '</td>
+                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["FechaFinal"]) . '</td>
+                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["Lugar"]) . '</td>
+                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["Estado"]) . '</td>
                             </tr>';
                 }
             }
@@ -189,7 +189,7 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin']) && isset($_GET['tipo
         // Se coloca el nombre del reporte, y configura para que sea desplegado en el navegador web
         $mpdf->Output('ReporteCompromisos.pdf', 'I');
         // Se coloca el nombre del reporte, y configura para que sea descargado inmediantamente
-        //$mpdf->Output('ReportePersonas.pdf', 'D');
+        //$mpdf->Output('ReporteCompromisos.pdf', 'D');
 
     }
     catch (Exception $e) {

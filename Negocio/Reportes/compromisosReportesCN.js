@@ -4,12 +4,7 @@
  * Fecha creación: 17/11/16
  */
 
-// Función que se ejecuta al cargar la pagina de compromisos
-function CompromisosReportesOnLoad() {
-
-}
-
-// Función que registra el usuario del usuario a la base de datos por medio de Ajax
+// Función que genera el reporte de compromisos por grupo
 function CompromisosReportesGenerarOnClick(){
     var tipoCompromisoReporteResposable = ObtenerValorRadioButtonPorNombre('tipoCompromisoReporteResponsable');
     var fechaInicio = $('#txtFechaInicioCompromisosReporte').val();
@@ -47,15 +42,7 @@ function CompromisosReportesGenerarOnClick(){
         return false;
     }
 
-    if(tipoCompromisoReporteResposable == 'P'){
-        var url = '../../Datos/Reportes/compromisosCAD.php?fechaInicio=' + fechaInicio + '&fechaFin=' + fechaFinParaEnviar + '&tipoResponsable=P';
-    }
-    else if(tipoCompromisoReporteResposable == 'G'){
-        var url = '../../Datos/Reportes/compromisosCAD.php?fechaInicio=' + fechaInicio + '&fechaFin=' + fechaFinParaEnviar + '&tipoResponsable=G';
-    }
-    else{
-        var url = '../../Datos/Reportes/compromisosCAD.php?fechaInicio=' + fechaInicio + '&fechaFin=' + fechaFinParaEnviar + '&tipoResponsable=T';
-    }
+    var url = '../../Datos/Reportes/compromisosCAD.php?fechaInicio=' + fechaInicio + '&fechaFin=' + fechaFinParaEnviar + '&tipoResponsable=' + tipoCompromisoReporteResposable;
 
     // Se redirecciona a la pagina que mostrará el reporte
     RedireccionPaginaNuevaVentana(url);

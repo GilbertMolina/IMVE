@@ -50,7 +50,7 @@ $utilitarios = new UtilitariosReportes();
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
         <!-- Fin carga de los archivos javascript -->
     </head>
-    <body>
+    <body onload="GruposReportesOnLoad()">
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
@@ -146,54 +146,83 @@ $utilitarios = new UtilitariosReportes();
                         <div class="col-xs-12 col-sm-10">
                             <h3 class="text-center">Reportes de Grupos</h3>
                             <hr>
-                            <div class="jumbotron">
-                                <img src="../Includes/images/documentPDF.png" alt="Reporte 1">
-                                <h2>Reporte de actividad de grupos</h2>
-                                <p><strong>Descripción: </strong>Se listan todos los grupos con sus respectivos compromisos.</p>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <div class="col-xs-8 col-sm-4">
-                                    <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left">Generar</button>
+                            <form method="post" action="#" id="reporteGrupos1">
+                                <div class="jumbotron">
+                                    <img src="../Includes/images/documentPDF.png" alt="Reporte 1">
+                                    <h2>Reporte de compromisos de grupos</h2>
+                                    <p><strong>Descripción: </strong>Se listan los grupos con sus respectivos compromisos.</p>
+                                    <p><strong>Filtros:</strong></p>
+                                    <div class="text-left">
+                                        <div>
+                                            <label for="txtFechaInicioGruposReporte1">Fecha de inicio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                            <input type="date" name="txtFechaInicioGruposReporte1" id="txtFechaInicioGruposReporte1" data-clear-btn="true" value="" />
+                                        </div>
+                                        <div>
+                                            <label for="txtFechaFinGruposReporte1">Fecha de fin:</label>
+                                            <input type="date" name="txtFechaFinGruposReporte1" id="txtFechaFinGruposReporte1" data-clear-btn="true" value="" />
+                                        </div>
+                                        <div>
+                                            <label for="cboIdTiposCompromisosGruposReporte1">Tipos compromisos:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                            <select name="cboIdTiposCompromisosGruposReporte1" id="cboIdTiposCompromisosGruposReporte1">
+                                                <option value="0">Seleccione</option>
+                                                <!-- Aquí se insertan los datos dinámicamente -->
+                                            </select>
+                                            <label for="cboIdMinisteriosGruposReporte1">Ministerio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                            <select name="cboIdMinisteriosGruposReporte1" id="cboIdMinisteriosGruposReporte1">
+                                                <option value="0">Seleccione</option>
+                                                <!-- Aquí se insertan los datos dinámicamente -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-4"></div>
+                                    <div class="col-xs-8 col-sm-4">
+                                        <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left" type="button" onclick="GruposReportesGenerarReporte1OnClick()">Generar</button>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-4"></div>
+                                    <br>
+                                    <br>
                                 </div>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <br>
-                                <br>
-                            </div>
+                            </form>
                         </div>
                         <div class="col-sm-1"></div>
                     </div>
                     <div class="row text-center">
                         <div class="col-sm-1"></div>
                         <div class="col-xs-12 col-sm-10">
-                            <div class="jumbotron">
-                                <img src="../Includes/images/documentPDF.png" alt="Reporte 2">
-                                <h2>Reporte de grupos con sus integrantes</h2>
-                                <p><strong>Descripción: </strong>Se listan todos los grupos con sus respectivas personas que los componen.</p>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <div class="col-xs-8 col-sm-4">
-                                    <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left">Generar</button>
+                            <form method="post" action="#" id="reporteGrupos2">
+                                <div class="jumbotron">
+                                    <img src="../Includes/images/documentPDF.png" alt="Reporte 2">
+                                    <h2>Reporte de grupos con sus integrantes</h2>
+                                    <p><strong>Descripción: </strong>Se listan los grupos con sus respectivas integrantes.</p>
+                                    <div class="col-xs-2 col-sm-4"></div>
+                                    <div class="col-xs-8 col-sm-4">
+                                        <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left" type="button" onclick="GruposReportesGenerarReporte2OnClick()">Generar</button>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-4"></div>
+                                    <br>
+                                    <br>
                                 </div>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <br>
-                                <br>
-                            </div>
+                            </form>
                         </div>
                         <div class="col-sm-1"></div>
                     </div>
                     <div class="row text-center">
                         <div class="col-sm-1"></div>
                         <div class="col-xs-12 col-sm-10">
-                            <div class="jumbotron">
-                                <img src="../Includes/images/documentPDF.png" alt="Reporte 3">
-                                <h2>Reporte histórico de participación</h2>
-                                <p><strong>Descripción: </strong>Se listan todos los grupos con sus respectivas personas que en algún momento formaron parte de ellos.</p>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <div class="col-xs-8 col-sm-4">
-                                    <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left">Generar</button>
+                            <form method="post" action="#" id="reporteGrupos3">
+                                <div class="jumbotron">
+                                    <img src="../Includes/images/documentPDF.png" alt="Reporte 3">
+                                    <h2>Reporte histórico de grupos con sus integrantes</h2>
+                                    <p><strong>Descripción: </strong>Se listan los grupos con los respectivas integrantes que en algún momento formaron parte de ellos.</p>
+                                    <div class="col-xs-2 col-sm-4"></div>
+                                    <div class="col-xs-8 col-sm-4">
+                                        <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left" type="button" onclick="GruposReportesGenerarReporte3OnClick()">Generar</button>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-4"></div>
+                                    <br>
+                                    <br>
                                 </div>
-                                <div class="col-xs-2 col-sm-4"></div>
-                                <br>
-                                <br>
-                            </div>
+                            </form>
                         </div>
                         <div class="col-sm-1"></div>
                     </div>

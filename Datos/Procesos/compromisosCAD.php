@@ -112,3 +112,47 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarCompromiso') {
         echo 'Excepción capturada: ', $e->getMessage(), "\n";
     }
 }
+
+// Obtiene el listado de ministerios utilizados en los compromisos, para insertarlos en un ComboBox
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoMinisteriosUtilizadosCombobox') {
+    try {
+        $sql          = "CALL TbCompromisosListarMinisteriosUtilizados()";
+        $consulta     = $db->consulta($sql);
+        $cadena_datos = "";
+
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos = '<option value="0">Seleccione</option>';
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdMinisterio'] . '">' . utf8_encode($resultados['Descripcion']) . '</option>';
+            }
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+// Obtiene el listado de tipos de compromisos utilizados en los compromisos, para insertarlos en un ComboBox
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposCompromisosUtilizadosCombobox') {
+    try {
+        $sql          = "CALL TbCompromisosListarTiposCompromisosUtilizados()";
+        $consulta     = $db->consulta($sql);
+        $cadena_datos = "";
+
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos = '<option value="0">Seleccione</option>';
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdTipoCompromiso'] . '">' . utf8_encode($resultados['Descripcion']) . '</option>';
+            }
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}

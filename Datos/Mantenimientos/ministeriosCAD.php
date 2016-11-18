@@ -43,7 +43,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoMinisteriosPor
 }
 
 // Obtiene el listado de ministerios activos, para insertarlos en un ComboBox
-if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoMinisteriosActivosCombobox') {
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoMinisteriosReportesCombobox') {
     try {
         $sql          = "CALL TbMinisteriosListar()";
         $consulta     = $db->consulta($sql);
