@@ -311,7 +311,7 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 3)) {
                 <div class="row">
                     <div class="col-sm-1"></div>
                     <div class="col-ws-12 col-sm-10">
-                        <h3 class="text-center">Reporte de grupos con sus integrantes activos</h3>
+                        <h3 class="text-center">Reporte de grupos con sus integrantes pasados</h3>
                         <hr>';
 
         // Contenido del reporte

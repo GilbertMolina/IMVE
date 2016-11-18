@@ -6,12 +6,12 @@
 
 // Función que se ejecuta al cargar la pagina de reportes de grupos
 function GruposReportesOnLoad() {
-    GruposReportesCargarTiposCompromiso();
+    GruposReportesCargarTiposCompromisos();
     GruposReportesCargarMinisterios();
 }
 
 // Función que carga los tipos de compromiso
-function GruposReportesCargarTiposCompromiso(){
+function GruposReportesCargarMinisterios(){
     // Se define el action que será consultado desde la clase de acceso a datos
     var d = "action=obtenerListadoMinisteriosUtilizadosCombobox";
 
@@ -27,7 +27,7 @@ function GruposReportesCargarTiposCompromiso(){
 }
 
 // Función que carga los ministerios
-function GruposReportesCargarMinisterios() {
+function GruposReportesCargarTiposCompromisos() {
     // Se define el action que será consultado desde la clase de acceso a datos
     var d = "action=obtenerListadoTiposCompromisosUtilizadosCombobox";
 
@@ -46,7 +46,6 @@ function GruposReportesCargarMinisterios() {
 function GruposReportesGenerarReporte1OnClick(){
     var fechaInicio = $('#txtFechaInicioGruposReporte1').val();
     var fechaFin = $('#txtFechaFinGruposReporte1').val();
-    var fechaFinParaEnviar = '';
     var idTipoCompromiso = $('#cboIdTiposCompromisosGruposReporte1').val();
     var idMinisterio     = $('#cboIdMinisteriosGruposReporte1').val();
     var fechaFinParaEnviar = '';

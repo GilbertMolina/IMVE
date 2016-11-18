@@ -162,12 +162,12 @@ $utilitarios = new UtilitariosReportes();
                                             <input type="date" name="txtFechaFinGruposReporte1" id="txtFechaFinGruposReporte1" data-clear-btn="true" value="" />
                                         </div>
                                         <div>
-                                            <label for="cboIdTiposCompromisosGruposReporte1">Tipos compromisos:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                            <label for="cboIdTiposCompromisosGruposReporte1">Tipos compromisos:</label>
                                             <select name="cboIdTiposCompromisosGruposReporte1" id="cboIdTiposCompromisosGruposReporte1">
                                                 <option value="0">Seleccione</option>
                                                 <!-- Aquí se insertan los datos dinámicamente -->
                                             </select>
-                                            <label for="cboIdMinisteriosGruposReporte1">Ministerio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                            <label for="cboIdMinisteriosGruposReporte1">Ministerio:</label>
                                             <select name="cboIdMinisteriosGruposReporte1" id="cboIdMinisteriosGruposReporte1">
                                                 <option value="0">Seleccione</option>
                                                 <!-- Aquí se insertan los datos dinámicamente -->
