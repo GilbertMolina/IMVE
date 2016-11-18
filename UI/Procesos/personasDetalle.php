@@ -140,7 +140,7 @@ $utilitarios = new UtilitariosProcesos();
                 <h3><?php echo $utilitarios->ObtenerNombreUsuario() ?></h3>
                 <ul data-role="listview">
                     <li>
-                        <a href="#" style="font-size: 15px" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-edit ui-btn-icon-right ui-btn-b" onclick="UtiProcesosPaginaCambiarContrasena()">Cambiar contraseña</a>
+                        <a href="#" style="font-size: 15px" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-edit ui-btn-icon-right ui-btn-b" onclick="UtiProcesosPaginaCambiarContrasena()">Cambiar mi contraseña</a>
                     </li>
                     <li>
                         <a href="#" style="font-size: 15px" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-power ui-btn-icon-right ui-btn-b" onclick="UtiProcesosCerrarSesion()">Cerrar sesión</a>
@@ -211,13 +211,13 @@ $utilitarios = new UtilitariosProcesos();
                             </div>
                             <br>
                             <div>
-                                <label for="txtTelefono">Teléfono fijo: </label>
+                                <label for="txtTelefono">Teléfono fijo:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
                                 <input type="tel" name="txtTelefono" id="txtTelefono" placeholder="Ejm: 405893685" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
                                 <p class="bg-danger text-justify">Nota: Si proporciona el número de teléfono podrá ser contactado por medio de una llamada.</p>
                             </div>
                             <br>
                             <div>
-                                <label for="txtCelular">Teléfono celular:</label>
+                                <label for="txtCelular">Teléfono móvil:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
                                 <input type="tel" name="txtCelular" id="txtCelular" placeholder="Ejm: 86736592" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
                                 <p class="bg-danger text-justify">Nota: Si proporciona el número de celular podrá ser contactado por medio de una llamada o un mensaje de texto.</p>
                             </div>

@@ -3682,17 +3682,11 @@ DELIMITER ;
 -- CREACIÓN INSERTS
 -- -----------------------------------------------------------------------------
 
--- -----------------------------------------------------
--- PAISES, PROVINCIAS, CANTONES Y DISTRITOS
--- -----------------------------------------------------
-
--- Paises
--- ALTER TABLE IMVE.TbPaises AUTO_INCREMENT = 1
+-- TbPaises
 INSERT INTO IMVE.TbPaises(Descripcion) VALUES 
 ('Costa Rica');
 
--- Provincias
--- ALTER TABLE IMVE.TbProvincias AUTO_INCREMENT = 1
+-- TbProvincias
 INSERT INTO IMVE.TbProvincias(IdPais,Descripcion) VALUES 
 (1,'San José')
 , (1,'Alajuela')
@@ -3702,8 +3696,7 @@ INSERT INTO IMVE.TbProvincias(IdPais,Descripcion) VALUES
 , (1,'Puntarenas')
 , (1,'Limón');
 
--- Cantones
--- ALTER TABLE IMVE.TbCantones AUTO_INCREMENT = 1
+-- TbCantones
 INSERT INTO IMVE.TbCantones(IdProvincia,IdPais,Descripcion) VALUES 
 (1,1,'Central')
 , (1,1,'Escazú')
@@ -3787,8 +3780,7 @@ INSERT INTO IMVE.TbCantones(IdProvincia,IdPais,Descripcion) VALUES
 , (7,1,'Matina')
 , (7,1,'Guácimo');
 
--- Distritos
--- ALTER TABLE IMVE.TbDistritos AUTO_INCREMENT = 1
+-- TbDistritos
 INSERT INTO IMVE.TbDistritos(IdCanton,IdProvincia,IdPais,Descripcion) VALUES 
 (1,1,1,'Carmen')
 , (1,1,1,'Merced')
@@ -4272,15 +4264,13 @@ INSERT INTO IMVE.TbDistritos(IdCanton,IdProvincia,IdPais,Descripcion) VALUES
 , (81,7,1,'Río Jiménez')
 , (81,7,1,'Duacarí');
 
--- -----------------------------------------------------
--- LAS OTRAS TABLAS
--- -----------------------------------------------------
-
+-- TbRolesUsuarios
 INSERT INTO IMVE.TbRolesUsuarios(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
 ('SuperAdmin',1,CURRENT_TIMESTAMP,'A')
 , ('Administrador',1,CURRENT_TIMESTAMP,'A')
 , ('Colaborador',1,CURRENT_TIMESTAMP,'A');
 
+-- TbPersonas
 INSERT INTO IMVE.TbPersonas(Identificacion,Nombre,Apellido1,Apellido2,FechaNacimiento,IdDistrito,DireccionDomicilio,Telefono,Celular,Correo,Sexo,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
 ('101110111','Admin','Sistema','IMVE','1991-05-11',251,'Llanos de Santa Lucía',86073518,40335942,'gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
 , ('304540214','Gilbert','Molina','Castrillo','1991-05-11',251,'300mts sur del estadio de Paraíso','40335942','86073518','gmolinac@outlook.com','M',1,CURRENT_TIMESTAMP,'A')
@@ -4289,12 +4279,14 @@ INSERT INTO IMVE.TbPersonas(Identificacion,Nombre,Apellido1,Apellido2,FechaNacim
 , ('307430453','Dennis','Centeno','Lizano','1980-10-20',251,'Urbanización por el cementerio','25749729','88720661','decenteno@hotmail.com','M',1,CURRENT_TIMESTAMP,'A')
 , ('104560543','Joe','Doe','Summer','1985-01-20',74,'100mts sur del Mall San Pedro','','86284947','','M',1,CURRENT_TIMESTAMP,'I');
 
+-- TbUsuarios
 INSERT INTO IMVE.TbUsuarios(IdPersona,IdRolUsuario,Contrasena,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
 (1,1,'8cb2237d0679ca88db6464eac60da96345513964',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: 12345
 , (2,2,'7c62f7e9b440e2232437218732d350971d066d5c',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: gmolina
 , (3,3,'07d7ae0f3696ffb5440182547e727fde697cf18e',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: amolina
 , (4,3,'d35514736146439b7277437016cdb40d7fb65497',1,CURRENT_TIMESTAMP,'I'); -- Constraseña desencriptada: jdoe
 
+-- TbTiposRelaciones
 INSERT INTO IMVE.TbTiposRelaciones(NombreMasculino,NombreFemenino,NombreInversoMasculino,NombreInversoFemenino,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES 
 ('Abuelo','Abuela','Nieto','Nieta',1,CURRENT_TIMESTAMP)
 , ('Padre','Madre','Hijo','Hija',1,CURRENT_TIMESTAMP)
@@ -4309,17 +4301,20 @@ INSERT INTO IMVE.TbTiposRelaciones(NombreMasculino,NombreFemenino,NombreInversoM
 , ('Padrino','Madrina','Ahijado','Ahijada',1,CURRENT_TIMESTAMP)
 , ('Esposo','Esposa','','',1,CURRENT_TIMESTAMP);
 
+-- TbTiposRelacionesPersonas
 INSERT INTO IMVE.TbTiposRelacionesPersonas(IdTipoRelacion,IdPersonaRelacionado1,IdPersonaRelacionado2,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES 
 (2,3,2,1,CURRENT_TIMESTAMP)
 , (2,4,2,1,CURRENT_TIMESTAMP)
 , (12,3,4,1,CURRENT_TIMESTAMP);
 
+-- TbMinisterios
 INSERT INTO IMVE.TbMinisterios(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
 ('Alabanza',1,CURRENT_TIMESTAMP,'A')
 , ('Red de matrimonios',1,CURRENT_TIMESTAMP,'A')
 , ('Restauración',1,CURRENT_TIMESTAMP,'A')
 , ('Vida plena',1,CURRENT_TIMESTAMP,'A');
 
+-- TbCategorias
 INSERT INTO IMVE.TbCategorias(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
 ('Pastor',1,CURRENT_TIMESTAMP,'A')
 , ('Consejero',1,CURRENT_TIMESTAMP,'A')
@@ -4327,6 +4322,7 @@ INSERT INTO IMVE.TbCategorias(Descripcion,UsuarioUltimaModificacion,FechaUltimaM
 , ('Técnico',1,CURRENT_TIMESTAMP,'A')
 , ('Ujier',1,CURRENT_TIMESTAMP,'I');
 
+-- TbCategoriasPersonas
 INSERT INTO IMVE.TbCategoriasPersonas(IdCategoria,IdPersona,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
 (4,1,1,CURRENT_TIMESTAMP)
 , (4,2,1,CURRENT_TIMESTAMP)
@@ -4335,6 +4331,7 @@ INSERT INTO IMVE.TbCategoriasPersonas(IdCategoria,IdPersona,UsuarioUltimaModific
 , (1,5,1,CURRENT_TIMESTAMP)
 , (2,5,1,CURRENT_TIMESTAMP);
 
+-- TbCategoriasGrupos
 INSERT INTO IMVE.TbCategoriasGrupos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
 ('Banda',1,CURRENT_TIMESTAMP,'A')
 , ('Ensamble',1,CURRENT_TIMESTAMP,'A')
@@ -4342,6 +4339,7 @@ INSERT INTO IMVE.TbCategoriasGrupos(Descripcion,UsuarioUltimaModificacion,FechaU
 , ('Rédil',1,CURRENT_TIMESTAMP,'A')
 , ('Oración',1,CURRENT_TIMESTAMP,'A');
 
+-- TbGrupos
 INSERT INTO IMVE.TbGrupos(IdCategoriaGrupo,IdMinisterio,Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
 (1,1,'Banda 1',1,CURRENT_TIMESTAMP,'A')
 , (1,1,'Banda 2',1,CURRENT_TIMESTAMP,'A')
@@ -4349,6 +4347,7 @@ INSERT INTO IMVE.TbGrupos(IdCategoriaGrupo,IdMinisterio,Descripcion,UsuarioUltim
 , (2,NULL,'Composición nueva letra',1,CURRENT_TIMESTAMP,'A')
 , (2,3,'Ensayo nueva banda',1,CURRENT_TIMESTAMP,'A');
 
+-- TbGruposPersonas
 INSERT INTO IMVE.TbGruposPersonas(IdPersona,IdGrupo,EsLider,FechaInicio,FechaFin,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
 (2,1,'N','2016-11-10',NULL,1,CURRENT_TIMESTAMP,'A')
 , (3,1,'S','2016-11-10',NULL,1,CURRENT_TIMESTAMP,'A')
@@ -4359,17 +4358,20 @@ INSERT INTO IMVE.TbGruposPersonas(IdPersona,IdGrupo,EsLider,FechaInicio,FechaFin
 , (5,3,'N','2016-11-10',NULL,1,CURRENT_TIMESTAMP,'A')
 , (5,4,'N','2016-11-10','2016-11-12',1,CURRENT_TIMESTAMP,'N');
 
+-- TbTiposCompromisos
 INSERT INTO IMVE.TbTiposCompromisos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
 ('Consejería',1,CURRENT_TIMESTAMP,'A')
 , ('Prematrimonial',1,CURRENT_TIMESTAMP,'A')
 , ('Seguimiento pastoral',1,CURRENT_TIMESTAMP,'A')
 , ('Ensayo',1,CURRENT_TIMESTAMP,'A');
 
+-- TbTiposSeguimientos
 INSERT INTO IMVE.TbTiposSeguimientos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
 ('Llamar',1,CURRENT_TIMESTAMP,'A')
 , ('Visitar',1,CURRENT_TIMESTAMP,'A')
 , ('Mensaje',1,CURRENT_TIMESTAMP,'A');
 
+-- TbCompromisos
 INSERT INTO IMVE.TbCompromisos(IdMinisterio,IdTipoCompromiso,Descripcion,FechaInicio,FechaFinal,Lugar,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
 (1,1,'Reunión','2016-11-10','2016-11-11','Iglesia, Salón Principal',1,CURRENT_TIMESTAMP,'A')
 , (1,2,'Reunión','2016-11-11','2016-11-13','Salón Comunal',1,CURRENT_TIMESTAMP,'A')
@@ -4381,22 +4383,27 @@ INSERT INTO IMVE.TbCompromisos(IdMinisterio,IdTipoCompromiso,Descripcion,FechaIn
 , (5,4,'Reunión','2016-11-14','2016-11-15','Laguna de Doña Ana',1,CURRENT_TIMESTAMP,'A')
 , (1,1,'Reunión','2016-11-13','2016-11-14','Plaza de la Cultura',1,CURRENT_TIMESTAMP,'A');
 
+-- TbResponsablesCompromisos
 INSERT INTO IMVE.TbResponsablesCompromisos(IdPersona,IdCompromiso,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
 (5,1,1,CURRENT_TIMESTAMP)
 , (2,2,1,CURRENT_TIMESTAMP);
 
+-- TbReponsablesGruposCompromisos
 INSERT INTO IMVE.TbReponsablesGruposCompromisos(IdGrupo,IdCompromiso,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
 (1,4,1,CURRENT_TIMESTAMP)
 , (2,5,1,CURRENT_TIMESTAMP);
 
+-- TbVisitas
 INSERT INTO IMVE.TbVisitas(IdMinisterio,Descripcion,FechaVisita,UsuarioUltimaModificacion,FechaUltimaModificacion,Cerrada) VALUES
 (1,'Solicitud de comestible','2016-10-10',1,CURRENT_TIMESTAMP,'N')
 , (2,'Consejería marital','2016-11-15',1,CURRENT_TIMESTAMP,'N');
 
+-- TbPersonasVisitas
 INSERT INTO IMVE.TbPersonasVisitas(IdVisita,IdPersona,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
 (1,2,1,CURRENT_TIMESTAMP)
 , (2,3,1,CURRENT_TIMESTAMP);
 
+-- TbSeguimientos
 INSERT INTO IMVE.TbSeguimientos(IdVisita,IdMinisterio,IdPersonaResponsable,IdTipoSeguimiento,Descripcion,FechaPropuesta,FechaRealizacion,Observaciones,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
 (1,1,4,1,'Llamada #1','2016-11-22',NULL,'',1,CURRENT_TIMESTAMP,'A')
 , (1,1,4,1,'Llamada #2','2016-11-29',NULL,'',1,CURRENT_TIMESTAMP,'A')

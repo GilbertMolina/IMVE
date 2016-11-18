@@ -520,7 +520,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarGrupo') {
                 $cadena_datos .= '<div class="row">';
                 $cadena_datos .= '<div class="col-xs-1"></div>';
                 $cadena_datos .= '<div class="col-xs-10">';
-                $cadena_datos .= '<button type="button" id="btnAceptar" data-theme="b" onclick="GruposModificarGrupo(' . $resultados['IdGrupo'] . ')" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Modificar</button>';
+                $cadena_datos .= '<button type="button" id="btnAceptar" data-theme="b" onclick="GruposModificarGrupo(' . $resultados['IdGrupo'] . ')" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit">Modificar</button>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<div class="col-xs-1"></div>';
                 $cadena_datos .= '</div>';

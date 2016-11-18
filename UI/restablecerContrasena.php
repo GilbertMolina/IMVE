@@ -60,7 +60,7 @@
                                 <div class="row">
                                     <div class="col-xs-1"></div>
                                     <div class="col-xs-10">
-                                        <a href="#" id="btnRestablecer" data-role="button" data-theme="b" onclick="RestablecerContrasena()">Restablecer</a>
+                                        <a href="#" id="btnRestablecer" data-role="button" data-theme="b" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-alert" onclick="RestablecerContrasena()">Restablecer</a>
                                     </div>
                                     <div class="col-xs-1"></div>
                                 </div>

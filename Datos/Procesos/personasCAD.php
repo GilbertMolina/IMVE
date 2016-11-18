@@ -481,11 +481,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 $cadena_datos .= '<div>';
                 if($resultadosPersona['Telefono'] != '')
                 {
-                    $cadena_datos .= '<label for="txtTelefono">Teléfono fijo:<a style="margin-top: -4px; float: right; margin-right: 0px; height: 27px; padding-top: 5px" href="tel:' . $resultadosPersona['Telefono']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Llamar</a></label>';
+                    $cadena_datos .= '<label for="txtTelefono">Teléfono fijo:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"><a style="margin-top: -4px; float: right; margin-right: 0px; height: 27px; padding-top: 5px" href="tel:' . $resultadosPersona['Telefono']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Llamar</a></label>';
                 }
                 else
                 {
-                    $cadena_datos .= '<label for="txtTelefono">Teléfono fijo:</label>';
+                    $cadena_datos .= '<label for="txtTelefono">Teléfono fijo:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
                 }
                 $cadena_datos .= '<input type="tel" name="txtTelefono" id="txtTelefono" placeholder="Ejm: 405893685" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true" value="' . $resultadosPersona['Telefono'] . '"/>';
                 $cadena_datos .= '<p class="bg-danger text-justify">Nota: Si proporciona el número de teléfono podrá ser contactado por medio de una llamada.</p>';
@@ -494,11 +494,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 $cadena_datos .= '<div>';
                 if($resultadosPersona['Celular'] != '')
                 {
-                    $cadena_datos .= '<label for="txtCelular">Teléfono celular:<a style="margin-top: -4px; float: right; margin-right: 0px; height: 27px; padding-top: 5px" href="tel:' . $resultadosPersona['Celular']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini">Llamar</a><a style="margin-top: -4px; float: right; margin-right: 2px; height: 27px; padding-top: 6px" href="sms:' . $resultadosPersona['Celular']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">SMS</a></label>';
+                    $cadena_datos .= '<label for="txtCelular">Teléfono móvil:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"><a style="margin-top: -4px; float: right; margin-right: 0px; height: 27px; padding-top: 5px" href="tel:' . $resultadosPersona['Celular']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini">Llamar</a><a style="margin-top: -4px; float: right; margin-right: 2px; height: 27px; padding-top: 6px" href="sms:' . $resultadosPersona['Celular']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">SMS</a></label>';
                 }
                 else
                 {
-                    $cadena_datos .= '<label for="txtCelular">Teléfono celular:</label>';
+                    $cadena_datos .= '<label for="txtCelular">Teléfono móvil:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
                 }
                 $cadena_datos .= '<input type="tel" name="txtCelular" id="txtCelular" placeholder="Ejm: 86736592" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true" value="' . $resultadosPersona['Celular'] . '"/>';
                 $cadena_datos .= '<p class="bg-danger text-justify">Nota: Si proporciona el número de celular podrá ser contactado por medio de una llamada o un mensaje de texto.</p>';
@@ -596,7 +596,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 $cadena_datos .= '<div class="row">';
                 $cadena_datos .= '<div class="col-xs-1"></div>';
                 $cadena_datos .= '<div class="col-xs-10">';
-                $cadena_datos .= '<button type="button" id="btnAceptar" data-theme="b" onclick="PersonasModificarPersona(' . $resultadosPersona['IdPersona'] . ')" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-plus">Modificar</button>';
+                $cadena_datos .= '<button type="button" id="btnAceptar" data-theme="b" onclick="PersonasModificarPersona(' . $resultadosPersona['IdPersona'] . ')" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit">Modificar</button>';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<div class="col-xs-1"></div>';
                 $cadena_datos .= '</div>';

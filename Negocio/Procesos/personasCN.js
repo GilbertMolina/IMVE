@@ -441,6 +441,20 @@ function PersonasRegistrarPersona() {
             , confirmButtonClass: 'btn-warning'
         });
     }
+    else if(telefono == ""
+        && celular == "")
+    {
+        $.alert({
+            theme: 'material'
+            , animationBounce: 1.5
+            , animation: 'rotate'
+            , closeAnimation: 'rotate'
+            , title: 'Advertencia'
+            , content: 'Debe de ingresar un teléfono fijo o un teléfono móvil.'
+            , confirmButton: 'Aceptar'
+            , confirmButtonClass: 'btn-warning'
+        });
+    }
     else
     {
         if(!PersonasValidarCorreo())
@@ -618,6 +632,20 @@ function PersonasModificarPersona(p_IdPersona) {
             , closeAnimation: 'rotate'
             , title: 'Advertencia'
             , content: 'Debe de ingresar los datos que son necesarios del formulario.'
+            , confirmButton: 'Aceptar'
+            , confirmButtonClass: 'btn-warning'
+        });
+    }
+    else if(telefono == ""
+        && celular == "")
+    {
+        $.alert({
+            theme: 'material'
+            , animationBounce: 1.5
+            , animation: 'rotate'
+            , closeAnimation: 'rotate'
+            , title: 'Advertencia'
+            , content: 'Debe de ingresar un teléfono fijo o un teléfono móvil.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
         });
