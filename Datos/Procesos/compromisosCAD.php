@@ -170,24 +170,34 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCompromisosPor
 
         while($fila = $db->fetch_array($consultaCompromiso))
         {
-            $idCompromiso = utf8_encode($fila['IdCompromiso']);
-            $idMinisterio = utf8_encode($fila['IdMinisterio']);
-            $idTipoCompromiso = utf8_encode($fila['IdTipoCompromiso']);
+            // $idCompromiso = utf8_encode($fila['IdCompromiso']);
+            // $idMinisterio = utf8_encode($fila['IdMinisterio']);
+            // $idTipoCompromiso = utf8_encode($fila['IdTipoCompromiso']);
+            // $descripcion = utf8_encode($fila['Descripcion']);
+            // $fechaInicio = utf8_encode($fila['FechaInicio']);
+            // $fechaFinal = utf8_encode($fila['FechaFinal']);
+            // $lugar = utf8_encode($fila['Lugar']);
+            // $estado = utf8_encode($fila['Estado']);
+
+            // $compromisos[] = array(
+            //     'IdCompromiso'=> $idCompromiso
+            //     , 'IdMinisterio'=> $idMinisterio
+            //     , 'IdTipoCompromiso'=> $idTipoCompromiso
+            //     , 'Descripcion'=> $descripcion
+            //     , 'FechaInicio'=> $fechaInicio
+            //     , 'FechaFinal'=> $fechaFinal
+            //     , 'Lugar'=> $lugar
+            //     , 'Estado'=> $estado
+            // );
+
             $descripcion = utf8_encode($fila['Descripcion']);
-            $fechaInicio = utf8_encode($fila['FechaInicio']);
-            $fechaFinal = utf8_encode($fila['FechaFinal']);
-            $lugar = utf8_encode($fila['Lugar']);
-            $estado = utf8_encode($fila['Estado']);
+            $fechaInicio = utf8_encode(explode(" ", $fila['FechaInicio'])[0]);
+            $fechaFinal = utf8_encode(explode(" ", $fila['FechaFinal'])[0]);
 
             $compromisos[] = array(
-                'IdCompromiso'=> $idCompromiso
-                , 'IdMinisterio'=> $idMinisterio
-                , 'IdTipoCompromiso'=> $idTipoCompromiso
-                , 'Descripcion'=> $descripcion
-                , 'FechaInicio'=> $fechaInicio
-                , 'FechaFinal'=> $fechaFinal
-                , 'Lugar'=> $lugar
-                , 'Estado'=> $estado
+                'title'=> $descripcion
+                , 'start'=> $fechaInicio
+                , 'end'=> $fechaFinal
             );
         }
 
