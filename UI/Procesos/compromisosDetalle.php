@@ -47,7 +47,7 @@ $utilitarios = new UtilitariosProcesos();
         <script src="../../Negocio/Utilitarios/procesos.js" type="text/javascript"></script>
         <script src="../../Negocio/Procesos/compromisosCN.js" type="text/javascript"></script>
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
-        <!-- Fin carga de los archivos javascript -->
+        <!-- Fin carga de los archivos javascript -->\
     </head>
     <body onload="CompromisosDetalleOnLoad()">
         <div data-role="page">
@@ -245,7 +245,7 @@ $utilitarios = new UtilitariosProcesos();
                             <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosCompromisos()">Atrás</a></li>
                         </ul>
                     </div>
-                    <div id="DesdeGrupos">
+                    <div id="DesdeGrupos" style="display: none">
                         <ul>
                             <li><a href="#" data-transition="flip" data-icon="carat-l" data-theme="b" onclick="UtiProcesosPaginaProcesosGruposDetalleRegresar(ObtenerParametroPorNombre('IdGrupo'))">Regresar al grupo</a></li>
                             <li><a href="#" data-transition="flip" data-icon="carat-r" data-theme="b" onclick="UtiProcesosPaginaProcesosCompromisos()">Compromisos</a></li>

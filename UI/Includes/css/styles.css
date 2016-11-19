@@ -84,3 +84,17 @@ html,body {
     color: #000000 !important;
     font-weight: bold !important
 }
+
+.fc-axis>span{
+    color: #000000 !important;
+    font-weight: bold !important
+}
+
+.fc-today{
+    background: #E8F5E9 !important;
+}
+
+.fc-event{
+    border: 1px solid #4CAF50 !important;
+    background-color: #43A047 !important;
+}

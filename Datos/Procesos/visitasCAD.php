@@ -14,6 +14,9 @@ ini_set('display_errors', 1);
 require("../conexionMySQL.php");
 $db = new MySQL();
 
+setlocale(LC_ALL,"es_ES");
+date_default_timezone_set('America/Costa_Rica');
+
 // Obtiene el listado de visitas filtradas por el estado
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoVisitasPorEstado') {
     try {
@@ -27,7 +30,25 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoVisitasPorEsta
         {
             while($resultados = $db->fetch_array($consulta))
             {
-                $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosVisitasDetalleModificar(' . $resultados['IdVisita'] . ')">' . utf8_encode($resultados['Descripcion']) . '</a></li>';
+                $amPM    = (explode(':', explode(' ', $resultados['FechaVisita'])[1])[0] < 13) ? 'AM' : 'PM';
+                $hora    = explode(':', explode(' ', $resultados['FechaVisita'])[1])[0];
+                $minutos = explode(':', explode(' ', $resultados['FechaVisita'])[1])[1];
+
+                $horasNoMilitares = ($hora > 12) ? $hora - 12 : $hora;
+                $horasNoMilitares = (strlen($horasNoMilitares) == 1) ? '0' . $horasNoMilitares : $horasNoMilitares;
+                $horaFormateada   = $horasNoMilitares . ':' . $minutos;
+
+                $dia = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultados['FechaVisita'])[0])));
+
+                $cadena_datos .= '<li data-role="list-divider">' . $dia . '</li>';
+                $cadena_datos .= '<li>';
+                $cadena_datos .= '<a href="#" onclick="UtiProcesosPaginaProcesosVisitasDetalleModificar(' . $resultados['IdVisita'] . ')">';
+                $cadena_datos .= '<h2>' . utf8_encode($resultados['Descripcion']) . '</h2>';
+                $cadena_datos .= '<p><span style="font-weight: bold">Responsable: </span>' . utf8_encode($resultados['Persona']) . '</p>';
+                $cadena_datos .= '<p><span style="font-weight: bold">Ministerio: </span>' . utf8_encode($resultados['Ministerio']) . '</p>';
+                $cadena_datos .= '<p class="ui-li-aside" style="font-size: 15px; font-weight: bold"><strong>' . $horaFormateada . ' </strong>' . $amPM . '</p>';
+                $cadena_datos .= '</a>';
+                $cadena_datos .= '</li>';
             }
         }
         else

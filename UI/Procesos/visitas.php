@@ -97,7 +97,7 @@ $utilitarios = new UtilitariosProcesos();
                     <h3>Procesos</h3>
                     <ul data-role="listview">
                         <li>
-                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosCompromisos)">Compromisos</a>
+                            <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosCompromisos()">Compromisos</a>
                         </li>
                         <li>
                             <a href="#" data-transition="slidedown" onclick="UtiProcesosPaginaProcesosGrupos()">Grupos</a>
@@ -151,7 +151,7 @@ $utilitarios = new UtilitariosProcesos();
                     <form class="ui-filterable">
                         <input id="filtro" data-type="search" placeholder="Búsqueda">
                     </form>
-                    <ul data-role="listview" id="listaVisitas" data-filter="true" data-input="#filtro" data-autodividers="true" data-inset="true">
+                    <ul data-role="listview" id="listaVisitas" data-filter="true" data-input="#filtro" data-inset="true">
                         <!-- Aquí se insertan los datos dinámicamente -->
                     </ul>
                 </div>

@@ -13,6 +13,31 @@ function CompromisosOnLoad() {
     });
 }
 
+// Función que se ejecuta al cargar la pagina de compromisos detalle
+function CompromisosDetalleOnLoad() {
+    CompromisosCambiarBarraNavegacionFooter();
+    CompromisosCambiarTipoReponsable();
+    CompromisosCargarCompromisoPorId();
+}
+
+// Función que cambia la barra navegación del footer dependiendo de la pantalla de donde se ejecute
+function CompromisosCambiarBarraNavegacionFooter() {
+    var IdGrupo = ObtenerParametroPorNombre('IdGrupo');
+    var IdCompromiso = ObtenerParametroPorNombre('IdCompromiso');
+
+    if(IdCompromiso != ''){
+        $('#DesdeGrupos').hide();
+    }
+
+    if(IdGrupo != ''){
+        $('#DesdeListaCompromisos').hide();
+        $('#DesdeGrupos').css("display", "");
+    }
+    else{
+        $('#DesdeGrupos').hide();
+    }
+}
+
 // Función que carga el calendario según los eventos que le son pasados de un JSON
 function CompromisosCargarCalendario(eventosCompromisos){
     $('#calendar').fullCalendar({
@@ -28,25 +53,6 @@ function CompromisosCargarCalendario(eventosCompromisos){
             $('#loading').toggle(bool);
         }
     });
-}
-
-// Función que se ejecuta al cargar la pagina de compromisos detalle
-function CompromisosDetalleOnLoad() {
-    CompromisosCambiarBarraNavegacionFooter();
-    CompromisosCambiarTipoReponsable();
-    CompromisosCargarCompromisoPorId();
-}
-
-// Función que cambia la barra navegación del footer dependiendo de la pantalla de donde se ejecute
-function CompromisosCambiarBarraNavegacionFooter() {
-    var IdGrupo = ObtenerParametroPorNombre('IdGrupo');
-
-    if(IdGrupo != ''){
-        $('#DesdeListaCompromisos').hide();
-    }
-    else{
-        $('#DesdeGrupos').hide();
-    }
 }
 
 // Función que obtiene todos los compromisos en formato JSON filtrados por estado
@@ -70,18 +76,20 @@ function CompromisosCargarCompromisoPorId() {
 
     if(IdCompromiso != ''){
 
-        // // Se define el action que será consultado desde la clase de acceso a datos
-        // var d = "action=cargarGrupo&IdGrupo=" + IdGrupo;
-        //
-        // // Enviar por Ajax a usuariosCAD.php
-        // $.ajax({
-        //     type: "POST"
-        //     , data: d
-        //     , url: "../../../IMVE/Datos/Procesos/gruposCAD.php"
-        //     , success: function(a) {
-        //         $("#gruposDetalle").html(a).trigger("create");
-        //     }
-        // });
+        console.log("Debo cargar el detalle del compromiso");
+
+        // Se define el action que será consultado desde la clase de acceso a datos
+        var d = "action=cargarCompromiso&idCompromiso=" + IdCompromiso;
+
+        // Enviar por Ajax a usuariosCAD.php
+        $.ajax({
+            type: "POST"
+            , data: d
+            , url: "../../../IMVE/Datos/Procesos/compromisosCAD.php"
+            , success: function(a) {
+                $("#compromisosDetalle").html(a).trigger("create");
+            }
+        });
     }
     else
     {
@@ -121,10 +129,9 @@ function CompromisosAsignarFechaInicioFinal()
     var a = date.getFullYear();
     var h = date.getHours();
     var mi = date.getMinutes();
-    var fechaCompleta = d + '/' + m + '/' + a + 'T' + h + mi;
+    var fechaCompleta = a + '-' + m + '-' + d + 'T' + h + ':' + mi;
 
     document.getElementById("txtFechaInicio").defaultValue = fechaCompleta;
-    document.getElementById("txtFechaFinal").defaultValue = fechaCompleta;
 }
 
 // Función para obtener todos los ministerios activos

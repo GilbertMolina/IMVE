@@ -2388,15 +2388,29 @@ CREATE PROCEDURE IMVE.TbVisitasModificar(
 )
 BEGIN
 
+DECLARE v_EstadoVisita CHAR(1);
+
 UPDATE IMVE.TbVisitas
-SET  IdMinisterio = p_IdMinisterio
+SET IdMinisterio = p_IdMinisterio
   , Descripcion = p_Descripcion
     , FechaVisita = p_FechaVisita
     , IdPersonaResponsable = p_IdPersonaReponsable
     , Cerrada = p_Cerrada
-  , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-  , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
 WHERE IdVisita = p_IdVisita;
+
+SELECT Cerrada INTO @v_EstadoVisita
+FROM IMVE.TbVisitas
+WHERE IdVisita = p_IdVisita;
+
+IF @v_EstadoVisita = 'S' THEN
+  UPDATE IMVE.TbSeguimientos
+  SET Cerrado = 'S'
+    , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+  WHERE IdVisita = p_IdVisita;
+END IF;
 
 END //
 DELIMITER ;
@@ -2950,11 +2964,42 @@ SELECT V.IdVisita
     , V.Descripcion
     , V.FechaVisita
     , V.IdPersonaResponsable
+    , PE.NombreCompleto AS Persona
     , V.Cerrada AS Estado
 FROM IMVE.TbVisitas AS V
 INNER JOIN IMVE.TbMinisterios AS M
   ON V.IdMinisterio = M.IdMinisterio
-WHERE V.Cerrada = p_Estado;
+INNER JOIN (SELECT P.IdPersona
+        , P.Identificacion
+        , P.Nombre
+        , P.Apellido1
+        , P.Apellido2
+        , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+        , P.FechaNacimiento
+        , CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
+        , P.DireccionDomicilio
+        , P.Telefono
+        , P.Celular
+        , P.Correo
+        , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+        , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+      FROM IMVE.TbPersonas AS P
+      LEFT JOIN IMVE.TbDistritos AS D 
+        ON P.IdDistrito = D.IdDistrito
+      LEFT JOIN IMVE.TbCantones AS C
+        ON D.IdCanton = C.IdCanton
+        AND D.IdProvincia = C.IdProvincia
+        AND D.IdPais = C.IdPais
+      LEFT JOIN IMVE.TbProvincias AS PR
+        ON C.IdProvincia = PR.IdProvincia
+        AND C.IdPais = PR.IdPais
+      LEFT JOIN IMVE.TbPaises AS PA
+        ON PR.IdPais = PA.IdPais
+      WHERE P.Activo = 'A'
+        AND P.IdPersona <> 1) AS PE
+  ON V.IdPersonaResponsable = PE.IdPersona
+WHERE V.Cerrada = p_Estado
+ORDER BY V.FechaVisita;
 
 END //
 DELIMITER ;
@@ -4449,15 +4494,15 @@ INSERT INTO IMVE.TbTiposSeguimientos(Descripcion,UsuarioUltimaModificacion,Fecha
 
 -- TbCompromisos
 INSERT INTO IMVE.TbCompromisos(IdMinisterio,IdTipoCompromiso,Descripcion,FechaInicio,FechaFinal,Lugar,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
-(1,1,'Reunión','2016-11-10','2016-11-11','Iglesia, Salón Principal',1,CURRENT_TIMESTAMP,'A')
-, (1,2,'Reunión','2016-11-11','2016-11-13','Salón Comunal',1,CURRENT_TIMESTAMP,'A')
-, (2,3,'Reunión','2016-11-10','2016-11-12','Parque de Paraíso',1,CURRENT_TIMESTAMP,'A')
-, (2,4,'Reunión','2016-11-11','2016-11-12','Ruinas de Ujarrás',1,CURRENT_TIMESTAMP,'A')
-, (3,1,'Reunión','2016-11-13','2016-11-18','Iglesia',1,CURRENT_TIMESTAMP,'A')
-, (3,2,'Reunión','2016-11-12','2016-11-14','Plaza Paraíso',1,CURRENT_TIMESTAMP,'A')
-, (4,3,'Reunión','2016-11-11','2016-11-11','Jardín Lankester',1,CURRENT_TIMESTAMP,'A')
-, (5,4,'Reunión','2016-11-14','2016-11-15','Laguna de Doña Ana',1,CURRENT_TIMESTAMP,'A')
-, (1,1,'Reunión','2016-11-13','2016-11-14','Plaza de la Cultura',1,CURRENT_TIMESTAMP,'A');
+(1,1,'Reunión 1','2016-11-01 06:00:00','2016-11-02 06:00:00','Iglesia, Salón Principal',1,CURRENT_TIMESTAMP,'A')
+, (1,2,'Reunión 2','2016-11-04 11:00:00','2016-11-04 14:00:00','Salón Comunal',1,CURRENT_TIMESTAMP,'A')
+, (2,3,'Reunión 3','2016-11-06 17:00:00','2016-11-08 18:00:00','Parque de Paraíso',1,CURRENT_TIMESTAMP,'A')
+, (2,4,'Reunión 4','2016-11-09 07:00:00','2016-11-09 08:00:00','Ruinas de Ujarrás',1,CURRENT_TIMESTAMP,'A')
+, (3,1,'Reunión 5','2016-11-11 19:00:00','2016-11-12 06:00:00','Iglesia',1,CURRENT_TIMESTAMP,'A')
+, (3,2,'Reunión 6','2016-11-12 12:00:00','2016-11-14 14:00:00','Plaza Paraíso',1,CURRENT_TIMESTAMP,'A')
+, (4,3,'Reunión 7','2016-11-15 09:00:00','2016-11-15 10:00:00','Jardín Lankester',1,CURRENT_TIMESTAMP,'A')
+, (5,4,'Reunión 8','2016-11-16 08:00:00','2016-11-19 08:00:00','Laguna de Doña Ana',1,CURRENT_TIMESTAMP,'A')
+, (1,1,'Reunión 9','2016-11-25 13:00:00','2016-11-26 14:00:00','Plaza de la Cultura',1,CURRENT_TIMESTAMP,'A');
 
 -- TbResponsablesCompromisos
 INSERT INTO IMVE.TbResponsablesCompromisos(IdPersona,IdCompromiso,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
@@ -4471,8 +4516,8 @@ INSERT INTO IMVE.TbReponsablesGruposCompromisos(IdGrupo,IdCompromiso,UsuarioUlti
 
 -- TbVisitas
 INSERT INTO IMVE.TbVisitas(IdMinisterio,Descripcion,FechaVisita,IdPersonaResponsable,UsuarioUltimaModificacion,FechaUltimaModificacion,Cerrada) VALUES
-(1,'Solicitud de comestible','2016-10-10',4,1,CURRENT_TIMESTAMP,'N')
-, (2,'Consejería marital','2016-11-15',5,1,CURRENT_TIMESTAMP,'N');
+(1,'Solicitud de comestible','2016-11-15 08:00:00',4,1,CURRENT_TIMESTAMP,'N')
+, (2,'Consejería marital','2016-11-10 13:00:00',5,1,CURRENT_TIMESTAMP,'N');
 
 -- TbPersonasVisitas
 INSERT INTO IMVE.TbPersonasVisitas(IdVisita,IdPersona,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
