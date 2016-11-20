@@ -43,7 +43,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasReponsablesCo
 // Obtiene los grupos reponsables de compromisos para mostrarlos en el select de grupos responsables
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerGruposReponsablesCompromisosListado') {
     try {
-        $sql          = "CALL TbReponsablesGruposCompromisosListar()";
+        $sql          = "CALL TbResponsablesGruposCompromisosListar()";
         $consulta     = $db->consulta($sql);
         $cadena_datos = "";
 

@@ -6,17 +6,22 @@
 
 // Función que se ejecuta al cargar la pagina de compromisos
 function CompromisosOnLoad() {
+    CompromisosCargarCalendario();
+}
+
+// Función que carga el calendario de compromisos según el estado
+function CompromisosCargarCalendario() {
     var listadoCompromisosJSON = CompromisosListarCompromisos();
 
     listadoCompromisosJSON.success(function(listadoCompromisos) {
-        CompromisosCargarCalendario(jQuery.parseJSON(listadoCompromisos));
+        CompromisosMostrarCalendarioConCompromisos(jQuery.parseJSON(listadoCompromisos));
+        $('#calendar').load();
     });
 }
 
 // Función que se ejecuta al cargar la pagina de compromisos detalle
 function CompromisosDetalleOnLoad() {
     CompromisosCambiarBarraNavegacionFooter();
-    CompromisosCambiarTipoReponsable();
     CompromisosCargarCompromisoPorId();
 }
 
@@ -39,7 +44,7 @@ function CompromisosCambiarBarraNavegacionFooter() {
 }
 
 // Función que carga el calendario según los eventos que le son pasados de un JSON
-function CompromisosCargarCalendario(eventosCompromisos){
+function CompromisosMostrarCalendarioConCompromisos(eventosCompromisos){
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today'
@@ -49,25 +54,21 @@ function CompromisosCargarCalendario(eventosCompromisos){
         , editable: false
         , eventLimit: true
         , events: eventosCompromisos
-        , loading: function(bool) {
-            $('#loading').toggle(bool);
-        }
+        , allDayDefault: false
     });
 }
 
 // Función que obtiene todos los compromisos en formato JSON filtrados por estado
 function CompromisosListarCompromisos(){
-    var estado = "A";
-
     // Se define el action que será consultado desde la clase de acceso a datos
-    var d = "action=obtenerListadoCompromisosPorEstado&estado=" + estado;
+    var d = "action=obtenerListadoCompromisosPorEstado";
 
     // Enviar por Ajax a compromisosCAD.php
     return $.ajax({
         type: "POST"
         , data: d
         , url: "../../../IMVE/Datos/Procesos/compromisosCAD.php"
-    })
+    });
 }
 
 // Función para cargar un compromiso por su id
@@ -75,8 +76,6 @@ function CompromisosCargarCompromisoPorId() {
     var IdCompromiso = ObtenerParametroPorNombre('IdCompromiso');
 
     if(IdCompromiso != ''){
-
-        console.log("Debo cargar el detalle del compromiso");
 
         // Se define el action que será consultado desde la clase de acceso a datos
         var d = "action=cargarCompromiso&idCompromiso=" + IdCompromiso;
@@ -88,12 +87,34 @@ function CompromisosCargarCompromisoPorId() {
             , url: "../../../IMVE/Datos/Procesos/compromisosCAD.php"
             , success: function(a) {
                 $("#compromisosDetalle").html(a).trigger("create");
+
+                var personasResponsables = $('#CompromisosPersonasResponsables').val();
+                var gruposResponsables = $('#CompromisosGruposResponsables').val();
+
+                if(personasResponsables != null){
+                    $('#divCompromisosPersonasResponsables').show();
+                    $('#divCompromisosGruposResponsables').hide();
+                }
+                else{
+                    $('#divCompromisosPersonasResponsables').hide();
+                    $('#divCompromisosGruposResponsables').show();
+                }
+
+                if(gruposResponsables != null){
+                    $('#divCompromisosPersonasResponsables').hide();
+                    $('#divCompromisosGruposResponsables').show();
+                }
+                else{
+                    $('#divCompromisosPersonasResponsables').show();
+                    $('#divCompromisosGruposResponsables').hide();
+                }
             }
         });
     }
     else
     {
         CompromisosAsignarFechaInicioFinal();
+        CompromisosCambiarTipoResponsable();
         CompromisosCargarMinisteriosComboBox();
         CompromisosCargarTiposCompromisosComboBox();
         CompromisosCargarPersonasResponsables();
@@ -103,10 +124,10 @@ function CompromisosCargarCompromisoPorId() {
 }
 
 // Función para cambiar el tipo de responsable del compromiso
-function CompromisosCambiarTipoReponsable(){
-    var tipoResposable = ObtenerValorRadioButtonPorNombre('tipoResponsable');
+function CompromisosCambiarTipoResponsable(){
+    var tipoResponsable = ObtenerValorRadioButtonPorNombre('tipoResponsable');
     
-    if(tipoResposable == 'P'){
+    if(tipoResponsable == 'P'){
         $('#divCompromisosPersonasResponsables').show();
         $('#divCompromisosGruposResponsables').hide();
     }
@@ -124,14 +145,16 @@ function CompromisosCambiarTipoReponsable(){
 function CompromisosAsignarFechaInicioFinal()
 {
     var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth() + 1;
-    var a = date.getFullYear();
-    var h = date.getHours();
-    var mi = date.getMinutes();
-    var fechaCompleta = a + '-' + m + '-' + d + 'T' + h + ':' + mi;
+    var mi  = (date.getMinutes().toString().length == 1) ? '0' + date.getMinutes() : date.getMinutes();
+    var h  = (date.getHours().toString().length == 1) ? '0' + date.getHours() : date.getHours();
+    var d = (date.getDate().toString().length == 1) ? '0' + date.getDate() : date.getDate();
+    var m  = date.getMonth() + 1;
+    m = (m.toString().length == 1) ? '0' + m : m;
+    var a  = date.getFullYear();
+    var fechaHoy = a + '-' + m + '-' + d + 'T' + h + ':' + mi;
 
-    document.getElementById("txtFechaInicio").defaultValue = fechaCompleta;
+    $("#txtFechaInicio").attr("value", fechaHoy);
+    $("#txtFechaFinal").attr("value", fechaHoy);
 }
 
 // Función para obtener todos los ministerios activos
@@ -227,7 +250,7 @@ function CompromisosCargarPersonasParticipantes()
 
 // Función para registrar un compromiso
 function CompromisoRegistrarCompromiso() {
-    var tipoResposable   = ObtenerValorRadioButtonPorNombre('tipoResponsable');
+    var tipoResponsable   = ObtenerValorRadioButtonPorNombre('tipoResponsable');
 
     var idMinisterio     = $('#cboIdMinisterios').val();
     var idTipoCompromiso = $('#cboIdTiposCompromisos').val();
@@ -236,12 +259,18 @@ function CompromisoRegistrarCompromiso() {
     var fechaInicio      = $('#txtFechaInicio').val();
     var fechaFinal       = $('#txtFechaFinal').val();
 
+    // Se convierten las fechas a milisegundos para compararlas
+    var fechaInicioMilisegundos = new Date(fechaInicio);
+    fechaInicioMilisegundos = fechaInicioMilisegundos.getTime();
+    var fechaFinalMilisegundos = new Date(fechaFinal);
+    fechaFinalMilisegundos = fechaFinalMilisegundos.getTime();
+
     var personasResponsables;
     var listaPersonasResponsablesJson;
     var gruposResponsables;
     var listaGruposResponsablesJson;
 
-    if(tipoResposable == 'P'){
+    if(tipoResponsable == 'P'){
         personasResponsables          = $('#CompromisosPersonasResponsables').val();
         listaPersonasResponsablesJson = JSON.stringify(personasResponsables);
     }
@@ -270,19 +299,36 @@ function CompromisoRegistrarCompromiso() {
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
         });
+        return false;
+    }
+    if(fechaInicioMilisegundos > fechaFinalMilisegundos
+        || fechaInicioMilisegundos === fechaFinalMilisegundos)
+    {
+        $.alert({
+            theme: 'material'
+            , animationBounce: 1.5
+            , animation: 'rotate'
+            , closeAnimation: 'rotate'
+            , title: 'Advertencia'
+            , content: 'La fecha final debe ser mayor a la fecha de inicio.'
+            , confirmButton: 'Aceptar'
+            , confirmButtonClass: 'btn-warning'
+        });
+
+        return false;
     }
     else
     {
         // Se define el action que será consultado desde la clase de acceso a datos dependiendo del tipo de resposable
         var d = "";
 
-        if(tipoResposable == 'P'){
+        if(tipoResponsable == 'P'){
             d = "action=registrarCompromiso&idMinisterio=" + idMinisterio + "&idTipoCompromiso=" + idTipoCompromiso + "&descripcion=" + descripcion + "&lugar=" + lugar + "&fechaInicio=" + fechaInicio
-                + "&fechaFinal=" + fechaFinal + "&listaPersonasResponsables=" + listaPersonasResponsablesJson + "&listaPersonasParticipantes=" + listaPersonasParticipantesJson + "&tipoResposable=" + tipoResposable;
+                + "&fechaFinal=" + fechaFinal + "&listaPersonasResponsables=" + listaPersonasResponsablesJson + "&listaPersonasParticipantes=" + listaPersonasParticipantesJson + "&tipoResposable=" + tipoResponsable;
         }
         else{
             d = "action=registrarCompromiso&idMinisterio=" + idMinisterio + "&idTipoCompromiso=" + idTipoCompromiso + "&descripcion=" + descripcion + "&lugar=" + lugar + "&fechaInicio=" + fechaInicio
-                + "&fechaFinal=" + fechaFinal + "&listaGruposResponsables=" + listaGruposResponsablesJson + "&listaPersonasParticipantes=" + listaPersonasParticipantesJson + "&tipoResposable=" + tipoResposable;
+                + "&fechaFinal=" + fechaFinal + "&listaGruposResponsables=" + listaGruposResponsablesJson + "&listaPersonasParticipantes=" + listaPersonasParticipantesJson + "&tipoResposable=" + tipoResponsable;
         }
 
         // Enviar por Ajax a compromisosCAD.php
@@ -292,9 +338,7 @@ function CompromisoRegistrarCompromiso() {
             , url: "../../../IMVE/Datos/Procesos/compromisosCAD.php"
             , success: function(a)
             {
-                console.log('El valor de a es: ' + a);
-
-                // Se divide la variable separandola por comas.
+                // Se obtiene el resultado.
                 var resultado = a;
 
                 if(resultado == 1)
@@ -335,6 +379,170 @@ function CompromisoRegistrarCompromiso() {
                         , closeAnimation: 'rotate'
                         , title: 'Error'
                         , content: 'No se pudo agregar el compromiso, intente de nuevo.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-danger'
+                    });
+                }
+            }
+        });
+    };
+}
+
+// Función para modificar un compromiso
+function CompromisoModificarCompromiso(p_IdCompromiso){
+    var tipoResponsable   = ObtenerValorRadioButtonPorNombre('tipoResponsable');
+
+    var idCompromiso = p_IdCompromiso;
+    var idMinisterio     = $('#cboIdMinisterios').val();
+    var idTipoCompromiso = $('#cboIdTiposCompromisos').val();
+    var descripcion      = $('#txtDescripcionCompromiso').val();
+    var lugar            = $('#txtLugar').val();
+    var fechaInicio      = $('#txtFechaInicio').val();
+    var fechaFinal       = $('#txtFechaFinal').val();
+    var estado           = $('#cboEstadoCompromiso').val();
+
+    // Se convierten las fechas a milisegundos para compararlas
+    var fechaInicioMilisegundos = new Date(fechaInicio);
+    fechaInicioMilisegundos = fechaInicioMilisegundos.getTime();
+    var fechaFinalMilisegundos = new Date(fechaFinal);
+    fechaFinalMilisegundos = fechaFinalMilisegundos.getTime();
+    
+    // Se obtiene el tipo de responsable inicial
+    var tipoResponsableInicial = $('#hdfTipoResponsable').val();
+    
+    // Se obtiene la lista inicial de las personas y grupos responsables, así como tambien las personas participantes
+    if(tipoResponsable == 'P'){
+        var listadoInicialPersonasResponsables = $('#hdfPersonasResponsables').val();
+    }
+    else{
+        var listadoInicialGruposResponsables   = $('#hdfGruposResponsables').val();
+    }
+    var listadoInicialParticipantes        = $('#hdfParticipantes').val();
+
+    // Se obtiene la lista actual de las personas y grupos responsables, así como tambien las personas participantes
+    if(tipoResponsable == 'P'){
+        var personasResponsables = $('#CompromisosPersonasResponsables').val();
+    }
+    else{
+        var gruposResponsables = $('#CompromisosGruposResponsables').val();
+    }
+    var participantes = $('#CompromisosPersonasParticipantes').val();
+
+    // Se convierten a formato JSON las listas
+    if(tipoResponsable == 'P'){
+        var listaPersonasResponsablesAgregadasJson = JSON.stringify(ObtenerValoresAgregados(listadoInicialPersonasResponsables,personasResponsables));
+        var listaPersonasResponsablesEliminadasJson = JSON.stringify(ObtenerValoresEliminados(listadoInicialPersonasResponsables,personasResponsables));
+    }
+    else{
+        var listaGruposResponsablesAgregadosJson = JSON.stringify(ObtenerValoresAgregados(listadoInicialGruposResponsables,gruposResponsables));
+        var listaGruposResponsablesEliminadosJson = JSON.stringify(ObtenerValoresEliminados(listadoInicialGruposResponsables,gruposResponsables));
+    }
+    var listaParticipantesAgregadosJson = JSON.stringify(ObtenerValoresAgregados(listadoInicialParticipantes,participantes));
+    var listaParticipantesEliminadosJson = JSON.stringify(ObtenerValoresEliminados(listadoInicialParticipantes,participantes));
+
+    if(idMinisterio == 0
+        && idTipoCompromiso == 0
+        && descripcion == ""
+        && fechaInicio == ""
+        && fechaFinal == ""
+        && lugar == ""
+        && estado == 0)
+    {
+        $.alert({
+            theme: 'material'
+            , animationBounce: 1.5
+            , animation: 'rotate'
+            , closeAnimation: 'rotate'
+            , title: 'Advertencia'
+            , content: 'Debe de ingresar los datos que son necesarios del formulario.'
+            , confirmButton: 'Aceptar'
+            , confirmButtonClass: 'btn-warning'
+        });
+
+        return false;
+    }
+    if(fechaInicioMilisegundos > fechaFinalMilisegundos
+        || fechaInicioMilisegundos === fechaFinalMilisegundos)
+    {
+        $.alert({
+            theme: 'material'
+            , animationBounce: 1.5
+            , animation: 'rotate'
+            , closeAnimation: 'rotate'
+            , title: 'Advertencia'
+            , content: 'La fecha final debe ser mayor a la fecha de inicio.'
+            , confirmButton: 'Aceptar'
+            , confirmButtonClass: 'btn-warning'
+        });
+
+        return false;
+    }
+    else
+    {
+        // Se define el action que será consultado desde la clase de acceso a datos dependiendo del tipo de resposable
+        var d = "";
+
+        if(tipoResponsable == 'P'){
+            d = "action=modificarCompromiso&idCompromiso=" + idCompromiso + "&idMinisterio=" + idMinisterio + "&idTipoCompromiso=" + idTipoCompromiso + "&descripcion=" + descripcion + "&lugar=" + lugar
+                + "&fechaInicio=" + fechaInicio + "&fechaFinal=" + fechaFinal + "&listaPersonasResponsablesAgregadas=" + listaPersonasResponsablesAgregadasJson + "&listaPersonasResponsablesEliminadas=" + listaPersonasResponsablesEliminadasJson
+                + "&listaParticipantesAgregados=" + listaParticipantesAgregadosJson + "&listaParticipantesEliminados=" + listaParticipantesEliminadosJson + "&listaParticipantesEliminados=" + listaParticipantesEliminadosJson
+                + "&tipoResponsable=" + tipoResponsable + "&tipoResponsableInicial=" + tipoResponsableInicial + "&estado=" + estado;
+        }
+        else{
+            d = "action=modificarCompromiso&idCompromiso=" + idCompromiso + "&idMinisterio=" + idMinisterio + "&idTipoCompromiso=" + idTipoCompromiso + "&descripcion=" + descripcion + "&lugar=" + lugar
+                + "&fechaInicio=" + fechaInicio + "&fechaFinal=" + fechaFinal + "&listaGruposResponsablesAgregados=" + listaGruposResponsablesAgregadosJson + "&listaGruposResponsablesEliminados=" + listaGruposResponsablesEliminadosJson
+                + "&listaParticipantesAgregados=" + listaParticipantesAgregadosJson + "&listaParticipantesEliminados=" + listaParticipantesEliminadosJson + "&listaParticipantesEliminados=" + listaParticipantesEliminadosJson
+                + "&tipoResponsable=" + tipoResponsable + "&tipoResponsableInicial=" + tipoResponsableInicial + "&estado=" + estado;
+        }
+
+        // // Enviar por Ajax a compromisosCAD.php
+        $.ajax({
+            type: "POST"
+            , data: d
+            , url: "../../../IMVE/Datos/Procesos/compromisosCAD.php"
+            , success: function(a)
+            {
+                // Se obtiene el resultado.
+                var resultado = a;
+
+                if(resultado == 1)
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Información'
+                        , content: 'El compromiso se modificó satisfactoriamente.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-success'
+                        , confirm: function(){
+                            RedireccionPagina('compromisos.php');
+                        }
+                    });
+                }
+                else if(resultado.includes("Duplicate"))
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Advertencia'
+                        , content: 'El compromiso ya se encuentra registrado.'
+                        , confirmButton: 'Aceptar'
+                        , confirmButtonClass: 'btn-warning'
+                    });
+                }
+                else
+                {
+                    $.alert({
+                        theme: 'material'
+                        , animationBounce: 1.5
+                        , animation: 'rotate'
+                        , closeAnimation: 'rotate'
+                        , title: 'Error'
+                        , content: 'No se pudo modificar el compromiso, intente de nuevo.'
                         , confirmButton: 'Aceptar'
                         , confirmButtonClass: 'btn-danger'
                     });

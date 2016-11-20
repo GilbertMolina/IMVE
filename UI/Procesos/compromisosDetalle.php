@@ -47,7 +47,7 @@ $utilitarios = new UtilitariosProcesos();
         <script src="../../Negocio/Utilitarios/procesos.js" type="text/javascript"></script>
         <script src="../../Negocio/Procesos/compromisosCN.js" type="text/javascript"></script>
         <script src="../Includes/js/utilitarios.js" type="text/javascript"></script>
-        <!-- Fin carga de los archivos javascript -->\
+        <!-- Fin carga de los archivos javascript -->
     </head>
     <body onload="CompromisosDetalleOnLoad()">
         <div data-role="page">
@@ -147,7 +147,7 @@ $utilitarios = new UtilitariosProcesos();
                             <hr>
                             <form method="post" action="#" id="compromisosDetalle">
                                 <div>
-                                    <label for="cboIdMinisterios">Ministerios:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <label for="cboIdMinisterios">Ministerio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
                                     <select name="cboIdMinisterios" id="cboIdMinisterios">
                                         <option value="0">Seleccione</option>
                                         <!-- Aquí se insertan los datos dinámicamente -->
@@ -155,7 +155,7 @@ $utilitarios = new UtilitariosProcesos();
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="cboIdTiposCompromisos">Tipos compromisos:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                    <label for="cboIdTiposCompromisos">Tipo de compromiso:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
                                     <select name="cboIdTiposCompromisos" id="cboIdTiposCompromisos">
                                         <option value="0">Seleccione</option>
                                         <!-- Aquí se insertan los datos dinámicamente -->
@@ -169,12 +169,12 @@ $utilitarios = new UtilitariosProcesos();
                                 <br>
                                 <div>
                                     <label for="txtFechaInicio">Fecha y hora de inicio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                    <input type="datetime-local" name="txtFechaInicio" id="txtFechaInicio" data-clear-btn="true" value="" >
+                                    <input type="datetime-local" name="txtFechaInicio" id="txtFechaInicio" data-clear-btn="true" value="">
                                 </div>
                                 <br>
                                 <div>
                                     <label for="txtFechaFinal">Fecha y hora de fin:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                    <input type="datetime-local" name="txtFechaFinal" id="txtFechaFinal" data-clear-btn="true" value="" >
+                                    <input type="datetime-local" name="txtFechaFinal" id="txtFechaFinal" data-clear-btn="true" value="">
                                 </div>
                                 <br>
                                 <div>
@@ -184,7 +184,7 @@ $utilitarios = new UtilitariosProcesos();
                                 <br>
                                 <div>
                                     <label for="txtTipoResponsable">Tipo de responsable:</label>
-                                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-center" onchange="CompromisosCambiarTipoReponsable()">
+                                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="text-center" onchange="CompromisosCambiarTipoResponsable()">
                                         <input type="radio" name="tipoResponsable" id="persona" value="P" checked="checked">
                                         <label for="persona">Personas</label>
                                         <input type="radio" name="tipoResponsable" id="grupo" value="G">
@@ -217,8 +217,8 @@ $utilitarios = new UtilitariosProcesos();
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="cboEstadoGrupo">Estado:</label>
-                                    <select name="cboEstadoGrupo" id="cboEstadoGrupo" disabled>
+                                    <label for="cboEstadoCompromiso">Estado:</label>
+                                    <select name="cboEstadoCompromiso" id="cboEstadoCompromiso" disabled>
                                         <option value="0">Seleccione</option>
                                         <option value="A" selected>Activo</option>
                                         <option value="I">Inactivo</option>

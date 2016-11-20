@@ -95,6 +95,5 @@ html,body {
 }
 
 .fc-event{
-    border: 1px solid #4CAF50 !important;
-    background-color: #43A047 !important;
+    font-weight: bold !important
 }

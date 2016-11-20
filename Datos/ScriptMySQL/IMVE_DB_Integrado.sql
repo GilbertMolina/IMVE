@@ -448,17 +448,17 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `IMVE`.`TbReponsablesGruposCompromisos`
+-- Table `IMVE`.`TbResponsablesGruposCompromisos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `IMVE`.`TbReponsablesGruposCompromisos` ;
+DROP TABLE IF EXISTS `IMVE`.`TbResponsablesGruposCompromisos` ;
 
-CREATE TABLE IF NOT EXISTS `IMVE`.`TbReponsablesGruposCompromisos` (
+CREATE TABLE IF NOT EXISTS `IMVE`.`TbResponsablesGruposCompromisos` (
   `IdGrupo` INT NOT NULL,
   `IdCompromiso` INT NOT NULL,
   `UsuarioUltimaModificacion` INT NOT NULL,
   `FechaUltimaModificacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`IdGrupo`, `IdCompromiso`),
-  INDEX `fk_TbReponsablesGruposCompromisos_TbCompromisos1_idx` (`IdCompromiso` ASC))
+  INDEX `fk_TbResponsablesGruposCompromisos_TbCompromisos1_idx` (`IdCompromiso` ASC))
 ENGINE = MyISAM;
 
 
@@ -2247,7 +2247,7 @@ CREATE PROCEDURE IMVE.TbGruposListar()
 BEGIN
 
 SELECT G.IdGrupo
-  , CG.Descripcion AS Categoria
+	, CG.Descripcion AS Categoria
     , M.Descripcion AS Ministerio
     , G.Descripcion
     , CASE G.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
@@ -2392,7 +2392,7 @@ DECLARE v_EstadoVisita CHAR(1);
 
 UPDATE IMVE.TbVisitas
 SET IdMinisterio = p_IdMinisterio
-  , Descripcion = p_Descripcion
+	, Descripcion = p_Descripcion
     , FechaVisita = p_FechaVisita
     , IdPersonaResponsable = p_IdPersonaReponsable
     , Cerrada = p_Cerrada
@@ -2405,11 +2405,11 @@ FROM IMVE.TbVisitas
 WHERE IdVisita = p_IdVisita;
 
 IF @v_EstadoVisita = 'S' THEN
-  UPDATE IMVE.TbSeguimientos
-  SET Cerrado = 'S'
-    , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
-    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
-  WHERE IdVisita = p_IdVisita;
+	UPDATE IMVE.TbSeguimientos
+	SET Cerrado = 'S'
+		, UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+		, FechaUltimaModificacion = CURRENT_TIMESTAMP()
+	WHERE IdVisita = p_IdVisita;
 END IF;
 
 END //
@@ -2704,12 +2704,13 @@ DROP PROCEDURE IF EXISTS IMVE.TbCompromisosListarPorEstado;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbCompromisosListarPorEstado(
-  p_Estado CHAR(1)
+	p_IdPersona INT
+    , p_Estado CHAR(1)
 )
 BEGIN
 
 SELECT IdCompromiso
-  , IdMinisterio
+	, IdMinisterio
     , IdTipoCompromiso
     , Descripcion
     , FechaInicio
@@ -2718,6 +2719,97 @@ SELECT IdCompromiso
     , Activo AS Estado
 FROM IMVE.TbCompromisos
 WHERE Activo = p_Estado;
+
+END //
+DELIMITER ;
+
+-- TbCompromisosListarExcluyendoUsuario
+DROP PROCEDURE IF EXISTS IMVE.TbCompromisosListarExcluyendoUsuario;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbCompromisosListarExcluyendoUsuario(
+	p_IdPersona INT
+    , p_Estado CHAR(1)
+)
+BEGIN
+
+SELECT IdCompromiso
+	, IdMinisterio
+    , IdTipoCompromiso
+    , Descripcion
+    , FechaInicio
+    , FechaFinal
+    , Lugar
+    , Activo AS Estado
+FROM IMVE.TbCompromisos AS C
+WHERE C.IdCompromiso NOT IN (SELECT IdCompromiso 
+							 FROM IMVE.TbResponsablesCompromisos)
+	AND C.Activo = p_Estado
+UNION ALL
+SELECT C.IdCompromiso
+	, C.IdMinisterio
+    , C.IdTipoCompromiso
+    , C.Descripcion
+    , C.FechaInicio
+    , C.FechaFinal
+    , C.Lugar
+    , C.Activo AS Estado
+FROM IMVE.TbCompromisos AS C
+INNER JOIN IMVE.TbResponsablesCompromisos AS RC
+	ON C.IdCompromiso = RC.IdCompromiso
+WHERE RC.IdPersona <> p_IdPersona
+	AND C.Activo = p_Estado;
+
+END //
+DELIMITER ;
+
+-- TbCompromisosListarIncluyendoUsuario
+DROP PROCEDURE IF EXISTS IMVE.TbCompromisosListarIncluyendoUsuario;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbCompromisosListarIncluyendoUsuario(
+	p_IdPersona INT
+    , p_Estado CHAR(1)
+)
+BEGIN
+
+SELECT C.IdCompromiso
+	, C.IdMinisterio
+    , C.IdTipoCompromiso
+    , RC.IdPersona
+    , C.Descripcion
+    , C.FechaInicio
+    , C.FechaFinal
+    , C.Lugar
+    , C.Activo AS Estado
+FROM IMVE.TbCompromisos AS C
+INNER JOIN IMVE.TbResponsablesCompromisos AS RC
+	ON C.IdCompromiso = RC.IdCompromiso
+WHERE RC.IdPersona = p_IdPersona
+	AND C.Activo = p_Estado;
+
+END //
+DELIMITER ;
+
+-- TbCompromisosListarPorIdCompromiso
+DROP PROCEDURE IF EXISTS IMVE.TbCompromisosListarPorIdCompromiso;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbCompromisosListarPorIdCompromiso(
+	p_IdCompromiso INT
+)
+BEGIN
+
+SELECT IdCompromiso
+	, IdMinisterio
+    , IdTipoCompromiso
+    , Descripcion
+    , FechaInicio
+    , FechaFinal
+    , Lugar
+    , Activo AS Estado
+FROM IMVE.TbCompromisos
+WHERE IdCompromiso = p_IdCompromiso;
 
 END //
 DELIMITER ;
@@ -2734,7 +2826,7 @@ SELECT DISTINCT C.IdMinisterio
 FROM IMVE.TbCompromisos AS C
 INNER JOIN IMVE.TbMinisterios AS M
   ON C.IdMinisterio = M.IdMinisterio
-INNER JOIN IMVE.TbReponsablesGruposCompromisos AS RGC
+INNER JOIN IMVE.TbResponsablesGruposCompromisos AS RGC
   ON C.IdCompromiso = RGC.IdCompromiso
 ORDER BY M.Descripcion;
 
@@ -2753,7 +2845,7 @@ SELECT DISTINCT C.IdTipoCompromiso
 FROM IMVE.TbCompromisos AS C
 INNER JOIN IMVE.TbTiposCompromisos AS TC
   ON C.IdTipoCompromiso = TC.IdTipoCompromiso
-INNER JOIN IMVE.TbReponsablesGruposCompromisos AS RGC
+INNER JOIN IMVE.TbResponsablesGruposCompromisos AS RGC
   ON C.IdCompromiso = RGC.IdCompromiso
 ORDER BY TC.Descripcion;
 
@@ -2788,7 +2880,7 @@ INSERT INTO IMVE.TbCompromisos(
 )
 VALUES
 (
-  p_IdMinisterio
+	p_IdMinisterio
     , p_IdTipoCompromiso
     , p_Descripcion
     , p_FechaInicio
@@ -2804,26 +2896,95 @@ SELECT LAST_INSERT_ID() AS Id;
 END //
 DELIMITER ;
 
+-- TbCompromisosModificar
+DROP PROCEDURE IF EXISTS IMVE.TbCompromisosModificar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbCompromisosModificar(
+	p_IdCompromiso INT
+    , p_IdMinisterio INT
+    , p_IdTipoCompromiso INT
+    , p_Descripcion VARCHAR(50)
+    , p_FechaInicio DATETIME
+    , p_FechaFinal DATETIME
+    , p_Lugar VARCHAR(50)
+    , p_Activo CHAR(1)
+    , p_UsuarioUltimaModificacion INT
+)
+BEGIN
+
+UPDATE IMVE.TbCompromisos
+SET IdMinisterio = p_IdMinisterio
+	, IdTipoCompromiso = p_IdTipoCompromiso
+    , Descripcion = p_Descripcion
+    , FechaInicio = p_FechaInicio
+    , FechaFinal = p_FechaFinal
+    , Lugar = p_Lugar
+    , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    , Activo = p_Activo
+WHERE IdCompromiso = p_IdCompromiso;
+
+END //
+DELIMITER ;
+
+-- TbParticipantesCompromisosListar
+DROP PROCEDURE IF EXISTS IMVE.TbParticipantesCompromisosListar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbParticipantesCompromisosListar()
+BEGIN
+
+SELECT PC.IdCompromiso
+	, PC.IdPersona
+	, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+FROM IMVE.TbParticipantesCompromisos AS PC
+INNER JOIN IMVE.TbPersonas AS P
+	ON PC.IdPersona = P.IdPersona;
+
+END //
+DELIMITER ;
+
+-- TbParticipantesCompromisosListarPorIdCompromiso
+DROP PROCEDURE IF EXISTS IMVE.TbParticipantesCompromisosListarPorIdCompromiso;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbParticipantesCompromisosListarPorIdCompromiso(
+	p_IdCompromiso INT
+)
+BEGIN
+
+SELECT PC.IdCompromiso
+	, PC.IdPersona
+	, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+FROM IMVE.TbParticipantesCompromisos AS PC
+INNER JOIN IMVE.TbPersonas AS P
+	ON PC.IdPersona = P.IdPersona
+WHERE PC.IdCompromiso = p_IdCompromiso;
+
+END //
+DELIMITER ;
+
 -- TbParticipantesCompromisosAgregar
 DROP PROCEDURE IF EXISTS IMVE.TbParticipantesCompromisosAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbParticipantesCompromisosAgregar(
-  p_IdPersona INT
+	p_IdPersona INT
     , p_IdCompromiso INT
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
 INSERT INTO IMVE.TbParticipantesCompromisos(
-  IdPersona
+	IdPersona
     , IdCompromiso
     , UsuarioUltimaModificacion
     , FechaUltimaModificacion
 )
 VALUES
 (
-  p_IdPersona
+	p_IdPersona
     , p_IdCompromiso
     , p_UsuarioUltimaModificacion
     , CURRENT_TIMESTAMP()
@@ -2834,35 +2995,73 @@ SELECT LAST_INSERT_ID() AS Id;
 END //
 DELIMITER ;
 
--- TbReponsablesGruposCompromisosListar
-DROP PROCEDURE IF EXISTS IMVE.TbReponsablesGruposCompromisosListar;
+-- TbParticipantesCompromisosEliminar
+DROP PROCEDURE IF EXISTS IMVE.TbParticipantesCompromisosEliminar;
 
 DELIMITER //
-CREATE PROCEDURE IMVE.TbReponsablesGruposCompromisosListar()
+CREATE PROCEDURE IMVE.TbParticipantesCompromisosEliminar(
+	p_IdPersona INT
+    , p_IdCompromiso INT
+)
+BEGIN
+
+DELETE
+FROM IMVE.TbParticipantesCompromisos
+WHERE IdPersona = p_IdPersona
+	AND IdCompromiso = p_IdCompromiso;
+
+END //
+DELIMITER ;
+
+-- TbResponsablesGruposCompromisosListar
+DROP PROCEDURE IF EXISTS IMVE.TbResponsablesGruposCompromisosListar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbResponsablesGruposCompromisosListar()
 BEGIN
 
 SELECT RGP.IdCompromiso
   , RGP.IdGrupo
   , G.Descripcion
-FROM IMVE.TbReponsablesGruposCompromisos AS RGP
+FROM IMVE.TbResponsablesGruposCompromisos AS RGP
 INNER JOIN IMVE.TbGrupos AS G
   ON RGP.IdGrupo = G.IdGrupo;
 
 END //
 DELIMITER ;
 
--- TbReponsablesGruposCompromisosAgregar
-DROP PROCEDURE IF EXISTS IMVE.TbReponsablesGruposCompromisosAgregar;
+-- TbResponsablesGruposCompromisosListarPorIdCompromiso
+DROP PROCEDURE IF EXISTS IMVE.TbResponsablesGruposCompromisosListarPorIdCompromiso;
 
 DELIMITER //
-CREATE PROCEDURE IMVE.TbReponsablesGruposCompromisosAgregar(
+CREATE PROCEDURE IMVE.TbResponsablesGruposCompromisosListarPorIdCompromiso(
+	p_IdCompromiso INT
+)
+BEGIN
+
+SELECT RGP.IdCompromiso
+	, RGP.IdGrupo
+	, G.Descripcion
+FROM IMVE.TbResponsablesGruposCompromisos AS RGP
+INNER JOIN IMVE.TbGrupos AS G
+	ON RGP.IdGrupo = G.IdGrupo
+WHERE RGP.IdCompromiso = p_IdCompromiso;
+
+END //
+DELIMITER ;
+
+-- TbResponsablesGruposCompromisosAgregar
+DROP PROCEDURE IF EXISTS IMVE.TbResponsablesGruposCompromisosAgregar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbResponsablesGruposCompromisosAgregar(
   p_IdGrupo INT
     , p_IdCompromiso INT
     , p_UsuarioUltimaModificacion INT
 )
 BEGIN
 
-INSERT INTO IMVE.TbReponsablesGruposCompromisos(
+INSERT INTO IMVE.TbResponsablesGruposCompromisos(
    IdGrupo
     , IdCompromiso
     , UsuarioUltimaModificacion
@@ -2881,6 +3080,40 @@ SELECT LAST_INSERT_ID() AS Id;
 END //
 DELIMITER ;
 
+-- TbResponsablesGruposCompromisosEliminar
+DROP PROCEDURE IF EXISTS IMVE.TbResponsablesGruposCompromisosEliminar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbResponsablesGruposCompromisosEliminar(
+	p_IdGrupo INT
+    , p_IdCompromiso INT
+)
+BEGIN
+
+DELETE
+FROM IMVE.TbResponsablesGruposCompromisos
+WHERE IdGrupo = p_IdGrupo
+	AND IdCompromiso = p_IdCompromiso;
+
+END //
+DELIMITER ;
+
+-- TbResponsablesGruposCompromisosEliminarTodosPorIdCompromiso
+DROP PROCEDURE IF EXISTS IMVE.TbResponsablesGruposCompromisosEliminarTodosPorIdCompromiso;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbResponsablesGruposCompromisosEliminarTodosPorIdCompromiso(
+	p_IdCompromiso INT
+)
+BEGIN
+
+DELETE
+FROM IMVE.TbResponsablesGruposCompromisos
+WHERE IdCompromiso = p_IdCompromiso;
+
+END //
+DELIMITER ;
+
 -- TbResponsablesCompromisosListar
 DROP PROCEDURE IF EXISTS IMVE.TbResponsablesCompromisosListar;
 
@@ -2894,6 +3127,26 @@ SELECT RC.IdCompromiso
 FROM IMVE.TbResponsablesCompromisos AS RC
 INNER JOIN IMVE.TbPersonas AS P
   ON RC.IdPersona = P.IdPersona;
+
+END //
+DELIMITER ;
+
+-- TbResponsablesCompromisosListarPorIdCompromiso
+DROP PROCEDURE IF EXISTS IMVE.TbResponsablesCompromisosListarPorIdCompromiso;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbResponsablesCompromisosListarPorIdCompromiso(
+	p_IdCompromiso INT
+)
+BEGIN
+
+SELECT RC.IdCompromiso
+  , RC.IdPersona
+  , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+FROM IMVE.TbResponsablesCompromisos AS RC
+INNER JOIN IMVE.TbPersonas AS P
+  ON RC.IdPersona = P.IdPersona
+WHERE RC.IdCompromiso = p_IdCompromiso;
 
 END //
 DELIMITER ;
@@ -2924,6 +3177,40 @@ VALUES
 );
 
 SELECT LAST_INSERT_ID() AS Id;
+
+END //
+DELIMITER ;
+
+-- TbResponsablesCompromisosEliminar
+DROP PROCEDURE IF EXISTS IMVE.TbResponsablesCompromisosEliminar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbResponsablesCompromisosEliminar(
+	p_IdPersona INT
+    , p_IdCompromiso INT
+)
+BEGIN
+
+DELETE
+FROM IMVE.TbResponsablesCompromisos
+WHERE IdPersona = p_IdPersona
+	AND IdCompromiso = p_IdCompromiso;
+
+END //
+DELIMITER ;
+
+-- TbResponsablesCompromisosEliminarTodosPorIdCompromiso
+DROP PROCEDURE IF EXISTS IMVE.TbResponsablesCompromisosEliminarTodosPorIdCompromiso;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbResponsablesCompromisosEliminarTodosPorIdCompromiso(
+	p_IdCompromiso INT
+)
+BEGIN
+
+DELETE
+FROM IMVE.TbResponsablesCompromisos
+WHERE IdCompromiso = p_IdCompromiso;
 
 END //
 DELIMITER ;
@@ -2959,7 +3246,7 @@ CREATE PROCEDURE IMVE.TbVisitasListarPorEstado(
 BEGIN
 
 SELECT V.IdVisita
-  , V.IdMinisterio
+	, V.IdMinisterio
     , M.Descripcion AS Ministerio
     , V.Descripcion
     , V.FechaVisita
@@ -2968,36 +3255,36 @@ SELECT V.IdVisita
     , V.Cerrada AS Estado
 FROM IMVE.TbVisitas AS V
 INNER JOIN IMVE.TbMinisterios AS M
-  ON V.IdMinisterio = M.IdMinisterio
+	ON V.IdMinisterio = M.IdMinisterio
 INNER JOIN (SELECT P.IdPersona
-        , P.Identificacion
-        , P.Nombre
-        , P.Apellido1
-        , P.Apellido2
-        , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
-        , P.FechaNacimiento
-        , CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
-        , P.DireccionDomicilio
-        , P.Telefono
-        , P.Celular
-        , P.Correo
-        , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
-        , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-      FROM IMVE.TbPersonas AS P
-      LEFT JOIN IMVE.TbDistritos AS D 
-        ON P.IdDistrito = D.IdDistrito
-      LEFT JOIN IMVE.TbCantones AS C
-        ON D.IdCanton = C.IdCanton
-        AND D.IdProvincia = C.IdProvincia
-        AND D.IdPais = C.IdPais
-      LEFT JOIN IMVE.TbProvincias AS PR
-        ON C.IdProvincia = PR.IdProvincia
-        AND C.IdPais = PR.IdPais
-      LEFT JOIN IMVE.TbPaises AS PA
-        ON PR.IdPais = PA.IdPais
-      WHERE P.Activo = 'A'
-        AND P.IdPersona <> 1) AS PE
-  ON V.IdPersonaResponsable = PE.IdPersona
+				, P.Identificacion
+				, P.Nombre
+				, P.Apellido1
+				, P.Apellido2
+				, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+				, P.FechaNacimiento
+				, CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
+				, P.DireccionDomicilio
+				, P.Telefono
+				, P.Celular
+				, P.Correo
+				, CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+				, CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+			FROM IMVE.TbPersonas AS P
+			LEFT JOIN IMVE.TbDistritos AS D 
+			  ON P.IdDistrito = D.IdDistrito
+			LEFT JOIN IMVE.TbCantones AS C
+			  ON D.IdCanton = C.IdCanton
+				AND D.IdProvincia = C.IdProvincia
+				AND D.IdPais = C.IdPais
+			LEFT JOIN IMVE.TbProvincias AS PR
+			  ON C.IdProvincia = PR.IdProvincia
+				AND C.IdPais = PR.IdPais
+			LEFT JOIN IMVE.TbPaises AS PA
+			  ON PR.IdPais = PA.IdPais
+			WHERE P.Activo = 'A'
+			  AND P.IdPersona <> 1) AS PE
+	ON V.IdPersonaResponsable = PE.IdPersona
 WHERE V.Cerrada = p_Estado
 ORDER BY V.FechaVisita;
 
@@ -3390,7 +3677,7 @@ ELSEIF p_TipoReponsable = 'G' THEN
     ON C.IdMinisterio = M.IdMinisterio
   INNER JOIN IMVE.TbTiposCompromisos AS TC
     ON C.IdTipoCompromiso = TC.IdTipoCompromiso
-  INNER JOIN IMVE.TbReponsablesGruposCompromisos AS RGC
+  INNER JOIN IMVE.TbResponsablesGruposCompromisos AS RGC
     ON C.IdCompromiso = RGC.IdCompromiso
   INNER JOIN IMVE.TbGrupos AS G
     ON RGC.IdGrupo = G.IdGrupo
@@ -3471,7 +3758,7 @@ ELSE
       ON C.IdMinisterio = M.IdMinisterio
     INNER JOIN IMVE.TbTiposCompromisos AS TC
       ON C.IdTipoCompromiso = TC.IdTipoCompromiso
-    INNER JOIN IMVE.TbReponsablesGruposCompromisos AS RGC
+    INNER JOIN IMVE.TbResponsablesGruposCompromisos AS RGC
       ON C.IdCompromiso = RGC.IdCompromiso
     INNER JOIN IMVE.TbGrupos AS G
       ON RGC.IdGrupo = G.IdGrupo) AS C
@@ -3506,7 +3793,7 @@ INNER JOIN IMVE.TbMinisterios AS M
   ON C.IdMinisterio = M.IdMinisterio
 INNER JOIN IMVE.TbTiposCompromisos AS TC
   ON C.IdTipoCompromiso = TC.IdTipoCompromiso
-INNER JOIN IMVE.TbReponsablesGruposCompromisos AS RGC
+INNER JOIN IMVE.TbResponsablesGruposCompromisos AS RGC
   ON C.IdCompromiso = RGC.IdCompromiso
 INNER JOIN IMVE.TbGrupos AS G
   ON RGC.IdGrupo = G.IdGrupo
@@ -3546,7 +3833,7 @@ IF p_IdTipoCompromiso <> 0 AND p_IdMinisterio <> 0 THEN
     ON C.IdMinisterio = M.IdMinisterio
   INNER JOIN IMVE.TbTiposCompromisos AS TC
     ON C.IdTipoCompromiso = TC.IdTipoCompromiso
-  INNER JOIN IMVE.TbReponsablesGruposCompromisos AS RGC
+  INNER JOIN IMVE.TbResponsablesGruposCompromisos AS RGC
     ON C.IdCompromiso = RGC.IdCompromiso
   INNER JOIN IMVE.TbGrupos AS G
     ON RGC.IdGrupo = G.IdGrupo
@@ -3573,7 +3860,7 @@ ELSEIF p_IdTipoCompromiso <> 0 AND p_IdMinisterio = 0 THEN
     ON C.IdMinisterio = M.IdMinisterio
   INNER JOIN IMVE.TbTiposCompromisos AS TC
     ON C.IdTipoCompromiso = TC.IdTipoCompromiso
-  INNER JOIN IMVE.TbReponsablesGruposCompromisos AS RGC
+  INNER JOIN IMVE.TbResponsablesGruposCompromisos AS RGC
     ON C.IdCompromiso = RGC.IdCompromiso
   INNER JOIN IMVE.TbGrupos AS G
     ON RGC.IdGrupo = G.IdGrupo
@@ -3599,7 +3886,7 @@ ELSEIF p_IdTipoCompromiso = 0 AND p_IdMinisterio <> 0 THEN
     ON C.IdMinisterio = M.IdMinisterio
   INNER JOIN IMVE.TbTiposCompromisos AS TC
     ON C.IdTipoCompromiso = TC.IdTipoCompromiso
-  INNER JOIN IMVE.TbReponsablesGruposCompromisos AS RGC
+  INNER JOIN IMVE.TbResponsablesGruposCompromisos AS RGC
     ON C.IdCompromiso = RGC.IdCompromiso
   INNER JOIN IMVE.TbGrupos AS G
     ON RGC.IdGrupo = G.IdGrupo
@@ -3625,7 +3912,7 @@ ELSE
     ON C.IdMinisterio = M.IdMinisterio
   INNER JOIN IMVE.TbTiposCompromisos AS TC
     ON C.IdTipoCompromiso = TC.IdTipoCompromiso
-  INNER JOIN IMVE.TbReponsablesGruposCompromisos AS RGC
+  INNER JOIN IMVE.TbResponsablesGruposCompromisos AS RGC
     ON C.IdCompromiso = RGC.IdCompromiso
   INNER JOIN IMVE.TbGrupos AS G
     ON RGC.IdGrupo = G.IdGrupo
@@ -4494,25 +4781,31 @@ INSERT INTO IMVE.TbTiposSeguimientos(Descripcion,UsuarioUltimaModificacion,Fecha
 
 -- TbCompromisos
 INSERT INTO IMVE.TbCompromisos(IdMinisterio,IdTipoCompromiso,Descripcion,FechaInicio,FechaFinal,Lugar,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
-(1,1,'Reunión 1','2016-11-01 06:00:00','2016-11-02 06:00:00','Iglesia, Salón Principal',1,CURRENT_TIMESTAMP,'A')
+(1,1,'Reunión 1','2016-11-01 06:00:00','2016-11-02 07:00:00','Iglesia, Salón Principal',1,CURRENT_TIMESTAMP,'A')
 , (1,2,'Reunión 2','2016-11-04 11:00:00','2016-11-04 14:00:00','Salón Comunal',1,CURRENT_TIMESTAMP,'A')
 , (2,3,'Reunión 3','2016-11-06 17:00:00','2016-11-08 18:00:00','Parque de Paraíso',1,CURRENT_TIMESTAMP,'A')
 , (2,4,'Reunión 4','2016-11-09 07:00:00','2016-11-09 08:00:00','Ruinas de Ujarrás',1,CURRENT_TIMESTAMP,'A')
 , (3,1,'Reunión 5','2016-11-11 19:00:00','2016-11-12 06:00:00','Iglesia',1,CURRENT_TIMESTAMP,'A')
 , (3,2,'Reunión 6','2016-11-12 12:00:00','2016-11-14 14:00:00','Plaza Paraíso',1,CURRENT_TIMESTAMP,'A')
 , (4,3,'Reunión 7','2016-11-15 09:00:00','2016-11-15 10:00:00','Jardín Lankester',1,CURRENT_TIMESTAMP,'A')
-, (5,4,'Reunión 8','2016-11-16 08:00:00','2016-11-19 08:00:00','Laguna de Doña Ana',1,CURRENT_TIMESTAMP,'A')
-, (1,1,'Reunión 9','2016-11-25 13:00:00','2016-11-26 14:00:00','Plaza de la Cultura',1,CURRENT_TIMESTAMP,'A');
+, (1,4,'Reunión 8','2016-11-16 08:00:00','2016-11-19 08:00:00','Laguna de Doña Ana',1,CURRENT_TIMESTAMP,'I')
+, (1,1,'Reunión 9','2016-11-25 13:00:00','2016-11-26 14:00:00','Plaza de la Cultura',1,CURRENT_TIMESTAMP,'I');
 
 -- TbResponsablesCompromisos
 INSERT INTO IMVE.TbResponsablesCompromisos(IdPersona,IdCompromiso,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
 (5,1,1,CURRENT_TIMESTAMP)
 , (2,2,1,CURRENT_TIMESTAMP);
 
--- TbReponsablesGruposCompromisos
-INSERT INTO IMVE.TbReponsablesGruposCompromisos(IdGrupo,IdCompromiso,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
+-- TbResponsablesGruposCompromisos
+INSERT INTO IMVE.TbResponsablesGruposCompromisos(IdGrupo,IdCompromiso,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
 (1,4,1,CURRENT_TIMESTAMP)
 , (2,5,1,CURRENT_TIMESTAMP);
+
+-- TbResponsablesGruposCompromisos
+INSERT INTO IMVE.TbParticipantesCompromisos(IdPersona,IdCompromiso,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
+(3,4,1,CURRENT_TIMESTAMP)
+, (2,1,1,CURRENT_TIMESTAMP);
+-- , (3,2,1,CURRENT_TIMESTAMP);
 
 -- TbVisitas
 INSERT INTO IMVE.TbVisitas(IdMinisterio,Descripcion,FechaVisita,IdPersonaResponsable,UsuarioUltimaModificacion,FechaUltimaModificacion,Cerrada) VALUES

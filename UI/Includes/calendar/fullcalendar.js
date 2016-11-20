@@ -7443,7 +7443,7 @@ TimeGrid.mixin({
 
 		return '<a class="' + classes.join(' ') + '"' +
 			(event.url ?
-				' href="hola"' :
+				' href="' + event.url + '" rel="external"' :
 				''
 				) +
 			(skinCss ?
@@ -10281,7 +10281,7 @@ Calendar.defaults = {
 		year: 'año', // TODO: locale files need to specify this
 		today: 'hoy',
 		month: 'mes',
-		week: 'semana',
+		week: 'sem',
 		day: 'día'
 	},
 
@@ -13455,7 +13455,7 @@ var ListViewGrid = Grid.extend({
 				'></span>' +
 			'</td>' +
 			'<td class="fc-list-item-title ' + view.widgetContentClass + '">' +
-				'<a' + (url ? ' href="#"' : '') + '>' +
+				'<a' + (url ? ' href="' + event.url + '" rel="external"' : '') + '>' +
 					htmlEscape(seg.event.title || '') +
 				'</a>' +
 			'</td>' +

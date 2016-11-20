@@ -135,9 +135,9 @@ function UtiProcesosPaginaProcesosCompromisosDetalleAgregarDesdeGrupo(p_IdGrupo)
 }
 
 // Función para ingresar a la pantalla de proceso de compromisos detalle para modificar
-function UtiProcesosPaginaProcesosCompromisosDetalleModificar(url)
+function UtiProcesosPaginaProcesosCompromisosDetalleModificar(p_IdCompromiso)
 {
-    RedireccionPagina(url);
+    RedireccionPagina('compromisosDetalle.php?IdCompromiso=' + p_IdCompromiso);
 }
 
 // Función para ingresar a la pantalla de proceso de grupos

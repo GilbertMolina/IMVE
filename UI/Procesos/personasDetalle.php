@@ -264,7 +264,7 @@ $utilitarios = new UtilitariosProcesos();
                                 </div>
                                 <br>
                             </div>
-                            <div id="formPersonaRelaciones">
+                            <div id="formPersonaRelaciones" style="display: none">
                                 <div>
                                     <label for="txtIdentificacion">Relaciones 1:</label>
                                     <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="Ejm: 102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
