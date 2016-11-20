@@ -144,7 +144,7 @@ $utilitarios = new UtilitariosReportes();
                     <div class="row text-center">
                         <div class="col-sm-1"></div>
                         <div class="col-xs-12 col-sm-10">
-                            <h3 class="text-center">Reportes de Personas</h3>
+                            <h3 class="text-center">Reporte de Personas</h3>
                             <hr>
                             <form method="post" action="#" id="reportePersonas">
                                 <div class="jumbotron">
