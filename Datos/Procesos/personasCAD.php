@@ -659,9 +659,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasParticipantes
 // Obtiene las personas activas del sistema de un grupo para mostrarlos en el select de lideres
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasResponsablesGruposListado') {
     try {
-        $sql          = "CALL TbPersonasListar()";
-        $consulta     = $db->consulta($sql);
-        $cadena_datos = "";
+        $sql           = "CALL TbPersonasListar()";
+        $consulta      = $db->consulta($sql);
+        $usuarioActual = $_SESSION['idPersona'];
+        $cadena_datos  = "";
 
         if($db->num_rows($consulta) != 0)
         {
@@ -669,7 +670,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasResponsablesG
 
             while($resultados = $db->fetch_array($consulta))
             {
-                $cadena_datos .= '<option value="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+                if($resultados['IdPersona'] == $usuarioActual)
+                {
+                    $cadena_datos .= '<option value="' . $resultados['IdPersona'] . '" selected>' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+                }
+                else
+                {
+                    $cadena_datos .= '<option value="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+                }
             }
         }
         echo $cadena_datos;
