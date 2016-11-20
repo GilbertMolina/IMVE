@@ -365,11 +365,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCompromisosPor
 
             $compromisosActivosIncluyendoUsuario[] = array(
                 'title' => $descripcion
-            , 'url' => $url
-            , 'start' => $fechaInicio
-            , 'end' => $fechaFinal
-            , 'color' => '#EF5350'
-            , 'textColor' => '#FFFFFF'
+                , 'url' => $url
+                , 'start' => $fechaInicio
+                , 'end' => $fechaFinal
+                , 'color' => '#EF5350'
+                , 'textColor' => '#FFFFFF'
             );
         }
 
