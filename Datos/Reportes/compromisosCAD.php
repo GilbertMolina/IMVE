@@ -107,7 +107,7 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin']) && isset($_GET['tipo
                                         $html .= '<td class="text-center" style="height: 30px">Grupos</td>';
                                     }
                                     else{
-                                        $html .= '<td class="text-center" style="height: 30px">Personas y Grupos</td>';
+                                        $html .= '<td class="text-center" style="height: 30px">Todos</td>';
                                     }
                                 $html .= '</tr>
                             </tbody>
