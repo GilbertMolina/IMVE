@@ -74,7 +74,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosDe
                 $cadena_datos .= '<a href="#" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleModificar(' . $resultadoSeguimientos['IdVisita'] . ',' . $resultadoSeguimientos['IdSeguimiento'] . ')">';
                 $cadena_datos .= '<h2>Visita: ' . utf8_encode($resultadoSeguimientos['Descripcion']) . '</h2>';
                 $cadena_datos .= '<p><span style="font-weight: bold">Fecha propuesta: </span>' . $fechaPropuesta .'</p>';
-                $cadena_datos .= '<p><span style="font-weight: bold">Hora propuesta: </span>' . date_format(date_create(explode(' ', $resultadoSeguimientos["FechaPropuesta"])[1]), 'g:ia') .'</p>';
                 $cadena_datos .= '</a>';
                 $cadena_datos .= '<a href="#acciones_'. $resultadoSeguimientos['IdSeguimiento'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a>';
                 $cadena_datos .= '</li>';
@@ -147,10 +146,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPe
             {
                 $idVisita = $resultadoSeguimientos['IdVisita'];
 
-                $fechaInicio       = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoSeguimientos['FechaPropuesta'])[0])));
-                $fechaFinalizacion = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoSeguimientos['FechaRealizacion'])[0])));
+                $fechaPropuesta   = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoSeguimientos['FechaPropuesta'])[0])));
+                $fechaRealizacion = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoSeguimientos['FechaRealizacion'])[0])));
 
-                $fechaActual          = new DateTime("now");
+                $fechaActual               = new DateTime("now");
                 $fechaPropuestaSeguimiento = date_create($resultadoSeguimientos['FechaPropuesta']);
 
                 if($fechaPropuestaSeguimiento < $fechaActual)
@@ -159,8 +158,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPe
                     $cadena_datos .= '<li>';
                     $cadena_datos .= '<a href="#" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleModificar(' . $resultadoSeguimientos['IdVisita'] . ',' . $resultadoSeguimientos['IdSeguimiento'] . ')">';
                     $cadena_datos .= '<h2>Visita: ' . utf8_encode($resultadoSeguimientos['Descripcion']) . '</h2>';
-                    $cadena_datos .= '<p><span style="font-weight: bold">Fecha de inicio: </span>' . $fechaInicio .'</p>';
-                    $cadena_datos .= '<p><span style="font-weight: bold">Hora de inicio: </span>' . date_format(date_create(explode(' ', $resultadoSeguimientos["FechaPropuesta"])[1]), 'g:ia') .'</p>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Fecha propuesta: </span>' . $fechaPropuesta .'</p>';
                     $cadena_datos .= '</a>';
                     $cadena_datos .= '<a href="#acciones_'. $resultadoSeguimientos['IdSeguimiento'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a>';
                     $cadena_datos .= '</li>';
@@ -171,8 +169,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPe
                     $cadena_datos .= '<li>';
                     $cadena_datos .= '<a href="#" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleModificar(' . $resultadoSeguimientos['IdVisita'] . ',' . $resultadoSeguimientos['IdSeguimiento'] . ')">';
                     $cadena_datos .= '<h2>Visita: ' . utf8_encode($resultadoSeguimientos['Descripcion']) . '</h2>';
-                    $cadena_datos .= '<p><span style="font-weight: bold">Fecha de inicio: </span>' . $fechaInicio .'</p>';
-                    $cadena_datos .= '<p><span style="font-weight: bold">Hora de inicio: </span>' . date_format(date_create(explode(' ', $resultadoSeguimientos["FechaPropuesta"])[1]), 'g:ia') .'</p>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Fecha propuesta: </span>' . $fechaPropuesta .'</p>';
                     $cadena_datos .= '</a>';
                     $cadena_datos .= '<a href="#acciones_'. $resultadoSeguimientos['IdSeguimiento'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a>';
                     $cadena_datos .= '</li>';
