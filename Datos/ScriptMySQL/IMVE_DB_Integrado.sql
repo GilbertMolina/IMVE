@@ -3978,13 +3978,13 @@ CREATE PROCEDURE IMVE.ReporteGruposReporte2Detalle()
 BEGIN
 
 SELECT GP.IdGrupo
-    , G.Descripcion AS Grupo
-  , GP.IdPersona
+	, G.Descripcion AS Grupo
+    , GP.IdPersona
     , P.NombreCompleto
-  , CASE GP.EsLider WHEN 'S' THEN 'Líder' ELSE 'Participante' END AS Rol
-    , DATE_FORMAT(GP.FechaInicio,'%m-%d-%Y') AS FechaInicio
-  , GP.FechaFin
-  , CASE GP.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+    , CASE GP.EsLider WHEN 'S' THEN 'Líder' ELSE 'Participante' END AS Rol
+    , GP.FechaInicio AS FechaInicio
+    , GP.FechaFin
+    , CASE GP.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM IMVE.TbGruposPersonas AS GP
 INNER JOIN (SELECT P.IdPersona
         , P.Identificacion
@@ -4002,7 +4002,7 @@ INNER JOIN (SELECT P.IdPersona
         , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
       FROM IMVE.TbPersonas AS P
       LEFT JOIN IMVE.TbDistritos AS D 
-        ON P.IdDistrito = D.IdDistrito
+		ON P.IdDistrito = D.IdDistrito
       LEFT JOIN IMVE.TbCantones AS C
         ON D.IdCanton = C.IdCanton
         AND D.IdProvincia = C.IdProvincia
@@ -4015,14 +4015,14 @@ INNER JOIN (SELECT P.IdPersona
       WHERE P.Activo = 'A'
         AND P.IdPersona <> 1
       ORDER BY NombreCompleto) AS P
-  ON GP.IdPersona = P.IdPersona
+	ON GP.IdPersona = P.IdPersona
 INNER JOIN IMVE.TbGrupos AS G
-  ON GP.IdGrupo = G.IdGrupo
+	ON GP.IdGrupo = G.IdGrupo
 INNER JOIN IMVE.TbCategoriasGrupos AS CG
-  ON G.IdCategoriaGrupo = CG.IdCategoriaGrupo
+	ON G.IdCategoriaGrupo = CG.IdCategoriaGrupo
 WHERE GP.FechaFin IS NULL
 ORDER BY G.Descripcion
-  , GP.EsLider DESC;
+	, GP.EsLider DESC;
 
 END //
 DELIMITER ;
@@ -4059,13 +4059,13 @@ CREATE PROCEDURE IMVE.ReporteGruposReporte3Detalle()
 BEGIN
 
 SELECT GP.IdGrupo
-    , G.Descripcion AS Grupo
-  , GP.IdPersona
+	, G.Descripcion AS Grupo
+    , GP.IdPersona
     , P.NombreCompleto
-  , CASE GP.EsLider WHEN 'S' THEN 'Líder' ELSE 'Participante' END AS Rol
-    , DATE_FORMAT(GP.FechaInicio,'%m-%d-%Y') AS FechaInicio
-    , DATE_FORMAT(GP.FechaFin,'%m-%d-%Y') AS FechaFinal
-  , CASE GP.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+    , CASE GP.EsLider WHEN 'S' THEN 'Líder' ELSE 'Participante' END AS Rol
+    , GP.FechaInicio AS FechaInicio
+    , GP.FechaFin AS FechaFinal
+    , CASE GP.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
 FROM IMVE.TbGruposPersonas AS GP
 INNER JOIN (SELECT P.IdPersona
         , P.Identificacion
@@ -4779,14 +4779,14 @@ INSERT INTO IMVE.TbGrupos(IdCategoriaGrupo,IdMinisterio,Descripcion,UsuarioUltim
 
 -- TbGruposPersonas
 INSERT INTO IMVE.TbGruposPersonas(IdPersona,IdGrupo,EsLider,FechaInicio,FechaFin,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
-(2,1,'N','2016-11-10',NULL,1,CURRENT_TIMESTAMP,'A')
-, (3,1,'S','2016-11-10',NULL,1,CURRENT_TIMESTAMP,'A')
-, (3,2,'N','2016-11-10','2016-11-12',1,CURRENT_TIMESTAMP,'N')
-, (4,2,'S','2016-11-10',NULL,1,CURRENT_TIMESTAMP,'A')
-, (5,1,'S','2016-11-10',NULL,1,CURRENT_TIMESTAMP,'A')
-, (5,2,'S','2016-11-10',NULL,1,CURRENT_TIMESTAMP,'A')
-, (5,3,'N','2016-11-10',NULL,1,CURRENT_TIMESTAMP,'A')
-, (5,4,'N','2016-11-10','2016-11-12',1,CURRENT_TIMESTAMP,'N');
+(2,1,'N','2016-11-10 06:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
+, (3,1,'S','2016-11-10 08:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
+, (3,2,'N','2016-11-10 07:00:00','2016-11-12 20:00:00',1,CURRENT_TIMESTAMP,'N')
+, (4,2,'S','2016-11-10 10:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
+, (5,1,'S','2016-11-10 13:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
+, (5,2,'S','2016-11-10 14:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
+, (5,3,'N','2016-11-10 09:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
+, (5,4,'N','2016-11-10 07:00:00','2016-11-12 19:00:00',1,CURRENT_TIMESTAMP,'N');
 
 -- TbTiposCompromisos
 INSERT INTO IMVE.TbTiposCompromisos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 

@@ -71,7 +71,7 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Género</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Visita</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Ministerio</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha de la visita</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha y hora de la visita</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Estado de la visita</th>
                         </tr>
                     </thead>

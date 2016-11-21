@@ -114,8 +114,8 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 1) && isset($_GET['fechaInic
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Compromiso</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Tipo de compromiso</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Ministerio</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha de inicio</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha de fin</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha y hora de inicio</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha y hora de finalización</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Lugar</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Estado del compromiso</th>
                         </tr>
@@ -213,7 +213,7 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 2)) {
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Categoría de grupo</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Persona</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Rol</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha de ingreso</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha y hora de ingreso</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Estado</th>
                         </tr>
                     </thead>
@@ -325,8 +325,8 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 3)) {
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Categoría de grupo</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Persona</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Rol</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha de ingreso</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha de salida</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha y hora de ingreso</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha y hora de salida</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Estado</th>
                         </tr>
                     </thead>
