@@ -3608,7 +3608,7 @@ END //
 DELIMITER ;
 
 -- TbSeguimientosListarCompromisosPendientesPorIdResponsable
-DROP PROCEDURE IF EXISTS MVE.TbSeguimientosListarCompromisosPendientesPorIdResponsable;
+DROP PROCEDURE IF EXISTS IMVE.TbSeguimientosListarCompromisosPendientesPorIdResponsable;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbSeguimientosListarCompromisosPendientesPorIdResponsable(
