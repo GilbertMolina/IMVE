@@ -475,41 +475,47 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 DROP VIEW IF EXISTS IMVE.RelacionesFamiliares;
 
 CREATE VIEW IMVE.RelacionesFamiliares AS
-SELECT P1.IdPersona
-  , TRP.IdTipoRelacion
+SELECT TRP.IdPersonaRelacionado1
+    , CONCAT(P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2) AS NombrePersonaRelacionado1
+	, TRP.IdTipoRelacion
     , CASE P1.Sexo WHEN 'M' THEN TR.NombreMasculino WHEN 'F' THEN TR.NombreFemenino END AS 'TipoRelacion'
+	, TRP.IdPersonaRelacionado2
+    , CONCAT(P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2) AS NombrePersonaRelacionado2
     , CONCAT(P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2,' es ',CASE P1.Sexo WHEN 'M' THEN LOWER(TR.NombreMasculino) WHEN 'F' THEN LOWER(TR.NombreFemenino) END,' de ',P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2) AS 'Relacion'
 FROM IMVE.TbTiposRelacionesPersonas AS TRP
 INNER JOIN IMVE.TbTiposRelaciones AS TR
-  ON TRP.IdTipoRelacion = TR.IdTipoRelacion
+	ON TRP.IdTipoRelacion = TR.IdTipoRelacion
 INNER JOIN IMVE.TbPersonas AS P1
-  ON P1.IdPersona = TRP.IdPersonaRelacionado1
+	ON P1.IdPersona = TRP.IdPersonaRelacionado1
 INNER JOIN IMVE.TbPersonas AS P2
-  ON P2.IdPersona = TRP.IdPersonaRelacionado2
+	ON P2.IdPersona = TRP.IdPersonaRelacionado2
 UNION ALL
-SELECT P2.IdPersona
-  , TRP.IdTipoRelacion
+SELECT TRP.IdPersonaRelacionado2
+    , CONCAT(P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2) AS NombrePersonaRelacionado2
+	, TRP.IdTipoRelacion
     , CASE P2.Sexo 
     WHEN 'M' THEN 
-      CASE TR.NombreInversoMasculino WHEN '' THEN TR.NombreMasculino ELSE TR.NombreInversoMasculino END
+		CASE TR.NombreInversoMasculino WHEN '' THEN TR.NombreMasculino ELSE TR.NombreInversoMasculino END
     WHEN 'F' THEN 
-      CASE TR.NombreInversoFemenino WHEN '' THEN TR.NombreFemenino ELSE TR.NombreInversoFemenino END
+		CASE TR.NombreInversoFemenino WHEN '' THEN TR.NombreFemenino ELSE TR.NombreInversoFemenino END
     END AS 'TipoRelacion' 
+	, TRP.IdPersonaRelacionado1
+    , CONCAT(P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2) AS NombrePersonaRelacionado1
     , CONCAT(P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2,' es '
     , CASE P2.Sexo 
     WHEN 'M' THEN 
-      CASE TR.NombreInversoMasculino WHEN '' THEN LOWER(TR.NombreMasculino) ELSE LOWER(TR.NombreInversoMasculino) END
+		CASE TR.NombreInversoMasculino WHEN '' THEN LOWER(TR.NombreMasculino) ELSE LOWER(TR.NombreInversoMasculino) END
     WHEN 'F' THEN 
-      CASE TR.NombreInversoFemenino WHEN '' THEN LOWER(TR.NombreFemenino) ELSE LOWER(TR.NombreInversoFemenino) END 
+		CASE TR.NombreInversoFemenino WHEN '' THEN LOWER(TR.NombreFemenino) ELSE LOWER(TR.NombreInversoFemenino) END 
     END
-      , ' de ',P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2) AS 'Relacion'
+		, ' de ',P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2) AS 'Relacion'
 FROM IMVE.TbTiposRelacionesPersonas AS TRP
 INNER JOIN IMVE.TbTiposRelaciones AS TR
-  ON TRP.IdTipoRelacion = TR.IdTipoRelacion
+	ON TRP.IdTipoRelacion = TR.IdTipoRelacion
 INNER JOIN IMVE.TbPersonas AS P1
-  ON P1.IdPersona = TRP.IdPersonaRelacionado1
+	ON P1.IdPersona = TRP.IdPersonaRelacionado1
 INNER JOIN IMVE.TbPersonas AS P2
-  ON P2.IdPersona = TRP.IdPersonaRelacionado2;
+	ON P2.IdPersona = TRP.IdPersonaRelacionado2;
 
 -- -----------------------------------------------------------------------------
 -- CREACIÓN PROCEDIMIENTOS ALMACENADOS
@@ -950,12 +956,12 @@ CREATE PROCEDURE IMVE.TbTiposRelacionesPersonasListarPorPersona(
 )
 BEGIN
 
-SELECT IdPersona
-  , IdTipoRelacion
+SELECT IdPersonaRelacionado1
+    , NombrePersonaRelacionado1
+    , IdTipoRelacion
     , TipoRelacion
-    , Relacion
 FROM IMVE.RelacionesFamiliares
-WHERE IdPersona = p_IdPersona;
+WHERE IdPersonaRelacionado2 = p_IdPersona;
     
 END //
 DELIMITER ;
