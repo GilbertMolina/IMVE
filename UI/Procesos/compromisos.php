@@ -164,13 +164,11 @@ $utilitarios = new UtilitariosProcesos();
                         <div class="row">
                             <div class="col-xs-6 col-sm-3 text-center">
                                 <p style="color: #FFFFFF; background-color: #4CAF50">Activos</p>
-                                <br>
                                 <p style="color: #FFFFFF; background-color: #2196F3">Inactivos</p>
                             </div>
                             <div class="col-sm-6"></div>
                             <div class="col-xs-6 col-sm-3 text-center">
                                 <p style="color: #FFFFFF; background-color: #EF5350">Activos</p>
-                                <br>
                                 <p style="color: #FFFFFF; background-color: #7E57C2">Inactivos</p>
                             </div>
                         </div>

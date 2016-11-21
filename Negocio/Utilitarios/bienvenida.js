@@ -148,6 +148,134 @@ function UtiBienvenidaPaginaVisitas()
 
 // -----------------------------------------------------------------
 
+// Función para ingresar a la pantalla de proceso de compromisos
+function UtiProcesosPaginaProcesosCompromisos()
+{
+    RedireccionPagina('Procesos/compromisos.php');
+}
+
+// Función para ingresar a la pantalla de proceso de compromisos detalle para agregar
+function UtiProcesosPaginaProcesosCompromisosDetalleAgregar()
+{
+    RedireccionPagina('Procesos/compromisosDetalle.php');
+}
+
+// Función para ingresar a la pantalla de proceso de compromisos detalle para agregar
+function UtiProcesosPaginaProcesosCompromisosDetalleAgregarDesdeGrupo(p_IdGrupo)
+{
+    RedireccionPagina('Procesos/compromisosDetalle.php?IdGrupo=' + p_IdGrupo);
+}
+
+// Función para ingresar a la pantalla de proceso de compromisos detalle para modificar
+function UtiProcesosPaginaProcesosCompromisosDetalleModificar(p_IdCompromiso)
+{
+    RedireccionPagina('Procesos/compromisosDetalle.php?IdCompromiso=' + p_IdCompromiso);
+}
+
+// Función para ingresar a la pantalla de proceso de grupos
+function UtiProcesosPaginaProcesosGrupos()
+{
+    RedireccionPagina('Procesos/grupos.php');
+}
+
+// Función para ingresar a la pantalla de proceso de grupos detalle agregar
+function UtiProcesosPaginaProcesosGruposDetalleAgregar()
+{
+    RedireccionPagina('Procesos/gruposDetalle.php');
+}
+
+// Función para ingresar a la pantalla de proceso de grupos detalle para modificar
+function UtiProcesosPaginaProcesosGruposDetalleModificar(p_IdGrupo)
+{
+    RedireccionPagina('Procesos/gruposDetalle.php?IdGrupo=' + p_IdGrupo);
+}
+
+// Función para ingresar a la pantalla de proceso de grupos detalle para modificar
+function UtiProcesosPaginaProcesosGruposDetalleRegresar(p_IdGrupo)
+{
+    RedireccionPagina('Procesos/gruposDetalle.php?IdGrupo=' + p_IdGrupo);
+}
+
+// Función para ingresar a la pantalla de proceso de personas
+function UtiProcesosPaginaProcesosPersonas()
+{
+    RedireccionPagina('Procesos/personas.php');
+}
+
+// Función para ingresar a la pantalla de proceso de personas detalle agregar
+function UtiProcesosPaginaProcesosPersonasDetalleAgregar()
+{
+    RedireccionPagina('Procesos/personasDetalle.php');
+}
+
+// Función para ingresar a la pantalla de proceso de personas detalle agregar
+function UtiProcesosPaginaProcesosPersonasDetalleAgregarDesdeVisita(accion)
+{
+    RedireccionPagina('Procesos/personasDetalle.php?Accion=' + accion);
+}
+
+// Función para ingresar a la pantalla de proceso de personas detalle para modificar
+function UtiProcesosPaginaProcesosPersonasDetalleModificar(p_IdPersona)
+{
+    RedireccionPagina('Procesos/personasDetalle.php?IdPersona=' + p_IdPersona);
+}
+
+// Función para ingresar a la pantalla de proceso de seguimientos
+function UtiProcesosPaginaProcesosSeguimientos(p_IdVisita)
+{
+    RedireccionPagina('Procesos/seguimientos.php?IdVisita=' + p_IdVisita);
+}
+
+// Función para ingresar a la pantalla de proceso de seguimientos para una visita en especifíco
+function UtiProcesosPaginaProcesosSeguimientosDesdeVisita(p_IdVisita)
+{
+    RedireccionPagina('Procesos/seguimientos.php?IdVisita=' + p_IdVisita);
+}
+
+// Función para ingresar a la pantalla de proceso de seguimientos detalle agregar
+function UtiProcesosPaginaProcesosSeguimientosDetalleAgregar(p_IdVisita)
+{
+    RedireccionPagina('Procesos/seguimientosDetalle.php?IdVisita=' + p_IdVisita);
+}
+
+// Función para ingresar a la pantalla de proceso de compromisos detalle para agregar
+function UtiProcesosPaginaProcesosSeguimientosDetalleAgregarDesdeVisita(p_IdVisita)
+{
+    RedireccionPagina('Procesos/seguimientosDetalle.php?IdVisita=' + p_IdVisita);
+}
+
+// Función para ingresar a la pantalla de proceso de seguimientos detalle modificar
+function UtiProcesosPaginaProcesosSeguimientosDetalleModificar(p_IdVisita, p_IdSeguimiento)
+{
+    RedireccionPagina('Procesos/seguimientosDetalle.php?IdVisita=' + p_IdVisita + '&IdSeguimiento=' + p_IdSeguimiento);
+}
+
+// Función para ingresar a la pantalla de proceso de visitas
+function UtiProcesosPaginaProcesosVisitas()
+{
+    RedireccionPagina('Procesos/visitas.php');
+}
+
+// Función para ingresar a la pantalla de proceso de visitas detalle agregar
+function UtiProcesosPaginaProcesosVisitasDetalleAgregar()
+{
+    RedireccionPagina('Procesos/visitasDetalle.php');
+}
+
+// Función para ingresar a la pantalla de proceso de visitas detalle agregar
+function UtiProcesosPaginaProcesosVisitasDetalleAgregarDesdeSeguimiento(p_IdVisita)
+{
+    RedireccionPagina('Procesos/visitasDetalle.php?IdVisita=' + p_IdVisita);
+}
+
+// Función para ingresar a la pantalla de proceso de visitas detalle modificar
+function UtiProcesosPaginaProcesosVisitasDetalleModificar(p_IdVisita)
+{
+    RedireccionPagina('Procesos/visitasDetalle.php?IdVisita=' + p_IdVisita);
+}
+
+// -----------------------------------------------------------------
+
 // Función para ingresar a la pantalla reporte de compromisos
 function UtiBienvenidaPaginaReportesCompromisos()
 {

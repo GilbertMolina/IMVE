@@ -194,8 +194,6 @@ function SeguimientosModificarSeguimiento(p_idVisita,p_idSeguimiento) {
     if(tipoSeguimiento == "0"
         || descripcion == ""
         || fechaPropuesta == ""
-        || fechaRealizacion == ""
-        || observaciones == ""
         || estado == "0")
     {
         $.alert({
@@ -208,6 +206,22 @@ function SeguimientosModificarSeguimiento(p_idVisita,p_idSeguimiento) {
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
         });
+        return false;
+    }
+    if(fechaRealizacion == ''
+        && estado == "S")
+    {
+        $.alert({
+            theme: 'material'
+            , animationBounce: 1.5
+            , animation: 'rotate'
+            , closeAnimation: 'rotate'
+            , title: 'Advertencia'
+            , content: 'Si el seguimiento está siendo cerrado, debe de ingresar la fecha de realización.'
+            , confirmButton: 'Aceptar'
+            , confirmButtonClass: 'btn-warning'
+        });
+        return false;
     }
     else
     {

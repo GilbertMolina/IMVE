@@ -2852,6 +2852,64 @@ ORDER BY TC.Descripcion;
 END //
 DELIMITER ;
 
+-- TbCompromisosListarCompromisosDeHoyPorIdResponsable
+DROP PROCEDURE IF EXISTS IMVE.TbCompromisosListarCompromisosDeHoyPorIdResponsable;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbCompromisosListarCompromisosDeHoyPorIdResponsable(
+	p_IdPersona INT
+)
+BEGIN
+
+SELECT C.IdCompromiso
+	, C.IdMinisterio
+    , C.IdTipoCompromiso
+    , C.Descripcion
+    , RC.IdPersona
+    , C.FechaInicio
+    , C.FechaFinal
+    , C.Lugar
+    , C.Activo AS Estado
+FROM IMVE.TbCompromisos AS C
+INNER JOIN IMVE.TbResponsablesCompromisos AS RC
+	ON C.IdCompromiso = RC.IdCompromiso
+WHERE RC.IdPersona = p_IdPersona
+	AND C.Activo = 'A'
+	AND DATE_FORMAT(C.FechaInicio,'%Y-%m-%d') = CURDATE();
+
+END //
+DELIMITER ;
+
+-- TbCompromisosListarCompromisosPendientesPorIdResponsable
+DROP PROCEDURE IF EXISTS IMVE.TbCompromisosListarCompromisosPendientesPorIdResponsable;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbCompromisosListarCompromisosPendientesPorIdResponsable(
+	p_IdPersona INT
+)
+BEGIN
+
+SELECT C.IdCompromiso
+	, C.IdMinisterio
+    , C.IdTipoCompromiso
+    , C.Descripcion
+    , RC.IdPersona
+    , C.FechaInicio
+    , C.FechaFinal
+    , C.Lugar
+    , C.Activo AS Estado
+FROM IMVE.TbCompromisos AS C
+INNER JOIN IMVE.TbResponsablesCompromisos AS RC
+	ON C.IdCompromiso = RC.IdCompromiso
+WHERE RC.IdPersona = p_IdPersona
+	AND C.Activo = 'A'
+	AND DATE_FORMAT(C.FechaInicio,'%Y-%m-%d') <> CURDATE()
+ORDER BY FechaInicio
+LIMIT 3;
+
+END //
+DELIMITER ;
+
 -- TbCompromisosAgregar
 DROP PROCEDURE IF EXISTS IMVE.TbCompromisosAgregar;
 
@@ -3353,6 +3411,60 @@ SELECT LAST_INSERT_ID() AS Id;
 END //
 DELIMITER ;
 
+-- TbPersonasVisitasAccionesPorIdVisita
+DROP PROCEDURE IF EXISTS IMVE.TbPersonasVisitasAccionesPorIdVisita;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbPersonasVisitasAccionesPorIdVisita(
+	p_IdVisita INT
+)
+BEGIN
+
+SELECT PV.IdVisita
+	, PV.IdPersona
+    , P.NombreCompleto
+    , P.Telefono
+    , P.Celular
+    , P.Correo
+    , P.DireccionDomicilio
+    , P.Distrito
+FROM IMVE.TbPersonasVisitas AS PV
+INNER JOIN (SELECT P.IdPersona
+				, P.Identificacion
+				, P.Nombre
+				, P.Apellido1
+				, P.Apellido2
+				, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+				, P.FechaNacimiento
+				, CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
+				, P.DireccionDomicilio
+				, P.Telefono
+				, P.Celular
+				, P.Correo
+				, CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+				, CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+			FROM IMVE.TbPersonas AS P
+			LEFT JOIN IMVE.TbDistritos AS D 
+			  ON P.IdDistrito = D.IdDistrito
+			LEFT JOIN IMVE.TbCantones AS C
+			  ON D.IdCanton = C.IdCanton
+				AND D.IdProvincia = C.IdProvincia
+				AND D.IdPais = C.IdPais
+			LEFT JOIN IMVE.TbProvincias AS PR
+			  ON C.IdProvincia = PR.IdProvincia
+				AND C.IdPais = PR.IdPais
+			LEFT JOIN IMVE.TbPaises AS PA
+			  ON PR.IdPais = PA.IdPais
+			WHERE P.Activo = 'A'
+			  AND P.IdPersona <> 1
+			ORDER BY NombreCompleto) AS P
+	ON PV.IdPersona = P.IdPersona
+WHERE PV.IdVisita = p_IdVisita
+ORDER BY P.NombreCompleto;
+
+END //
+DELIMITER ;
+
 -- TbPersonasVisitasPorIdVisita
 DROP PROCEDURE IF EXISTS IMVE.TbPersonasVisitasPorIdVisita;
 
@@ -3464,6 +3576,70 @@ ORDER BY S.FechaPropuesta
 END //
 DELIMITER ;
 
+-- TbSeguimientosListarSeguimientosDeHoyPorIdResponsable
+DROP PROCEDURE IF EXISTS IMVE.TbSeguimientosListarSeguimientosDeHoyPorIdResponsable;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbSeguimientosListarSeguimientosDeHoyPorIdResponsable(
+	p_IdPersona INT
+)
+BEGIN
+
+SELECT V.IdVisita
+	, V.IdMinisterio
+    , V.Descripcion
+    , V.FechaVisita
+    , V.IdPersonaResponsable
+    , S.IdSeguimiento
+    , S.Descripcion AS DescripcionSeguimiento
+    , S.FechaPropuesta
+    , S.FechaRealizacion
+    , V.Cerrada
+FROM IMVE.TbVisitas AS V
+INNER JOIN IMVE.TbSeguimientos AS S
+	ON V.IdVisita = S.IdVisita
+WHERE V.IdPersonaResponsable = p_IdPersona
+    AND S.FechaRealizacion IS NULL
+	AND V.Cerrada = 'N'
+    AND S.Cerrado = 'N'
+	AND DATE_FORMAT(S.FechaPropuesta,'%Y-%m-%d') = CURDATE();
+
+END //
+DELIMITER ;
+
+-- TbSeguimientosListarCompromisosPendientesPorIdResponsable
+DROP PROCEDURE IF EXISTS MVE.TbSeguimientosListarCompromisosPendientesPorIdResponsable;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbSeguimientosListarCompromisosPendientesPorIdResponsable(
+	p_IdPersona INT
+)
+BEGIN
+
+SELECT V.IdVisita
+	, V.IdMinisterio
+    , V.Descripcion
+    , V.FechaVisita
+    , V.IdPersonaResponsable
+    , S.IdSeguimiento
+    , S.Descripcion AS DescripcionSeguimiento
+    , S.FechaPropuesta
+    , S.FechaRealizacion
+    , V.Cerrada
+FROM IMVE.TbVisitas AS V
+INNER JOIN IMVE.TbSeguimientos AS S
+	ON V.IdVisita = S.IdVisita
+WHERE V.IdPersonaResponsable = p_IdPersona
+    AND S.FechaRealizacion IS NULL
+	AND V.Cerrada = 'N'
+    AND S.Cerrado = 'N'
+	AND DATE_FORMAT(S.FechaPropuesta,'%Y-%m-%d') <> CURDATE()
+ORDER BY S.FechaPropuesta
+LIMIT 3;
+
+END //
+DELIMITER ;
+
 -- TbSeguimientosAgregar
 DROP PROCEDURE IF EXISTS IMVE.TbSeguimientosAgregar;
 
@@ -3473,7 +3649,6 @@ CREATE PROCEDURE IMVE.TbSeguimientosAgregar(
     , p_IdTipoSeguimiento INT
     , p_Descripcion VARCHAR(50)
     , p_FechaPropuesta DATETIME
-    , p_FechaRealizacion DATETIME
     , p_Observaciones VARCHAR(50)
     , p_UsuarioUltimaModificacion INT
 )
@@ -3496,7 +3671,7 @@ VALUES
     , p_IdTipoSeguimiento
     , p_Descripcion
     , p_FechaPropuesta
-    , p_FechaRealizacion
+    , NULL
     , p_Observaciones
     , p_UsuarioUltimaModificacion
     , CURRENT_TIMESTAMP()
@@ -3508,11 +3683,11 @@ SELECT LAST_INSERT_ID() AS Id;
 END //
 DELIMITER ;
 
--- TbSeguimientosModificar
-DROP PROCEDURE IF EXISTS IMVE.TbSeguimientosModificar;
+-- TbSeguimientosModificarConFechaRealizacion
+DROP PROCEDURE IF EXISTS IMVE.TbSeguimientosModificarConFechaRealizacion;
 
 DELIMITER //
-CREATE PROCEDURE IMVE.TbSeguimientosModificar(
+CREATE PROCEDURE IMVE.TbSeguimientosModificarConFechaRealizacion(
   p_IdSeguimiento INT
     , p_IdTipoSeguimiento INT
     , p_Descripcion VARCHAR(50)
@@ -3533,6 +3708,55 @@ SET IdTipoSeguimiento = p_IdTipoSeguimiento
     , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
     , FechaUltimaModificacion = CURRENT_TIMESTAMP()
     , Cerrado = p_Estado
+WHERE IdSeguimiento = p_IdSeguimiento;
+
+END //
+DELIMITER ;
+
+-- TbSeguimientosModificarSinFechaRealizacion
+DROP PROCEDURE IF EXISTS IMVE.TbSeguimientosModificarSinFechaRealizacion;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbSeguimientosModificarSinFechaRealizacion(
+  p_IdSeguimiento INT
+    , p_IdTipoSeguimiento INT
+    , p_Descripcion VARCHAR(50)
+    , p_FechaPropuesta DATETIME
+    , p_Observaciones VARCHAR(50)
+    , p_Estado CHAR(1)
+    , p_UsuarioUltimaModificacion INT
+)
+BEGIN
+
+UPDATE IMVE.TbSeguimientos
+SET IdTipoSeguimiento = p_IdTipoSeguimiento
+    , Descripcion = p_Descripcion
+    , FechaPropuesta = p_FechaPropuesta
+    , Observaciones = p_Observaciones
+    , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    , Cerrado = p_Estado
+WHERE IdSeguimiento = p_IdSeguimiento;
+
+END //
+DELIMITER ;
+
+-- TbSeguimientosCerrarSeguimiento
+DROP PROCEDURE IF EXISTS IMVE.TbSeguimientosCerrarSeguimiento;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbSeguimientosCerrarSeguimiento(
+	p_IdSeguimiento INT
+    , p_UsuarioUltimaModificacion INT
+)
+BEGIN
+
+UPDATE IMVE.TbSeguimientos
+SET FechaRealizacion = CURRENT_TIMESTAMP()
+    , Observaciones = 'Realizado.'
+    , UsuarioUltimaModificacion = p_UsuarioUltimaModificacion
+    , FechaUltimaModificacion = CURRENT_TIMESTAMP()
+    , Cerrado = 'S'
 WHERE IdSeguimiento = p_IdSeguimiento;
 
 END //
@@ -4714,7 +4938,8 @@ INSERT INTO IMVE.TbUsuarios(IdPersona,IdRolUsuario,Contrasena,UsuarioUltimaModif
 (1,1,'8cb2237d0679ca88db6464eac60da96345513964',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: 12345
 , (2,2,'7c62f7e9b440e2232437218732d350971d066d5c',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: gmolina
 , (3,3,'07d7ae0f3696ffb5440182547e727fde697cf18e',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: amolina
-, (4,3,'d35514736146439b7277437016cdb40d7fb65497',1,CURRENT_TIMESTAMP,'I'); -- Constraseña desencriptada: jdoe
+, (5,2,'e2714d6dd01c46799903677b5a7064a136f2f3a2',1,CURRENT_TIMESTAMP,'A') -- Constraseña desencriptada: dcenteno
+, (6,3,'d35514736146439b7277437016cdb40d7fb65497',1,CURRENT_TIMESTAMP,'I'); -- Constraseña desencriptada: jdoe
 
 -- TbTiposRelaciones
 INSERT INTO IMVE.TbTiposRelaciones(NombreMasculino,NombreFemenino,NombreInversoMasculino,NombreInversoFemenino,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES 
@@ -4841,9 +5066,9 @@ INSERT INTO IMVE.TbPersonasVisitas(IdVisita,IdPersona,UsuarioUltimaModificacion,
 
 -- TbSeguimientos
 INSERT INTO IMVE.TbSeguimientos(IdVisita,IdTipoSeguimiento,Descripcion,FechaPropuesta,FechaRealizacion,Observaciones,UsuarioUltimaModificacion,FechaUltimaModificacion,Cerrado) VALUES
-(1,1,'Llamada #1 (Por defecto)','2016-11-22',NULL,'',1,CURRENT_TIMESTAMP,'N')
-, (1,1,'Llamada #2 (Por defecto)','2016-11-29',NULL,'',1,CURRENT_TIMESTAMP,'N')
-, (1,2,'Visita #1 (Por defecto)','2016-12-06',NULL,'',1,CURRENT_TIMESTAMP,'N')
-, (2,1,'Llamada #1 (Por defecto)','2016-11-22',NULL,'',1,CURRENT_TIMESTAMP,'N')
-, (2,1,'Llamada #2 (Por defecto)','2016-11-29',NULL,'',1,CURRENT_TIMESTAMP,'N')
-, (2,2,'Visita #1 (Por defecto)','2016-12-06',NULL,'',1,CURRENT_TIMESTAMP,'N');
+(1,1,'Llamada #1','2016-11-22',NULL,'',1,CURRENT_TIMESTAMP,'N')
+, (1,1,'Llamada #2','2016-11-29',NULL,'',1,CURRENT_TIMESTAMP,'N')
+, (1,2,'Visita #1','2016-12-06',NULL,'',1,CURRENT_TIMESTAMP,'N')
+, (2,1,'Llamada #1','2016-11-21',NULL,'',1,CURRENT_TIMESTAMP,'N')
+, (2,1,'Llamada #2','2016-11-29',NULL,'',1,CURRENT_TIMESTAMP,'N')
+, (2,2,'Visita #1','2016-12-06',NULL,'',1,CURRENT_TIMESTAMP,'N');

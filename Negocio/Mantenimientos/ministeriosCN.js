@@ -126,7 +126,7 @@ function MinisteriosCargarMinisterioPorId() {
             , data: d
             , url: "../../../IMVE/Datos/Mantenimientos/ministeriosCAD.php"
             , success: function(a) {
-                $("#ministeriosDetalle").html(a).trigger( "create" );
+                $("#ministeriosDetalle").html(a).trigger("create");
             }
         });
     }

@@ -50,7 +50,7 @@ $utilitarios = new UtilitariosBienvenida();
         <script src="Includes/js/utilitarios.js" type="text/javascript"></script>
         <!-- Fin carga de los archivos javascript -->
     </head>
-    <body>
+    <body onload="BienvenidaOnLoad()">
         <div data-role="page">
             <div data-role="header" data-theme="b" data-position="fixed">
                 <a href="#menuIzquierda" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars"></a>
@@ -144,10 +144,37 @@ $utilitarios = new UtilitariosBienvenida();
                             <div class="animated bounceInRight">
                                 <h1>SISTEMA IMVE</h1>
                             </div>
-                            <hr class="animated zoomIn">
-                            <div class="animated bounceInUp">
+                            <div class="animated bounceInLeft">
                                 <h3>Iglesia Manantiales de Vida Eterna</h3>
                             </div>
+                            <hr>
+                            <form method="post" action="#" id="avisos" class="animated bounceInUp">
+                                <div class="jumbotron">
+                                    <h3 style="margin-top: -20px">Mis compromisos y seguimientos</h3>
+                                    <hr>
+                                    <img src="Includes/images/tasks.png" alt="Tareas">
+                                    <h4>Compromisos de hoy</h4>
+                                    <div id="compromisosDeHoy">
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </div>
+                                    <hr>
+                                    <h4>Seguimientos de hoy</h4>
+                                    <div id="seguimientosDeHoy">
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </div>
+                                    <hr>
+                                    <img src="Includes/images/attention.png" alt="Atención">
+                                    <h4>Compromisos pendientes</h4>
+                                    <div id="compromisosPendientes">
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </div>
+                                    <hr>
+                                    <h4>Seguimientos pendientes</h4>
+                                    <div id="seguimientosPendientes">
+                                        <!-- Aquí se insertan los datos dinámicamente -->
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

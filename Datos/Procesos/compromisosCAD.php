@@ -14,6 +14,280 @@ ini_set('display_errors', 1);
 require("../conexionMySQL.php");
 $db = new MySQL();
 
+setlocale(LC_ALL,"es_ES");
+date_default_timezone_set('America/Costa_Rica');
+
+// Obtiene el listado de ministerios utilizados en los compromisos, para insertarlos en un ComboBox
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoMinisteriosUtilizadosCombobox') {
+    try {
+        $sql          = "CALL TbCompromisosListarMinisteriosUtilizados()";
+        $consulta     = $db->consulta($sql);
+        $cadena_datos = "";
+
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos = '<option value="0">Seleccione</option>';
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdMinisterio'] . '">' . utf8_encode($resultados['Descripcion']) . '</option>';
+            }
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+// Obtiene el listado de tipos de compromisos utilizados en los compromisos, para insertarlos en un ComboBox
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposCompromisosUtilizadosCombobox') {
+    try {
+        $sql          = "CALL TbCompromisosListarTiposCompromisosUtilizados()";
+        $consulta     = $db->consulta($sql);
+        $cadena_datos = "";
+
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos = '<option value="0">Seleccione</option>';
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdTipoCompromiso'] . '">' . utf8_encode($resultados['Descripcion']) . '</option>';
+            }
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+// Obtiene el listado de compromisos filtrados por estado
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCompromisosPorEstado') {
+    try {
+        $usuarioActual = $_SESSION['idPersona'];
+
+        // Compromisos activos que no son del usuario actual
+        $sqlCompromisoActivosEcluyendoUsuario      = "CALL TbCompromisosListarExcluyendoUsuario('$usuarioActual','A')";
+        $consultaCompromisoActivosEcluyendoUsuario = $db->consulta($sqlCompromisoActivosEcluyendoUsuario);
+        $compromisosActivosEcluyendoUsuario        = array();
+
+        // Compromisos inactivos que no son del usuario actual
+        $sqlCompromisoInactivosEcluyendoUsuario      = "CALL TbCompromisosListarExcluyendoUsuario('$usuarioActual','I')";
+        $consultaCompromisoInactivosEcluyendoUsuario = $db->consulta($sqlCompromisoInactivosEcluyendoUsuario);
+        $compromisosInactivosEcluyendoUsuario        = array();
+
+        // Compromisos activos del usuario actual
+        $sqlCompromisoActivosIncluyendoUsuario      = "CALL TbCompromisosListarIncluyendoUsuario('$usuarioActual','A')";
+        $consultaCompromisoActivosIncluyendoUsuario = $db->consulta($sqlCompromisoActivosIncluyendoUsuario);
+        $compromisosActivosIncluyendoUsuario        = array();
+
+        // Compromisos activos del usuario actual
+        $sqlCompromisoInactivosIncluyendoUsuario      = "CALL TbCompromisosListarIncluyendoUsuario('$usuarioActual','I')";
+        $consultaCompromisoInactivosIncluyendoUsuario = $db->consulta($sqlCompromisoInactivosIncluyendoUsuario);
+        $compromisosInactivosIncluyendoUsuario        = array();
+
+        // Arreglo que será la unión de los otros arreglos
+        $totalCompromisos = array();
+
+        // Compromisos activos que no son del usuario actual
+        while($fila = $db->fetch_array($consultaCompromisoActivosEcluyendoUsuario))
+        {
+            $idCompromiso = utf8_encode($fila['IdCompromiso']);
+            $descripcion = utf8_encode($fila['Descripcion']);
+            $url = "compromisosDetalle.php?IdCompromiso=" . $idCompromiso;
+            $fechaInicio = utf8_encode(explode(" ", $fila['FechaInicio'])[0] . 'T' . explode(" ", $fila['FechaInicio'])[1]);
+            $fechaFinal = utf8_encode(explode(" ", $fila['FechaFinal'])[0] . 'T' . explode(" ", $fila['FechaFinal'])[1]);
+
+            $compromisosActivosEcluyendoUsuario[] = array(
+                'title' => $descripcion
+                , 'url' => $url
+                , 'start' => $fechaInicio
+                , 'end' => $fechaFinal
+                , 'color' => '#4CAF50'
+                , 'textColor' => '#FFFFFF'
+            );
+        }
+
+        // Compromisos inactivos que no son del usuario actual
+        while($fila = $db->fetch_array($consultaCompromisoInactivosEcluyendoUsuario))
+        {
+            $idCompromiso = utf8_encode($fila['IdCompromiso']);
+            $descripcion = utf8_encode($fila['Descripcion']);
+            $url = "compromisosDetalle.php?IdCompromiso=" . $idCompromiso;
+            $fechaInicio = utf8_encode(explode(" ", $fila['FechaInicio'])[0] . 'T' . explode(" ", $fila['FechaInicio'])[1]);
+            $fechaFinal = utf8_encode(explode(" ", $fila['FechaFinal'])[0] . 'T' . explode(" ", $fila['FechaFinal'])[1]);
+
+            $compromisosInactivosEcluyendoUsuario[] = array(
+                'title' => $descripcion
+                , 'url' => $url
+                , 'start' => $fechaInicio
+                , 'end' => $fechaFinal
+                , 'color' => '#2196F3'
+                , 'textColor' => '#FFFFFF'
+            );
+        }
+
+        // Compromisos activos del usuario actual
+        while($fila = $db->fetch_array($consultaCompromisoActivosIncluyendoUsuario))
+        {
+            $idCompromiso = utf8_encode($fila['IdCompromiso']);
+            $descripcion = utf8_encode($fila['Descripcion']);
+            $url = "compromisosDetalle.php?IdCompromiso=" . $idCompromiso;
+            $fechaInicio = utf8_encode(explode(" ", $fila['FechaInicio'])[0] . 'T' . explode(" ", $fila['FechaInicio'])[1]);
+            $fechaFinal = utf8_encode(explode(" ", $fila['FechaFinal'])[0] . 'T' . explode(" ", $fila['FechaFinal'])[1]);
+
+            $compromisosActivosIncluyendoUsuario[] = array(
+                'title' => $descripcion
+                , 'url' => $url
+                , 'start' => $fechaInicio
+                , 'end' => $fechaFinal
+                , 'color' => '#EF5350'
+                , 'textColor' => '#FFFFFF'
+            );
+        }
+
+        // Compromisos inactivos del usuario actual
+        while($fila = $db->fetch_array($consultaCompromisoInactivosIncluyendoUsuario))
+        {
+            $idCompromiso = utf8_encode($fila['IdCompromiso']);
+            $descripcion = utf8_encode($fila['Descripcion']);
+            $url = "compromisosDetalle.php?IdCompromiso=" . $idCompromiso;
+            $fechaInicio = utf8_encode(explode(" ", $fila['FechaInicio'])[0] . 'T' . explode(" ", $fila['FechaInicio'])[1]);
+            $fechaFinal = utf8_encode(explode(" ", $fila['FechaFinal'])[0] . 'T' . explode(" ", $fila['FechaFinal'])[1]);
+
+            $compromisosInactivosIncluyendoUsuario[] = array(
+                'title' => $descripcion
+                , 'url' => $url
+                , 'start' => $fechaInicio
+                , 'end' => $fechaFinal
+                , 'color' => '#7E57C2'
+                , 'textColor' => '#FFFFFF'
+            );
+        }
+
+        // Se hace un solo arreglo para posteriormente formatearlo a JSON
+        $totalCompromisos = array_merge($compromisosActivosEcluyendoUsuario,$compromisosInactivosEcluyendoUsuario,$compromisosActivosIncluyendoUsuario,$compromisosInactivosIncluyendoUsuario);
+
+        $compromisosJSON = json_encode($totalCompromisos);
+
+        echo $compromisosJSON;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+// Obtiene el listado de visitas filtradas por el estado
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCompromisosDeHoy') {
+    try {
+        $usuarioActual = $_SESSION['idPersona'];
+
+        $sqlCompromiso      = "CALL TbCompromisosListarCompromisosDeHoyPorIdResponsable('$usuarioActual')";
+        $consultaCompromiso = $db->consulta($sqlCompromiso);
+        $cadena_datos       = "";
+
+        if($db->num_rows($consultaCompromiso) != 0)
+        {
+            $cadena_datos .= '<ul data-role="listview" id="listaCompromisosDeHoy" data-filter="true" data-input="#filtro" data-inset="true">';
+
+            while($resultadoCompromisos = $db->fetch_array($consultaCompromiso))
+            {
+                $fechaInicio       = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoCompromisos['FechaInicio'])[0])));
+                $fechaFinalizacion = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoCompromisos['FechaFinal'])[0])));
+
+                $cadena_datos .= '<li data-role="list-divider" style="font-size: 15px; background-color: #337AB7; color: #FFFFFF">' . utf8_encode($resultadoCompromisos['Descripcion']) . '</li>';
+                $cadena_datos .= '<li>';
+                $cadena_datos .= '<a href="#" onclick="UtiProcesosPaginaProcesosCompromisosDetalleModificar(' . $resultadoCompromisos['IdCompromiso'] . ')">';
+                $cadena_datos .= '<h2>Lugar: ' . utf8_encode($resultadoCompromisos['Lugar']) . '</h2>';
+                $cadena_datos .= '<p><span style="font-weight: bold">Fecha de inicio: </span>' . $fechaInicio .'</p>';
+                $cadena_datos .= '<p><span style="font-weight: bold">Hora de inicio: </span>' . date_format(date_create(explode(' ', $resultadoCompromisos["FechaInicio"])[1]), 'g:ia') .'</p>';
+                $cadena_datos .= '<p><span style="font-weight: bold">Fecha de finalización: </span>' . $fechaFinalizacion .'</p>';
+                $cadena_datos .= '<p><span style="font-weight: bold">Hora de finalización: </span>' . date_format(date_create(explode(' ', $resultadoCompromisos["FechaFinal"])[1]), 'g:ia') .'</p>';
+                $cadena_datos .= '</a>';
+                $cadena_datos .= '</li>';
+            }
+            $cadena_datos .= '</ul>';
+        }
+        else
+        {
+            $cadena_datos .= '<div class="alert alert-success" role="alert">';
+            $cadena_datos .= '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>    ';
+            $cadena_datos .= 'No tiene ningún compromiso para hoy.';
+            $cadena_datos .= '</div>';
+        }
+
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+// Obtiene el listado de visitas filtradas por el estado
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCompromisosPendientes') {
+    try {
+        $usuarioActual = $_SESSION['idPersona'];
+
+        $sqlCompromiso      = "CALL TbCompromisosListarCompromisosPendientesPorIdResponsable('$usuarioActual')";
+        $consultaCompromiso = $db->consulta($sqlCompromiso);
+        $cadena_datos       = "";
+
+        if($db->num_rows($consultaCompromiso) != 0)
+        {
+            $cadena_datos .= '<ul data-role="listview" id="listaCompromisosPendientes" data-filter="true" data-input="#filtro" data-inset="true">';
+
+            while($resultadoCompromisos = $db->fetch_array($consultaCompromiso))
+            {
+                $fechaInicio       = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoCompromisos['FechaInicio'])[0])));
+                $fechaFinalizacion = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoCompromisos['FechaFinal'])[0])));
+
+                $fechaActual          = new DateTime("now");
+                $fechaFinalCompromiso = date_create($resultadoCompromisos['FechaFinal']);
+
+                if($fechaFinalCompromiso < $fechaActual)
+                {
+                    $cadena_datos .= '<li data-role="list-divider" style="font-size: 15px; background-color: #D9534F; color: #FFFFFF">' . utf8_encode($resultadoCompromisos['Descripcion']) . '</li>';
+                    $cadena_datos .= '<li>';
+                    $cadena_datos .= '<a href="#" onclick="UtiProcesosPaginaProcesosCompromisosDetalleModificar(' . $resultadoCompromisos['IdCompromiso'] . ')">';
+                    $cadena_datos .= '<h2>Lugar: ' . utf8_encode($resultadoCompromisos['Lugar']) . '</h2>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Fecha de inicio: </span>' . $fechaInicio .'</p>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Hora de inicio: </span>' . date_format(date_create(explode(' ', $resultadoCompromisos["FechaInicio"])[1]), 'g:ia') .'</p>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Fecha de finalización: </span>' . $fechaFinalizacion .'</p>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Hora de finalización: </span>' . date_format(date_create(explode(' ', $resultadoCompromisos["FechaFinal"])[1]), 'g:ia') .'</p>';
+                    $cadena_datos .= '</a>';
+                    $cadena_datos .= '</li>';
+                }
+                else
+                {
+                    $cadena_datos .= '<li data-role="list-divider" style="font-size: 15px; background-color: #337AB7; color: #FFFFFF">' . utf8_encode($resultadoCompromisos['Descripcion']) . '</li>';
+                    $cadena_datos .= '<li>';
+                    $cadena_datos .= '<a href="#" onclick="UtiProcesosPaginaProcesosCompromisosDetalleModificar(' . $resultadoCompromisos['IdCompromiso'] . ')">';
+                    $cadena_datos .= '<h2>Lugar: ' . utf8_encode($resultadoCompromisos['Lugar']) . '</h2>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Fecha de inicio: </span>' . $fechaInicio .'</p>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Hora de inicio: </span>' . date_format(date_create(explode(' ', $resultadoCompromisos["FechaInicio"])[1]), 'g:ia') .'</p>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Fecha de finalización: </span>' . $fechaFinalizacion .'</p>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Hora de finalización: </span>' . date_format(date_create(explode(' ', $resultadoCompromisos["FechaFinal"])[1]), 'g:ia') .'</p>';
+                    $cadena_datos .= '</a>';
+                    $cadena_datos .= '</li>';
+                }
+            }
+            $cadena_datos .= '</ul>';
+        }
+        else
+        {
+            $cadena_datos .= '<div class="alert alert-success" role="alert">';
+            $cadena_datos .= '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>    ';
+            $cadena_datos .= 'Actualmente no tiene compromisos pendientes.';
+            $cadena_datos .= '</div>';
+        }
+
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
 // Se realiza el registro de un nuevo compromiso
 if (isset($_POST['action']) && $_POST['action'] == 'registrarCompromiso') {
     try {
@@ -238,166 +512,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'modificarCompromiso') {
         }
 
         echo 1;
-    }
-    catch (Exception $e) {
-        echo 'Excepción capturada: ', $e->getMessage(), "\n";
-    }
-}
-
-// Obtiene el listado de ministerios utilizados en los compromisos, para insertarlos en un ComboBox
-if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoMinisteriosUtilizadosCombobox') {
-    try {
-        $sql          = "CALL TbCompromisosListarMinisteriosUtilizados()";
-        $consulta     = $db->consulta($sql);
-        $cadena_datos = "";
-
-        if($db->num_rows($consulta) != 0)
-        {
-            $cadena_datos = '<option value="0">Seleccione</option>';
-            while($resultados = $db->fetch_array($consulta))
-            {
-                $cadena_datos .= '<option value="' . $resultados['IdMinisterio'] . '">' . utf8_encode($resultados['Descripcion']) . '</option>';
-            }
-        }
-        echo $cadena_datos;
-    }
-    catch (Exception $e) {
-        echo 'Excepción capturada: ', $e->getMessage(), "\n";
-    }
-}
-
-// Obtiene el listado de tipos de compromisos utilizados en los compromisos, para insertarlos en un ComboBox
-if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposCompromisosUtilizadosCombobox') {
-    try {
-        $sql          = "CALL TbCompromisosListarTiposCompromisosUtilizados()";
-        $consulta     = $db->consulta($sql);
-        $cadena_datos = "";
-
-        if($db->num_rows($consulta) != 0)
-        {
-            $cadena_datos = '<option value="0">Seleccione</option>';
-            while($resultados = $db->fetch_array($consulta))
-            {
-                $cadena_datos .= '<option value="' . $resultados['IdTipoCompromiso'] . '">' . utf8_encode($resultados['Descripcion']) . '</option>';
-            }
-        }
-        echo $cadena_datos;
-    }
-    catch (Exception $e) {
-        echo 'Excepción capturada: ', $e->getMessage(), "\n";
-    }
-}
-
-// Obtiene el listado de compromisos filtrados por estado
-if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCompromisosPorEstado') {
-    try {
-        $usuarioActual = $_SESSION['idPersona'];
-
-        // Compromisos activos que no son del usuario actual
-        $sqlCompromisoActivosEcluyendoUsuario      = "CALL TbCompromisosListarExcluyendoUsuario('$usuarioActual','A')";
-        $consultaCompromisoActivosEcluyendoUsuario = $db->consulta($sqlCompromisoActivosEcluyendoUsuario);
-        $compromisosActivosEcluyendoUsuario        = array();
-
-        // Compromisos inactivos que no son del usuario actual
-        $sqlCompromisoInactivosEcluyendoUsuario      = "CALL TbCompromisosListarExcluyendoUsuario('$usuarioActual','I')";
-        $consultaCompromisoInactivosEcluyendoUsuario = $db->consulta($sqlCompromisoInactivosEcluyendoUsuario);
-        $compromisosInactivosEcluyendoUsuario        = array();
-
-        // Compromisos activos del usuario actual
-        $sqlCompromisoActivosIncluyendoUsuario      = "CALL TbCompromisosListarIncluyendoUsuario('$usuarioActual','A')";
-        $consultaCompromisoActivosIncluyendoUsuario = $db->consulta($sqlCompromisoActivosIncluyendoUsuario);
-        $compromisosActivosIncluyendoUsuario        = array();
-
-        // Compromisos activos del usuario actual
-        $sqlCompromisoInactivosIncluyendoUsuario      = "CALL TbCompromisosListarIncluyendoUsuario('$usuarioActual','I')";
-        $consultaCompromisoInactivosIncluyendoUsuario = $db->consulta($sqlCompromisoInactivosIncluyendoUsuario);
-        $compromisosInactivosIncluyendoUsuario        = array();
-
-        // Arreglo que será la unión de los otros arreglos
-        $totalCompromisos = array();
-
-        // Compromisos activos que no son del usuario actual
-        while($fila = $db->fetch_array($consultaCompromisoActivosEcluyendoUsuario))
-        {
-            $idCompromiso = utf8_encode($fila['IdCompromiso']);
-            $descripcion = utf8_encode($fila['Descripcion']);
-            $url = "compromisosDetalle.php?IdCompromiso=" . $idCompromiso;
-            $fechaInicio = utf8_encode(explode(" ", $fila['FechaInicio'])[0] . 'T' . explode(" ", $fila['FechaInicio'])[1]);
-            $fechaFinal = utf8_encode(explode(" ", $fila['FechaFinal'])[0] . 'T' . explode(" ", $fila['FechaFinal'])[1]);
-
-            $compromisosActivosEcluyendoUsuario[] = array(
-                'title' => $descripcion
-                , 'url' => $url
-                , 'start' => $fechaInicio
-                , 'end' => $fechaFinal
-                , 'color' => '#4CAF50'
-                , 'textColor' => '#FFFFFF'
-            );
-        }
-
-        // Compromisos inactivos que no son del usuario actual
-        while($fila = $db->fetch_array($consultaCompromisoInactivosEcluyendoUsuario))
-        {
-            $idCompromiso = utf8_encode($fila['IdCompromiso']);
-            $descripcion = utf8_encode($fila['Descripcion']);
-            $url = "compromisosDetalle.php?IdCompromiso=" . $idCompromiso;
-            $fechaInicio = utf8_encode(explode(" ", $fila['FechaInicio'])[0] . 'T' . explode(" ", $fila['FechaInicio'])[1]);
-            $fechaFinal = utf8_encode(explode(" ", $fila['FechaFinal'])[0] . 'T' . explode(" ", $fila['FechaFinal'])[1]);
-
-            $compromisosInactivosEcluyendoUsuario[] = array(
-                'title' => $descripcion
-                , 'url' => $url
-                , 'start' => $fechaInicio
-                , 'end' => $fechaFinal
-                , 'color' => '#2196F3'
-                , 'textColor' => '#FFFFFF'
-            );
-        }
-
-        // Compromisos activos del usuario actual
-        while($fila = $db->fetch_array($consultaCompromisoActivosIncluyendoUsuario))
-        {
-            $idCompromiso = utf8_encode($fila['IdCompromiso']);
-            $descripcion = utf8_encode($fila['Descripcion']);
-            $url = "compromisosDetalle.php?IdCompromiso=" . $idCompromiso;
-            $fechaInicio = utf8_encode(explode(" ", $fila['FechaInicio'])[0] . 'T' . explode(" ", $fila['FechaInicio'])[1]);
-            $fechaFinal = utf8_encode(explode(" ", $fila['FechaFinal'])[0] . 'T' . explode(" ", $fila['FechaFinal'])[1]);
-
-            $compromisosActivosIncluyendoUsuario[] = array(
-                'title' => $descripcion
-                , 'url' => $url
-                , 'start' => $fechaInicio
-                , 'end' => $fechaFinal
-                , 'color' => '#EF5350'
-                , 'textColor' => '#FFFFFF'
-            );
-        }
-
-        // Compromisos inactivos del usuario actual
-        while($fila = $db->fetch_array($consultaCompromisoInactivosIncluyendoUsuario))
-        {
-            $idCompromiso = utf8_encode($fila['IdCompromiso']);
-            $descripcion = utf8_encode($fila['Descripcion']);
-            $url = "compromisosDetalle.php?IdCompromiso=" . $idCompromiso;
-            $fechaInicio = utf8_encode(explode(" ", $fila['FechaInicio'])[0] . 'T' . explode(" ", $fila['FechaInicio'])[1]);
-            $fechaFinal = utf8_encode(explode(" ", $fila['FechaFinal'])[0] . 'T' . explode(" ", $fila['FechaFinal'])[1]);
-
-            $compromisosInactivosIncluyendoUsuario[] = array(
-                'title' => $descripcion
-                , 'url' => $url
-                , 'start' => $fechaInicio
-                , 'end' => $fechaFinal
-                , 'color' => '#7E57C2'
-                , 'textColor' => '#FFFFFF'
-            );
-        }
-
-        // Se hace un solo arreglo para posteriormente formatearlo a JSON
-        $totalCompromisos = array_merge($compromisosActivosEcluyendoUsuario,$compromisosInactivosEcluyendoUsuario,$compromisosActivosIncluyendoUsuario,$compromisosInactivosIncluyendoUsuario);
-
-        $compromisosJSON = json_encode($totalCompromisos);
-
-        echo $compromisosJSON;
     }
     catch (Exception $e) {
         echo 'Excepción capturada: ', $e->getMessage(), "\n";
@@ -639,6 +753,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarCompromiso') {
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="cboEstadoCompromiso">Estado:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
                 $cadena_datos .= '<select name="cboEstadoCompromiso" id="cboEstadoCompromiso">';
+                $cadena_datos .= '<option value="0">Seleccione</option>';
                 if ($resultadosCompromiso['Estado'] == 'A'){
                     $cadena_datos .= '<option value="A" selected>Activo</option>';
                     $cadena_datos .= '<option value="I">Inactivo</option>';

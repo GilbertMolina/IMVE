@@ -14,6 +14,9 @@ ini_set('display_errors', 1);
 require("../conexionMySQL.php");
 $db = new MySQL();
 
+setlocale(LC_ALL,"es_ES");
+date_default_timezone_set('America/Costa_Rica');
+
 // Obtiene el listado de visitas filtradas por el estado
 if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPorVisitaEstado') {
     try {
@@ -43,6 +46,189 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPo
     }
 }
 
+// Obtiene el listado de visitas filtradas por el estado
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosDeHoy') {
+    try {
+        $usuarioActual = $_SESSION['idPersona'];
+
+        $sqlSeguimiento              = "CALL TbSeguimientosListarSeguimientosDeHoyPorIdResponsable('$usuarioActual')";
+        $consultaSeguimiento         = $db->consulta($sqlSeguimiento);
+        $consultaSeguimientoAcciones = $db->consulta($sqlSeguimiento);
+        $cadena_datos                = "";
+
+        $idVisita = "";
+
+        if($db->num_rows($consultaSeguimiento) != 0)
+        {
+            $cadena_datos .= '<ul data-role="listview" id="listaSeguimientosDeHoy" data-filter="true" data-split-icon="gear" data-input="#filtro" data-inset="true">';
+
+            while($resultadoSeguimientos = $db->fetch_array($consultaSeguimiento))
+            {
+                $idVisita = $resultadoSeguimientos['IdVisita'];
+
+                $fechaPropuesta   = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoSeguimientos['FechaPropuesta'])[0])));
+                $fechaRealizacion = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoSeguimientos['FechaRealizacion'])[0])));
+
+                $cadena_datos .= '<li data-role="list-divider" style="font-size: 15px; background-color: #337AB7; color: #FFFFFF">' . utf8_encode($resultadoSeguimientos['DescripcionSeguimiento']) . '</li>';
+                $cadena_datos .= '<li>';
+                $cadena_datos .= '<a href="#" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleModificar(' . $resultadoSeguimientos['IdVisita'] . ',' . $resultadoSeguimientos['IdSeguimiento'] . ')">';
+                $cadena_datos .= '<h2>Visita: ' . utf8_encode($resultadoSeguimientos['Descripcion']) . '</h2>';
+                $cadena_datos .= '<p><span style="font-weight: bold">Fecha propuesta: </span>' . $fechaPropuesta .'</p>';
+                $cadena_datos .= '<p><span style="font-weight: bold">Hora propuesta: </span>' . date_format(date_create(explode(' ', $resultadoSeguimientos["FechaPropuesta"])[1]), 'g:ia') .'</p>';
+                $cadena_datos .= '</a>';
+                $cadena_datos .= '<a href="#acciones_'. $resultadoSeguimientos['IdSeguimiento'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a>';
+                $cadena_datos .= '</li>';
+            }
+            $cadena_datos .= '</ul>';
+
+            $sqlPersonaVisita      = "CALL TbPersonasVisitasAccionesPorIdVisita('$idVisita')";
+            $consultaPersonaVisita = $db->consulta($sqlPersonaVisita);
+
+            if($db->num_rows($consultaSeguimientoAcciones) != 0)
+            {
+                while($resultadoSeguimientosAcciones = $db->fetch_array($consultaSeguimientoAcciones))
+                {
+                    $cadena_datos .= '<div data-role="popup" id="acciones_'. $resultadoSeguimientosAcciones['IdSeguimiento'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
+                    $cadena_datos .= '<h3>Visitantes</h3>';
+                    $cadena_datos .= '<hr>';
+                    $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-autodividers="true" data-inset="true">';
+
+                    if($db->num_rows($consultaPersonaVisita) != 0)
+                    {
+                        while($resultadosPersona = $db->fetch_array($consultaPersonaVisita))
+                        {
+                            $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosPersonasDetalleModificar(' . $resultadosPersona['IdPersona'] . ')">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</a></li>';
+                        }
+                        $cadena_datos .= '</ul>';
+                    }
+                    else
+                    {
+                        $cadena_datos .= '<li>No hay personas asociadas en este seguimiento.</li>';
+                    }
+                    $cadena_datos .= '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Cancelar</a>';
+
+                    $cadena_datos .= '<hr>';
+                    $cadena_datos .= '<a href="#" onclick="BienvenidaCerrarSeguimiento(' . $resultadoSeguimientosAcciones['IdSeguimiento'] . ')" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini">Cerrar seguimiento</a>';
+                }
+            }
+        }
+        else
+        {
+            $cadena_datos .= '<div class="alert alert-success" role="alert">';
+            $cadena_datos .= '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>    ';
+            $cadena_datos .= 'No tiene ningún seguimiento para hoy.';
+            $cadena_datos .= '</div>';
+        }
+
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+// Obtiene el listado de visitas filtradas por el estado
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPendientes') {
+    try {
+        $usuarioActual = $_SESSION['idPersona'];
+
+        $sqlSeguimiento              = "CALL TbSeguimientosListarCompromisosPendientesPorIdResponsable('$usuarioActual')";
+        $consultaSeguimiento         = $db->consulta($sqlSeguimiento);
+        $consultaSeguimientoAcciones = $db->consulta($sqlSeguimiento);
+        $cadena_datos                = "";
+
+        $idVisita = "";
+
+        if($db->num_rows($consultaSeguimiento) != 0)
+        {
+            $cadena_datos .= '<ul data-role="listview" id="listaSeguimientosPendientes" data-filter="true" data-split-icon="gear" data-input="#filtro" data-inset="true">';
+
+            while($resultadoSeguimientos = $db->fetch_array($consultaSeguimiento))
+            {
+                $idVisita = $resultadoSeguimientos['IdVisita'];
+
+                $fechaInicio       = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoSeguimientos['FechaPropuesta'])[0])));
+                $fechaFinalizacion = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoSeguimientos['FechaRealizacion'])[0])));
+
+                $fechaActual          = new DateTime("now");
+                $fechaPropuestaSeguimiento = date_create($resultadoSeguimientos['FechaPropuesta']);
+
+                if($fechaPropuestaSeguimiento < $fechaActual)
+                {
+                    $cadena_datos .= '<li data-role="list-divider" style="font-size: 15px; background-color: #D9534F; color: #FFFFFF">' . utf8_encode($resultadoSeguimientos['DescripcionSeguimiento']) . '</li>';
+                    $cadena_datos .= '<li>';
+                    $cadena_datos .= '<a href="#" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleModificar(' . $resultadoSeguimientos['IdVisita'] . ',' . $resultadoSeguimientos['IdSeguimiento'] . ')">';
+                    $cadena_datos .= '<h2>Visita: ' . utf8_encode($resultadoSeguimientos['Descripcion']) . '</h2>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Fecha de inicio: </span>' . $fechaInicio .'</p>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Hora de inicio: </span>' . date_format(date_create(explode(' ', $resultadoSeguimientos["FechaPropuesta"])[1]), 'g:ia') .'</p>';
+                    $cadena_datos .= '</a>';
+                    $cadena_datos .= '<a href="#acciones_'. $resultadoSeguimientos['IdSeguimiento'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a>';
+                    $cadena_datos .= '</li>';
+                }
+                else
+                {
+                    $cadena_datos .= '<li data-role="list-divider" style="font-size: 15px; background-color: #337AB7; color: #FFFFFF">' . utf8_encode($resultadoSeguimientos['DescripcionSeguimiento']) . '</li>';
+                    $cadena_datos .= '<li>';
+                    $cadena_datos .= '<a href="#" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleModificar(' . $resultadoSeguimientos['IdVisita'] . ',' . $resultadoSeguimientos['IdSeguimiento'] . ')">';
+                    $cadena_datos .= '<h2>Visita: ' . utf8_encode($resultadoSeguimientos['Descripcion']) . '</h2>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Fecha de inicio: </span>' . $fechaInicio .'</p>';
+                    $cadena_datos .= '<p><span style="font-weight: bold">Hora de inicio: </span>' . date_format(date_create(explode(' ', $resultadoSeguimientos["FechaPropuesta"])[1]), 'g:ia') .'</p>';
+                    $cadena_datos .= '</a>';
+                    $cadena_datos .= '<a href="#acciones_'. $resultadoSeguimientos['IdSeguimiento'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a>';
+                    $cadena_datos .= '</li>';
+                }
+            }
+            $cadena_datos .= '</ul>';
+
+            $sqlPersonaVisita      = "CALL TbPersonasVisitasAccionesPorIdVisita('$idVisita')";
+            $consultaPersonaVisita = $db->consulta($sqlPersonaVisita);
+
+            if($db->num_rows($consultaSeguimientoAcciones) != 0)
+            {
+                while($resultadoSeguimientosAcciones = $db->fetch_array($consultaSeguimientoAcciones))
+                {
+                    $cadena_datos .= '<div data-role="popup" id="acciones_'. $resultadoSeguimientosAcciones['IdSeguimiento'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
+                    $cadena_datos .= '<h3>Visitantes</h3>';
+                    $cadena_datos .= '<hr>';
+                    $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-autodividers="true" data-inset="true">';
+
+                    if($db->num_rows($consultaPersonaVisita) != 0)
+                    {
+                        while($resultadosPersona = $db->fetch_array($consultaPersonaVisita))
+                        {
+                            $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosPersonasDetalleModificar(' . $resultadosPersona['IdPersona'] . ')">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</a></li>';
+                        }
+                        $cadena_datos .= '</ul>';
+
+                        $sqlPersonaVisita      = "CALL TbPersonasVisitasAccionesPorIdVisita('$idVisita')";
+                        $consultaPersonaVisita = $db->consulta($sqlPersonaVisita);
+                    }
+                    else
+                    {
+                        $cadena_datos .= '<li>No hay personas asociadas en este seguimiento.</li>';
+                    }
+                    $cadena_datos .= '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Cancelar</a>';
+
+                    $cadena_datos .= '<hr>';
+                    $cadena_datos .= '<a href="#" onclick="BienvenidaCerrarSeguimiento(' . $resultadoSeguimientosAcciones['IdSeguimiento'] . ')" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini">Cerrar seguimiento</a>';
+                }
+            }
+        }
+        else
+        {
+            $cadena_datos .= '<div class="alert alert-success" role="alert">';
+            $cadena_datos .= '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>    ';
+            $cadena_datos .= 'Actualmente no tiene seguimientos pendientes.';
+            $cadena_datos .= '</div>';
+        }
+
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
 // Se realiza la modificación de un seguimiento existente
 if (isset($_POST['action']) && $_POST['action'] == 'registrarSeguimiento') {
     try {
@@ -54,7 +240,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'registrarSeguimiento') {
         $estado            = $_POST['estado'];
         $usuarioActual     = $_SESSION['idPersona'];
 
-        $sqlSeguimiento      = "CALL TbSeguimientosAgregar('$idVisita','$idTipoSeguimiento','$descripcion','$fechaPropuesta','','$observaciones','$usuarioActual')";
+        $sqlSeguimiento      = "CALL TbSeguimientosAgregar('$idVisita','$idTipoSeguimiento','$descripcion','$fechaPropuesta','$observaciones','$usuarioActual')";
         $consultaSeguimiento = $db->consulta(utf8_decode($sqlSeguimiento));
 
         if ($db->num_rows($consultaSeguimiento) != 0) {
@@ -86,7 +272,30 @@ if (isset($_POST['action']) && $_POST['action'] == 'modificarSeguimiento') {
         $estado            = $_POST['estado'];
         $usuarioActual     = $_SESSION['idPersona'];
 
-        $sqlSeguimiento      = "CALL TbSeguimientosModificar('$idSeguimiento','$idTipoSeguimiento','$descripcion','$fechaPropuesta','$fechaRealizacion','$observaciones','$estado','$usuarioActual')";
+        if($fechaRealizacion != '')
+        {
+            $sqlSeguimiento      = "CALL TbSeguimientosModificarConFechaRealizacion('$idSeguimiento','$idTipoSeguimiento','$descripcion','$fechaPropuesta','$fechaRealizacion','$observaciones','$estado','$usuarioActual')";
+            $consultaSeguimiento = $db->consulta(utf8_decode($sqlSeguimiento));
+            echo 1;
+        }
+        else{
+            $sqlSeguimiento      = "CALL TbSeguimientosModificarSinFechaRealizacion('$idSeguimiento','$idTipoSeguimiento','$descripcion','$fechaPropuesta','$observaciones','$estado','$usuarioActual')";
+            $consultaSeguimiento = $db->consulta(utf8_decode($sqlSeguimiento));
+            echo 1;
+        }
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+// Se realiza el cierre de un seguimiento existente
+if (isset($_POST['action']) && $_POST['action'] == 'cerrarSeguimiento') {
+    try {
+        $idSeguimiento = $_POST['idSeguimiento'];
+        $usuarioActual = $_SESSION['idPersona'];
+
+        $sqlSeguimiento      = "CALL TbSeguimientosCerrarSeguimiento('$idSeguimiento','$usuarioActual')";
         $consultaSeguimiento = $db->consulta(utf8_decode($sqlSeguimiento));
         echo 1;
     }
@@ -152,6 +361,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarSeguimiento') {
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="cboEstadoSeguimiento">Estado:</label>';
                 $cadena_datos .= '<select name="cboEstadoSeguimiento" id="cboEstadoSeguimiento">';
+                $cadena_datos .= '<option value="0">Seleccione</option>';
                 if ($resultadosSeguimiento['Estado'] == 'N'){
                     $cadena_datos .= '<option value="N" selected>Abierto</option>';
                     $cadena_datos .= '<option value="S">Cerrado</option>';
