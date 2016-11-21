@@ -99,8 +99,8 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin']) && isset($_GET['tipo
                             </thead>
                             <tbody class="text-center">
                                 <tr>
-                                    <td class="text-center" style="height: 30px">' . $fechaInicio . '</td>
-                                    <td class="text-center" style="height: 30px">' . $fechaFin . '</td>';
+                                    <td class="text-center" style="height: 30px">' . date_format(date_create($fechaInicio), 'd-m-Y') . '</td>
+                                    <td class="text-center" style="height: 30px">' . date_format(date_create($fechaFin), 'd-m-Y') . '</td>';
                                     if($tipoResponsable == 'P' || $tipoResponsable == 'p'){
                                         $html .= '<td class="text-center" style="height: 30px">Personas</td>';
                                     }else if($tipoResponsable == 'G' || $tipoResponsable == 'g'){
@@ -132,8 +132,8 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin']) && isset($_GET['tipo
                                 $html .= '<th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Reponsable</th>';
                             }
 
-                  $html .= '<th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha de inicio</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha de fin</th>
+                  $html .= '<th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha y hora de inicio</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha y hora de finalización</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Lugar</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Estado del compromiso</th>
                         </tr>
@@ -148,8 +148,8 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin']) && isset($_GET['tipo
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["TipoCompromiso"]) . '</td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["Ministerio"]) . '</td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["Responsable"]) . '</td>
-                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["FechaInicio"]) . '</td>
-                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["FechaFinal"]) . '</td>
+                                <td class="text-center" style="height: 30px">' . date_format(date_create($resultadosCompromiso["FechaInicio"]), 'd-m-Y') . ' ' . date_format(date_create(explode(' ', $resultadosCompromiso["FechaInicio"])[1]), 'g:ia') . '</td>
+                                <td class="text-center" style="height: 30px">' . date_format(date_create($resultadosCompromiso["FechaFinal"]), 'd-m-Y') . ' ' . date_format(date_create(explode(' ', $resultadosCompromiso["FechaFinal"])[1]), 'g:ia') . '</td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["Lugar"]) . '</td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosCompromiso["Estado"]) . '</td>
                             </tr>';

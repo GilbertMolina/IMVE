@@ -192,8 +192,8 @@ $utilitarios = new UtilitariosReportes();
                             <form method="post" action="#" id="reporteGrupos2">
                                 <div class="jumbotron">
                                     <img src="../Includes/images/documentPDF.png" alt="Reporte 2">
-                                    <h2>Reporte de grupos con sus integrantes</h2>
-                                    <p><strong>Descripción: </strong>Se listan los grupos con sus respectivas integrantes.</p>
+                                    <h2>Reporte de grupos con sus integrantes actuales</h2>
+                                    <p><strong>Descripción: </strong>Se listan los grupos con sus respectivos integrantes actuales.</p>
                                     <div class="col-xs-2 col-sm-4"></div>
                                     <div class="col-xs-8 col-sm-4">
                                         <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left" type="button" onclick="GruposReportesGenerarReporte2OnClick()">Generar</button>
@@ -212,8 +212,8 @@ $utilitarios = new UtilitariosReportes();
                             <form method="post" action="#" id="reporteGrupos3">
                                 <div class="jumbotron">
                                     <img src="../Includes/images/documentPDF.png" alt="Reporte 3">
-                                    <h2>Reporte de grupos con sus integrantes pasados</h2>
-                                    <p><strong>Descripción: </strong>Se listan los grupos con los respectivas integrantes que en algún momento formaron parte de ellos.</p>
+                                    <h2>Reporte de grupos con el histórico de sus integrantes</h2>
+                                    <p><strong>Descripción: </strong>Se listan los grupos con el histórico de sus respectivos integrantes.</p>
                                     <div class="col-xs-2 col-sm-4"></div>
                                     <div class="col-xs-8 col-sm-4">
                                         <button class="ui-btn ui-btn-b ui-corner-all ui-icon-arrow-d ui-btn-icon-left" type="button" onclick="GruposReportesGenerarReporte3OnClick()">Generar</button>

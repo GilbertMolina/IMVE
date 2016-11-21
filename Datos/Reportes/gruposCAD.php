@@ -94,8 +94,8 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 1) && isset($_GET['fechaInic
                             </thead>
                             <tbody class="text-center">
                                 <tr>
-                                    <td class="text-center" style="height: 30px">' . $fechaInicio . '</td>
-                                    <td class="text-center" style="height: 30px">' . $fechaFin . '</td>
+                                    <td class="text-center" style="height: 30px">' . date_format(date_create($fechaInicio), 'd-m-Y') . '</td>
+                                    <td class="text-center" style="height: 30px">' . date_format(date_create($fechaFin), 'd-m-Y') . '</td>
                                     <td class="text-center" style="height: 30px">' . $nombreTipoCompromiso . '</td>
                                     <td class="text-center" style="height: 30px">' . $nombreMinisterio . '</td>
                                 </tr>
@@ -130,8 +130,8 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 1) && isset($_GET['fechaInic
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupo["Compromiso"]) . '</td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupo["TipoCompromiso"]) . '</td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupo["Ministerio"]) . '</td>
-                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupo["FechaInicio"]) . '</td>
-                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupo["FechaFinal"]) . '</td>
+                                <td class="text-center" style="height: 30px">' . date_format(date_create($resultadosGrupo["FechaInicio"]), 'd-m-Y') . ' ' . date_format(date_create(explode(' ', $resultadosGrupo["FechaInicio"])[1]), 'g:ia') . '</td>
+                                <td class="text-center" style="height: 30px">' . date_format(date_create($resultadosGrupo["FechaFinal"]), 'd-m-Y') . ' ' . date_format(date_create(explode(' ', $resultadosGrupo["FechaFinal"])[1]), 'g:ia') . '</td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupo["Lugar"]) . '</td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupo["Estado"]) . '</td>
                             </tr>';
@@ -199,7 +199,7 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 2)) {
                 <div class="row">
                     <div class="col-sm-1"></div>
                     <div class="col-ws-12 col-sm-10">
-                        <h3 class="text-center">Reporte de grupos con sus integrantes activos</h3>
+                        <h3 class="text-center">Reporte de grupos con sus integrantes actuales</h3>
                         <hr>';
 
         // Contenido del reporte
@@ -240,7 +240,7 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 2)) {
                                 <td class="text-center" style="background-color: #E5E5E5; height: 30px"></td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupoDetalle["NombreCompleto"]) . '</td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupoDetalle["Rol"]) . '</td>
-                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupoDetalle["FechaInicio"]) . '</td>
+                                <td class="text-center" style="height: 30px">' . date_format(date_create($resultadosGrupoDetalle["FechaInicio"]), 'd-m-Y') . ' ' . date_format(date_create(explode(' ', $resultadosGrupoDetalle["FechaInicio"])[1]), 'g:ia') . '</td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupoDetalle["Estado"]) . '</td>
                             </tr>';
                         }
@@ -311,7 +311,7 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 3)) {
                 <div class="row">
                     <div class="col-sm-1"></div>
                     <div class="col-ws-12 col-sm-10">
-                        <h3 class="text-center">Reporte de grupos con sus integrantes pasados</h3>
+                        <h3 class="text-center">Reporte de grupos con el histórico de sus integrantes</h3>
                         <hr>';
 
         // Contenido del reporte
@@ -354,8 +354,8 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 3)) {
                                 <td class="text-center" style="background-color: #E5E5E5; height: 30px"></td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupoDetalle["NombreCompleto"]) . '</td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupoDetalle["Rol"]) . '</td>
-                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupoDetalle["FechaInicio"]) . '</td>
-                                <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupoDetalle["FechaFinal"]) . '</td>
+                                <td class="text-center" style="height: 30px">' . date_format(date_create($resultadosGrupoDetalle["FechaInicio"]), 'd-m-Y') . ' ' . date_format(date_create(explode(' ', $resultadosGrupoDetalle["FechaInicio"])[1]), 'g:ia') . '</td>
+                                <td class="text-center" style="height: 30px">' . date_format(date_create($resultadosGrupoDetalle["FechaFinal"]), 'd-m-Y') . ' ' . date_format(date_create(explode(' ', $resultadosGrupoDetalle["FechaFinal"])[1]), 'g:ia') . '</td>
                                 <td class="text-center" style="height: 30px">' . utf8_encode($resultadosGrupoDetalle["Estado"]) . '</td>
                             </tr>';
                         }

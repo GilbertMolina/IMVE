@@ -52,8 +52,8 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
                             </thead>
                             <tbody class="text-center">
                                 <tr>
-                                    <td class="text-center" style="height: 30px">' . $fechaInicio . '</td>
-                                    <td class="text-center" style="height: 30px">' . $fechaFin . '</td>
+                                    <td class="text-center" style="height: 30px">' . date_format(date_create($fechaInicio), 'd-m-Y') . '</td>
+                                    <td class="text-center" style="height: 30px">' . date_format(date_create($fechaFin), 'd-m-Y'). '</td>
                                 </tr>
                             </tbody>
                         </table>';
@@ -67,7 +67,7 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
                         <tr>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Persona</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Teléfono fijo</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Celular móvil</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Teléfono móvil</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Género</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Visita</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Ministerio</th>
@@ -87,7 +87,7 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
                                         <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["Sexo"]) . '</td>
                                         <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["Visita"]) . '</td>
                                         <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["Ministerio"]) . '</td>
-                                        <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["FechaVisita"]) . '</td>
+                                        <td class="text-center" style="height: 30px">' . date_format(date_create($resultadosPersona["FechaVisita"]), 'd-m-Y') . ' ' . date_format(date_create(explode(' ', $resultadosPersona["FechaVisita"])[1]), 'g:ia') . '</td>
                                         <td class="text-center" style="height: 30px">' . utf8_encode($resultadosPersona["Estado"]) . '</td>
                                     </tr>';
                         }
