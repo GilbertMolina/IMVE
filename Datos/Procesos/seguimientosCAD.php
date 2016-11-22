@@ -69,7 +69,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosDe
                 $fechaPropuesta   = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoSeguimientos['FechaPropuesta'])[0])));
                 $fechaRealizacion = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoSeguimientos['FechaRealizacion'])[0])));
 
-                $cadena_datos .= '<li data-role="list-divider" style="font-size: 15px; background-color: #337AB7; color: #FFFFFF">' . utf8_encode($resultadoSeguimientos['DescripcionSeguimiento']) . '</li>';
+                $cadena_datos .= '<li data-role="list-divider" style="font-size: 15px; background-color: #5CB85C; color: #FFFFFF">' . utf8_encode($resultadoSeguimientos['DescripcionSeguimiento']) . '</li>';
                 $cadena_datos .= '<li>';
                 $cadena_datos .= '<a href="#" onclick="UtiProcesosPaginaProcesosSeguimientosDetalleModificar(' . $resultadoSeguimientos['IdVisita'] . ',' . $resultadoSeguimientos['IdSeguimiento'] . ')">';
                 $cadena_datos .= '<h2>Visita: ' . utf8_encode($resultadoSeguimientos['Descripcion']) . '</h2>';

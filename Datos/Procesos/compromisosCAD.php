@@ -195,7 +195,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCompromisosDeH
                 $fechaInicio       = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoCompromisos['FechaInicio'])[0])));
                 $fechaFinalizacion = ucfirst(strftime('%A, %d de %B de %Y', strtotime(explode(' ', $resultadoCompromisos['FechaFinal'])[0])));
 
-                $cadena_datos .= '<li data-role="list-divider" style="font-size: 15px; background-color: #337AB7; color: #FFFFFF">' . utf8_encode($resultadoCompromisos['Descripcion']) . '</li>';
+                $cadena_datos .= '<li data-role="list-divider" style="font-size: 15px; background-color: #5CB85C; color: #FFFFFF">' . utf8_encode($resultadoCompromisos['Descripcion']) . '</li>';
                 $cadena_datos .= '<li>';
                 $cadena_datos .= '<a href="#" onclick="UtiProcesosPaginaProcesosCompromisosDetalleModificar(' . $resultadoCompromisos['IdCompromiso'] . ')">';
                 $cadena_datos .= '<h2>Lugar: ' . utf8_encode($resultadoCompromisos['Lugar']) . '</h2>';
