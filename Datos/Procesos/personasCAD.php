@@ -742,3 +742,30 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoPersonasActiva
         echo 'Excepción capturada: ', $e->getMessage(), "\n";
     }
 }
+
+// Obtiene todas las personas para mostrarlos en el select de personas
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasRelacionesPersonales') {
+    try {
+        $idPersonaRelacionado2 = $_POST['idPersonaRelacionado2'];
+
+        $sql          = "CALL TbPersonasListarOrdenadoPorApellidoExcluyendoIdPersona('$idPersonaRelacionado2')";
+        $consulta     = $db->consulta($sql);
+        $cadena_datos = "";
+
+        $usuarioActual = $_SESSION['idPersona'];
+
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos = '<option value="0">Seleccione</option>';
+
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
+            }
+        }
+        echo $cadena_datos;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}

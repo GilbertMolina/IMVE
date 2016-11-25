@@ -80,8 +80,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosDe
             }
             $cadena_datos .= '</ul>';
 
-            $sqlPersonaVisita      = "CALL TbPersonasVisitasAccionesPorIdVisita('$idVisita')";
-            $consultaPersonaVisita = $db->consulta($sqlPersonaVisita);
+            $sqlPersonaVisita              = "CALL TbPersonasVisitasAccionesPorIdVisita('$idVisita')";
+            $consultaPersonaVisita         = $db->consulta($sqlPersonaVisita);
+            $consultaPersonaVisitaAcciones = $db->consulta($sqlPersonaVisita);
 
             if($db->num_rows($consultaSeguimientoAcciones) != 0)
             {
@@ -90,15 +91,47 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosDe
                     $cadena_datos .= '<div data-role="popup" id="acciones_'. $resultadoSeguimientosAcciones['IdSeguimiento'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
                     $cadena_datos .= '<h3>Visitantes</h3>';
                     $cadena_datos .= '<hr>';
-                    $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-autodividers="true" data-inset="true">';
+                    $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-split-icon="gear" data-autodividers="true" data-inset="true">';
 
                     if($db->num_rows($consultaPersonaVisita) != 0)
                     {
                         while($resultadosPersona = $db->fetch_array($consultaPersonaVisita))
                         {
-                            $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosPersonasDetalleModificar(' . $resultadosPersona['IdPersona'] . ')">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</a></li>';
+                            $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosPersonasDetalleModificar(' . $resultadosPersona['IdPersona'] . ')">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</a><a href="#accionesPersona_'. $resultadosPersona['IdPersona'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a></li>';
                         }
                         $cadena_datos .= '</ul>';
+
+                        if($db->num_rows($consultaPersonaVisitaAcciones) != 0)
+                        {
+                            while($resultadosVisitaAcciones = $db->fetch_array($consultaPersonaVisitaAcciones))
+                            {
+                                $cadena_datos .= '<div data-role="popup" id="accionesPersona_'. $resultadosVisitaAcciones['IdPersona'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
+                                $cadena_datos .= '<h3>Contacto</h3>';
+                                $cadena_datos .= '<hr>';
+
+                                if($resultadosVisitaAcciones['Telefono'] == ""
+                                    && $resultadosVisitaAcciones['Celular'] == ""
+                                    && $resultadosVisitaAcciones['Correo'] == ""){
+                                    $cadena_datos .= '<p>Lo sentimos, ' . $resultadosVisitaAcciones['NombreCompleto'] . ' no tiene asociado un número de teléfono fijo, un número de teléfono móvil, ni un correo electrónico con el cual se pueda contactar.</p>';
+                                }
+                                else{
+                                    $cadena_datos .= '<p>Estas son las acciones disponibles para ' . $resultadosVisitaAcciones['NombreCompleto'] . ':</p>';
+                                }
+
+                                if($resultadosVisitaAcciones['Telefono'] != ""){
+                                    $cadena_datos .= '<p style="margin-bottom: -15px;"><a href="tel:' . $resultadosVisitaAcciones['Telefono'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Llamar a teléfono fijo</a></p>';
+                                }
+                                if($resultadosVisitaAcciones['Celular'] != ""){
+                                    $cadena_datos .= '<p style="margin-bottom: -15px;"><a href="tel:' . $resultadosVisitaAcciones['Celular'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Llamar a teléfono móvil</a></p>';
+                                    $cadena_datos .= '<p style="margin-bottom: -15px;"><a href="sms:' . $resultadosVisitaAcciones['Celular'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini">Enviar SMS</a></p>';
+                                }
+                                if($resultadosVisitaAcciones['Correo'] != ""){
+                                    $cadena_datos .= '<p><a href="mailto:' . $resultadosVisitaAcciones['Correo'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini">Enviar Correo</a></p>';
+                                }
+                                $cadena_datos .= '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Cancelar</a>';
+                                $cadena_datos .= '</div>';
+                            }
+                        }
                     }
                     else
                     {
@@ -177,8 +210,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPe
             }
             $cadena_datos .= '</ul>';
 
-            $sqlPersonaVisita      = "CALL TbPersonasVisitasAccionesPorIdVisita('$idVisita')";
-            $consultaPersonaVisita = $db->consulta($sqlPersonaVisita);
+            $sqlPersonaVisita              = "CALL TbPersonasVisitasAccionesPorIdVisita('$idVisita')";
+            $consultaPersonaVisita         = $db->consulta($sqlPersonaVisita);
+            $consultaPersonaVisitaAcciones = $db->consulta($sqlPersonaVisita);
 
             if($db->num_rows($consultaSeguimientoAcciones) != 0)
             {
@@ -187,18 +221,72 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPe
                     $cadena_datos .= '<div data-role="popup" id="acciones_'. $resultadoSeguimientosAcciones['IdSeguimiento'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
                     $cadena_datos .= '<h3>Visitantes</h3>';
                     $cadena_datos .= '<hr>';
-                    $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-autodividers="true" data-inset="true">';
+                    $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-split-icon="gear" data-autodividers="true" data-inset="true">';
 
                     if($db->num_rows($consultaPersonaVisita) != 0)
                     {
                         while($resultadosPersona = $db->fetch_array($consultaPersonaVisita))
                         {
-                            $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosPersonasDetalleModificar(' . $resultadosPersona['IdPersona'] . ')">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</a></li>';
+                            $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosPersonasDetalleModificar(' . $resultadosPersona['IdPersona'] . ')">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</a><a href="#accionesPersona_'. $resultadosPersona['IdPersona'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a></li>';
                         }
                         $cadena_datos .= '</ul>';
 
-                        $sqlPersonaVisita      = "CALL TbPersonasVisitasAccionesPorIdVisita('$idVisita')";
-                        $consultaPersonaVisita = $db->consulta($sqlPersonaVisita);
+                        $sqlPersonaVisita              = "CALL TbPersonasVisitasAccionesPorIdVisita('$idVisita')";
+                        $consultaPersonaVisita         = $db->consulta($sqlPersonaVisita);
+                        $consultaPersonaVisitaAcciones = $db->consulta($sqlPersonaVisita);
+                    }
+                    else
+                    {
+                        $cadena_datos .= '<li>No hay personas asociadas en este seguimiento.</li>';
+                    }
+                    $cadena_datos .= '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Cancelar</a>';
+
+                    $cadena_datos .= '<hr>';
+                    $cadena_datos .= '<a href="#" onclick="BienvenidaCerrarSeguimiento(' . $resultadoSeguimientosAcciones['IdSeguimiento'] . ')" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini">Cerrar seguimiento</a>';
+                }
+            }
+
+            var_dump($db->num_rows($consultaSeguimientoAcciones));
+
+            if($db->num_rows($consultaSeguimientoAcciones) != 0)
+            {
+                while($resultadoSeguimientosAcciones = $db->fetch_array($consultaSeguimientoAcciones))
+                {
+                    $cadena_datos .= '<div data-role="popup" id="accionesPersona_'. $resultadoSeguimientosAcciones['IdPersona'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
+                    $cadena_datos .= '<h3>Visitantes</h3>';
+                    $cadena_datos .= '<hr>';
+                    $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-split-icon="gear" data-autodividers="true" data-inset="true">';
+
+                    if($db->num_rows($consultaPersonaVisita) != 0)
+                    {
+                        while($resultadosVisitaAcciones = $db->fetch_array($consultaPersonaVisitaAcciones))
+                        {
+                            $cadena_datos .= '<div data-role="popup" id="accionesPersona_'. $resultadosVisitaAcciones['IdPersona'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em; z-index:100;">';
+                            $cadena_datos .= '<h3>Contacto</h3>';
+                            $cadena_datos .= '<hr>';
+
+                            if($resultadosVisitaAcciones['Telefono'] == ""
+                                && $resultadosVisitaAcciones['Celular'] == ""
+                                && $resultadosVisitaAcciones['Correo'] == ""){
+                                $cadena_datos .= '<p>Lo sentimos, ' . $resultadosVisitaAcciones['NombreCompleto'] . ' no tiene asociado un número de teléfono fijo, un número de teléfono móvil, ni un correo electrónico con el cual se pueda contactar.</p>';
+                            }
+                            else{
+                                $cadena_datos .= '<p>Estas son las acciones disponibles para ' . $resultadosVisitaAcciones['NombreCompleto'] . ':</p>';
+                            }
+
+                            if($resultadosVisitaAcciones['Telefono'] != ""){
+                                $cadena_datos .= '<p style="margin-bottom: -15px;"><a href="tel:' . $resultadosVisitaAcciones['Telefono'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Llamar a teléfono fijo</a></p>';
+                            }
+                            if($resultadosVisitaAcciones['Celular'] != ""){
+                                $cadena_datos .= '<p style="margin-bottom: -15px;"><a href="tel:' . $resultadosVisitaAcciones['Celular'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Llamar a teléfono móvil</a></p>';
+                                $cadena_datos .= '<p style="margin-bottom: -15px;"><a href="sms:' . $resultadosVisitaAcciones['Celular'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini">Enviar SMS</a></p>';
+                            }
+                            if($resultadosVisitaAcciones['Correo'] != ""){
+                                $cadena_datos .= '<p><a href="mailto:' . $resultadosVisitaAcciones['Correo'] . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-mail ui-btn-icon-left ui-btn-inline ui-mini">Enviar Correo</a></p>';
+                            }
+                            $cadena_datos .= '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Cancelar</a>';
+                            $cadena_datos .= '</div>';
+                        }
                     }
                     else
                     {

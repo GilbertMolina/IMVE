@@ -29,18 +29,24 @@ function PersonasOnLoad() {
 // Función que se ejecuta al cargar la pagina
 function PersonasDetalleOnLoad(){
     PesonasCargarPersonaPorId();
-    GruposCambiarBarraNavegacionFooter();
+    PersonasCambiarBarraNavegacionFooter();
 }
 
 // Función que cambia la barra navegación del footer dependiendo de la pantalla de donde se ejecute
-function GruposCambiarBarraNavegacionFooter() {
+function PersonasCambiarBarraNavegacionFooter() {
+    var accionDetallePersona = ObtenerParametroPorNombre('IdPersona');
     var accion = ObtenerParametroPorNombre('Accion');
 
-    if(accion != ''){
-        $('#NuevaPersona').hide();
+    if(accionDetallePersona != ''){
+        $('#DetallePersona').show();
     }
     else{
-        $('#DetallePersona').hide();
+        if(accion != ''){
+            $('#DesdeVisita').show();
+        }
+        else{
+            $('#NuevaPersona').show();
+        }
     }
 }
 

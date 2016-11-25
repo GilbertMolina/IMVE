@@ -188,6 +188,12 @@ function UtiProcesosPaginaProcesosPersonasDetalleModificar(p_IdPersona)
     RedireccionPagina('personasDetalle.php?IdPersona=' + p_IdPersona);
 }
 
+// Función para ingresar a la pantalla de proceso de personas relaciones personales
+function UtiProcesosPaginaProcesosPersonasRelacionesPersonales(p_IdPersona)
+{
+    RedireccionPagina('personasRelacionesPersonales.php?IdPersona=' + p_IdPersona);
+}
+
 // Función para ingresar a la pantalla de proceso de seguimientos
 function UtiProcesosPaginaProcesosSeguimientos(p_IdVisita)
 {

@@ -7,6 +7,9 @@
 
 session_start();
 
+error_reporting(11);
+ini_set('display_errors', 1);
+
 class UtilitariosProcesos
 {
     function ObtenerNombreUsuario()
@@ -42,5 +45,30 @@ class UtilitariosProcesos
     function ObtenerRolUsuario()
     {
         return $_SESSION['rol'];
+    }
+
+    function ObtenerNombrePersona()
+    {
+        // Se realiza el llamado a la clase de conexion
+        require("../../Datos/conexionMySQL.php");
+        $db = new MySQL();
+
+        // Se carga una persona en especifíco en la pantalla de ver detalle
+        if (isset($_GET['IdPersona'])) {
+            $idPersona = $_GET['IdPersona'];
+
+            $sqlPersona      = "CALL TbPersonasListarPorIdPersona('$idPersona')";
+            $consultaPersona = $db->consulta($sqlPersona);
+            $nombrePersona = "";
+
+            if($db->num_rows($consultaPersona) != 0)
+            {
+                while($resultadosPersona = $db->fetch_array($consultaPersona))
+                {
+                    $nombrePersona = $resultadosPersona['Nombre'] . ' ' . $resultadosPersona['Apellido1'] . ' ' . $resultadosPersona['Apellido2'];
+                }
+            }
+            return $nombrePersona;
+        }
     }
 }

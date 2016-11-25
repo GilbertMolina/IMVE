@@ -1,7 +1,7 @@
 /**
  * Sistema para la Iglesia Manantiales de Vida Eterna
  * Desarrollado por: Gilberth Molina
- * Fecha creación: 03/11/16
+ * Fecha creación: 23/11/16
  */
 
 // Función que se ejecuta al cargar la pagina de tipos de relaciones
@@ -12,6 +12,20 @@ function TiposRelacionesOnLoad(){
 // Función que se ejecuta al cargar la pagina de tipos de relaciones detalle
 function TiposRelacionesDetalleOnLoad(){
     TiposRelacionesCargarTipoRelacionPorId();
+}
+
+// Función que se oculta los input de nombre relación inversa masculino y nombre relación inversa femenino
+function TiposRelacionesDetalleOcultarCamposRelacionesLineal(){
+    var tipoRelacion = ObtenerValorRadioButtonPorNombre('tipoRelacion');
+
+    if(tipoRelacion == 'H')
+    {
+        $('#tipoRelacionNoLineal').hide();
+    }
+    else
+    {
+        $('#tipoRelacionNoLineal').show();
+    }
 }
 
 // Función para obtener todos los tipos de relaciones activas o inactivas
@@ -305,18 +319,4 @@ function TiposRelacionesEliminar(p_idTipoRelacion){
             });
         }
     });
-}
-
-// Función que se oculta los input de nombre relación inversa masculino y nombre relación inversa femenino
-function TiposRelacionesDetalleOcultarCamposRelacionesLineal(){
-    var tipoRelacion = ObtenerValorRadioButtonPorNombre('tipoRelacion');
-
-    if(tipoRelacion == 'H')
-    {
-        $('#tipoRelacionNoLineal').hide();
-    }
-    else
-    {
-        $('#tipoRelacionNoLineal').show();
-    }
 }

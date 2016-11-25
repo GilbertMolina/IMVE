@@ -41,6 +41,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoGruposPorEstad
                 $smsFinalPersonas    = "";
                 $correoPersonas      = "";
                 $correoFinalPersonas = "";
+                $nombreGrupo         = "";
 
                 $sqlPersonasGrupo      = "CALL TbGruposPersonasListarPersonasPorIdGrupo('$idGrupo')";
                 $consultaPersonasGrupo = $db->consulta($sqlPersonasGrupo);
@@ -50,6 +51,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoGruposPorEstad
                 {
                     while($resultadosPersonasGrupo = $db->fetch_array($consultaPersonasGrupo))
                     {
+                        $nombreGrupo = $resultadosPersonasGrupo["Descripcion"];
+
                         if ($resultadosPersonasGrupo["Celular"] != "")
                         {
                             $smsPersonas .= $resultadosPersonasGrupo["Celular"] . ';';
@@ -59,6 +62,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoGruposPorEstad
                             $correoPersonas .= $resultadosPersonasGrupo["Correo"] . ';';
                         }
                     }
+
                     // Quitar el punto y coma del final
                     $smsFinalPersonas = substr($smsPersonas,0,strlen($smsPersonas)-1);
                     $correoFinalPersonas = substr($correoPersonas,0,strlen($correoPersonas)-1);
@@ -66,7 +70,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoGruposPorEstad
                     $cadena_datos .= '<div data-role="popup" id="acciones_'. $idGrupo . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
                     $cadena_datos .= '<h3>Contacto</h3>';
                     $cadena_datos .= '<hr>';
-                    $cadena_datos .= '<p>Lo sentimos, las personas del grupo no tiene asociado un número de teléfono móvil, ni un correo electrónico con el cual se puedan contactar.</p>';
+
+                    if($smsFinalPersonas == ""
+                        && $correoFinalPersonas == ""){
+                        $cadena_datos .= '<p>Lo sentimos, las personas de ' . $nombreGrupo . ' no tiene asociado un número de teléfono móvil, ni un correo electrónico con el cual se puedan contactar.</p>';
+                    }
+                    else{
+                        $cadena_datos .= '<p>Estas son las acciones disponibles para ' . $nombreGrupo . ':</p>';
+                    }
 
                     if($smsFinalPersonas != ""){
                         $cadena_datos .= '<p style="margin-bottom: -15px;"><a href="sms:' . $smsFinalPersonas . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini">Enviar SMS a todos los integrantes</a></p>';
@@ -579,3 +590,4 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerGruposLideresListado'
         echo 'Excepción capturada: ', $e->getMessage(), "\n";
     }
 }
+

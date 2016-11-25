@@ -30,11 +30,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoRelacionesPorT
                 if ($resultados['NombreInversoMasculino'] != ''
                     && $resultados['NombreInversoFemenino'] != '')
                 {
-                    $cadena_datos .= '<li><a href="#" onclick="UtiMantenimientosPaginaMantenimientosTiposRelacionesDetalleModificar(' . $resultados['IdTipoRelacion'] . ')">' . utf8_encode($resultados['NombreMasculino']) . '/' . utf8_encode($resultados['NombreFemenino']) . ' - ' . utf8_encode($resultados['NombreInversoMasculino']) . '/' . utf8_encode($resultados['NombreInversoFemenino']) . '</a><a href="#" class="delete ui-btn ui-btn-icon-notext ui-icon-delete" title="Delete" onclick="TiposRelacionesEliminar('. $resultados['IdTipoRelacion'] . ')"></a></li>';
+                    $cadena_datos .= '<li><a href="#" onclick="UtiMantenimientosPaginaMantenimientosTiposRelacionesDetalleModificar(' . $resultados['IdTipoRelacion'] . ')">' . utf8_encode($resultados['NombreMasculino']) . '/' . utf8_encode($resultados['NombreFemenino']) . ' - ' . utf8_encode($resultados['NombreInversoMasculino']) . '/' . utf8_encode($resultados['NombreInversoFemenino']) . '</a><a href="#" class="delete ui-btn ui-btn-icon-notext ui-icon-delete" onclick="TiposRelacionesEliminar('. $resultados['IdTipoRelacion'] . ')"></a></li>';
                 }
                 else
                 {
-                    $cadena_datos .= '<li><a href="#" onclick="UtiMantenimientosPaginaMantenimientosTiposRelacionesDetalleModificar(' . $resultados['IdTipoRelacion'] . ')">' . utf8_encode($resultados['NombreMasculino']) . '/' . utf8_encode($resultados['NombreFemenino']) . '</a><a href="#" class="delete ui-btn ui-btn-icon-notext ui-icon-delete" title="Delete" onclick="TiposRelacionesEliminar('. $resultados['IdTipoRelacion'] . ')"></a></li>';
+                    $cadena_datos .= '<li><a href="#" onclick="UtiMantenimientosPaginaMantenimientosTiposRelacionesDetalleModificar(' . $resultados['IdTipoRelacion'] . ')">' . utf8_encode($resultados['NombreMasculino']) . '/' . utf8_encode($resultados['NombreFemenino']) . '</a><a href="#" class="delete ui-btn ui-btn-icon-notext ui-icon-delete" title="Delete" onclick="TiposRelacionesEliminar('. $resultados['IdTipoRelacion'] . ')">Eliminar</a></li>';
                 }
             }
         }
@@ -160,6 +160,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'eliminarTipoRelacion') {
         $sql = "CALL TbTiposRelacionesEliminar('$idTipoRelacion')";
         $consulta = $db->consulta(utf8_decode($sql));
 
+        $resultado = '';
+
         if ($db->num_rows($consulta) != 0) {
             while ($resultados = $db->fetch_array($consulta)) {
                 $resultado = $resultados['Resultado'];
@@ -168,6 +170,40 @@ if (isset($_POST['action']) && $_POST['action'] == 'eliminarTipoRelacion') {
             $resultado = "-1";
         }
         echo $resultado;
+    }
+    catch (Exception $e) {
+        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+    }
+}
+
+// Obtiene el listado de los tipos de relacion para mostrarlos en un select
+if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoTiposRelaciones') {
+    try {
+        $sql          = "CALL TbTiposRelacionesListar()";
+        $consulta     = $db->consulta($sql);
+        $cadena_datos = "";
+
+        if($db->num_rows($consulta) != 0)
+        {
+            $cadena_datos = '<option value="0">Seleccione</option>';
+
+            while($resultados = $db->fetch_array($consulta))
+            {
+                $cadena_datos .= '<option value="' . $resultados['IdTipoRelacion'] . '-' . $resultados['TipoRelacion'] . '">' . utf8_encode($resultados['NombreMasculino']) . ' / ' . utf8_encode($resultados['NombreFemenino']) . '</option>';
+
+
+//                if ($resultados['NombreInversoMasculino'] != ''
+//                    && $resultados['NombreInversoFemenino'] != '')
+//                {
+//                    $cadena_datos .= '<option value="' . $resultados['IdTipoRelacion'] . '">' . utf8_encode($resultados['NombreMasculino']) . '/' . utf8_encode($resultados['NombreFemenino']) . ' - ' . utf8_encode($resultados['NombreInversoMasculino']) . '/' . utf8_encode($resultados['NombreInversoFemenino']) . '</option>';
+//                }
+//                else
+//                {
+//                    $cadena_datos .= '<option value="' . $resultados['IdTipoRelacion'] . '">' . utf8_encode($resultados['NombreMasculino']) . '/' . utf8_encode($resultados['NombreFemenino']) . '</option>';
+//                }
+            }
+        }
+        echo $cadena_datos;
     }
     catch (Exception $e) {
         echo 'Excepción capturada: ', $e->getMessage(), "\n";

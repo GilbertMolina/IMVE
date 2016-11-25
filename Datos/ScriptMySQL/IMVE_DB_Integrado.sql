@@ -478,10 +478,11 @@ CREATE VIEW IMVE.RelacionesFamiliares AS
 SELECT TRP.IdPersonaRelacionado1
     , CONCAT(P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2) AS NombrePersonaRelacionado1
 	, TRP.IdTipoRelacion
-    , CASE P1.Sexo WHEN 'M' THEN TR.NombreMasculino WHEN 'F' THEN TR.NombreFemenino END AS 'TipoRelacion'
+    , CASE P1.Sexo WHEN 'M' THEN TR.NombreMasculino WHEN 'F' THEN TR.NombreFemenino END AS Relacion
+    , 'R' AS TipoRelacion
 	, TRP.IdPersonaRelacionado2
     , CONCAT(P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2) AS NombrePersonaRelacionado2
-    , CONCAT(P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2,' es ',CASE P1.Sexo WHEN 'M' THEN LOWER(TR.NombreMasculino) WHEN 'F' THEN LOWER(TR.NombreFemenino) END,' de ',P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2) AS 'Relacion'
+    , CONCAT(P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2,' es ',CASE P1.Sexo WHEN 'M' THEN LOWER(TR.NombreMasculino) WHEN 'F' THEN LOWER(TR.NombreFemenino) END,' de ',P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2) AS RelacionTexto
 FROM IMVE.TbTiposRelacionesPersonas AS TRP
 INNER JOIN IMVE.TbTiposRelaciones AS TR
 	ON TRP.IdTipoRelacion = TR.IdTipoRelacion
@@ -494,21 +495,22 @@ SELECT TRP.IdPersonaRelacionado2
     , CONCAT(P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2) AS NombrePersonaRelacionado2
 	, TRP.IdTipoRelacion
     , CASE P2.Sexo 
-    WHEN 'M' THEN 
-		CASE TR.NombreInversoMasculino WHEN '' THEN TR.NombreMasculino ELSE TR.NombreInversoMasculino END
-    WHEN 'F' THEN 
-		CASE TR.NombreInversoFemenino WHEN '' THEN TR.NombreFemenino ELSE TR.NombreInversoFemenino END
-    END AS 'TipoRelacion' 
+		WHEN 'M' THEN 
+			CASE TR.NombreInversoMasculino WHEN '' THEN TR.NombreMasculino ELSE TR.NombreInversoMasculino END
+		WHEN 'F' THEN 
+			CASE TR.NombreInversoFemenino WHEN '' THEN TR.NombreFemenino ELSE TR.NombreInversoFemenino END
+		END AS Relacion
+    , 'RI' AS TipoRelacion
 	, TRP.IdPersonaRelacionado1
     , CONCAT(P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2) AS NombrePersonaRelacionado1
     , CONCAT(P2.Nombre,' ',P2.Apellido1,' ',P2.Apellido2,' es '
-    , CASE P2.Sexo 
-    WHEN 'M' THEN 
-		CASE TR.NombreInversoMasculino WHEN '' THEN LOWER(TR.NombreMasculino) ELSE LOWER(TR.NombreInversoMasculino) END
-    WHEN 'F' THEN 
-		CASE TR.NombreInversoFemenino WHEN '' THEN LOWER(TR.NombreFemenino) ELSE LOWER(TR.NombreInversoFemenino) END 
-    END
-		, ' de ',P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2) AS 'Relacion'
+		, CASE P2.Sexo 
+			WHEN 'M' THEN 
+				CASE TR.NombreInversoMasculino WHEN '' THEN LOWER(TR.NombreMasculino) ELSE LOWER(TR.NombreInversoMasculino) END
+			WHEN 'F' THEN 
+				CASE TR.NombreInversoFemenino WHEN '' THEN LOWER(TR.NombreFemenino) ELSE LOWER(TR.NombreInversoFemenino) END 
+			END
+		,' de ',P1.Nombre,' ',P1.Apellido1,' ',P1.Apellido2) AS RelacionTexto
 FROM IMVE.TbTiposRelacionesPersonas AS TRP
 INNER JOIN IMVE.TbTiposRelaciones AS TR
 	ON TRP.IdTipoRelacion = TR.IdTipoRelacion
@@ -873,16 +875,27 @@ DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposRelacionesListar()
 BEGIN
 
-SELECT IdTipoRelacion
-  , NombreMasculino
-    , NombreFemenino
-    , NombreInversoMasculino
-    , NombreInversoFemenino
-FROM IMVE.TbTiposRelaciones
-ORDER BY NombreMasculino
-  , NombreFemenino
-    , NombreInversoMasculino
-    , NombreInversoFemenino;
+SELECT R.IdTipoRelacion
+	, R.NombreMasculino
+	, R.NombreFemenino
+	, R.TipoRelacion
+FROM (SELECT IdTipoRelacion
+			, NombreMasculino AS NombreMasculino
+			, NombreFemenino AS NombreFemenino
+			, 'R' AS TipoRelacion
+		FROM IMVE.TbTiposRelaciones
+			
+		UNION ALL
+
+		SELECT IdTipoRelacion
+			, NombreInversoMasculino AS NombreMasculino
+			, NombreInversoFemenino AS NombreFemenino
+			, 'RI' AS TipoRelacion
+		FROM IMVE.TbTiposRelaciones
+        WHERE NombreInversoMasculino <> ''
+			AND NombreInversoFemenino <> '') AS R
+ORDER BY R.NombreMasculino
+	, R.NombreFemenino;
     
 END //
 DELIMITER ;
@@ -952,16 +965,50 @@ DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesPersonasListarPorPersona;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposRelacionesPersonasListarPorPersona(
-  p_IdPersona INT
+	p_IdPersona INT
 )
 BEGIN
 
-SELECT IdPersonaRelacionado1
-    , NombrePersonaRelacionado1
-    , IdTipoRelacion
-    , TipoRelacion
-FROM IMVE.RelacionesFamiliares
-WHERE IdPersonaRelacionado2 = p_IdPersona;
+SELECT RF.IdPersonaRelacionado1
+    , RF.NombrePersonaRelacionado1
+    , RF.IdTipoRelacion
+    , RF.Relacion
+    , RF.TipoRelacion
+    , P.Telefono
+	, P.Celular
+	, P.Correo
+FROM IMVE.RelacionesFamiliares AS RF
+INNER JOIN (SELECT P.IdPersona
+				, P.Identificacion
+				, P.Nombre
+				, P.Apellido1
+				, P.Apellido2
+				, CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+				, P.FechaNacimiento
+				, CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
+				, P.DireccionDomicilio
+				, P.Telefono
+				, P.Celular
+				, P.Correo
+				, CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+				, CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+			FROM IMVE.TbPersonas AS P
+			LEFT JOIN IMVE.TbDistritos AS D 
+			  ON P.IdDistrito = D.IdDistrito
+			LEFT JOIN IMVE.TbCantones AS C
+			  ON D.IdCanton = C.IdCanton
+				AND D.IdProvincia = C.IdProvincia
+				AND D.IdPais = C.IdPais
+			LEFT JOIN IMVE.TbProvincias AS PR
+			  ON C.IdProvincia = PR.IdProvincia
+				AND C.IdPais = PR.IdPais
+			LEFT JOIN IMVE.TbPaises AS PA
+			  ON PR.IdPais = PA.IdPais
+			WHERE P.Activo = 'A'
+				AND P.IdPersona <> 1) AS P
+	ON RF.IdPersonaRelacionado1 = P.IdPersona
+WHERE RF.IdPersonaRelacionado2 = p_IdPersona
+ORDER BY TipoRelacion;
     
 END //
 DELIMITER ;
@@ -1058,12 +1105,12 @@ END IF;
 END //
 DELIMITER ;
 
--- TbTiposRelacionesPersonas
+-- TbTiposRelacionesPersonasAgregar
 DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesPersonasAgregar;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbTiposRelacionesPersonasAgregar(
-  p_IdTipoRelacion INT
+	p_IdTipoRelacion INT
     , p_IdPersonaRelacionado1 INT
     , p_IdPersonaRelacionado2 INT
     , p_UsuarioUltimaModificacion INT
@@ -1071,7 +1118,7 @@ CREATE PROCEDURE IMVE.TbTiposRelacionesPersonasAgregar(
 BEGIN
 
 INSERT INTO IMVE.TbTiposRelacionesPersonas(
-  IdTipoRelacion
+	IdTipoRelacion
     , IdPersonaRelacionado1
     , IdPersonaRelacionado2
     , UsuarioUltimaModificacion
@@ -1079,7 +1126,7 @@ INSERT INTO IMVE.TbTiposRelacionesPersonas(
 )
 VALUES
 (
-  p_IdTipoRelacion
+	p_IdTipoRelacion
     , p_IdPersonaRelacionado1
     , p_IdPersonaRelacionado2
     , p_UsuarioUltimaModificacion
@@ -1087,6 +1134,28 @@ VALUES
 );
 
 SELECT LAST_INSERT_ID() AS Id;
+
+END //
+DELIMITER ;
+
+-- TbTiposRelacionesPersonasEliminar
+DROP PROCEDURE IF EXISTS IMVE.TbTiposRelacionesPersonasEliminar;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbTiposRelacionesPersonasEliminar(
+	p_IdTipoRelacion INT
+    , p_IdPersonaRelacionado1 INT
+    , p_IdPersonaRelacionado2 INT
+)
+BEGIN
+
+DELETE
+FROM TbTiposRelacionesPersonas
+WHERE IdTipoRelacion = p_IdTipoRelacion
+	AND IdPersonaRelacionado1 = p_IdPersonaRelacionado1
+    AND IdPersonaRelacionado2 = p_IdPersonaRelacionado2;
+    
+SELECT 1 AS Resultado;
 
 END //
 DELIMITER ;
@@ -1843,7 +1912,7 @@ CREATE PROCEDURE IMVE.TbPersonasListar()
 BEGIN
 
 SELECT P.IdPersona
-  , P.Identificacion
+	, P.Identificacion
     , P.Nombre
     , P.Apellido1
     , P.Apellido2
@@ -1921,7 +1990,7 @@ DROP PROCEDURE IF EXISTS IMVE.TbPersonasListarPorOrdenamientoEstado;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.TbPersonasListarPorOrdenamientoEstado(
-  p_Ordenamiento CHAR(1)
+	p_Ordenamiento CHAR(1)
     , p_Estado CHAR(1)
 )
 BEGIN
@@ -1987,6 +2056,49 @@ ELSE
         AND P.IdPersona <> 1
   ORDER BY NombreCompleto;
 END IF;
+
+END //
+DELIMITER ;
+
+-- TbPersonasListarOrdenadoPorApellidoExcluyendoIdPersona
+DROP PROCEDURE IF EXISTS IMVE.TbPersonasListarOrdenadoPorApellidoExcluyendoIdPersona;
+
+DELIMITER //
+CREATE PROCEDURE IMVE.TbPersonasListarOrdenadoPorApellidoExcluyendoIdPersona(
+	p_IdPersona INT
+)
+BEGIN
+
+SELECT P.IdPersona
+    , P.Identificacion
+    , P.Nombre
+    , P.Apellido1
+    , P.Apellido2
+    , CONCAT(P.Apellido1,' ',P.Apellido2, ' ',P.Nombre) AS NombreCompleto
+    , P.FechaNacimiento
+    , CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
+    , P.DireccionDomicilio
+    , P.Telefono
+    , P.Celular
+    , P.Correo
+    , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+    , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+FROM IMVE.TbPersonas AS P
+LEFT JOIN IMVE.TbDistritos AS D 
+	ON P.IdDistrito = D.IdDistrito
+LEFT JOIN IMVE.TbCantones AS C
+	ON D.IdCanton = C.IdCanton
+	AND D.IdProvincia = C.IdProvincia
+	AND D.IdPais = C.IdPais
+LEFT JOIN IMVE.TbProvincias AS PR
+	ON C.IdProvincia = PR.IdProvincia
+	AND C.IdPais = PR.IdPais
+LEFT JOIN IMVE.TbPaises AS PA
+	ON PR.IdPais = PA.IdPais
+WHERE P.Activo = 'A'
+	AND P.IdPersona <> 1
+    AND P.IdPersona <> p_IdPersona
+ORDER BY NombreCompleto;
 
 END //
 DELIMITER ;
@@ -2570,7 +2682,8 @@ CREATE PROCEDURE IMVE.TbGruposPersonasListarPersonasPorIdGrupo(
 BEGIN
 
 SELECT GP.IdGrupo
-  , GP.IdPersona AS PersonaParticipante
+	, G.Descripcion
+	, GP.IdPersona AS PersonaParticipante
     , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
     , P.Telefono
     , P.Celular
