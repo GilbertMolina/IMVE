@@ -143,7 +143,7 @@ $utilitarios = new UtilitariosProcesos();
                     <div class="row">
                         <div class="col-sm-2 col-md-3 col-lg-3"></div>
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
-                            <h3 class="text-center">Visitas</h3>
+                            <h3 class="text-center">Mantenimiento de Visitas</h3>
                             <hr>
                             <form method="post" action="#" id="visitasDetalle">
                                 <div>
