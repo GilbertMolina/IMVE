@@ -163,11 +163,11 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 1) && isset($_GET['fechaInic
         $mpdf = new mPDF('c', 'Letter-L');
         $mpdf->setHeader('|' . $nombreSistema . '|');
         date_default_timezone_set('America/Costa_Rica');
-        $mpdf->setFooter('|' . $nombreIglesia . '|' . date('m/d/Y g:ia'));
+        $mpdf->setFooter(date('d-m-Y g:ia') . '|' . $nombreIglesia . '|' . 'Página ' . '{PAGENO}');
         // Se configura el CSS a utilizar
         $css = file_get_contents('../../UI/Includes/bootstrap/css/bootstrap.min.css');
         $mpdf->writeHTML($css, 1);
-        $mpdf->writeHTML($html);
+        $mpdf->writeHTML($html,2);
         // Se coloca el nombre del reporte, y configura para que sea desplegado en el navegador web
         $mpdf->Output('ReporteGruposActividades.pdf', 'I');
         // Se coloca el nombre del reporte, y configura para que sea descargado inmediantamente
@@ -275,11 +275,11 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 2)) {
         $mpdf = new mPDF('c', 'Letter-L');
         $mpdf->setHeader('|' . $nombreSistema . '|');
         date_default_timezone_set('America/Costa_Rica');
-        $mpdf->setFooter('|' . $nombreIglesia . '|' . date('m/d/Y g:ia'));
+        $mpdf->setFooter(date('d-m-Y g:ia') . '|' . $nombreIglesia . '|' . 'Página ' . '{PAGENO}');
         // Se configura el CSS a utilizar
         $css = file_get_contents('../../UI/Includes/bootstrap/css/bootstrap.min.css');
         $mpdf->writeHTML($css, 1);
-        $mpdf->writeHTML($html);
+        $mpdf->writeHTML($html,2);
         // Se coloca el nombre del reporte, y configura para que sea desplegado en el navegador web
         $mpdf->Output('ReporteGruposIntegrantes.pdf', 'I');
         // Se coloca el nombre del reporte, y configura para que sea descargado inmediantamente
@@ -390,11 +390,11 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 3)) {
         $mpdf = new mPDF('c', 'Letter-L');
         $mpdf->setHeader('|' . $nombreSistema . '|');
         date_default_timezone_set('America/Costa_Rica');
-        $mpdf->setFooter('|' . $nombreIglesia . '|' . date('m/d/Y g:ia'));
+        $mpdf->setFooter(date('d-m-Y g:ia') . '|' . $nombreIglesia . '|' . 'Página ' . '{PAGENO}');
         // Se configura el CSS a utilizar
         $css = file_get_contents('../../UI/Includes/bootstrap/css/bootstrap.min.css');
         $mpdf->writeHTML($css, 1);
-        $mpdf->writeHTML($html);
+        $mpdf->writeHTML($html,2);
         // Se coloca el nombre del reporte, y configura para que sea desplegado en el navegador web
         $mpdf->Output('ReporteGruposIntegrantesHistorico.pdf', 'I');
         // Se coloca el nombre del reporte, y configura para que sea descargado inmediantamente
