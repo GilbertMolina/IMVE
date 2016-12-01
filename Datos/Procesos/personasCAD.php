@@ -337,6 +337,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
         $sqlProvincias      = "CALL TbProvinciasListar()";
         $consultaProvincias = $db->consulta($sqlProvincias);
 
+        $consultaCantones = "";
+        $consultaDistritos = "";
+
         $sqlTotalGruposLider      = "CALL TbGruposListar()";
         $consultaTotalGruposLider = $db->consulta($sqlTotalGruposLider);
 
@@ -481,7 +484,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 $cadena_datos .= '<div>';
                 if($resultadosPersona['Telefono'] != '')
                 {
-                    $cadena_datos .= '<label for="txtTelefono">Teléfono fijo:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"><a style="margin-top: -4px; float: right; margin-right: 0px; height: 27px; padding-top: 5px" href="tel:' . $resultadosPersona['Telefono']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Llamar</a></label>';
+                    $cadena_datos .= '<label for="txtTelefono">Teléfono fijo:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"><a style="margin-top: -4px; float: right; margin-right: 0px; height: 27px; padding-top: 5px; " href="tel:' . $resultadosPersona['Telefono']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">Llamar</a></label>';
                 }
                 else
                 {
@@ -494,7 +497,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarPersona') {
                 $cadena_datos .= '<div>';
                 if($resultadosPersona['Celular'] != '')
                 {
-                    $cadena_datos .= '<label for="txtCelular">Teléfono móvil:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"><a style="margin-top: -4px; float: right; margin-right: 0px; height: 27px; padding-top: 5px" href="tel:' . $resultadosPersona['Celular']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini">Llamar</a><a style="margin-top: -4px; float: right; margin-right: 2px; height: 27px; padding-top: 6px" href="sms:' . $resultadosPersona['Celular']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">SMS</a></label>';
+                    $cadena_datos .= '<label for="txtCelular">Teléfono móvil:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"><a style="margin-top: -4px; float: right; margin-right: 0px; height: 27px; padding-top: 5px; padding-right: 2px; width: 77px" href="tel:' . $resultadosPersona['Celular']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-comment ui-btn-icon-left ui-btn-inline ui-mini">Llamar</a><a style="margin-top: -4px; float: right; margin-right: 2px; height: 27px; padding-top: 6px; padding-right: 1px; width: 68px" href="sms:' . $resultadosPersona['Celular']  . '" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-phone ui-btn-icon-left ui-btn-inline ui-mini">SMS</a></label>';
                 }
                 else
                 {

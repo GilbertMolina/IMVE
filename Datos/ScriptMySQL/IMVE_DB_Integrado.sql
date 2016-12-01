@@ -2783,9 +2783,6 @@ IF p_EsLider <> '' THEN
     , P.Telefono
     , P.Celular
     , P.Correo
-    , GP.FechaInicio
-    , GP.FechaFin
-    , GP.EsLider
   FROM IMVE.TbGruposPersonas AS GP
   INNER JOIN IMVE.TbGrupos AS G
     ON GP.IdGrupo = G.IdGrupo
@@ -2802,8 +2799,6 @@ ELSE
     , P.Telefono
     , P.Celular
     , P.Correo
-    , GP.FechaInicio
-    , GP.FechaFin
   FROM IMVE.TbGruposPersonas AS GP
   INNER JOIN IMVE.TbGrupos AS G
     ON GP.IdGrupo = G.IdGrupo

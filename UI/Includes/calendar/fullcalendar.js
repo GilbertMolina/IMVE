@@ -10632,6 +10632,7 @@ function Header(calendar) {
 					var innerHtml;
 					var classes;
 					var button; // the element
+					var buttonInnerHTML;
 
 					if (buttonName == 'title') {
 						groupChildren = groupChildren.add($('<h2>&nbsp;</h2>')); // we always want it to take up height
@@ -10694,10 +10695,18 @@ function Header(calendar) {
 								tm + '-state-default'
 							];
 
-							button = $( // type="button" so that it doesn't submit a form
-								'<button type="button" class="' + classes.join(' ') + '">' +
+							if(classes.join(' ').includes('fc-today-button')){
+								buttonInnerHTML = '<button type="button" class="' + classes.join(' ') + '" style="margin-left: 3px">' +
 									innerHtml +
-								'</button>'
+									'</button>';
+							}else{
+								buttonInnerHTML = '<button type="button" class="' + classes.join(' ') + '">' +
+									innerHtml +
+									'</button>';
+							}
+
+							button = $( // type="button" so that it doesn't submit a form
+								buttonInnerHTML
 								)
 								.click(function(ev) {
 									// don't process clicks for disabled buttons

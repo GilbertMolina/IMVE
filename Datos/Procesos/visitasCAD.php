@@ -46,7 +46,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoVisitasPorEsta
                 $cadena_datos .= '<h2>' . utf8_encode($resultados['Descripcion']) . '</h2>';
                 $cadena_datos .= '<p><span style="font-weight: bold">Responsable: </span>' . utf8_encode($resultados['Persona']) . '</p>';
                 $cadena_datos .= '<p><span style="font-weight: bold">Ministerio: </span>' . utf8_encode($resultados['Ministerio']) . '</p>';
-                $cadena_datos .= '<p class="ui-li-aside" style="font-size: 15px; font-weight: bold"><strong>' . $horaFormateada . ' </strong>' . $amPM . '</p>';
+                $cadena_datos .= '<p><span style="font-weight: bold">Hora de inicio: </span>' . $horaFormateada . ' ' . $amPM . '</p>';
                 $cadena_datos .= '</a>';
                 $cadena_datos .= '</li>';
             }
