@@ -75,7 +75,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosDe
                 $cadena_datos .= '<h2>Visita: ' . utf8_encode($resultadoSeguimientos['Descripcion']) . '</h2>';
                 $cadena_datos .= '<p><span style="font-weight: bold">Fecha propuesta: </span>' . $fechaPropuesta .'</p>';
                 $cadena_datos .= '</a>';
-                $cadena_datos .= '<a href="#acciones_'. $resultadoSeguimientos['IdSeguimiento'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a>';
+                $cadena_datos .= '<a href="#acciones_'. $resultadoSeguimientos['IdSeguimiento'] . '" data-rel="popup" data-position-to="window" data-transition="slidedown">Acciones</a>';
                 $cadena_datos .= '</li>';
             }
             $cadena_datos .= '</ul>';
@@ -88,7 +88,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosDe
             {
                 while($resultadoSeguimientosAcciones = $db->fetch_array($consultaSeguimientoAcciones))
                 {
-                    $cadena_datos .= '<div data-role="popup" id="acciones_'. $resultadoSeguimientosAcciones['IdSeguimiento'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
+                    $cadena_datos .= '<div data-role="popup" id="acciones_'. $resultadoSeguimientosAcciones['IdSeguimiento'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:450px; padding-bottom:2em;">';
                     $cadena_datos .= '<h3>Visitantes</h3>';
                     $cadena_datos .= '<hr>';
                     $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-split-icon="gear" data-autodividers="true" data-inset="true">';
@@ -97,7 +97,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosDe
                     {
                         while($resultadosPersona = $db->fetch_array($consultaPersonaVisita))
                         {
-                            $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosPersonasDetalleModificar(' . $resultadosPersona['IdPersona'] . ')">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</a><a href="#accionesPersona_'. $resultadosPersona['IdPersona'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a></li>';
+                            $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosPersonasDetalleModificar(' . $resultadosPersona['IdPersona'] . ')">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</a><a href="#accionesPersona_'. $resultadosPersona['IdPersona'] . '" data-rel="popup" data-position-to="window" data-transition="slidedown">Acciones</a></li>';
                         }
                         $cadena_datos .= '</ul>';
 
@@ -105,7 +105,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosDe
                         {
                             while($resultadosVisitaAcciones = $db->fetch_array($consultaPersonaVisitaAcciones))
                             {
-                                $cadena_datos .= '<div data-role="popup" id="accionesPersona_'. $resultadosVisitaAcciones['IdPersona'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
+                                $cadena_datos .= '<div data-role="popup" id="accionesPersona_'. $resultadosVisitaAcciones['IdPersona'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:450px; padding-bottom:2em;">';
                                 $cadena_datos .= '<h3>Contacto</h3>';
                                 $cadena_datos .= '<hr>';
 
@@ -193,7 +193,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPe
                     $cadena_datos .= '<h2>Visita: ' . utf8_encode($resultadoSeguimientos['Descripcion']) . '</h2>';
                     $cadena_datos .= '<p><span style="font-weight: bold">Fecha propuesta: </span>' . $fechaPropuesta .'</p>';
                     $cadena_datos .= '</a>';
-                    $cadena_datos .= '<a href="#acciones_'. $resultadoSeguimientos['IdSeguimiento'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a>';
+                    $cadena_datos .= '<a href="#acciones_'. $resultadoSeguimientos['IdSeguimiento'] . '" data-rel="popup" data-position-to="window" data-transition="slidedown">Acciones</a>';
                     $cadena_datos .= '</li>';
                 }
                 else
@@ -204,7 +204,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPe
                     $cadena_datos .= '<h2>Visita: ' . utf8_encode($resultadoSeguimientos['Descripcion']) . '</h2>';
                     $cadena_datos .= '<p><span style="font-weight: bold">Fecha propuesta: </span>' . $fechaPropuesta .'</p>';
                     $cadena_datos .= '</a>';
-                    $cadena_datos .= '<a href="#acciones_'. $resultadoSeguimientos['IdSeguimiento'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a>';
+                    $cadena_datos .= '<a href="#acciones_'. $resultadoSeguimientos['IdSeguimiento'] . '" data-rel="popup" data-position-to="window" data-transition="slidedown">Acciones</a>';
                     $cadena_datos .= '</li>';
                 }
             }
@@ -218,7 +218,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPe
             {
                 while($resultadoSeguimientosAcciones = $db->fetch_array($consultaSeguimientoAcciones))
                 {
-                    $cadena_datos .= '<div data-role="popup" id="acciones_'. $resultadoSeguimientosAcciones['IdSeguimiento'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
+                    $cadena_datos .= '<div data-role="popup" id="acciones_'. $resultadoSeguimientosAcciones['IdSeguimiento'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:450px; padding-bottom:2em;">';
                     $cadena_datos .= '<h3>Visitantes</h3>';
                     $cadena_datos .= '<hr>';
                     $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-split-icon="gear" data-autodividers="true" data-inset="true">';
@@ -227,7 +227,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPe
                     {
                         while($resultadosPersona = $db->fetch_array($consultaPersonaVisita))
                         {
-                            $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosPersonasDetalleModificar(' . $resultadosPersona['IdPersona'] . ')">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</a><a href="#accionesPersona_'. $resultadosPersona['IdPersona'] . '" data-rel="popup" data-position-to="window" data-transition="pop">Acciones</a></li>';
+                            $cadena_datos .= '<li><a href="#" onclick="UtiProcesosPaginaProcesosPersonasDetalleModificar(' . $resultadosPersona['IdPersona'] . ')">' . utf8_encode($resultadosPersona['NombreCompleto']) . '</a><a href="#accionesPersona_'. $resultadosPersona['IdPersona'] . '" data-rel="popup" data-position-to="window" data-transition="slidedown">Acciones</a></li>';
                         }
                         $cadena_datos .= '</ul>';
 
@@ -246,13 +246,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPe
                 }
             }
 
-            var_dump($db->num_rows($consultaSeguimientoAcciones));
-
             if($db->num_rows($consultaSeguimientoAcciones) != 0)
             {
                 while($resultadoSeguimientosAcciones = $db->fetch_array($consultaSeguimientoAcciones))
                 {
-                    $cadena_datos .= '<div data-role="popup" id="accionesPersona_'. $resultadoSeguimientosAcciones['IdPersona'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em;">';
+                    $cadena_datos .= '<div data-role="popup" id="accionesPersona_'. $resultadoSeguimientosAcciones['IdPersona'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:450px; padding-bottom:2em;">';
                     $cadena_datos .= '<h3>Visitantes</h3>';
                     $cadena_datos .= '<hr>';
                     $cadena_datos .= '<ul data-role="listview" id="listaPersonas" data-filter="true" data-input="#filtro" data-split-icon="gear" data-autodividers="true" data-inset="true">';
@@ -261,7 +259,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoSeguimientosPe
                     {
                         while($resultadosVisitaAcciones = $db->fetch_array($consultaPersonaVisitaAcciones))
                         {
-                            $cadena_datos .= '<div data-role="popup" id="accionesPersona_'. $resultadosVisitaAcciones['IdPersona'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:340px; padding-bottom:2em; z-index:100;">';
+                            $cadena_datos .= '<div data-role="popup" id="accionesPersona_'. $resultadosVisitaAcciones['IdPersona'] . '" data-theme="a" data-overlay-theme="b" class="ui-content text-center" style="max-width:450px; padding-bottom:2em; z-index:100;">';
                             $cadena_datos .= '<h3>Contacto</h3>';
                             $cadena_datos .= '<hr>';
 

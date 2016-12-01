@@ -165,8 +165,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'obtenerListadoCompromisosPor
             );
         }
 
-        // Se hace un solo arreglo para posteriormente formatearlo a JSON
-        $totalCompromisos = array_merge($compromisosActivosEcluyendoUsuario,$compromisosInactivosEcluyendoUsuario,$compromisosActivosIncluyendoUsuario,$compromisosInactivosIncluyendoUsuario);
+        // Se hace un merge de todos los arreglos con los compromisos para posteriormente formatearlo a JSON
+        $totalCompromisos = array_merge(
+            $compromisosActivosEcluyendoUsuario
+            , $compromisosInactivosEcluyendoUsuario
+            , $compromisosActivosIncluyendoUsuario
+            , $compromisosInactivosIncluyendoUsuario
+        );
 
         $compromisosJSON = json_encode($totalCompromisos);
 

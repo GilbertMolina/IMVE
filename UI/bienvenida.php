@@ -152,7 +152,7 @@ $utilitarios = new UtilitariosBienvenida();
                                 <div class="jumbotron">
                                     <h3 style="margin-top: -20px">Mis compromisos y seguimientos</h3>
                                     <hr>
-                                    <img src="Includes/images/tasks.png" alt="Tareas">
+                                    <a href="Procesos/compromisos.php" rel="external"><img src="Includes/images/tasks.png" alt="Hoy"></a>
                                     <h4>Compromisos de hoy</h4>
                                     <div id="compromisosDeHoy">
                                         <!-- Aquí se insertan los datos dinámicamente -->
@@ -163,7 +163,7 @@ $utilitarios = new UtilitariosBienvenida();
                                         <!-- Aquí se insertan los datos dinámicamente -->
                                     </div>
                                     <hr>
-                                    <img src="Includes/images/attention.png" alt="Atención">
+                                    <a href="Procesos/visitas.php" rel="external"><img src="Includes/images/attention.png" alt="Pendientes"></a>
                                     <h4>Compromisos pendientes</h4>
                                     <div id="compromisosPendientes">
                                         <!-- Aquí se insertan los datos dinámicamente -->
