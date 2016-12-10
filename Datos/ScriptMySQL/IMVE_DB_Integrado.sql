@@ -3943,84 +3943,84 @@ DROP PROCEDURE IF EXISTS IMVE.ReporteCompromisosResponsables;
 
 DELIMITER //
 CREATE PROCEDURE IMVE.ReporteCompromisosResponsables(
-  p_FechaInicio DATETIME
+	p_FechaInicio DATETIME
     , p_FechaFin DATETIME
     , p_TipoReponsable CHAR(1)
 )
 BEGIN
 
 IF p_TipoReponsable = 'P' THEN
-  SELECT C.IdCompromiso
-    , C.Descripcion AS Compromiso
-    , TC.Descripcion AS TipoCompromiso
-    , M.Descripcion AS Ministerio
-    , P.NombreCompleto AS Responsable
-    , C.FechaInicio
-    , C.FechaFinal
-    , C.Lugar
-    , CASE C.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-  FROM IMVE.TbCompromisos AS C
-  INNER JOIN IMVE.TbMinisterios AS M
-    ON C.IdMinisterio = M.IdMinisterio
-  INNER JOIN IMVE.TbTiposCompromisos AS TC
-    ON C.IdTipoCompromiso = TC.IdTipoCompromiso
-  INNER JOIN IMVE.TbResponsablesCompromisos AS RC
-    ON C.IdCompromiso = RC.IdCompromiso
-  INNER JOIN (SELECT P.IdPersona
-          , P.Identificacion
-          , P.Nombre
-          , P.Apellido1
-          , P.Apellido2
-          , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
-          , P.FechaNacimiento
-          , CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
-          , P.DireccionDomicilio
-          , P.Telefono
-          , P.Celular
-          , P.Correo
-          , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
-          , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-        FROM IMVE.TbPersonas AS P
-        LEFT JOIN IMVE.TbDistritos AS D 
-          ON P.IdDistrito = D.IdDistrito
-        LEFT JOIN IMVE.TbCantones AS C
-          ON D.IdCanton = C.IdCanton
-          AND D.IdProvincia = C.IdProvincia
-          AND D.IdPais = C.IdPais
-        LEFT JOIN IMVE.TbProvincias AS PR
-          ON C.IdProvincia = PR.IdProvincia
-          AND C.IdPais = PR.IdPais
-        LEFT JOIN IMVE.TbPaises AS PA
-          ON PR.IdPais = PA.IdPais
-        WHERE P.Activo = 'A'
-          AND P.IdPersona <> 1
-        ORDER BY NombreCompleto) AS P
-    ON RC.IdPersona = P.IdPersona
-  WHERE C.FechaInicio BETWEEN p_FechaInicio AND p_FechaFin
-    ORDER BY C.FechaInicio DESC
+	SELECT C.IdCompromiso
+		, C.Descripcion AS Compromiso
+		, TC.Descripcion AS TipoCompromiso
+		, M.Descripcion AS Ministerio
+		, P.NombreCompleto AS Responsable
+		, C.FechaInicio
+		, C.FechaFinal
+		, C.Lugar
+		, CASE C.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+	FROM IMVE.TbCompromisos AS C
+	INNER JOIN IMVE.TbMinisterios AS M
+		ON C.IdMinisterio = M.IdMinisterio
+	INNER JOIN IMVE.TbTiposCompromisos AS TC
+		ON C.IdTipoCompromiso = TC.IdTipoCompromiso
+	INNER JOIN IMVE.TbResponsablesCompromisos AS RC
+		ON C.IdCompromiso = RC.IdCompromiso
+	INNER JOIN (SELECT P.IdPersona
+					, P.Identificacion
+                    , P.Nombre
+                    , P.Apellido1
+                    , P.Apellido2
+                    , CONCAT(P.Nombre,' ',P.Apellido1,' ',P.Apellido2) AS NombreCompleto
+                    , P.FechaNacimiento
+                    , CONCAT(D.Descripcion,', ',C.Descripcion,', ',PR.Descripcion,', ',PA.Descripcion) AS Distrito
+                    , P.DireccionDomicilio
+                    , P.Telefono
+                    , P.Celular
+                    , P.Correo
+                    , CASE P.Sexo WHEN 'M' THEN 'Masculino' ELSE 'Femenino' END AS Sexo
+                    , CASE P.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+				FROM IMVE.TbPersonas AS P
+				LEFT JOIN IMVE.TbDistritos AS D 
+					ON P.IdDistrito = D.IdDistrito
+				LEFT JOIN IMVE.TbCantones AS C
+					ON D.IdCanton = C.IdCanton
+					AND D.IdProvincia = C.IdProvincia
+					AND D.IdPais = C.IdPais
+				LEFT JOIN IMVE.TbProvincias AS PR
+					ON C.IdProvincia = PR.IdProvincia
+					AND C.IdPais = PR.IdPais
+				LEFT JOIN IMVE.TbPaises AS PA
+					ON PR.IdPais = PA.IdPais
+				WHERE P.Activo = 'A'
+					AND P.IdPersona <> 1
+				ORDER BY NombreCompleto) AS P
+		ON RC.IdPersona = P.IdPersona
+	WHERE C.FechaInicio BETWEEN p_FechaInicio AND p_FechaFin
+	ORDER BY C.FechaInicio DESC
 		, C.FechaFinal DESC;
     
 ELSEIF p_TipoReponsable = 'G' THEN
-  SELECT C.IdCompromiso
-    , C.Descripcion AS Compromiso
-    , TC.Descripcion AS TipoCompromiso
-    , M.Descripcion AS Ministerio
-    , G.Descripcion AS Responsable
-    , C.FechaInicio
-    , C.FechaFinal
-    , C.Lugar
-    , CASE C.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
-  FROM IMVE.TbCompromisos AS C
-  INNER JOIN IMVE.TbMinisterios AS M
-    ON C.IdMinisterio = M.IdMinisterio
-  INNER JOIN IMVE.TbTiposCompromisos AS TC
-    ON C.IdTipoCompromiso = TC.IdTipoCompromiso
-  INNER JOIN IMVE.TbResponsablesGruposCompromisos AS RGC
-    ON C.IdCompromiso = RGC.IdCompromiso
-  INNER JOIN IMVE.TbGrupos AS G
-    ON RGC.IdGrupo = G.IdGrupo
-  WHERE C.FechaInicio BETWEEN p_FechaInicio AND p_FechaFin
-    ORDER BY C.FechaInicio DESC
+	SELECT C.IdCompromiso
+		, C.Descripcion AS Compromiso
+		, TC.Descripcion AS TipoCompromiso
+		, M.Descripcion AS Ministerio
+		, G.Descripcion AS Responsable
+		, C.FechaInicio
+		, C.FechaFinal
+		, C.Lugar
+		, CASE C.Activo WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END AS Estado
+	FROM IMVE.TbCompromisos AS C
+	INNER JOIN IMVE.TbMinisterios AS M
+		ON C.IdMinisterio = M.IdMinisterio
+	INNER JOIN IMVE.TbTiposCompromisos AS TC
+		ON C.IdTipoCompromiso = TC.IdTipoCompromiso
+	INNER JOIN IMVE.TbResponsablesGruposCompromisos AS RGC
+		ON C.IdCompromiso = RGC.IdCompromiso
+	INNER JOIN IMVE.TbGrupos AS G
+		ON RGC.IdGrupo = G.IdGrupo
+	WHERE C.FechaInicio BETWEEN p_FechaInicio AND p_FechaFin
+	ORDER BY C.FechaInicio DESC
 		, C.FechaFinal DESC;
     
 ELSE

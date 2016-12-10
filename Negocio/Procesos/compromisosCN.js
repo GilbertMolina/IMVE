@@ -113,7 +113,6 @@ function CompromisosCargarCompromisoPorId() {
     }
     else
     {
-        CompromisosAsignarFechaInicioFinal();
         CompromisosCambiarTipoResponsable();
         CompromisosCargarMinisteriosComboBox();
         CompromisosCargarTiposCompromisosComboBox();
@@ -139,22 +138,6 @@ function CompromisosCambiarTipoResponsable(){
     // Al cambiar el tipo de integrante se vuelven a cargar los select de personas y grupos responsables para limpiar los valores selecccionados
     CompromisosCargarPersonasResponsables();
     CompromisosCargarGruposResponsables();
-}
-
-// Función que carga la fecha actual en el campo de fecha de inicio y fecha final
-function CompromisosAsignarFechaInicioFinal()
-{
-    var date = new Date();
-    var mi  = (date.getMinutes().toString().length == 1) ? '0' + date.getMinutes() : date.getMinutes();
-    var h  = (date.getHours().toString().length == 1) ? '0' + date.getHours() : date.getHours();
-    var d = (date.getDate().toString().length == 1) ? '0' + date.getDate() : date.getDate();
-    var m  = date.getMonth() + 1;
-    m = (m.toString().length == 1) ? '0' + m : m;
-    var a  = date.getFullYear();
-    var fechaHoy = a + '-' + m + '-' + d + 'T' + h + ':' + mi;
-
-    $("#txtFechaInicio").attr("value", fechaHoy);
-    $("#txtFechaFinal").attr("value", fechaHoy);
 }
 
 // Función para obtener todos los ministerios activos

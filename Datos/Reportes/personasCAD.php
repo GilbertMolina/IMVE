@@ -69,7 +69,7 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Teléfono fijo</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Teléfono móvil</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Género</th>
-                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Visita</th>
+                            <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Descripción de la Visita</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Ministerio</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Fecha y hora de la visita</th>
                             <th class="text-center" style="background-color: #008200; color: #FFFFFF; vertical-align: middle; height: 50px">Estado de la visita</th>
@@ -93,7 +93,7 @@ if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin'])) {
                         }
                     }
         $html .= '</tbody>
-                    </table>
+                  </table>
             </div>';
         }
         else

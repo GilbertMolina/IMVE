@@ -154,12 +154,12 @@ $utilitarios = new UtilitariosReportes();
                                     <p><strong>Filtros:</strong></p>
                                     <div class="text-left">
                                         <div>
-                                            <label for="txtFechaInicioCompromisosReporte">Fecha de inicio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                            <input type="date" name="txtFechaInicioCompromisosReporte" id="txtFechaInicioCompromisosReporte" data-clear-btn="true" value="" />
+                                            <label for="txtFechaInicioCompromisosReporte">Fecha y hora de inicio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                            <input type="datetime-local" name="txtFechaInicioCompromisosReporte" id="txtFechaInicioCompromisosReporte" data-clear-btn="true" value="" />
                                         </div>
                                         <div>
-                                            <label for="txtFechaFinCompromisosReporte">Fecha de fin:</label>
-                                            <input type="date" name="txtFechaFinCompromisosReporte" id="txtFechaFinCompromisosReporte" data-clear-btn="true" value="" />
+                                            <label for="txtFechaFinCompromisosReporte">Fecha y hora de fin:</label>
+                                            <input type="datetime-local" name="txtFechaFinCompromisosReporte" id="txtFechaFinCompromisosReporte" data-clear-btn="true" value="" />
                                         </div>
                                         <br>
                                         <div>

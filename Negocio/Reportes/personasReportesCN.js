@@ -16,7 +16,7 @@ function PersonasReportesGenerarOnClick(){
         var d = date.getDate();
         var m = date.getMonth() + 1;
         var a = date.getFullYear();
-        var fechaHoy = a + '-' + m + '-' + d;
+        var fechaHoy = a + '-' + m + '-' + d + 'T23:59';
 
         fechaFinParaEnviar = fechaHoy;
     }
@@ -33,7 +33,7 @@ function PersonasReportesGenerarOnClick(){
             , animation: 'rotate'
             , closeAnimation: 'rotate'
             , title: 'Advertencia'
-            , content: 'Debe de ingresar la fecha de inicio.'
+            , content: 'Debe de ingresar la fecha y hora de inicio.'
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
         });

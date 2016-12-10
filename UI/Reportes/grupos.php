@@ -154,12 +154,12 @@ $utilitarios = new UtilitariosReportes();
                                     <p><strong>Filtros:</strong></p>
                                     <div class="text-left">
                                         <div>
-                                            <label for="txtFechaInicioGruposReporte1">Fecha de inicio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                            <input type="date" name="txtFechaInicioGruposReporte1" id="txtFechaInicioGruposReporte1" data-clear-btn="true" value="" />
+                                            <label for="txtFechaInicioGruposReporte1">Fecha y hora de inicio:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
+                                            <input type="datetime-local" name="txtFechaInicioGruposReporte1" id="txtFechaInicioGruposReporte1" data-clear-btn="true" value="" />
                                         </div>
                                         <div>
-                                            <label for="txtFechaFinGruposReporte1">Fecha de fin:</label>
-                                            <input type="date" name="txtFechaFinGruposReporte1" id="txtFechaFinGruposReporte1" data-clear-btn="true" value="" />
+                                            <label for="txtFechaFinGruposReporte1">Fecha y hora de fin:</label>
+                                            <input type="datetime-local" name="txtFechaFinGruposReporte1" id="txtFechaFinGruposReporte1" data-clear-btn="true" value="" />
                                         </div>
                                         <div>
                                             <label for="cboIdTiposCompromisosGruposReporte1">Tipos compromisos:</label>

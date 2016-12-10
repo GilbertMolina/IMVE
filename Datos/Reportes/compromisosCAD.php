@@ -17,52 +17,6 @@ $db = new MySQL();
 // Se realiza la llamada de la librería para generar PDF
 require_once('../Utilitarios/MPDF57/mpdf.php');
 
-// Obtiene las personas reponsables de compromisos para mostrarlos en el select de personas responsables
-if (isset($_POST['action']) && $_POST['action'] == 'obtenerPersonasReponsablesCompromisosListado') {
-    try {
-        $sql          = "CALL TbResponsablesCompromisosListar()";
-        $consulta     = $db->consulta($sql);
-        $cadena_datos = "";
-
-        if($db->num_rows($consulta) != 0)
-        {
-            $cadena_datos = '<option>Seleccione</option>';
-
-            while($resultados = $db->fetch_array($consulta))
-            {
-                $cadena_datos .= '<option value="' . $resultados['IdPersona'] . '">' . utf8_encode($resultados['NombreCompleto']) . '</option>';
-            }
-        }
-        echo $cadena_datos;
-    }
-    catch (Exception $e) {
-        echo 'Excepción capturada: ', $e->getMessage(), "\n";
-    }
-}
-
-// Obtiene los grupos reponsables de compromisos para mostrarlos en el select de grupos responsables
-if (isset($_POST['action']) && $_POST['action'] == 'obtenerGruposReponsablesCompromisosListado') {
-    try {
-        $sql          = "CALL TbResponsablesGruposCompromisosListar()";
-        $consulta     = $db->consulta($sql);
-        $cadena_datos = "";
-
-        if($db->num_rows($consulta) != 0)
-        {
-            $cadena_datos = '<option>Seleccione</option>';
-
-            while($resultados = $db->fetch_array($consulta))
-            {
-                $cadena_datos .= '<option value="' . $resultados['IdGrupo'] . '">' . utf8_encode($resultados['Descripcion']) . '</option>';
-            }
-        }
-        echo $cadena_datos;
-    }
-    catch (Exception $e) {
-        echo 'Excepción capturada: ', $e->getMessage(), "\n";
-    }
-}
-
 // Genera el reporte de compromisos por grupo
 if (isset($_GET['fechaInicio']) && isset($_GET['fechaFin']) && isset($_GET['tipoResponsable'])) {
     try {

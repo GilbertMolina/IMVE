@@ -138,7 +138,7 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 1) && isset($_GET['fechaInic
                 }
             }
             $html .= '</tbody>
-                    </table>
+                </table>
             </div>';
         }
         else
@@ -250,7 +250,7 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 2)) {
                 }
             }
             $html .= '</tbody>
-                    </table>
+                 </table>
             </div>';
         }
         else
@@ -365,7 +365,7 @@ if (isset($_GET['reporte']) && ($_GET['reporte'] == 3)) {
                 }
             }
             $html .= '</tbody>
-                    </table>
+                 </table>
             </div>';
         }
         else
