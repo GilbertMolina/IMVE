@@ -283,7 +283,7 @@ function GruposRegistrarGrupo() {
     var listaPersonasParticipantesJson = JSON.stringify(personasParticipantes);
 
     if(idCategoriaGrupo == 0
-        && descripcion == "")
+        || descripcion == "")
     {
         $.alert({
             theme: 'material'
@@ -382,7 +382,7 @@ function GruposModificarGrupo(p_IdGrupo) {
 
     if(idCategoriaGrupo == 0
         || descripcion == ""
-        || estado == "0")
+        || estado == 0)
     {
         $.alert({
             theme: 'material'

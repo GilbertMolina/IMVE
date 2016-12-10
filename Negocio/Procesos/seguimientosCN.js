@@ -105,8 +105,7 @@ function SeguimientosRegistrarSeguimiento(p_idVisita) {
     if(tipoSeguimiento == "0"
         || descripcion == ""
         || fechaPropuesta == ""
-        || observaciones == ""
-        || estado == "0")
+        || observaciones == "")
     {
         $.alert({
             theme: 'material'
@@ -194,7 +193,7 @@ function SeguimientosModificarSeguimiento(p_idVisita,p_idSeguimiento) {
     if(tipoSeguimiento == "0"
         || descripcion == ""
         || fechaPropuesta == ""
-        || estado == "0")
+        || estado == 0)
     {
         $.alert({
             theme: 'material'
@@ -206,6 +205,7 @@ function SeguimientosModificarSeguimiento(p_idVisita,p_idSeguimiento) {
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
         });
+
         return false;
     }
     if(fechaRealizacion == ''
@@ -221,6 +221,7 @@ function SeguimientosModificarSeguimiento(p_idVisita,p_idSeguimiento) {
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
         });
+
         return false;
     }
     else

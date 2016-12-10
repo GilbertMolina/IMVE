@@ -623,7 +623,6 @@ function PersonasModificarPersona(p_IdPersona) {
     var fechaNacimiento = $('#txtFechaNacimiento').val();
     var distrito = $('#cboIdDistrito').val();
     var direccionDomicilio = $('#txtDireccionDomicilio').val().trim();
-    var direccionDomicilioNuevo = "";
     var telefono = $('#txtTelefono').val().trim();
     var celular = $('#txtCelular').val().trim();
     var correo = $('#txtCorreo').val().trim();
@@ -706,7 +705,7 @@ function PersonasModificarPersona(p_IdPersona) {
                             , apellido2
                             , fechaNacimiento
                             , distrito
-                            , direccionDomicilioNuevo
+                            , direccionDomicilio
                             , telefono
                             , celular
                             , correo
@@ -731,7 +730,7 @@ function PersonasModificarPersona(p_IdPersona) {
                     , apellido2
                     , fechaNacimiento
                     , distrito
-                    , direccionDomicilioNuevo
+                    , direccionDomicilio
                     , telefono
                     , celular
                     , correo
@@ -748,6 +747,7 @@ function PersonasModificarPersona(p_IdPersona) {
 // Función que registra a la pesona a la base de datos por medio de Ajax
 function PersonasModificarPersonaEspecifica(p_IdPersona, p_Identificacion, p_Nombre, p_Apellido1, p_Apellido2, p_FechaNacimiento, p_Distrito , p_DireccionDomicilio, p_Telefono, p_Celular, p_Correo, p_Sexo, p_Estado
     , p_ListaGruposLideresAgregado, p_ListaGruposLideresEliminados, p_ListaGruposParticipantesAgregado, p_ListaGruposParticipantesEliminados){
+
     // Se define el action que será consultado desde la clase de acceso a datos
     var d = "action=modificarPersona&idPersona=" + p_IdPersona + "&identificacion=" + p_Identificacion + "&nombre=" + p_Nombre + "&apellido1=" + p_Apellido1 + "&apellido2=" + p_Apellido2 + "&fechaNacimiento="
         + p_FechaNacimiento + "&distrito=" + p_Distrito + "&direccionDomicilio=" + p_DireccionDomicilio + "&telefono=" + p_Telefono + "&celular=" + p_Celular + "&correo=" + p_Correo

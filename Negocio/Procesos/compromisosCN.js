@@ -266,11 +266,11 @@ function CompromisoRegistrarCompromiso() {
     var listaPersonasParticipantesJson = JSON.stringify(personasParticipantes);
 
     if(idMinisterio == 0
-        && idTipoCompromiso == 0
-        && descripcion == ""
-        && fechaInicio == ""
-        && fechaFinal == ""
-        && lugar == "")
+        || idTipoCompromiso == 0
+        || descripcion == ""
+        || fechaInicio == ""
+        || fechaFinal == ""
+        || lugar == "")
     {
         $.alert({
             theme: 'material'
@@ -282,6 +282,7 @@ function CompromisoRegistrarCompromiso() {
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
         });
+
         return false;
     }
     if(fechaInicioMilisegundos > fechaFinalMilisegundos
@@ -424,12 +425,12 @@ function CompromisoModificarCompromiso(p_IdCompromiso){
     var listaParticipantesEliminadosJson = JSON.stringify(ObtenerValoresEliminados(listadoInicialParticipantes,participantes));
 
     if(idMinisterio == 0
-        && idTipoCompromiso == 0
-        && descripcion == ""
-        && fechaInicio == ""
-        && fechaFinal == ""
-        && lugar == ""
-        && estado == 0)
+        || idTipoCompromiso == 0
+        || descripcion == ""
+        || fechaInicio == ""
+        || fechaFinal == ""
+        || lugar == ""
+        || estado == 0)
     {
         $.alert({
             theme: 'material'

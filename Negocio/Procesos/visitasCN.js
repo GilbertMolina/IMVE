@@ -247,7 +247,7 @@ function VisitasModificarVisita(p_idVisita) {
     if(idMinisterio == 0
         || descripcion == ""
         || fechaVisita == ""
-        || estado == "0")
+        || estado == 0)
     {
         $.alert({
             theme: 'material'
