@@ -428,7 +428,6 @@ function PersonasRegistrarPersona() {
     var fechaNacimiento = $('#txtFechaNacimiento').val();
     var distrito = $('#cboIdDistrito').val();
     var direccionDomicilio = $('#txtDireccionDomicilio').val().trim();
-    var direccionDomicilioNuevo = "";
     var telefono = $('#txtTelefono').val().trim();
     var celular = $('#txtCelular').val().trim();
     var correo = $('#txtCorreo').val().trim();
@@ -440,13 +439,16 @@ function PersonasRegistrarPersona() {
     var gruposParticipante = $('#PersonaGruposParticipante').val();
     var listaGruposParticipanteJson = JSON.stringify(gruposParticipante);
 
-    if(direccionDomicilio.includes("Clear text"))
-    {
-        direccionDomicilioNuevo = direccionDomicilio.substring(0, direccionDomicilio.length-10);
+    if(!EsNumero(identificacion, 'La identificación')){
+        return false;
     }
-    else
-    {
-        direccionDomicilioNuevo = direccionDomicilio;
+
+    if(!EsNumero(telefono, 'El teléfono fijo')){
+        return false;
+    }
+
+    if(!EsNumero(celular, 'El teléfono móvil')){
+        return false;
     }
 
     if(identificacion == ""
@@ -510,7 +512,7 @@ function PersonasRegistrarPersona() {
                             , apellido2
                             , fechaNacimiento
                             , distrito
-                            , direccionDomicilioNuevo
+                            , direccionDomicilio
                             , telefono
                             , celular
                             , correo
@@ -531,7 +533,7 @@ function PersonasRegistrarPersona() {
                     , apellido2
                     , fechaNacimiento
                     , distrito
-                    , direccionDomicilioNuevo
+                    , direccionDomicilio
                     , telefono
                     , celular
                     , correo
@@ -642,6 +644,18 @@ function PersonasModificarPersona(p_IdPersona) {
     var listaGruposLideresEliminadosJson = JSON.stringify(ObtenerValoresEliminados(listadoInicialPersonasGruposLider,gruposLider));
     var listaGruposParticipantesAgregadoJson = JSON.stringify(ObtenerValoresAgregados(listadoInicialPersonasGruposParticipante,gruposParticipante));
     var listaGruposParticipantesEliminadosJson = JSON.stringify(ObtenerValoresEliminados(listadoInicialPersonasGruposParticipante,gruposParticipante));
+
+    if(!EsNumero(identificacion, 'La identificación')){
+        return false;
+    }
+
+    if(!EsNumero(telefono, 'El teléfono fijo')){
+        return false;
+    }
+
+    if(!EsNumero(celular, 'El teléfono móvil')){
+        return false;
+    }
 
     if(identificacion == ""
         || nombre == ""

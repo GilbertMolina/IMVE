@@ -159,7 +159,7 @@ $utilitarios = new UtilitariosProcesos();
                                 <div id="formPersonaDetalle">
                                     <div>
                                         <label for="txtIdentificacion">Identificación:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                        <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="Ejm: 102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                        <input type="text" name="txtIdentificacion" id="txtIdentificacion" placeholder="Ejm: 102220333" maxlength="30" onKeyPress="return SoloNumeros(event)" onblur="EsNumero($('#txtIdentificacion').val(), 'La identificación')" data-clear-btn="true"/>
                                     </div>
                                     <br>
                                     <div>
@@ -213,13 +213,13 @@ $utilitarios = new UtilitariosProcesos();
                                     <br>
                                     <div>
                                         <label for="txtTelefono">Teléfono fijo:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                        <input type="tel" name="txtTelefono" id="txtTelefono" placeholder="Ejm: 405893685" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                        <input type="tel" name="txtTelefono" id="txtTelefono" placeholder="Ejm: 405893685" maxlength="8" onKeyPress="return SoloNumeros(event)" onblur="EsNumero($('#txtTelefono').val(), 'El teléfono fijo')" data-clear-btn="true"/>
                                         <p class="bg-danger text-justify">Nota: Si proporciona el número de teléfono podrá ser contactado por medio de una llamada.</p>
                                     </div>
                                     <br>
                                     <div>
                                         <label for="txtCelular">Teléfono móvil:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>
-                                        <input type="tel" name="txtCelular" id="txtCelular" placeholder="Ejm: 86736592" maxlength="8" onKeyPress="return SoloNumeros(event)" data-clear-btn="true"/>
+                                        <input type="tel" name="txtCelular" id="txtCelular" placeholder="Ejm: 86736592" maxlength="8" onKeyPress="return SoloNumeros(event)" onblur="EsNumero($('#txtCelular').val(), 'El teléfono móvil')" data-clear-btn="true"/>
                                         <p class="bg-danger text-justify">Nota: Si proporciona el número de celular podrá ser contactado por medio de una llamada o un mensaje de texto.</p>
                                     </div>
                                     <br>

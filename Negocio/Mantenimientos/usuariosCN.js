@@ -98,7 +98,7 @@ function UsuariosRegistrarUsuario() {
                 , animation: 'rotate'
                 , closeAnimation: 'rotate'
                 , title: 'Advertencia'
-                , content: 'La contraseña no coincide, intente de nuevo.'
+                , content: 'Las contraseñas no coinciden, intente de nuevo.'
                 , confirmButton: 'Aceptar'
                 , confirmButtonClass: 'btn-warning'
             });
@@ -216,7 +216,7 @@ function UsuariosModificarUsuario(p_idPersona) {
                 , animation: 'rotate'
                 , closeAnimation: 'rotate'
                 , title: 'Advertencia'
-                , content: 'La contraseña no coincide, intente de nuevo.'
+                , content: 'Las contraseñas no coinciden, intente de nuevo.'
                 , confirmButton: 'Aceptar'
                 , confirmButtonClass: 'btn-warning'
             });

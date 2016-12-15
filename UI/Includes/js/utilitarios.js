@@ -17,10 +17,32 @@ function RedireccionPaginaNuevaVentana(url) {
     );
 }
 
-// Función que permite ingresar solamente números
+// Función que permite ingresar solamente números en un campo de texto
 function SoloNumeros(e) {
     var key = window.Event ? e.which : e.keyCode;
     return (key >= 48 && key <= 57);
+}
+
+// Función que valida el texto introducido, para que solamente sean números
+function EsNumero(texto, inicioMensajeControl){
+    if (isNaN(texto)){
+        $.alert({
+            theme: 'material'
+            , animationBounce: 1.5
+            , animation: 'rotate'
+            , closeAnimation: 'rotate'
+            , title: 'Advertencia'
+            , content: inicioMensajeControl + ' debe contener solamente números, por favor verifíquelo.'
+            , confirmButton: 'Aceptar'
+            , confirmButtonClass: 'btn-warning'
+        });
+
+        return false;
+    }
+    else{
+
+        return true;
+    }
 }
 
 // Función que permite encriptar un mensaje dado mediante SHA1

@@ -16,6 +16,10 @@ function IniciarSesion()
     var identificacion = $('#txtIdentificacion').val();
     var contrasena = $('#txtContrasena').val();
 
+    if(!EsNumero(identificacion, 'La identificación')){
+        return false;
+    }
+
     if(identificacion == ""
       || contrasena == "")
     {
@@ -29,6 +33,8 @@ function IniciarSesion()
             , confirmButton: 'Aceptar'
             , confirmButtonClass: 'btn-warning'
         });
+
+        return false;
     }
     else
     {
