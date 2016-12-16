@@ -241,7 +241,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'cargarVisitas') {
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div>';
                 $cadena_datos .= '<label for="txtFechaVisita">Fecha de visita:<img src="../Includes/images/warning.ico" alt="Necesario" height="24px" width="24px" align="right"></label>';
-                $cadena_datos .= '<input type="date" name="txtFechaVisita" id="txtFechaVisita" data-clear-btn="true" value="' . explode(" ", $resultados['FechaVisita'])[0] . '">';
+                $cadena_datos .= '<input type="datetime-local" name="txtFechaVisita" id="txtFechaVisita" data-clear-btn="true" value="' . explode(" ", $resultados['FechaVisita'])[0] . 'T' . explode(" ", $resultados['FechaVisita'])[1] . '">';
                 $cadena_datos .= '</div>';
                 $cadena_datos .= '<br>';
                 $cadena_datos .= '<div id="IdResponsables">';
