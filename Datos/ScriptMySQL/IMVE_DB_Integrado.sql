@@ -5118,14 +5118,14 @@ INSERT INTO IMVE.TbGrupos(IdCategoriaGrupo,IdMinisterio,Descripcion,UsuarioUltim
 
 -- TbGruposPersonas
 INSERT INTO IMVE.TbGruposPersonas(IdPersona,IdGrupo,EsLider,FechaInicio,FechaFin,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
-(2,1,'N','2016-11-10 06:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
-, (3,1,'S','2016-11-10 08:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
-, (3,2,'N','2016-11-10 07:00:00','2016-11-12 20:00:00',1,CURRENT_TIMESTAMP,'N')
-, (4,2,'S','2016-11-10 10:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
-, (5,1,'S','2016-11-10 13:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
-, (5,2,'S','2016-11-10 14:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
-, (5,3,'N','2016-11-10 09:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
-, (5,4,'N','2016-11-10 07:00:00','2016-11-12 19:00:00',1,CURRENT_TIMESTAMP,'N');
+(2,1,'N','2016-12-10 06:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
+, (3,1,'S','2016-12-10 08:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
+, (3,2,'N','2016-12-10 07:00:00','2016-12-12 20:00:00',1,CURRENT_TIMESTAMP,'N')
+, (4,2,'S','2016-12-10 10:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
+, (5,1,'S','2016-12-10 13:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
+, (5,2,'S','2016-12-10 14:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
+, (5,3,'N','2016-12-10 09:00:00',NULL,1,CURRENT_TIMESTAMP,'A')
+, (5,4,'N','2016-12-10 07:00:00','2016-12-12 19:00:00',1,CURRENT_TIMESTAMP,'N');
 
 -- TbTiposCompromisos
 INSERT INTO IMVE.TbTiposCompromisos(Descripcion,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES 
@@ -5142,20 +5142,23 @@ INSERT INTO IMVE.TbTiposSeguimientos(Descripcion,UsuarioUltimaModificacion,Fecha
 
 -- TbCompromisos
 INSERT INTO IMVE.TbCompromisos(IdMinisterio,IdTipoCompromiso,Descripcion,FechaInicio,FechaFinal,Lugar,UsuarioUltimaModificacion,FechaUltimaModificacion,Activo) VALUES
-(1,1,'Reunión 1','2016-11-01 06:00:00','2016-11-02 07:00:00','Iglesia, Salón Principal',1,CURRENT_TIMESTAMP,'A')
-, (1,2,'Reunión 2','2016-11-04 11:00:00','2016-11-04 14:00:00','Salón Comunal',1,CURRENT_TIMESTAMP,'A')
-, (2,3,'Reunión 3','2016-11-06 17:00:00','2016-11-08 18:00:00','Parque de Paraíso',1,CURRENT_TIMESTAMP,'A')
-, (2,4,'Reunión 4','2016-11-09 07:00:00','2016-11-09 08:00:00','Ruinas de Ujarrás',1,CURRENT_TIMESTAMP,'A')
-, (3,1,'Reunión 5','2016-11-11 19:00:00','2016-11-12 06:00:00','Iglesia',1,CURRENT_TIMESTAMP,'A')
-, (3,2,'Reunión 6','2016-11-12 12:00:00','2016-11-14 14:00:00','Plaza Paraíso',1,CURRENT_TIMESTAMP,'A')
-, (4,3,'Reunión 7','2016-11-15 09:00:00','2016-11-15 10:00:00','Jardín Lankester',1,CURRENT_TIMESTAMP,'A')
-, (1,4,'Reunión 8','2016-11-16 08:00:00','2016-11-19 08:00:00','Laguna de Doña Ana',1,CURRENT_TIMESTAMP,'I')
-, (1,1,'Reunión 9','2016-11-25 13:00:00','2016-11-26 14:00:00','Plaza de la Cultura',1,CURRENT_TIMESTAMP,'I');
+(1,1,'Reunión 1','2016-12-01 06:00:00','2016-12-02 07:00:00','Iglesia, Salón Principal',1,CURRENT_TIMESTAMP,'A')
+, (1,2,'Defensa','2016-12-16 14:00:00','2016-12-16 15:00:00','Universidad',1,CURRENT_TIMESTAMP,'A')
+, (2,3,'Reunión 3','2016-12-06 17:00:00','2016-12-08 18:00:00','Parque de Paraíso',1,CURRENT_TIMESTAMP,'A')
+, (2,4,'Reunión 4','2016-12-09 07:00:00','2016-12-09 08:00:00','Ruinas de Ujarrás',1,CURRENT_TIMESTAMP,'A')
+, (3,1,'Reunión 5','2016-12-11 19:00:00','2016-12-12 06:00:00','Iglesia',1,CURRENT_TIMESTAMP,'A')
+, (3,2,'Reunión 6','2016-12-12 12:00:00','2016-12-14 14:00:00','Plaza Paraíso',1,CURRENT_TIMESTAMP,'A')
+, (4,3,'Reunión 7','2016-12-15 09:00:00','2016-12-15 10:00:00','Jardín Lankester',1,CURRENT_TIMESTAMP,'A')
+, (1,4,'Reunión 8','2016-12-16 08:00:00','2016-12-19 08:00:00','Laguna de Doña Ana',1,CURRENT_TIMESTAMP,'I')
+, (1,1,'Reunión 9','2016-12-17 13:00:00','2016-12-19 14:00:00','Plaza de la Cultura',1,CURRENT_TIMESTAMP,'I')
+, (1,1,'Entrega documento empastado','2016-12-26 06:00:00','2016-12-26 19:00:00','Universidad',1,CURRENT_TIMESTAMP,'A');
 
 -- TbResponsablesCompromisos
 INSERT INTO IMVE.TbResponsablesCompromisos(IdPersona,IdCompromiso,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
 (5,1,1,CURRENT_TIMESTAMP)
-, (2,2,1,CURRENT_TIMESTAMP);
+, (2,2,1,CURRENT_TIMESTAMP)
+, (2,9,1,CURRENT_TIMESTAMP)
+, (2,10,1,CURRENT_TIMESTAMP);
 
 -- TbResponsablesGruposCompromisos
 INSERT INTO IMVE.TbResponsablesGruposCompromisos(IdGrupo,IdCompromiso,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
@@ -5166,12 +5169,11 @@ INSERT INTO IMVE.TbResponsablesGruposCompromisos(IdGrupo,IdCompromiso,UsuarioUlt
 INSERT INTO IMVE.TbParticipantesCompromisos(IdPersona,IdCompromiso,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
 (3,4,1,CURRENT_TIMESTAMP)
 , (2,1,1,CURRENT_TIMESTAMP);
--- , (3,2,1,CURRENT_TIMESTAMP);
 
 -- TbVisitas
 INSERT INTO IMVE.TbVisitas(IdMinisterio,Descripcion,FechaVisita,IdPersonaResponsable,UsuarioUltimaModificacion,FechaUltimaModificacion,Cerrada) VALUES
-(1,'Solicitud de comestible','2016-11-15 08:00:00',4,1,CURRENT_TIMESTAMP,'N')
-, (2,'Consejería marital','2016-11-10 13:00:00',5,1,CURRENT_TIMESTAMP,'N');
+(1,'Solicitud de comestible','2016-12-15 08:00:00',4,1,CURRENT_TIMESTAMP,'N')
+, (2,'Reunión con pastor','2016-12-09 13:00:00',2,1,CURRENT_TIMESTAMP,'N');
 
 -- TbPersonasVisitas
 INSERT INTO IMVE.TbPersonasVisitas(IdVisita,IdPersona,UsuarioUltimaModificacion,FechaUltimaModificacion) VALUES
@@ -5180,9 +5182,9 @@ INSERT INTO IMVE.TbPersonasVisitas(IdVisita,IdPersona,UsuarioUltimaModificacion,
 
 -- TbSeguimientos
 INSERT INTO IMVE.TbSeguimientos(IdVisita,IdTipoSeguimiento,Descripcion,FechaPropuesta,FechaRealizacion,Observaciones,UsuarioUltimaModificacion,FechaUltimaModificacion,Cerrado) VALUES
-(1,1,'Llamada #1','2016-11-22',NULL,'',1,CURRENT_TIMESTAMP,'N')
-, (1,1,'Llamada #2','2016-11-29',NULL,'',1,CURRENT_TIMESTAMP,'N')
-, (1,2,'Visita #1','2016-12-06',NULL,'',1,CURRENT_TIMESTAMP,'N')
-, (2,1,'Llamada #1','2016-11-21',NULL,'',1,CURRENT_TIMESTAMP,'N')
-, (2,1,'Llamada #2','2016-11-29',NULL,'',1,CURRENT_TIMESTAMP,'N')
-, (2,2,'Visita #1','2016-12-06',NULL,'',1,CURRENT_TIMESTAMP,'N');
+(1,1,'Llamada #1','2016-12-22',NULL,'',1,CURRENT_TIMESTAMP,'N')
+, (1,1,'Llamada #2','2016-12-29',NULL,'',1,CURRENT_TIMESTAMP,'N')
+, (1,2,'Visita #1','2016-01-06',NULL,'',1,CURRENT_TIMESTAMP,'N')
+, (2,1,'Llamada #1','2016-12-16',NULL,'',1,CURRENT_TIMESTAMP,'N')
+, (2,1,'Llamada #2','2016-12-23',NULL,'',1,CURRENT_TIMESTAMP,'N')
+, (2,2,'Visita #1','2016-12-30',NULL,'',1,CURRENT_TIMESTAMP,'N');
